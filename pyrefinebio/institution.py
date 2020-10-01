@@ -2,9 +2,9 @@ from pyrefinebio.http import get_by_endpoint
 
 
 class Institution:
-    """Institution.
+    """Institution 
 
-    search for an institution
+    search for institutions
 
         ex:
         >>> import pyrefinebio
@@ -19,7 +19,8 @@ class Institution:
         """Search for an institution
 
         returns: list of Institution
-        """
 
+        Since there are no filters, this method always gets all institutions.
+        """
         response = get_by_endpoint("institutions")
         return [Institution(**institution) for institution in response]

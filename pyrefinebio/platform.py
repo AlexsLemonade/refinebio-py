@@ -4,7 +4,7 @@ from pyrefinebio.http import get_by_endpoint
 class Platform:
     """Platform.
 
-    search for platforms based on filters
+    Retrieve a list of platforms based on filters
 
         ex:
         >>> import pyrefinebio
@@ -25,7 +25,7 @@ class Platform:
 
         returns: list of Platform
 
-        parameters:
+        since there are no filters, this method always returns all platforms
         """
         response = get_by_endpoint("platforms", params=kwargs)
         return [Platform(**platform) for platform in response]

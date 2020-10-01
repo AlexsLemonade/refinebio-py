@@ -10,14 +10,14 @@ from pyrefinebio.util import generator_from_pagination
 class Sample:
     """Sample.
 
-    get a sample based on accession code
+    Retrieve a sample based on accession code
 
         ex:
         >>> import pyrefinebio
         >>> accession_code = "GSM000000"
         >>> sample = pyrefinebio.Sample.get(accession_code)
 
-    search for samples based on filters
+    Retrieve a list of samples based on filters
 
         ex:
         >>> import pyrefinebio
@@ -142,7 +142,7 @@ class Sample:
 
     @classmethod
     def get(cls, accession_code):
-        """Retrieve details about a sample based on its accession code.
+        """Retrieve a sample based on its accession code.
 
         returns: Sample
 
@@ -150,14 +150,12 @@ class Sample:
 
             accession_code (str): The accession code for the sample to be retrieved.
         """
-
         result = get_by_endpoint("samples/" + accession_code)
-
         return cls(**result)
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for samples based on various filters
+        """Retrieve a list of samples based on various filters
         
         returns: list of samples.
 
@@ -200,7 +198,6 @@ class Sample:
                                              separated by commas and the endpoint will
                                              only return information about these samples.
         """
-
         invalid_filters = []
 
         for filter in kwargs.keys():

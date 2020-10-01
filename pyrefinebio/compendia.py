@@ -4,16 +4,16 @@ from pyrefinebio.util import generator_from_pagination
 
 
 class Compendia:
-    """Compendia.
+    """Compendia 
 
-    get a compendium result based on id
+    Retrieve a compendium result based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> sample = pyrefinebio.Compendia.get(id)
 
-    search for compendium results based on filters
+    Retrieve a list of compendium results based on filters
 
         ex:
         >>> import pyrefinebio
@@ -48,13 +48,12 @@ class Compendia:
 
             id (int): the id for the compendium result you want to get
         """
-
         result = get_by_endpoint("compendia/" + str(id))
         return Compendia(**result)
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for a compendium result based on filters
+        """Retrieve a list of compendium results based on filters
 
         returns: list of Compendia
 
@@ -78,6 +77,5 @@ class Compendia:
             latest_version (bool): True will only return the highest
                                    compendium_version for each primary_organism.
         """
-
         result = get_by_endpoint("compendia", params=kwargs)
         return generator_from_pagination(result, cls)

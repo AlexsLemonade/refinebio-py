@@ -5,14 +5,14 @@ from pyrefinebio.http import get_by_endpoint
 class QNTarget:
     """QN Target.
 
-    get a qn target by organism name
+    Retrieve a QN target by organism name
 
         ex:
         >>> import pyrefinebio
         >>> organism_name = "GORILLA"
         >>> qn_target = pyrefinebio.QNTarget.get(organism_name)
 
-    search for an qn target organism
+    Retrieve a list of QN target organisms
 
         ex:
         >>> import pyrefinebio
@@ -47,7 +47,7 @@ class QNTarget:
 
     @classmethod
     def get(cls, organism_name):
-        """Retrieve a qn target based on organism name
+        """Retrieve a QN target based on organism name
 
         returns: QNTarget
 
@@ -60,9 +60,11 @@ class QNTarget:
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of organisms that have available qn targets
+        """Retrieve a list of organisms that have available QN targets
 
         returns: list of Organism
+
+        Since there are no filters, this method always returns all organisms that have available QN targets
         """
         response = get_by_endpoint("qn_targets", params=kwargs)
         return [prb_organism.Organism(**qn_organism) for qn_organism in response]

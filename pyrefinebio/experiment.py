@@ -6,20 +6,20 @@ import pyrefinebio.sample as prb_sample
 
 
 class Experiment:
-    """Experiment.
+    """Experiment 
 
-    get an experiment based on id
+    Retrieve an experiment based on id
 
         ex:
         >>> import pyrefinebio
         >>> accession_code = 1
-        >>> sample = pyrefinebio.Experiment.get(accession_code)
+        >>> experiment = pyrefinebio.Experiment.get(accession_code)
 
-    search for an experiment based on filters
+    Search for experiments based on filters
 
         ex:
         >>> import pyrefinebio
-        >>> samples = pyrefinebio.Experiment.search(is_compendia=True, is_public=True)
+        >>> experiments = pyrefinebio.Experiment.search(is_compendia=True, is_public=True)
     """
 
     def __init__(
@@ -91,7 +91,7 @@ class Experiment:
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for an experiment based on various filters
+        """Search for experiments based on various filters
 
         returns: list of Experiment
 
@@ -125,6 +125,5 @@ class Experiment:
 
             offset (int): The initial index from which to return the results.
         """
-
         response = get_by_endpoint("search")
         return generator_from_pagination(response, cls)

@@ -13,18 +13,18 @@ class ComputedFile:
 
     ComputedFiles are representation of files created by data-refinery processes.
 
-    get a computed file based on id
+    Retrieve a computed file based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
-        >>> sample = pyrefinebio.ComputedFile.get(id)
+        >>> file = pyrefinebio.ComputedFile.get(id)
 
-    search for a computed file based on filters
+    Retrieve a list of computed files based on filters
 
         ex:
         >>> import pyrefinebio
-        >>> samples = pyrefinebio.ComputedFile.search(is_compendia=True, is_public=True)
+        >>> files = pyrefinebio.ComputedFile.search(is_compendia=True, is_public=True)
     """
 
     def __init__(
@@ -79,13 +79,12 @@ class ComputedFile:
 
             id (int): the id for the computed file you want to get
         """
-
         response = get_by_endpoint("computed_files/" + str(id))
         return ComputedFile(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for a compendium result based on filters
+        """Retrieve a list of a compendium result based on filters
 
         returns: list of ComputedFile
 
@@ -121,6 +120,5 @@ class ComputedFile:
 
             offset (int): The initial index from which to return the results.
         """
-
         result = get_by_endpoint("computed_files", params=kwargs)
         return generator_from_pagination(result, cls)

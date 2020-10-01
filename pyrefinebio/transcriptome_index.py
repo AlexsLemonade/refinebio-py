@@ -12,7 +12,7 @@ class TranscriptomeIndex:
         >>> id = 1
         >>> t_index = pyrefinebio.TranscriptomeIndex.get(id)
 
-    search for transcriptome indecies
+    Retrieve a list of transcriptome indecies
 
         ex:
         >>> import pyrefinebio
@@ -76,6 +76,5 @@ class TranscriptomeIndex:
 
             length (str): Short hand for index_type Eg. short or long
         """
-
         response = get_by_endpoint("transhriptome_indices", params=kwargs)
         return generator_from_pagination(response, cls)

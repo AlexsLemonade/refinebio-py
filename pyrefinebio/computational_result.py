@@ -8,20 +8,20 @@ import pyrefinebio.processor as prb_processor
 
 
 class ComputationalResult:
-    """Computational Result.
+    """Computational Result 
 
-    Get a computational result based on id
+    Retrieve a computational result based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
-        >>> sample = pyrefinebio.ComputationalResult.get(id)
+        >>> result = pyrefinebio.ComputationalResult.get(id)
 
-    Search for samples based on filters
+    Retrieve a list of computational results based on filters
 
         ex:
         >>> import pyrefinebio
-        >>> samples = pyrefinebio.ComputationalResult.search(processor_id=)
+        >>> results = pyrefinebio.ComputationalResult.search(processor_id=4)
     """
 
     def __init__(
@@ -65,7 +65,7 @@ class ComputationalResult:
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for a computational result based on filters.
+        """Retrieve a list of computational results based on filters.
 
         returns: list of ComputationalResult
 
@@ -77,6 +77,5 @@ class ComputationalResult:
 
             offset (int): The initial index from which to return the results.
         """
-
         result = get_by_endpoint("computational_results", params=kwargs)
         return generator_from_pagination(result, cls)

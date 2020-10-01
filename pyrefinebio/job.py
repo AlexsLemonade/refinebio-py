@@ -5,14 +5,14 @@ from pyrefinebio.util import generator_from_pagination
 class DownloaderJob:
     """DownloaderJob.
 
-    get a downloader job by id
+    Retrieve a downloader job by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.DownloaderJob.get(id)
 
-    search for a DownloaderJob
+    Retrieve a list of downloader jobs based on filters
 
         ex:
         >>> import pyrefinebio
@@ -63,13 +63,12 @@ class DownloaderJob:
 
             id (int): the id for the downloader job you want to get
         """
-
         response = get_by_endpoint("jobs/downloader/" + str(id))
         return DownloaderJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for a downloader job based on various filters
+        """Retrieve a list of downloader jobs based on various filters
 
         returns: list of DownloaderJob
 
@@ -122,14 +121,14 @@ class DownloaderJob:
 class ProcessorJob:
     """Processor Job.
 
-    get a processor job by id
+    Retrieve a processor job by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.DownloaderJob.get(id)
 
-    search for a processor job based on filters
+    Retrieve a list of processor jobs based on filters
 
         ex:
         >>> import pyrefinebio
@@ -184,13 +183,12 @@ class ProcessorJob:
 
             id (int): the id for the processor job you want to get
         """
-
         response = get_by_endpoint("jobs/processor/" + str(id))
         return ProcessorJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """search for a processor job based on various filters
+        """Retrieve a list of processor jobs based on various filters
 
         returns: list of ProcessorJob
 
@@ -240,7 +238,6 @@ class ProcessorJob:
 
             nomad (string): Only return jobs that are in the nomad queue currently
         """
-
         response = get_by_endpoint("jobs/processor", params=kwargs)
         return generator_from_pagination(response, cls)
 
@@ -248,14 +245,14 @@ class ProcessorJob:
 class SurveyJob:
     """Survey Job.
 
-    get a survey job by id
+    Retrieve a survey job by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.SurveyJob.get(id)
 
-    search for a survey job based on filters
+    Retrieve a list of survey jobs based on filters
 
         ex:
         >>> import pyrefinebio
@@ -290,13 +287,12 @@ class SurveyJob:
 
             id (int): the id for the survey job you want to get
         """
-
         response = get_by_endpoint("jobs/survey/" + str(id))
         return SurveyJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for a survey job based on various filters
+        """Retrieve a list of survey jobs based on various filters
 
         returns: list of SurveyJob
 
@@ -322,6 +318,5 @@ class SurveyJob:
 
             offset (integer): The initial index from which to return the results.
         """
-
         response = get_by_endpoint("jobs/survey", params=kwargs)
         return generator_from_pagination(response, cls)

@@ -7,14 +7,14 @@ from pyrefinebio.util import generator_from_pagination
 class OriginalFile:
     """Original File.
 
-    get an original file by id
+    Retrieve an original file by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
-        >>> job = pyrefinebio.OriginalFile.get(id)
+        >>> og_file = pyrefinebio.OriginalFile.get(id)
 
-    search for an original file based on filters
+    Retrieve a list of original files based on filters
 
         ex:
         >>> import pyrefinebio
@@ -43,12 +43,8 @@ class OriginalFile:
         self.size_in_bytes = size_in_bytes
         self.sha1 = sha1
         self.samples = [prb_sample.Sample(**sample) for sample in samples] if samples else []
-        self.processor_jobs = [
-            prb_job.ProcessorJob(**processor_job) for processor_job in processor_jobs
-        ] if processor_jobs else []
-        self.downloader_jobs = [
-            prb_job.DownloaderJob(**downloader_job) for downloader_job in downloader_jobs
-        ] if downloader_jobs else []
+        self.processor_jobs = [prb_job.ProcessorJob(**processor_job) for processor_job in processor_jobs] if processor_jobs else []
+        self.downloader_jobs = [prb_job.DownloaderJob(**downloader_job) for downloader_job in downloader_jobs] if downloader_jobs else []
         self.source_url = source_url
         self.source_filename = source_filename
         self.is_downloaded = is_downloaded
@@ -73,7 +69,7 @@ class OriginalFile:
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve an list of original files based on various filters
+        """Retrieve a list of original files based on various filters
 
         returns: list of OriginalFile
 

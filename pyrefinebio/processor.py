@@ -12,7 +12,7 @@ class Processor:
         >>> id = 1
         >>> processor = pyrefinebio.Processor.get(id)
 
-    search for an organism based on filters
+    Retrieve a list of an organism based on filters
 
         ex:
         >>> import pyrefinebio
@@ -50,6 +50,8 @@ class Processor:
         """Retrieve a list of processors
 
         returns: list of Processor
+
+        Since there are no filters, this method always returns all processors
         """
         response = get_by_endpoint("processors", params=kwargs)
         return generator_from_pagination(response, cls)
