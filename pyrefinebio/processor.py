@@ -5,14 +5,14 @@ from pyrefinebio.util import generator_from_pagination
 class Processor:
     """Processor.
 
-    get a processor by id
+    Retrieve a processor by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> processor = pyrefinebio.Processor.get(id)
 
-    Retrieve a list of an organism based on filters
+    Retrieve a list of processors
 
         ex:
         >>> import pyrefinebio

@@ -12,7 +12,7 @@ class Organism:
         >>> name = "GORILLA"
         >>> organism = pyrefinebio.Organism.get(name)
 
-    Retrieve a list of organisms based on filters
+    Retrieve a list of organisms
 
         ex:
         >>> import pyrefinebio
@@ -46,6 +46,8 @@ class Organism:
         """Retrieve a list of organisms
 
         returns: list of Organism
+
+        Since there are no filters, this method always returns all organisms
         """
         response = get_by_endpoint("organisms", params=kwargs)
         return generator_from_pagination(response, cls)

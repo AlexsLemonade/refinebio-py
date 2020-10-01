@@ -12,7 +12,7 @@ class TranscriptomeIndex:
         >>> id = 1
         >>> t_index = pyrefinebio.TranscriptomeIndex.get(id)
 
-    Retrieve a list of transcriptome indecies
+    Retrieve a list of transcriptome indicies
 
         ex:
         >>> import pyrefinebio
