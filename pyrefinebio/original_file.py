@@ -27,9 +27,9 @@ class OriginalFile:
         filename=None,
         size_in_bytes=None,
         sha1=None,
-        samples=[],
-        processor_jobs=[],
-        downloader_jobs=[],
+        samples=None,
+        processor_jobs=None,
+        downloader_jobs=None,
         source_url=None,
         source_filename=None,
         is_downloaded=None,
@@ -42,13 +42,13 @@ class OriginalFile:
         self.filename = filename
         self.size_in_bytes = size_in_bytes
         self.sha1 = sha1
-        self.samples = [prb_sample.Sample(**sample) for sample in samples]
+        self.samples = [prb_sample.Sample(**sample) for sample in samples] if samples else []
         self.processor_jobs = [
             prb_job.ProcessorJob(**processor_job) for processor_job in processor_jobs
-        ]
+        ] if processor_jobs else []
         self.downloader_jobs = [
             prb_job.DownloaderJob(**downloader_job) for downloader_job in downloader_jobs
-        ]
+        ] if downloader_jobs else []
         self.source_url = source_url
         self.source_filename = source_filename
         self.is_downloaded = is_downloaded

@@ -30,8 +30,8 @@ class ComputationalResult:
         commands=None,
         processor=None,
         is_ccdl=None,
-        annotations=[],
-        files=[],
+        annotations=None,
+        files=None,
         organism_index=None,
         time_start=None,
         time_end=None,
@@ -40,11 +40,11 @@ class ComputationalResult:
     ):
         self.id = id
         self.commands = commands
-        self.processor = prb_processor.Processor(**(processor or {}))
+        self.processor = prb_processor.Processor(**(processor)) if processor else None
         self.is_ccdl = is_ccdl
-        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations]
-        self.files = [prb_computed_file.ComputedFile(**file) for file in files]
-        self.organism_index = prb_organism_index.OrganismIndex(**(organism_index or {}))
+        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
+        self.files = [prb_computed_file.ComputedFile(**file) for file in files] if files else []
+        self.organism_index = prb_organism_index.OrganismIndex(**(organism_index)) if organism_index else None
         self.time_start = time_start
         self.time_end = time_end
         self.created_at = created_at

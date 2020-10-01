@@ -31,7 +31,7 @@ class ComputedFile:
         self,
         id=None,
         filename=None,
-        samples=[],
+        samples=None,
         size_in_bytes=None,
         is_qn_target=None,
         is_smashable=None,
@@ -51,7 +51,7 @@ class ComputedFile:
     ):
         self.id = id
         self.filename = filename
-        self.samples = [prb_sample.Sample(**sample) for sample in samples]
+        self.samples = [prb_sample.Sample(**sample) for sample in samples] if samples else []
         self.size_in_bytes = size_in_bytes
         self.is_qn_target = is_qn_target
         self.is_smashable = is_smashable
@@ -67,7 +67,7 @@ class ComputedFile:
         self.download_url = download_url
         self.created_at = created_at
         self.last_modified = last_modified
-        self.result = prb_computational_result.ComputationalResult(**(result or {}))
+        self.result = prb_computational_result.ComputationalResult(**(result)) if result else None
 
     @classmethod
     def get(cls, id):

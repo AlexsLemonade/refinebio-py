@@ -11,7 +11,11 @@ class Platform:
         >>> og_files = pyrefinebio.Platform.search()
     """
 
-    def __init__(self, platform_accession_code=None, platform_name=None):
+    def __init__(
+        self,
+        platform_accession_code=None,
+        platform_name=None
+    ):
         self.platform_accession_code = platform_accession_code
         self.platform_name = platform_name
 

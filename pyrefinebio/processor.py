@@ -18,7 +18,14 @@ class Processor:
         >>> import pyrefinebio
         >>> processors = pyrefinebio.Processor.search()
     """
-    def __init__(self, id=None, name=None, version=None, docker_image=None, environment=None):
+    def __init__(
+        self,
+        id=None,
+        name=None,
+        version=None,
+        docker_image=None,
+        environment=None
+    ):
         self.id = id
         self.name = name
         self.version = version

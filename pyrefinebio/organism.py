@@ -19,7 +19,11 @@ class Organism:
         >>> jobs = pyrefinebio.Organism.search()
     """
 
-    def __init__(self, name=None, taxonomy_id=None):
+    def __init__(
+        self,
+        name=None,
+        taxonomy_id=None
+    ):
         self.name = name
         self.taxonomy_id = taxonomy_id
 

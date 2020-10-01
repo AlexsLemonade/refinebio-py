@@ -27,8 +27,8 @@ class Experiment:
         id=None,
         title=None,
         description=None,
-        annotations=[],
-        samples=[],
+        annotations=None,
+        samples=None,
         protocol_description=None,
         accession_code=None,
         alternate_accession_code=None,
@@ -53,8 +53,8 @@ class Experiment:
         self.id = id
         self.title = title
         self.description = description
-        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations]
-        self.samples = [prb_sample.Sample(**sample) for sample in samples]
+        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
+        self.samples = [prb_sample.Sample(**sample) for sample in samples] if annotations else []
         self.protocol_description = protocol_description
         self.accession_code = accession_code
         self.alternate_accession_code = alternate_accession_code
