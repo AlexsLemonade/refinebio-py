@@ -1,12 +1,29 @@
+from pyrefinebio.http import get_by_endpoint
+from pyrefinebio.util import generator_from_pagination
+
 import pyrefinebio.common.annotation as prb_annotation
 import pyrefinebio.common.organism_index as prb_organism_index
 import pyrefinebio.computed_file as prb_computed_file
 import pyrefinebio.processor as prb_processor
-from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
 
 
 class ComputationalResult:
+    """Computational Result.
+
+    Get a computational result based on id
+
+        ex:
+        >>> import pyrefinebio
+        >>> id = 1
+        >>> sample = pyrefinebio.ComputationalResult.get(id)
+
+    Search for samples based on filters
+
+        ex:
+        >>> import pyrefinebio
+        >>> samples = pyrefinebio.ComputationalResult.search(processor_id=)
+    """
+
     def __init__(
         self,
         id=None,
@@ -35,10 +52,31 @@ class ComputationalResult:
 
     @classmethod
     def get(cls, id):
+        """Retrieve a computational result based on its id.
+
+        returns: ComputationalResult
+
+        parameters:
+
+            id (int): The id for the computational result to be retrieved.
+        """
         result = get_by_endpoint("computational_results/" + str(id))
         return ComputationalResult(**result)
 
     @classmethod
     def search(cls, **kwargs):
+        """Search for a computational result based on filters.
+
+        returns: list of ComputationalResult
+
+        parameters:
+
+            processor_id (int): 
+
+            limit (int): Number of results to return per page.
+
+            offset (int): The initial index from which to return the results.
+        """
+
         result = get_by_endpoint("computational_results", params=kwargs)
         return generator_from_pagination(result, cls)

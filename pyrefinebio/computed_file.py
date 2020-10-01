@@ -1,13 +1,32 @@
+from pyrefinebio.http import get_by_endpoint
+from pyrefinebio.util import generator_from_pagination
+
 import pyrefinebio.common.annotation as prb_annotation
 import pyrefinebio.common.organism_index as prb_organism_index
 import pyrefinebio.computational_result as prb_computational_result
 import pyrefinebio.processor as prb_processor
 import pyrefinebio.sample as prb_sample
-from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
 
 
 class ComputedFile:
+    """Computed File.
+
+    ComputedFiles are representation of files created by data-refinery processes.
+
+    get a computed file based on id
+
+        ex:
+        >>> import pyrefinebio
+        >>> id = 1
+        >>> sample = pyrefinebio.ComputedFile.get(id)
+
+    search for a computed file based on filters
+
+        ex:
+        >>> import pyrefinebio
+        >>> samples = pyrefinebio.ComputedFile.search(is_compendia=True, is_public=True)
+    """
+
     def __init__(
         self,
         id=None,
@@ -52,10 +71,56 @@ class ComputedFile:
 
     @classmethod
     def get(cls, id):
+        """Retrieve a specific computed file based on id
+
+        returns: ComputedFile
+
+        parameters:
+
+            id (int): the id for the computed file you want to get
+        """
+
         response = get_by_endpoint("computed_files/" + str(id))
         return ComputedFile(**response)
 
     @classmethod
     def search(cls, **kwargs):
+        """Search for a compendium result based on filters
+
+        returns: list of ComputedFile
+
+        parameters:
+
+            id (int):
+
+            samples (str):
+
+            is_qn_target (str):
+
+            is_smashable (str):
+
+            is_qc (str):
+
+            is_compendia (str):
+
+            quant_sf_only (str):
+
+            svd_algorithm (str):
+
+            compendia_version (int):
+
+            created_at (str):
+
+            last_modified (str):
+
+            result__id (int):
+
+            ordering (str): Which field to use when ordering the results.
+
+            limit (int): Number of results to return per page.
+
+            offset (int): The initial index from which to return the results.
+        """
+
         result = get_by_endpoint("computed_files", params=kwargs)
         return generator_from_pagination(result, cls)

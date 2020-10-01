@@ -2,7 +2,23 @@ from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
 
-class TransriptomeIndex:
+class TranscriptomeIndex:
+    """Transcriptome Index.
+
+    get a transcriptome index by id
+
+        ex:
+        >>> import pyrefinebio
+        >>> id = 1
+        >>> t_index = pyrefinebio.TranscriptomeIndex.get(id)
+
+    search for transcriptome indecies
+
+        ex:
+        >>> import pyrefinebio
+        >>> t_indecies = pyrefinebio.TranscriptomeIndex.search(organism_name="GORILLA")
+    """
+
     def __init__(
         self,
         id=None,
@@ -27,10 +43,39 @@ class TransriptomeIndex:
 
     @classmethod
     def get(cls, id):
+        """Retrieve a transcriptome index based on id
+
+        returns: TranscriptomeIndex
+
+        parameters:
+
+            id (int): the id for the transcriptome index you want to get
+        """
         response = get_by_endpoint("transhriptome_indices/" + id)
-        return TransriptomeIndex(**response)
+        return TranscriptomeIndex(**response)
 
     @classmethod
     def search(cls, **kwargs):
+        """Retrieve a list of transcriptome indicies based on various filters
+
+        returns: list of TranscriptomeIndex
+
+        parameters:
+
+            salmon_version (str): Eg. salmon 0.13.1
+
+            index_type (str): Eg. TRANSCRIPTOME_LONG
+
+            ordering (str): Which field to use when ordering the results.
+
+            limit (int): Number of results to return per page.
+
+            offset (int): The initial index from which to return the results.
+
+            organism_name (str): Organism name. Eg. MUS_MUSCULUS
+
+            length (str): Short hand for index_type Eg. short or long
+        """
+
         response = get_by_endpoint("transhriptome_indices", params=kwargs)
         return generator_from_pagination(response, cls)

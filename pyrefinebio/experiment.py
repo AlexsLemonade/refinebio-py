@@ -1,10 +1,27 @@
-import pyrefinebio.common.annotation as prb_annotation
-import pyrefinebio.sample as prb_sample
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
+import pyrefinebio.common.annotation as prb_annotation
+import pyrefinebio.sample as prb_sample
+
 
 class Experiment:
+    """Experiment.
+
+    get an experiment based on id
+
+        ex:
+        >>> import pyrefinebio
+        >>> accession_code = 1
+        >>> sample = pyrefinebio.Experiment.get(accession_code)
+
+    search for an experiment based on filters
+
+        ex:
+        >>> import pyrefinebio
+        >>> samples = pyrefinebio.Experiment.search(is_compendia=True, is_public=True)
+    """
+
     def __init__(
         self,
         id=None,
@@ -61,10 +78,53 @@ class Experiment:
 
     @classmethod
     def get(cls, accession_code):
+        """Retrieve an experiment based on accession code
+
+        returns: Experiment
+
+        parameters:
+
+            accession code (str): the accession code for the experiment you want to get
+        """
         response = get_by_endpoint("experiments/" + accession_code)
         return Experiment(**response)
 
     @classmethod
     def search(cls, **kwargs):
+        """Search for an experiment based on various filters
+
+        returns: list of Experiment
+
+        parameters:
+
+            id (int):
+
+            technology (str): Allows filtering the results by technology, can have multiple values. Eg: ?technology=microarray&technology=rna-seq
+
+            has_publication (str): Filter the results that have associated publications with ?has_publication=true
+
+            accession_code (str): Allows filtering the results by accession code, can have multiple values. Eg: ?accession_code=microarray&accession_code=rna-seq
+
+            alternate_accession_code (str): 
+            
+            platform (str): Allows filtering the results by platform, this parameter can have multiple values.
+
+            organism (str): Allows filtering the results by organism, this parameter can have multiple values.
+
+            num_processed_samples (number): Use ElasticSearch queries to specify the number of processed samples of the results
+
+            num_downloadable_samples (int):
+
+            sample_keywords (str): 
+
+            ordering (str): Which field from to use when ordering the results.
+
+            search (str): Search in title, publication_authors, sample_keywords, publication_title, submitter_institution, description, accession_code, alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, platform_names.
+
+            limit (int): Number of results to return per page.
+
+            offset (int): The initial index from which to return the results.
+        """
+
         response = get_by_endpoint("search")
         return generator_from_pagination(response, cls)

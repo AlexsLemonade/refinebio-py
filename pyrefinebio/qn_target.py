@@ -3,6 +3,22 @@ from pyrefinebio.http import get_by_endpoint
 
 
 class QNTarget:
+    """QN Target.
+
+    get a qn target by organism name
+
+        ex:
+        >>> import pyrefinebio
+        >>> organism_name = "GORILLA"
+        >>> qn_target = pyrefinebio.QNTarget.get(organism_name)
+
+    search for an qn target organism
+
+        ex:
+        >>> import pyrefinebio
+        >>> qn_target_organisms = pyrefinebio.QNTarget.search()
+    """
+
     def __init__(
         self,
         id=None,
@@ -31,10 +47,22 @@ class QNTarget:
 
     @classmethod
     def get(cls, organism_name):
+        """Retrieve a qn target based on organism name
+
+        returns: QNTarget
+
+        parameters:
+
+            organism_name (str): the name of the organism for the qn target you want to get
+        """
         response = get_by_endpoint("qn_targets/" + organism_name)
         return QNTarget(**response)
 
     @classmethod
     def search(cls, **kwargs):
+        """Retrieve a list of organisms that have available qn targets
+
+        returns: list of Organism
+        """
         response = get_by_endpoint("qn_targets", params=kwargs)
         return [prb_organism.Organism(**qn_organism) for qn_organism in response]

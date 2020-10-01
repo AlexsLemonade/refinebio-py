@@ -40,7 +40,9 @@ class Compendia:
 
     @classmethod
     def get(cls, id):
-        """Get a specific compendium result based on id
+        """Retrieve a specific compendium result based on id
+
+        returns: Compendia
 
         parameters:
 
@@ -53,6 +55,8 @@ class Compendia:
     @classmethod
     def search(cls, **kwargs):
         """Search for a compendium result based on filters
+
+        returns: list of Compendia
 
         parameters:
 

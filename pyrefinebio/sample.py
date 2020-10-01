@@ -1,5 +1,4 @@
 import pyrefinebio.common.annotation as prb_annotation
-import pyrefinebio.common.organism_index as prb_organism_index
 import pyrefinebio.computational_result as prb_computational_result
 import pyrefinebio.experiment as prb_experiment
 import pyrefinebio.organism as prb_organism
@@ -105,9 +104,7 @@ class Sample:
         self.manufacturer = manufacturer
         self.protocol_info = protocol_info
         self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations]
-        self.results = [
-            prb_computational_result.ComputationalResult(**result) for result in results
-        ]
+        self.results = [prb_computational_result.ComputationalResult(**result) for result in results]
         self.source_archive_url = source_archive_url
         self.has_raw = has_raw
         self.sex = sex
@@ -147,6 +144,8 @@ class Sample:
     def get(cls, accession_code):
         """Retrieve details about a sample based on its accession code.
 
+        returns: Sample
+
         parameters:
 
             accession_code (str): The accession code for the sample to be retrieved.
@@ -158,7 +157,9 @@ class Sample:
 
     @classmethod
     def search(cls, **kwargs):
-        """Returns a list of samples.
+        """Search for samples based on various filters
+        
+        returns: list of samples.
 
         Parameters:
             ordering (str):                  which field to use when ordering the results

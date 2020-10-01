@@ -3,6 +3,22 @@ from pyrefinebio.util import generator_from_pagination
 
 
 class DownloaderJob:
+    """DownloaderJob.
+
+    get a downloader job by id
+
+        ex:
+        >>> import pyrefinebio
+        >>> id = 1
+        >>> job = pyrefinebio.DownloaderJob.get(id)
+
+    search for a DownloaderJob
+
+        ex:
+        >>> import pyrefinebio
+        >>> jobs = pyrefinebio.DownloaderJob.search(nomad_job_id=0, success=True)
+    """
+
     def __init__(
         self,
         id=None,
@@ -39,16 +55,87 @@ class DownloaderJob:
 
     @classmethod
     def get(cls, id):
+        """Retrieve a downloader job based on id
+
+        returns: DownloaderJob
+
+        parameters:
+
+            id (int): the id for the downloader job you want to get
+        """
+
         response = get_by_endpoint("jobs/downloader/" + str(id))
         return DownloaderJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
+        """Search for a downloader job based on various filters
+
+        returns: list of DownloaderJob
+
+        parameters:
+
+            id (int):
+
+            downloader_task (str):
+            
+            num_retries (int):
+
+            retried (str):
+            
+            was_recreated (str):
+            
+            worker_id (str):
+            
+            worker_version (str):
+            
+            nomad_job_id (str):
+            
+            failure_reason (str):
+            
+            success (str):
+            
+            original_files (str):
+            
+            start_time (str):
+            
+            end_time (str):
+            
+            created_at (str):
+            
+            last_modified (str):
+            
+            ordering (str): Which field to use when ordering the results.
+
+            limit (int): Number of results to return per page.
+
+            offset (int): The initial index from which to return the results.
+
+            sample_accession_code (str): List the downloader jobs associated with a sample
+
+            nomad (str): Only return jobs that are in the nomad queue currently
+        """
         response = get_by_endpoint("jobs/downloader", params=kwargs)
         return generator_from_pagination(response, cls)
 
 
 class ProcessorJob:
+    """Processor Job.
+
+    get a processor job by id
+
+        ex:
+        >>> import pyrefinebio
+        >>> id = 1
+        >>> job = pyrefinebio.DownloaderJob.get(id)
+
+    search for a processor job based on filters
+
+        ex:
+        >>> import pyrefinebio
+        >>> jobs = pyrefinebio.DownloaderJob.search(num_retries=1)
+    """
+
     def __init__(
         self,
         id=None,
@@ -89,16 +176,92 @@ class ProcessorJob:
 
     @classmethod
     def get(cls, id):
+        """Retrieve a processor job based on id
+
+        returns: ProcessorJob
+
+        parameters:
+
+            id (int): the id for the processor job you want to get
+        """
+
         response = get_by_endpoint("jobs/processor/" + str(id))
         return ProcessorJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
+        """search for a processor job based on various filters
+
+        returns: list of ProcessorJob
+
+        parameters:
+
+            id (number):
+            
+            pipeline_applied (string):
+            
+            num_retries (number):
+            
+            retried (string):
+            
+            worker_id (string):
+            
+            ram_amount (number):
+            
+            volume_index (string):
+            
+            worker_version (string):
+            
+            failure_reason (string):
+            
+            nomad_job_id (string):
+            
+            success (string):
+            
+            original_files (string):
+            
+            datasets (string):
+            
+            start_time (string):
+            
+            end_time (string):
+            
+            created_at (string):
+            
+            last_modified (string):
+            
+            ordering (string): Which field to use when ordering the results.
+
+            limit (integer): Number of results to return per page.
+
+            offset (integer): The initial index from which to return the results.
+
+            sample_accession_code (string): List the processor jobs associated with a sample
+
+            nomad (string): Only return jobs that are in the nomad queue currently
+        """
+
         response = get_by_endpoint("jobs/processor", params=kwargs)
         return generator_from_pagination(response, cls)
 
 
 class SurveyJob:
+    """Survey Job.
+
+    get a survey job by id
+
+        ex:
+        >>> import pyrefinebio
+        >>> id = 1
+        >>> job = pyrefinebio.SurveyJob.get(id)
+
+    search for a survey job based on filters
+
+        ex:
+        >>> import pyrefinebio
+        >>> jobs = pyrefinebio.SurveyJob.search(num_retries=1)
+    """
+
     def __init__(
         self,
         id=None,
@@ -119,10 +282,46 @@ class SurveyJob:
 
     @classmethod
     def get(cls, id):
+        """Retrieve a survey job based on id
+
+        returns: SurveyJob
+
+        parameters:
+
+            id (int): the id for the survey job you want to get
+        """
+
         response = get_by_endpoint("jobs/survey/" + str(id))
         return SurveyJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
+        """Search for a survey job based on various filters
+
+        returns: list of SurveyJob
+
+        parameters:
+
+            id (number):
+                
+            source_type (string):
+            
+            success (string):
+            
+            start_time (string):
+            
+            end_time (string):
+            
+            created_at (string):
+            
+            last_modified (string):
+            
+            ordering (string): Which field to use when ordering the results.
+
+            limit (integer): Number of results to return per page.
+
+            offset (integer): The initial index from which to return the results.
+        """
+
         response = get_by_endpoint("jobs/survey", params=kwargs)
         return generator_from_pagination(response, cls)
