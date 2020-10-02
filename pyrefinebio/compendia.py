@@ -36,7 +36,7 @@ class Compendia:
         self.svd_algorithm = svd_algorithm
         self.quant_sf_only = quant_sf_only
         self.compendium_version = compendium_version
-        self.computed_file = prb_computed_file.ComputedFile(**(computed_file or {}))
+        self.computed_file = prb_computed_file.ComputedFile(**(computed_file)) if computed_file else None
 
     @classmethod
     def get(cls, id):
