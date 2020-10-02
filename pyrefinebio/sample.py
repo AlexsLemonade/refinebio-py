@@ -1,23 +1,23 @@
-from pyrefinebio.common.annotation import Annotation
-from pyrefinebio.common.organism_index import OrganismIndex
-from pyrefinebio.experiment import Experiment
+import pyrefinebio.common.annotation as prb_annotation
+import pyrefinebio.computational_result as prb_computational_result
+import pyrefinebio.experiment as prb_experiment
+import pyrefinebio.organism as prb_organism
+import pyrefinebio.processor as prb_processor
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.organism import Organism
-from pyrefinebio.processor import Processor
 from pyrefinebio.util import generator_from_pagination
 
 
 class Sample:
     """Sample.
 
-    get a sample based on accession code
+    Retrieve a sample based on accession code
 
         ex:
         >>> import pyrefinebio
         >>> accession_code = "GSM000000"
         >>> sample = pyrefinebio.Sample.get(accession_code)
 
-    search for samples based on filters
+    Retrieve a list of samples based on filters
 
         ex:
         >>> import pyrefinebio
@@ -90,20 +90,21 @@ class Sample:
         original_files=None,
         computed_files=None,
         experiment_accession_codes=None,
+        experiments=None,
     ):
         self.id = id
         self.title = title
         self.accession_code = accession_code
         self.source_database = source_database
-        self.organism = Organism(**organism)
+        self.organism = organism.Organism(**(organism)) if organism else None
         self.platform_accession_code = platform_accession_code
         self.platform_name = platform_name
         self.pretty_platform = pretty_platform
         self.technology = technology
         self.manufacturer = manufacturer
         self.protocol_info = protocol_info
-        self.annotations = [Annotation(**annotation) for annotation in annotations]
-        self.results = [Result(**result) for result in results]
+        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
+        self.results = [prb_computational_result.ComputationalResult(**result) for result in results] if results else []
         self.source_archive_url = source_archive_url
         self.has_raw = has_raw
         self.sex = sex
@@ -124,12 +125,14 @@ class Sample:
         self.original_files = original_files
         self.computed_files = computed_files
         self.experiment_accession_codes = experiment_accession_codes
-        self.experiments = None
+        self.experiments = experiments
 
     @property
     def experiments(self):
         if not self._experiments:
-            self._experiments = Experiment.search(accession_code=self.experiment_accession_codes)
+            self._experiments = prb_experiment.Experiment.search(
+                accession_code=self.experiment_accession_codes
+            )
 
         return self._experiments
 
@@ -139,20 +142,22 @@ class Sample:
 
     @classmethod
     def get(cls, accession_code):
-        """Retrieve details about a sample based on its accession code.
+        """Retrieve a sample based on its accession code.
+
+        returns: Sample
 
         parameters:
 
             accession_code (str): The accession code for the sample to be retrieved.
         """
-
         result = get_by_endpoint("samples/" + accession_code)
-
         return cls(**result)
 
     @classmethod
     def search(cls, **kwargs):
-        """Returns a list of samples.
+        """Retrieve a list of samples based on various filters
+        
+        returns: list of samples.
 
         Parameters:
             ordering (str):                  which field to use when ordering the results
@@ -193,7 +198,6 @@ class Sample:
                                              separated by commas and the endpoint will
                                              only return information about these samples.
         """
-
         invalid_filters = []
 
         for filter in kwargs.keys():
@@ -206,14 +210,3 @@ class Sample:
         result = get_by_endpoint("samples", params=kwargs)
 
         return generator_from_pagination(result, cls)
-
-
-class Result:
-    def __init__(self, id=None, processor=None, organism_index=None):
-        self.id = id
-        self.processor = Processor(**processor)
-
-        if organism_index:
-            self.organism_index = OrganismIndex(**organism_index)
-        else:
-            self.organism_index = None
