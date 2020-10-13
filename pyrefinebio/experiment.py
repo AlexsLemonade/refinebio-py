@@ -27,6 +27,7 @@ class Experiment:
         id=None,
         title=None,
         description=None,
+        technology=None,
         annotations=None,
         samples=None,
         protocol_description=None,
@@ -42,9 +43,12 @@ class Experiment:
         source_first_published=None,
         source_last_modified=None,
         submitter_institution=None,
+        platform_names=None,
+        platform_accession_codes=None,
         last_modified=None,
         created_at=None,
         organism_names=None,
+        sample_metadata_fields=None,
         sample_metadata=None,
         num_total_samples=None,
         num_processed_samples=None,
@@ -53,6 +57,7 @@ class Experiment:
         self.id = id
         self.title = title
         self.description = description
+        self.technology = technology
         self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
         self.samples = [prb_sample.Sample(**sample) for sample in samples] if annotations else []
         self.protocol_description = protocol_description
@@ -68,9 +73,12 @@ class Experiment:
         self.source_first_published = source_first_published
         self.source_last_modified = source_last_modified
         self.submitter_institution = submitter_institution
+        self.platform_names = platform_names
+        self.platform_accession_codes = platform_accession_codes
         self.last_modified = last_modified
         self.created_at = created_at
         self.organism_names = organism_names
+        self.sample_metadata_fields = sample_metadata_fields
         self.sample_metadata = sample_metadata
         self.num_total_samples = num_total_samples
         self.num_processed_samples = num_processed_samples
@@ -125,5 +133,5 @@ class Experiment:
 
             offset (int): The initial index from which to return the results.
         """
-        response = get_by_endpoint("search")
+        response = get_by_endpoint("search", params=kwargs)
         return generator_from_pagination(response, cls)

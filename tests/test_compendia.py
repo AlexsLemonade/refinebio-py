@@ -2,6 +2,9 @@ import unittest
 import pyrefinebio
 from unittest.mock import Mock, patch
 
+from .custom_assertions import CustomAssertions
+
+
 compendia_object_1 = {
     "id": 69,
     "primary_organism_name": "HUMAN",
@@ -64,7 +67,7 @@ search_2 = {
     "results": [compendia_object_2]
 }
 
-def mock_get_request(url, **kwargs):
+def mock_request(method, url, **kwargs):
 
     class MockResponse:
         def __init__(self, json_data, status=200):
@@ -93,20 +96,28 @@ def mock_get_request(url, **kwargs):
     if url == "search_2":
         return MockResponse(search_2)
 
-class CompendiaTests(unittest.TestCase):
+class CompendiaTests(unittest.TestCase, CustomAssertions):
 
-    @patch("pyrefinebio.http.requests.get", side_effect=mock_get_request)
-    def test_compendia_get(self, mock_get):
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_compendia_get(self, mock_request):
         result = pyrefinebio.Compendia.get(1)
         self.assertObject(result, compendia_object_1)
 
-    @patch("pyrefinebio.http.requests.get", side_effect=mock_get_request)
-    def test_compendia_get_404(self, mock_get):
+
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_compendia_500(self, mock_request):
+        with self.assertRaises(Exception):
+            pyrefinebio.Compendia.get(500)
+
+
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_compendia_get_404(self, mock_request):
         with self.assertRaises(Exception):
             pyrefinebio.Compendia.get(0)
 
-    @patch("pyrefinebio.http.requests.get", side_effect=mock_get_request)
-    def test_compendia_search_no_filters(self, mock_get):
+
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_compendia_search_no_filters(self, mock_request):
         result = pyrefinebio.Compendia.search()
 
         result_list = list(result)
@@ -114,38 +125,16 @@ class CompendiaTests(unittest.TestCase):
         self.assertObject(result_list[0], compendia_object_1)
         self.assertObject(result_list[1], compendia_object_2)
 
-        self.assertEqual(len(mock_get.call_args_list), 2)
+        self.assertEqual(len(mock_request.call_args_list), 2)
 
-    @patch("pyrefinebio.http.requests.get", side_effect=mock_get_request)
-    def test_compendia_search_with_filters(self, mock_get):
-        result = pyrefinebio.Compendia.search(primary_organism_name="HUMAN")
 
-        result_list = list(result)
+    def test_compendia_search_with_filters(self):
+        non_filtered_results = pyrefinebio.Compendia.search()
+        filtered_results = pyrefinebio.Compendia.search(primary_organism__name="ACTINIDIA_CHINENSIS")
 
-        self.assertObject(result_list[0], compendia_object_1)
-        self.assertObject(result_list[1], compendia_object_2)
+        self.assertTrue(len(list(filtered_results)) < len(list(non_filtered_results)))
 
-        self.assertEqual(len(mock_get.call_args_list), 2)
 
-    @patch("pyrefinebio.http.requests.get", side_effect=mock_get_request)
-    def test_compendia_search_with_invalid_filters(self, mock_get):
-        result = pyrefinebio.Compendia.search(foo="bar")
-
-        result_list = list(result)
-
-        self.assertObject(result_list[0], compendia_object_1)
-        self.assertObject(result_list[1], compendia_object_2)
-
-        self.assertEqual(len(mock_get.call_args_list), 2)
-
-    @patch("pyrefinebio.http.requests.get", side_effect=mock_get_request)
-    def test_compendia_500(self, mock_get):
+    def test_compendia_search_with_invalid_filters(self):
         with self.assertRaises(Exception):
-            pyrefinebio.Compendia.get(500)
-
-    def assertObject(self, actual, expected):
-        for key, value in expected.items():
-            if type(value) is dict: 
-                self.assertObject(getattr(actual, key), value)
-            else:
-                self.assertEqual(getattr(actual, key), value)
+            pyrefinebio.Compendia.search(foo="bar")
