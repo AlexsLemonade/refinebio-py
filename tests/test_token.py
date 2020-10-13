@@ -79,4 +79,4 @@ class TokenTests(unittest.TestCase, CustomAssertions):
 
     def test_token_load_bad_file(self):
         with self.assertRaises(Exception):
-            token = pyrefinebio.Token.load_token("test")
+            token = pyrefinebio.Token.load_token("bad_file")
