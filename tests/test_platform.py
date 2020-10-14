@@ -3,6 +3,7 @@ import pyrefinebio
 from unittest.mock import Mock, patch
 
 from .custom_assertions import CustomAssertions
+from .mocks import MockResponse
 
 
 platforms = [
@@ -27,20 +28,8 @@ platforms = [
 
 def mock_request(method, url, **kwargs):
 
-    class MockResponse:
-        def __init__(self, json_data, status=200):
-            self.json_data = json_data
-            self.status = status
-
-        def json(self):
-            return self.json_data
-        
-        def raise_for_status(self):
-            if self.status != 200:
-                raise Exception
-
     if url == "https://api.refine.bio/v1/platforms/":
-        return MockResponse(platforms)
+        return MockResponse(platforms, url)
 
 
 class PlatfromTest(unittest.TestCase, CustomAssertions):

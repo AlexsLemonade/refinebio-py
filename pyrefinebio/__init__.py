@@ -12,3 +12,9 @@ from .qn_target import QNTarget
 from .sample import Sample
 from .token import Token
 from .transcriptome_index import TranscriptomeIndex
+
+from .exceptions import (
+    ServerError,
+    BadRequest,
+    InvalidFilters
+)

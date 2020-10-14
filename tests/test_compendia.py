@@ -3,6 +3,7 @@ import pyrefinebio
 from unittest.mock import Mock, patch
 
 from .custom_assertions import CustomAssertions
+from .mocks import MockResponse
 
 
 compendia_object_1 = {
@@ -69,32 +70,20 @@ search_2 = {
 
 def mock_request(method, url, **kwargs):
 
-    class MockResponse:
-        def __init__(self, json_data, status=200):
-            self.json_data = json_data
-            self.status = status
-
-        def json(self):
-            return self.json_data
-        
-        def raise_for_status(self):
-            if self.status != 200:
-                raise Exception
-
     if url == "https://api.refine.bio/v1/compendia/1/":
-        return MockResponse(compendia_object_1)
+        return MockResponse(compendia_object_1, url)
 
     if url == "https://api.refine.bio/v1/compendia/0/":
-        return MockResponse(None, status=404)
+        return MockResponse(None, url, status=404)
 
     if url == "https://api.refine.bio/v1/compendia/500/":
-        return MockResponse(None, status=500)
+        return MockResponse(None, url, status=500)
 
     if url == "https://api.refine.bio/v1/compendia/":
-        return MockResponse(search_1)
+        return MockResponse(search_1, url)
 
     if url == "search_2":
-        return MockResponse(search_2)
+        return MockResponse(search_2, url)
 
 class CompendiaTests(unittest.TestCase, CustomAssertions):
 
@@ -106,13 +95,13 @@ class CompendiaTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendia_500(self, mock_request):
-        with self.assertRaises(Exception):
+        with self.assertRaises(pyrefinebio.exceptions.ServerError):
             pyrefinebio.Compendia.get(500)
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendia_get_404(self, mock_request):
-        with self.assertRaises(Exception):
+        with self.assertRaises(pyrefinebio.exceptions.NotFound):
             pyrefinebio.Compendia.get(0)
 
 
@@ -136,5 +125,5 @@ class CompendiaTests(unittest.TestCase, CustomAssertions):
 
 
     def test_compendia_search_with_invalid_filters(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):
             pyrefinebio.Compendia.search(foo="bar")

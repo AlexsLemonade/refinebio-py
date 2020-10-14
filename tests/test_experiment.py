@@ -3,6 +3,7 @@ import pyrefinebio
 from unittest.mock import Mock, patch
 
 from .custom_assertions import CustomAssertions
+from .mocks import MockResponse
 
 experiment = {
     "id": 0,
@@ -138,32 +139,20 @@ search_2 = {
 
 def mock_request(method, url, **kwargs):
 
-    class MockResponse:
-        def __init__(self, json_data, status=200):
-            self.json_data = json_data
-            self.status = status
-
-        def json(self):
-            return self.json_data
-        
-        def raise_for_status(self):
-            if self.status != 200:
-                raise Exception
-
     if url == "https://api.refine.bio/v1/experiments/SRP150473/":
-        return MockResponse(experiment)
+        return MockResponse(experiment, url)
 
     if url == "https://api.refine.bio/v1/experiments/0/":
-        return MockResponse(None, status=404)
+        return MockResponse(None, url, status=404)
 
     if url == "https://api.refine.bio/v1/experiments/500/":
-        return MockResponse(None, status=500)
+        return MockResponse(None, url, status=500)
 
     if url == "https://api.refine.bio/v1/search/":
-        return MockResponse(search_1)
+        return MockResponse(search_1, url)
 
     if url == "search_2":
-        return MockResponse(search_2)
+        return MockResponse(search_2, url)
 
 class ExperimentTests(unittest.TestCase, CustomAssertions):
 
@@ -175,13 +164,13 @@ class ExperimentTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_experiments_500(self, mock_request):
-        with self.assertRaises(Exception):
+        with self.assertRaises(pyrefinebio.exceptions.ServerError):
             pyrefinebio.Experiment.get(500)
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_experiments_get_404(self, mock_request):
-        with self.assertRaises(Exception):
+        with self.assertRaises(pyrefinebio.exceptions.NotFound):
             pyrefinebio.Experiment.get(0)
 
 
@@ -203,5 +192,5 @@ class ExperimentTests(unittest.TestCase, CustomAssertions):
 
     #TODO: validate filters on search endpoint
     def test_experiments_search_with_invalid_filters(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):
             pyrefinebio.Experiment.search(foo="bar")

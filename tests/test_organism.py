@@ -3,6 +3,7 @@ import pyrefinebio
 from unittest.mock import Mock, patch
 
 from .custom_assertions import CustomAssertions
+from .mocks import MockResponse
 
 
 gorilla = {
@@ -31,32 +32,20 @@ search_2 = {
 
 def mock_request(method, url, **kwargs):
 
-    class MockResponse:
-        def __init__(self, json_data, status=200):
-            self.json_data = json_data
-            self.status = status
-
-        def json(self):
-            return self.json_data
-        
-        def raise_for_status(self):
-            if self.status != 200:
-                raise Exception
-
     if url == "https://api.refine.bio/v1/organisms/GORILLA/":
-        return MockResponse(gorilla)
+        return MockResponse(gorilla, url)
 
     if url == "https://api.refine.bio/v1/organisms/HUMAN/":
-        return MockResponse(None, status=404)
+        return MockResponse(None, url, status=404)
 
     if url == "https://api.refine.bio/v1/organisms/500/":
-        return MockResponse(None, status=500)
+        return MockResponse(None, url, status=500)
 
     if url == "https://api.refine.bio/v1/organisms/":
-        return MockResponse(search_1)
+        return MockResponse(search_1, url)
 
     if url == "search_2":
-        return MockResponse(search_2)
+        return MockResponse(search_2, url)
 
 
 class OrganismTests(unittest.TestCase, CustomAssertions):

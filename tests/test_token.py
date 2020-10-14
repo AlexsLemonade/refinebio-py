@@ -4,6 +4,7 @@ import os
 from unittest.mock import Mock, mock_open, patch
 
 from .custom_assertions import CustomAssertions
+from .mocks import MockResponse
 
 
 token = {
@@ -14,20 +15,8 @@ token = {
 
 def mock_request(method, url, **kwargs):
 
-    class MockResponse:
-        def __init__(self, json_data, status=200):
-            self.json_data = json_data
-            self.status = status
-
-        def json(self):
-            return self.json_data
-        
-        def raise_for_status(self):
-            if self.status != 200:
-                raise Exception
-
     if url == "https://api.refine.bio/v1/token/":
-        return MockResponse(token)
+        return MockResponse(token, url)
 
 
 class TokenTests(unittest.TestCase, CustomAssertions):

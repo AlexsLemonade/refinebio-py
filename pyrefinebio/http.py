@@ -1,7 +1,8 @@
 import logging
 import os
-
 import requests
+
+from .exceptions import ServerError, BadRequest, NotFound, InvalidFilters
 
 logger = logging.getLogger(__name__)
 
@@ -14,18 +15,33 @@ def request(method, url, params=None, payload=None):
         response.raise_for_status()
         return response.json()
 
-    except requests.exceptions.HTTPError as http_error:
+    except requests.exceptions.HTTPError:
+        code = response.status_code
         response_body = response.json()
-        try:
-            error_type = response_body["error_type"]
-            message = response_body["detail"]
 
-            if error_type == "invalid_filters":
-                invalid_filters = response_body["invalid_filters"]
-                raise Exception("you have provided invalid filters: {0}".format(invalid_filters))
+        if code == 400:
+            try:
+                error_type = response_body["error_type"]
+                message = response_body["detail"]
 
-        except (ValueError, KeyError):
-            raise Exception(response_body)
+                if error_type == "invalid_filters":
+                    invalid_filters = response_body["invalid_filters"]
+                    raise InvalidFilters(invalid_filters)
+
+                raise BadRequest(message)
+
+            except (ValueError, KeyError):
+                raise BadRequest(response_body)
+        
+        elif code == 404:
+            raise NotFound(response.url)
+
+        elif code == 500:
+            raise ServerError
+
+        else:
+            raise Exception("An unexpected error has occured")
+
 
 def get(url, params=None):
     return request("GET", url, params=params)
