@@ -25,7 +25,7 @@ class DownloaderJob:
         downloader_task=None,
         num_retries=None,
         retried=None,
-        was_recorded=None,
+        was_recreated=None,
         worker_id=None,
         worker_version=None,
         nomad_job_id=None,
@@ -41,7 +41,7 @@ class DownloaderJob:
         self.downloader_task = downloader_task
         self.num_retries = num_retries
         self.retried = retried
-        self.was_recorded = was_recorded
+        self.was_recreated = was_recreated
         self.worker_id = worker_id
         self.worker_version = worker_version
         self.nomad_job_id = nomad_job_id
