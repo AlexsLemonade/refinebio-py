@@ -94,15 +94,15 @@ class ComputedFile:
 
             samples (str):
 
-            is_qn_target (str):
+            is_qn_target (bool):
 
-            is_smashable (str):
+            is_smashable (bool):
 
-            is_qc (str):
+            is_qc (bool):
 
-            is_compendia (str):
+            is_compendia (bool):
 
-            quant_sf_only (str):
+            quant_sf_only (true):
 
             svd_algorithm (str):
 

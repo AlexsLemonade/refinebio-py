@@ -119,7 +119,9 @@ class CompendiaTests(unittest.TestCase, CustomAssertions):
 
     def test_compendia_search_with_filters(self):
         filtered_results = pyrefinebio.Compendia.search(primary_organism__name="ACTINIDIA_CHINENSIS")
-        
+
+        for result in filtered_results:
+            self.assertEqual(result.primary_organism_name, "ACTINIDIA_CHINENSIS")
 
 
     def test_compendia_search_with_invalid_filters(self):

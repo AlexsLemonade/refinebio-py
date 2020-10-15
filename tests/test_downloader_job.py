@@ -111,10 +111,18 @@ class DownloaderJobTests(unittest.TestCase, CustomAssertions):
 
 
     def test_downloader_job_search_with_filters(self):
-        non_filtered_results = pyrefinebio.DownloaderJob.search()
-        filtered_results = pyrefinebio.DownloaderJob.search(retried=True)
+        filtered_results = pyrefinebio.DownloaderJob.search(
+            success=True,
+            retried=True,
+            num_retries=1,
+            downloader_task="GEO"
+        )
 
-        self.assertTrue(len(list(filtered_results)) < len(list(non_filtered_results)))
+        for result in filtered_results:
+            self.assertTrue(result.success)
+            self.assertTrue(result.retried)
+            self.assertEqual(result.num_retries, 1)
+            self.assertEqual(result.downloader_task, "GEO")
 
 
     def test_downloader_job_search_with_invalid_filters(self):

@@ -341,6 +341,14 @@ class SampleTests(unittest.TestCase, CustomAssertions):
         self.assertEqual(len(mock_request.call_args_list), 2)
 
 
+    def test_sample_search_with_filters(self):
+        filtered_results = pyrefinebio.Sample.search(organism=258, has_raw=True)
+
+        for result in filtered_results:
+            self.assertEqual(result.organism.name, "MUS")
+            self.assertTrue(result.has_raw)
+
+
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_sample_get_experiments(self, mock_request):
         result = pyrefinebio.Sample.get("SRR5445147")

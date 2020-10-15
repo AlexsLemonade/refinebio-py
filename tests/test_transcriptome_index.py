@@ -94,3 +94,15 @@ class TranscriptomeIndexTests(unittest.TestCase, CustomAssertions):
         self.assertObject(result_list[1], index_2)
 
         self.assertEqual(len(mock_request.call_args_list), 2)
+
+    def test_transcriptome_index_search_with_filters(self):
+        filtered_results = pyrefinebio.TranscriptomeIndex.search(
+            index_type="TRANSCRIPTOME_SHORT",
+            salmon_version="salmon 0.13.1",
+            organism__name="CYPRINUS_CARPIO"
+        )
+
+        for result in filtered_results:
+            self.assertEqual(result.index_type, "TRANSCRIPTOME_SHORT")
+            self.assertEqual(result.salmon_version, "salmon 0.13.1")
+            self.assertEqual(result.organism_name, "CYPRINUS_CARPIO")

@@ -187,7 +187,11 @@ class ExperimentTests(unittest.TestCase, CustomAssertions):
 
 
     def test_experiments_search_with_filters(self):
-        pass
+        filtered_results = pyrefinebio.Experiment.search(num_downloadable_samples=20, has_publication="true") #TODO: investigate why True breaks this endpoint
+
+        for result in filtered_results:
+            self.assertEqual(result.num_downloadable_samples, 20)
+            self.assertTrue(result.has_publication)
 
 
     #TODO: validate filters on search endpoint

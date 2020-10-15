@@ -74,7 +74,7 @@ class TranscriptomeIndex:
 
             offset (int): The initial index from which to return the results.
 
-            organism_name (str): Organism name. Eg. MUS_MUSCULUS
+            organism__name (str): Organism name. Eg. MUS_MUSCULUS
 
             length (str): Short hand for index_type Eg. short or long
         """

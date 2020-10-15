@@ -179,7 +179,10 @@ class ComputationalResultTests(unittest.TestCase, CustomAssertions):
 
 
     def test_computational_result_search_with_filters(self):
-        pass
+        filtered_results = pyrefinebio.ComputationalResult.search(processor__id=12)
+
+        for result in filtered_results:
+            self.assertEqual(result.processor.id, 12)
 
 
     def test_computational_result_search_with_invalid_filters(self):

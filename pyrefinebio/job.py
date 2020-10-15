@@ -80,9 +80,9 @@ class DownloaderJob:
             
             num_retries (int):
 
-            retried (str):
+            retried (bool):
             
-            was_recreated (str):
+            was_recreated (bool):
             
             worker_id (str):
             
@@ -92,7 +92,7 @@ class DownloaderJob:
             
             failure_reason (str):
             
-            success (str):
+            success (bool):
             
             original_files (str):
             

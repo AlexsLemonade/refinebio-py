@@ -224,7 +224,11 @@ class ComputedFileTests(unittest.TestCase, CustomAssertions):
 
 
     def test_computed_file_search_with_filters(self):
-        pass
+        filtered_results = pyrefinebio.ComputedFile.search(is_compendia=True, quant_sf_only=False)
+
+        for result in filtered_results:
+            self.assertTrue(result.is_compendia)
+            self.assertFalse(result.quant_sf_only)
 
 
     def test_computed_file_search_with_invalid_filters(self):

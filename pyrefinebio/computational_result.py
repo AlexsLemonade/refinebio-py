@@ -71,7 +71,7 @@ class ComputationalResult:
 
         parameters:
 
-            processor_id (int): 
+            processor__id (int): 
 
             limit (int): Number of results to return per page.
 

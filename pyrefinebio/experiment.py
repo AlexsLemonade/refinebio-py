@@ -109,7 +109,7 @@ class Experiment:
 
             technology (str): Allows filtering the results by technology, can have multiple values. Eg: ?technology=microarray&technology=rna-seq
 
-            has_publication (str): Filter the results that have associated publications with ?has_publication=true
+            has_publication (bool): Filter the results that have associated publications with ?has_publication=true
 
             accession_code (str): Allows filtering the results by accession code, can have multiple values. Eg: ?accession_code=microarray&accession_code=rna-seq
 
