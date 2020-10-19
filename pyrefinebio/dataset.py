@@ -1,3 +1,4 @@
+from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint
 
 
 class Dataset:
@@ -65,11 +66,32 @@ class Dataset:
         quant_sf_only=None,
         svd_algorithm=None
     ):
-        pass
+        body = {}
+        body["data"] = data
+        if aggregate_by:
+            body["aggregate_by"] = aggregate_by
+        if scale_by:
+            body["scale_by"] = scale_by
+        if email_address:
+            body["email_address"] = email_address
+        if email_ccdl_ok:
+            body["email_ccdl_ok"] = email_ccdl_ok
+        if start:
+            body["start"] = start
+        if quantile_normalize:
+            body["quantile_normalize"] = quantile_normalize
+        if quant_sf_only:
+            body["quant_sf_only"] = quant_sf_only
+        if svd_algorithm:
+            body["svd_algorithm"] = svd_algorithm
+            
+        response = post_by_endpoint("dataset", payload=body)
+        return Dataset(**response)
 
     @classmethod
     def get(cls, id):
-        pass
+        response = get_by_endpoint("dataset/" + id)
+        return Dataset(**response)
 
     def update(
         self,
@@ -83,7 +105,27 @@ class Dataset:
         quant_sf_only=None,
         svd_algorithm=None
     ):
-        pass
+        body = {}
+        body["data"] = data
+        if aggregate_by:
+            body["aggregate_by"] = aggregate_by
+        if scale_by:
+            body["scale_by"] = scale_by
+        if email_address:
+            body["email_address"] = email_address
+        if email_ccdl_ok:
+            body["email_ccdl_ok"] = email_ccdl_ok
+        if start:
+            body["start"] = start
+        if quantile_normalize:
+            body["quantile_normalize"] = quantile_normalize
+        if quant_sf_only:
+            body["quant_sf_only"] = quant_sf_only
+        if svd_algorithm:
+            body["svd_algorithm"] = svd_algorithm
+
+        response = put_by_endpoint("dataset/" + self.id, payload=body)
+        return Dataset(**response)
 
     def process(self):
         pass

@@ -10,7 +10,7 @@ class BadRequest(Exception):
     base_message = "Bad Request"
     def __init__(self, message=None):
         if message:
-            self.base_message += ": " + message
+            self.base_message += ": " + str(message)
         super().__init__(self.base_message)
 
 class NotFound(Exception):

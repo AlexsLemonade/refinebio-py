@@ -1,6 +1,7 @@
 import logging
 import os
 import requests
+import json
 
 from .exceptions import ServerError, BadRequest, NotFound, InvalidFilters
 
@@ -11,7 +12,11 @@ base_url = os.getenv("BASE_URL") or "https://api.refine.bio/v1/"
 
 def request(method, url, params=None, payload=None):
     try:
-        response = requests.request(method, url, params=params, data=payload)
+        headers = {
+            "Content-Type": "application/json",
+            "API-KEY": None
+        }
+        response = requests.request(method, url, params=params, data=json.dumps(payload), headers=headers)
         response.raise_for_status()
         return response.json()
 
@@ -40,6 +45,7 @@ def request(method, url, params=None, payload=None):
             raise ServerError
 
         else:
+            print(response_body)
             raise Exception("An unexpected error has occured")
 
 

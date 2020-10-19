@@ -1,6 +1,7 @@
 from .compendia import Compendia
 from .computational_result import ComputationalResult
 from .computed_file import ComputedFile
+from .dataset import Dataset
 from .experiment import Experiment
 from .institution import Institution
 from .job import DownloaderJob, ProcessorJob, SurveyJob
