@@ -102,7 +102,7 @@ class ComputedFile:
 
             is_compendia (bool):
 
-            quant_sf_only (true):
+            quant_sf_only (bool):
 
             svd_algorithm (str):
 
