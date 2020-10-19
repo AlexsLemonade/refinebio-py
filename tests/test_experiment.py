@@ -2,8 +2,8 @@ import unittest
 import pyrefinebio
 from unittest.mock import Mock, patch
 
-from .custom_assertions import CustomAssertions
-from .mocks import MockResponse
+from tests.custom_assertions import CustomAssertions
+from tests.mocks import MockResponse
 
 experiment = {
     "id": 0,
@@ -142,10 +142,10 @@ def mock_request(method, url, **kwargs):
     if url == "https://api.refine.bio/v1/experiments/SRP150473/":
         return MockResponse(experiment, url)
 
-    if url == "https://api.refine.bio/v1/experiments/0/":
+    if url == "https://api.refine.bio/v1/experiments/bad-accession-code/":
         return MockResponse(None, url, status=404)
 
-    if url == "https://api.refine.bio/v1/experiments/500/":
+    if url == "https://api.refine.bio/v1/experiments/force-500-error/":
         return MockResponse(None, url, status=500)
 
     if url == "https://api.refine.bio/v1/search/":
@@ -165,13 +165,13 @@ class ExperimentTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_experiments_500(self, mock_request):
         with self.assertRaises(pyrefinebio.exceptions.ServerError):
-            pyrefinebio.Experiment.get(500)
+            pyrefinebio.Experiment.get("force-500-error")
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_experiments_get_404(self, mock_request):
         with self.assertRaises(pyrefinebio.exceptions.NotFound):
-            pyrefinebio.Experiment.get(0)
+            pyrefinebio.Experiment.get("bad-accession-code")
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
@@ -192,9 +192,3 @@ class ExperimentTests(unittest.TestCase, CustomAssertions):
         for result in filtered_results:
             self.assertEqual(result.num_downloadable_samples, 20)
             self.assertTrue(result.has_publication)
-
-
-    #TODO: validate filters on search endpoint
-    def test_experiments_search_with_invalid_filters(self):
-        with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):
-            pyrefinebio.Experiment.search(foo="bar")

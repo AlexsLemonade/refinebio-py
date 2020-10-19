@@ -3,8 +3,8 @@ import pyrefinebio
 import os
 from unittest.mock import Mock, mock_open, patch
 
-from .custom_assertions import CustomAssertions
-from .mocks import MockResponse
+from tests.custom_assertions import CustomAssertions
+from tests.mocks import MockResponse
 
 
 token = {

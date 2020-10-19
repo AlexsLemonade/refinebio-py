@@ -2,9 +2,9 @@ import unittest
 import pyrefinebio
 from unittest.mock import Mock, patch
 
-from .custom_assertions import CustomAssertions
-from .mocks import MockResponse
-from .test_experiment import experiment_search_result_1, experiment_search_result_2
+from tests.custom_assertions import CustomAssertions
+from tests.mocks import MockResponse
+from tests.test_experiment import experiment_search_result_1, experiment_search_result_2
 
 
 sample_1 = {

@@ -2,8 +2,8 @@ import unittest
 import pyrefinebio
 from unittest.mock import Mock, patch
 
-from .custom_assertions import CustomAssertions
-from .mocks import MockResponse
+from tests.custom_assertions import CustomAssertions
+from tests.mocks import MockResponse
 
 
 qn_target_organisms = [
