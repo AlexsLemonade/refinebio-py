@@ -25,7 +25,7 @@ class CustomAssertions:
             actual_value = getattr(actual, key)
 
             if type(value) is list:
-                if len(value) != len(getattr(actual, key)):
+                if len(value) != len(actual_value):
                     raise AssertionError(
                         "actual.{0} did not match expected value:\nexpected: {1} - length: {2}\nactual: {3} - length: {4}".format(
                             key,
