@@ -30,7 +30,7 @@ class Dataset:
         svd_algorithm=None
     ):
         self.id = id
-        self.data = data,
+        self.data = data
         self.aggregate_by = aggregate_by
         self.scale_by = scale_by
         self.is_processing = is_processing
@@ -128,10 +128,14 @@ class Dataset:
         return Dataset(**response)
 
     def process(self):
-        pass
+        response = self.update(self.data, start=True)
+        self.is_processing = resopnse.is_processing
 
     def check(self):
-        pass
+        resopnse = self.get(self.id)
+        self.is_processing = resopnse.is_processing
+        self.is_processed = resopnse.is_processed
+        return response.is_processed
 
     def download(self, path):
         pass

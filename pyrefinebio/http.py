@@ -35,7 +35,7 @@ def request(method, url, params=None, payload=None):
 
                 raise BadRequest(message)
 
-            except (ValueError, KeyError):
+            except (ValueError, KeyError, TypeError):
                 raise BadRequest(response_body)
         
         elif code == 404:
