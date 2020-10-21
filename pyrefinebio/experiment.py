@@ -1,12 +1,12 @@
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
-import pyrefinebio.common.annotation as prb_annotation
-import pyrefinebio.sample as prb_sample
+from pyrefinebio.common import annotation as prb_annotation
+from pyrefinebio import sample as prb_sample
 
 
 class Experiment:
-    """Experiment 
+    """Experiment
 
     Retrieve an experiment based on id
 
@@ -58,7 +58,9 @@ class Experiment:
         self.title = title
         self.description = description
         self.technology = technology
-        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
+        self.annotations = (
+            [prb_annotation.Annotation(**a) for a in annotations] if annotations else []
+        )
         self.samples = [prb_sample.Sample(**sample) for sample in samples] if annotations else []
         self.protocol_description = protocol_description
         self.accession_code = accession_code
@@ -113,8 +115,8 @@ class Experiment:
 
             accession_code (str): Allows filtering the results by accession code, can have multiple values. Eg: ?accession_code=microarray&accession_code=rna-seq
 
-            alternate_accession_code (str): 
-            
+            alternate_accession_code (str):
+
             platform (str): Allows filtering the results by platform, this parameter can have multiple values.
 
             organism (str): Allows filtering the results by organism, this parameter can have multiple values.
@@ -123,7 +125,7 @@ class Experiment:
 
             num_downloadable_samples (int):
 
-            sample_keywords (str): 
+            sample_keywords (str):
 
             ordering (str): Which field from to use when ordering the results.
 

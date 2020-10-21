@@ -1,3 +1,4 @@
+from pyrefinebio.common import Annotation, OrganismIndex
 from pyrefinebio.compendia import Compendia
 from pyrefinebio.computational_result import ComputationalResult
 from pyrefinebio.computed_file import ComputedFile
@@ -13,8 +14,4 @@ from pyrefinebio.sample import Sample
 from pyrefinebio.token import Token
 from pyrefinebio.transcriptome_index import TranscriptomeIndex
 
-from pyrefinebio.exceptions import (
-    ServerError,
-    BadRequest,
-    InvalidFilters
-)
+from pyrefinebio.exceptions import ServerError, BadRequest, InvalidFilters

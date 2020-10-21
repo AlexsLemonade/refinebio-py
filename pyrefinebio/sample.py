@@ -1,8 +1,7 @@
-import pyrefinebio.common.annotation as prb_annotation
-import pyrefinebio.computational_result as prb_computational_result
-import pyrefinebio.experiment as prb_experiment
-import pyrefinebio.organism as prb_organism
-import pyrefinebio.processor as prb_processor
+from pyrefinebio.common import annotation as prb_annotation
+from pyrefinebio import computational_result as prb_computational_result
+from pyrefinebio import experiment as prb_experiment
+from pyrefinebio import organism as prb_organism
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
@@ -72,8 +71,16 @@ class Sample:
         self.technology = technology
         self.manufacturer = manufacturer
         self.protocol_info = protocol_info
-        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
-        self.results = [prb_computational_result.ComputationalResult(**result) for result in results] if results else []
+        self.annotations = (
+            [prb_annotation.Annotation(**annotation) for annotation in annotations]
+            if annotations
+            else []
+        )
+        self.results = (
+            [prb_computational_result.ComputationalResult(**result) for result in results]
+            if results
+            else []
+        )
         self.source_archive_url = source_archive_url
         self.has_raw = has_raw
         self.sex = sex
@@ -125,7 +132,7 @@ class Sample:
     @classmethod
     def search(cls, **kwargs):
         """Retrieve a list of samples based on various filters
-        
+
         returns: list of samples.
 
         Parameters:
