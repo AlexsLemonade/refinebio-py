@@ -1,8 +1,7 @@
-import pyrefinebio.common.annotation as prb_annotation
-import pyrefinebio.computational_result as prb_computational_result
-import pyrefinebio.experiment as prb_experiment
-import pyrefinebio.organism as prb_organism
-import pyrefinebio.processor as prb_processor
+from pyrefinebio.common import annotation as prb_annotation
+from pyrefinebio import computational_result as prb_computational_result
+from pyrefinebio import experiment as prb_experiment
+from pyrefinebio import organism as prb_organism
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
@@ -23,37 +22,6 @@ class Sample:
         >>> import pyrefinebio
         >>> samples = pyrefinebio.Sample.search(is_processed=True, specimen_part="soft-tissue sarcoma")
     """
-
-    valid_filters = [
-        "ordering",
-        "title",
-        "organism",
-        "source_database",
-        "source_archive_url",
-        "has_raw",
-        "platform_name",
-        "technology",
-        "manufacturer",
-        "sex",
-        "age",
-        "specimen_part",
-        "genotype",
-        "disease",
-        "disease_stage",
-        "cell_line",
-        "treatment",
-        "race",
-        "subject",
-        "compound",
-        "time",
-        "is_processed",
-        "is_public",
-        "limit",
-        "offset",
-        "dataset_id",
-        "experiment_accession_code",
-        "accession_codes",
-    ]
 
     def __init__(
         self=None,
@@ -96,15 +64,23 @@ class Sample:
         self.title = title
         self.accession_code = accession_code
         self.source_database = source_database
-        self.organism = organism.Organism(**(organism)) if organism else None
+        self.organism = prb_organism.Organism(**(organism)) if organism else None
         self.platform_accession_code = platform_accession_code
         self.platform_name = platform_name
         self.pretty_platform = pretty_platform
         self.technology = technology
         self.manufacturer = manufacturer
         self.protocol_info = protocol_info
-        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
-        self.results = [prb_computational_result.ComputationalResult(**result) for result in results] if results else []
+        self.annotations = (
+            [prb_annotation.Annotation(**annotation) for annotation in annotations]
+            if annotations
+            else []
+        )
+        self.results = (
+            [prb_computational_result.ComputationalResult(**result) for result in results]
+            if results
+            else []
+        )
         self.source_archive_url = source_archive_url
         self.has_raw = has_raw
         self.sex = sex
@@ -131,7 +107,7 @@ class Sample:
     def experiments(self):
         if not self._experiments:
             self._experiments = prb_experiment.Experiment.search(
-                accession_code=self.experiment_accession_codes
+                accession_codes=self.experiment_accession_codes
             )
 
         return self._experiments
@@ -156,7 +132,7 @@ class Sample:
     @classmethod
     def search(cls, **kwargs):
         """Retrieve a list of samples based on various filters
-        
+
         returns: list of samples.
 
         Parameters:
@@ -198,15 +174,5 @@ class Sample:
                                              separated by commas and the endpoint will
                                              only return information about these samples.
         """
-        invalid_filters = []
-
-        for filter in kwargs.keys():
-            if filter not in cls.valid_filters:
-                invalid_filters.append(filter)
-
-        if invalid_filters:
-            raise Exception("You supplied invalid filters - {0}".format(invalid_filters))
-
         result = get_by_endpoint("samples", params=kwargs)
-
         return generator_from_pagination(result, cls)

@@ -24,7 +24,8 @@ class TranscriptomeIndex:
         id=None,
         assembly_name=None,
         organism_name=None,
-        source_version=None,
+        database_name=None,
+        release_version=None,
         index_type=None,
         salmon_version=None,
         download_url=None,
@@ -34,7 +35,8 @@ class TranscriptomeIndex:
         self.id = id
         self.assembly_name = assembly_name
         self.organism_name = organism_name
-        self.source_version = source_version
+        self.database_name = database_name
+        self.release_version = release_version
         self.index_type = index_type
         self.salmon_version = salmon_version
         self.download_url = download_url
@@ -51,7 +53,7 @@ class TranscriptomeIndex:
 
             id (int): the id for the transcriptome index you want to get
         """
-        response = get_by_endpoint("transhriptome_indices/" + id)
+        response = get_by_endpoint("transcriptome_indices/" + str(id))
         return TranscriptomeIndex(**response)
 
     @classmethod
@@ -72,9 +74,9 @@ class TranscriptomeIndex:
 
             offset (int): The initial index from which to return the results.
 
-            organism_name (str): Organism name. Eg. MUS_MUSCULUS
+            organism__name (str): Organism name. Eg. MUS_MUSCULUS
 
             length (str): Short hand for index_type Eg. short or long
         """
-        response = get_by_endpoint("transhriptome_indices", params=kwargs)
+        response = get_by_endpoint("transcriptome_indices", params=kwargs)
         return generator_from_pagination(response, cls)

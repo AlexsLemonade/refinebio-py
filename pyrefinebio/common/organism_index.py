@@ -4,7 +4,9 @@ class OrganismIndex:
         id=None,
         assembly_name=None,
         organism_name=None,
+        database_name=None,
         source_version=None,
+        release_version=None,
         index_type=None,
         salmon_version=None,
         download_url=None,
@@ -14,7 +16,9 @@ class OrganismIndex:
         self.id = id
         self.assembly_name = assembly_name
         self.organism_name = organism_name
+        self.database_name = database_name
         self.source_version = source_version
+        self.release_version = release_version
         self.index_type = index_type
         self.salmon_version = salmon_version
         self.download_url = download_url

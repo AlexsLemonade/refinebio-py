@@ -48,12 +48,14 @@ class Token:
                              you want to activate.
         """
 
-        response = put_by_endpoint("token" + api_token, payload={"is_activated": True})
+        response = put_by_endpoint("token/" + api_token, payload={"is_activated": True})
         return response
 
     @classmethod
     def save_token(
-        cls, api_token, file_path=os.getenv("CONFIG_FILE", str(Path.home()) + "/.refinebio.yaml")
+        cls,
+        api_token,
+        file_path=os.getenv("CONFIG_FILE", str(Path.home()) + "/.refinebio.yaml")
     ):
         """Saves a token to a file.
 

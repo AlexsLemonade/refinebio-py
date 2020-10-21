@@ -1,10 +1,11 @@
-import pyrefinebio.computed_file as prb_computed_file
+from pyrefinebio import computed_file as prb_computed_file
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
 
 class Compendia:
-    """Compendia 
+    """Compendia
 
     Retrieve a compendium result based on id
 
@@ -36,7 +37,9 @@ class Compendia:
         self.svd_algorithm = svd_algorithm
         self.quant_sf_only = quant_sf_only
         self.compendium_version = compendium_version
-        self.computed_file = prb_computed_file.ComputedFile(**(computed_file)) if computed_file else None
+        self.computed_file = (
+            prb_computed_file.ComputedFile(**(computed_file)) if computed_file else None
+        )
 
     @classmethod
     def get(cls, id):

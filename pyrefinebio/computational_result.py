@@ -1,14 +1,14 @@
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
-import pyrefinebio.common.annotation as prb_annotation
-import pyrefinebio.common.organism_index as prb_organism_index
-import pyrefinebio.computed_file as prb_computed_file
-import pyrefinebio.processor as prb_processor
+from pyrefinebio.common import annotation as prb_annotation
+from pyrefinebio.common import organism_index as prb_organism_index
+from pyrefinebio import computed_file as prb_computed_file
+from pyrefinebio import processor as prb_processor
 
 
 class ComputationalResult:
-    """Computational Result 
+    """Computational Result
 
     Retrieve a computational result based on id
 
@@ -42,9 +42,15 @@ class ComputationalResult:
         self.commands = commands
         self.processor = prb_processor.Processor(**(processor)) if processor else None
         self.is_ccdl = is_ccdl
-        self.annotations = [prb_annotation.Annotation(**annotation) for annotation in annotations] if annotations else []
+        self.annotations = (
+            [prb_annotation.Annotation(**annotation) for annotation in annotations]
+            if annotations
+            else []
+        )
         self.files = [prb_computed_file.ComputedFile(**file) for file in files] if files else []
-        self.organism_index = prb_organism_index.OrganismIndex(**(organism_index)) if organism_index else None
+        self.organism_index = (
+            prb_organism_index.OrganismIndex(**(organism_index)) if organism_index else None
+        )
         self.time_start = time_start
         self.time_end = time_end
         self.created_at = created_at
@@ -71,7 +77,7 @@ class ComputationalResult:
 
         parameters:
 
-            processor_id (int): 
+            processor__id (int):
 
             limit (int): Number of results to return per page.
 
