@@ -3,7 +3,12 @@ import os
 import requests
 import json
 
-from .exceptions import ServerError, BadRequest, NotFound, InvalidFilters
+from pyrefinebio.exceptions import (
+    ServerError,
+    BadRequest,
+    NotFound,
+    InvalidFilters
+)
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +47,7 @@ def request(method, url, params=None, payload=None):
             raise NotFound(response.url)
 
         elif code == 500:
-            raise ServerError
+            raise ServerError()
 
         else:
             print(response_body)

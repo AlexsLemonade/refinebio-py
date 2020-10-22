@@ -1,11 +1,8 @@
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
-import pyrefinebio.common.annotation as prb_annotation
-import pyrefinebio.common.organism_index as prb_organism_index
-import pyrefinebio.computational_result as prb_computational_result
-import pyrefinebio.processor as prb_processor
-import pyrefinebio.sample as prb_sample
+from pyrefinebio import computational_result as prb_computational_result
+from pyrefinebio import sample as prb_sample
 
 
 class ComputedFile:
@@ -102,7 +99,7 @@ class ComputedFile:
 
             is_compendia (bool):
 
-            quant_sf_only (true):
+            quant_sf_only (bool):
 
             svd_algorithm (str):
 
