@@ -26,3 +26,9 @@ class Config:
                 cls.token = config["token"] or ""
 
         return cls._instance
+
+    def save(self, key, value):
+        with open(self.config_file) as config_file:
+            config = yaml.full_load(config_file)
+            config["key"] = value
+            yaml.dump(config, config_file)

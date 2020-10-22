@@ -129,12 +129,12 @@ class Dataset:
 
     def process(self):
         response = self.update(self.data, start=True)
-        self.is_processing = resopnse.is_processing
+        self.is_processing = response.is_processing
 
     def check(self):
-        resopnse = self.get(self.id)
-        self.is_processing = resopnse.is_processing
-        self.is_processed = resopnse.is_processed
+        response = self.get(self.id)
+        self.is_processing = response.is_processing
+        self.is_processed = response.is_processed
         return response.is_processed
 
     def download(self, path):
