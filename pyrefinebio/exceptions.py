@@ -23,3 +23,8 @@ class InvalidFilters(Exception):
     base_message = "You have provided invalid filters: {0}"
     def __init__(self, invalid_filters):
         super().__init__(self.base_message.format(invalid_filters))
+
+class DownloadError(Exception):
+    base_message = "Unable to download dataset"
+    def __init__(self, invalid_filters):
+        super().__init__(self.base_message)

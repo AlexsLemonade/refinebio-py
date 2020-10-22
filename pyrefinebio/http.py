@@ -3,6 +3,7 @@ import os
 import requests
 import json
 
+from pyrefinebio.config import Config
 from pyrefinebio.exceptions import (
     ServerError,
     BadRequest,
@@ -12,17 +13,22 @@ from pyrefinebio.exceptions import (
 
 logger = logging.getLogger(__name__)
 
-base_url = os.getenv("BASE_URL") or "https://api.refine.bio/v1/"
+config = Config()
 
 
 def request(method, url, params=None, payload=None):
     try:
         headers = {
             "Content-Type": "application/json",
-            "API-KEY": None
+            "API-KEY": config.token
         }
-        response = requests.request(method, url, params=params, data=json.dumps(payload), headers=headers)
+
+        if payload:
+            payload = json.dumps(payload)
+
+        response = requests.request(method, url, params=params, data=payload, headers=headers)
         response.raise_for_status()
+
         return response.json()
 
     except requests.exceptions.HTTPError:
@@ -67,15 +73,18 @@ def put(url, payload=None):
 
 
 def get_by_endpoint(endpoint, params=None):
-    url = base_url + endpoint + "/"
+    url = config.base_url + endpoint + "/"
     return get(url, params=params)
 
 
 def post_by_endpoint(endpoint, payload=None):
-    url = base_url + endpoint + "/"
+    url = config.base_url + endpoint + "/"
     return post(url, payload=payload)
 
 
 def put_by_endpoint(endpoint, payload=None):
-    url = base_url + endpoint + "/"
+    url = config.base_url + endpoint + "/"
     return put(url, payload=payload)
+
+def download(url):
+    return requests.get(url)

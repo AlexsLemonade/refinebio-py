@@ -1,5 +1,5 @@
-from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint
-
+from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download
+from pyrefinebio.exceptions import DownloadError
 
 class Dataset:
 
@@ -27,7 +27,8 @@ class Dataset:
         sha1=None,
         quantile_normalize=None,
         quant_sf_only=None,
-        svd_algorithm=None
+        svd_algorithm=None,
+        download_url=None
     ):
         self.id = id
         self.data = data
@@ -52,6 +53,7 @@ class Dataset:
         self.quantile_normalize = quantile_normalize
         self.quant_sf_only = quant_sf_only
         self.svd_algorithm = svd_algorithm
+        self.download_url = download_url
 
     @classmethod
     def create(
@@ -127,8 +129,8 @@ class Dataset:
         response = put_by_endpoint("dataset/" + self.id, payload=body)
         return Dataset(**response)
 
-    def process(self):
-        response = self.update(self.data, start=True)
+    def process(self, email_address):
+        response = self.update(self.data, start=True, email_address=email_address)
         self.is_processing = response.is_processing
 
     def check(self):
@@ -138,4 +140,12 @@ class Dataset:
         return response.is_processed
 
     def download(self, path):
-        pass
+        download_url = self.download_url or self.get(self.id).download_url
+
+        if not download_url:
+            raise DownloadError()
+
+        response = download(download_url)
+
+        with open(path, "wb") as f:
+            f.write(response.content)

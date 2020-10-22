@@ -15,4 +15,12 @@ from pyrefinebio.sample import Sample
 from pyrefinebio.token import Token
 from pyrefinebio.transcriptome_index import TranscriptomeIndex
 
-from pyrefinebio.exceptions import ServerError, BadRequest, InvalidFilters
+from pyrefinebio.exceptions import (
+    ServerError,
+    BadRequest,
+    InvalidFilters,
+    NotFound,
+    DownloadError
+)
+
+from pyrefinebio.config import Config

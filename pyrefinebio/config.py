@@ -1,4 +1,3 @@
-# WIP
 import os
 from pathlib import Path
 
@@ -23,12 +22,18 @@ class Config:
 
             with open(cls.config_file) as config_file:
                 config = yaml.full_load(config_file)
-                cls.token = config["token"] or ""
+                cls.token = config.get("token") or ""
+                cls.base_url = os.getenv("BASE_URL") or config.get("base_url") or "https://api.refine.bio/v1/"
 
         return cls._instance
 
     def save(self, key, value):
-        with open(self.config_file) as config_file:
+        config = {}
+        with open(self.config_file, "r") as config_file:
             config = yaml.full_load(config_file)
-            config["key"] = value
+
+        config[key] = value
+        setattr(self._instance, key, value)
+
+        with open(self.config_file, "w") as config_file:
             yaml.dump(config, config_file)
