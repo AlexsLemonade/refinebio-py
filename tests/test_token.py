@@ -34,7 +34,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.config.yaml")
     @patch("pyrefinebio.config.open")
     def test_token_save(self, mock_open, mock_yaml):
-        os.environ["CONFIG_FILE"] = "test"
+        os.environ["CONFIG_FILE"] = "./test"
         mock_open.return_value.__enter__.return_value = "file"
 
         pyrefinebio.Token.save_token("123456789")
@@ -43,14 +43,23 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         mock_yaml.assert_called_with({"token": "123456789"}, "file")
 
 
+    @patch("pyrefinebio.config.Config.config_file")
+    def test_token_save_creates_file(self, mock_config_file):
+        mock_config_file.return_value = "./temp"
+
+        if os.path.exists("./temp"):
+            os.remove("./temp")
+
+        os.environ["CONFIG_FILE"] = "./temp"
+
+        pyrefinebio.Token.save_token("123456789")
+
+        self.assertTrue(os.path.exists("./temp"))
+
+
     @patch("pyrefinebio.config.yaml.full_load")
     @patch("pyrefinebio.config.open")
-    def test_token_get(self, mock_open, mock_load, mock_exists):
-
+    def test_token_get(self, mock_open, mock_load):
+        mock_load.return_value = {"token": "123456789"}
         token = pyrefinebio.Token.get_token()
         print(token)
-
-
-    def test_token_load_bad_file(self):
-        with self.assertRaises(Exception):
-            token = pyrefinebio.Token.load_token("bad_file")

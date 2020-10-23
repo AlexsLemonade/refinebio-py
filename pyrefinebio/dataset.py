@@ -31,7 +31,7 @@ class Dataset:
         download_url=None
     ):
         self.id = id
-        self.data = data
+        self.data = data 
         self.aggregate_by = aggregate_by
         self.scale_by = scale_by
         self.is_processing = is_processing
@@ -56,81 +56,40 @@ class Dataset:
         self.download_url = download_url
 
     @classmethod
-    def create(
-        cls,
-        data,
-        aggregate_by=None,
-        scale_by=None,
-        email_address=None,
-        email_ccdl_ok=None,
-        start=None,
-        quantile_normalize=None,
-        quant_sf_only=None,
-        svd_algorithm=None
-    ):
-        body = {}
-        body["data"] = data
-        if aggregate_by:
-            body["aggregate_by"] = aggregate_by
-        if scale_by:
-            body["scale_by"] = scale_by
-        if email_address:
-            body["email_address"] = email_address
-        if email_ccdl_ok:
-            body["email_ccdl_ok"] = email_ccdl_ok
-        if start:
-            body["start"] = start
-        if quantile_normalize:
-            body["quantile_normalize"] = quantile_normalize
-        if quant_sf_only:
-            body["quant_sf_only"] = quant_sf_only
-        if svd_algorithm:
-            body["svd_algorithm"] = svd_algorithm
-            
-        response = post_by_endpoint("dataset", payload=body)
-        return Dataset(**response)
-
-    @classmethod
     def get(cls, id):
         response = get_by_endpoint("dataset/" + id)
         return Dataset(**response)
 
-    def update(
-        self,
-        data,
-        aggregate_by=None,
-        scale_by=None,
-        email_address=None,
-        email_ccdl_ok=None,
-        start=None,
-        quantile_normalize=None,
-        quant_sf_only=None,
-        svd_algorithm=None
-    ):
+    def save(self):
         body = {}
-        body["data"] = data
-        if aggregate_by:
-            body["aggregate_by"] = aggregate_by
-        if scale_by:
-            body["scale_by"] = scale_by
-        if email_address:
-            body["email_address"] = email_address
-        if email_ccdl_ok:
-            body["email_ccdl_ok"] = email_ccdl_ok
-        if start:
-            body["start"] = start
-        if quantile_normalize:
-            body["quantile_normalize"] = quantile_normalize
-        if quant_sf_only:
-            body["quant_sf_only"] = quant_sf_only
-        if svd_algorithm:
-            body["svd_algorithm"] = svd_algorithm
+        body["data"] = self.data
+        if self.aggregate_by:
+            body["aggregate_by"] = self.aggregate_by
+        if self.scale_by:
+            body["scale_by"] = self.scale_by
+        if self.email_address:
+            body["email_address"] = self.email_address
+        if self.email_ccdl_ok:
+            body["email_ccdl_ok"] = self.email_ccdl_ok
+        if self.start:
+            body["start"] = self.start
+        if self.quantile_normalize:
+            body["quantile_normalize"] = self.quantile_normalize
+        if self.quant_sf_only:
+            body["quant_sf_only"] = self.quant_sf_only
+        if self.svd_algorithm:
+            body["svd_algorithm"] = self.svd_algorithm
 
-        response = put_by_endpoint("dataset/" + self.id, payload=body)
+        if self.id:
+            response = put_by_endpoint("dataset/" + self.id, payload=body)
+        else:
+            response = post_by_endpoint("dataset", payload=body)
+
         return Dataset(**response)
 
-    def process(self, email_address):
-        response = self.update(self.data, start=True, email_address=email_address)
+    def process(self):
+        self.start = True
+        response = self.save()
         self.is_processing = response.is_processing
 
     def check(self):

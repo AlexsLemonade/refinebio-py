@@ -16,21 +16,25 @@ class Config:
                 os.getenv("CONFIG_FILE") or str(Path.home()) + "/.refinebio.yaml"
             )
 
-            if not os.path.exists(cls.config_file):
-                with open(cls.config_file, 'w'): pass
+            config = {}
 
+            if os.path.exists(cls.config_file):
+                with open(cls.config_file) as config_file:
+                    config = yaml.full_load(config_file) or {}
 
-            with open(cls.config_file) as config_file:
-                config = yaml.full_load(config_file)
-                cls.token = config.get("token") or ""
-                cls.base_url = os.getenv("BASE_URL") or config.get("base_url") or "https://api.refine.bio/v1/"
+            cls.token = config.get("token") or ""
+            cls.base_url = os.getenv("BASE_URL") or config.get("base_url") or "https://api.refine.bio/v1/"
 
         return cls._instance
 
     def save(self, key, value):
+        if not os.path.exists(self.config_file):
+            with open(self.config_file, 'w'): pass
+
         config = {}
+
         with open(self.config_file, "r") as config_file:
-            config = yaml.full_load(config_file)
+            config = yaml.full_load(config_file) or {}
 
         config[key] = value
         setattr(self._instance, key, value)
