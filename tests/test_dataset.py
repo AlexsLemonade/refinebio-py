@@ -16,7 +16,7 @@ dataset = {
     },
     "aggregate_by": "EXPERIMENT",
     "scale_by": "NONE",
-    "is_processing": False,
+    "is_processing": True,
     "is_processed": True,
     "is_available": True,
     "has_email": True,
@@ -36,6 +36,7 @@ dataset = {
     "svd_algorithm": "NONE"
 }
 
+
 def mock_request(method, url, data, **kwargs):
 
     if url == "https://api.refine.bio/v1/dataset/test-dataset/":
@@ -51,6 +52,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
     def test_dataset_get(self, mock_request):
         result = pyrefinebio.Dataset.get("test-dataset")
         self.assertObject(result, dataset)
+
 
     @patch("pyrefinebio.dataset.post_by_endpoint")
     @patch("pyrefinebio.dataset.put_by_endpoint")
@@ -83,12 +85,38 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
             }
         )
 
-    def test_dataset_process(self):
+
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_dataset_process(self, mock_request):
         ds = pyrefinebio.Dataset(data={"test-experiment": ["sample-1", "sample-2"]}, email_address="test-email")
+        ds.process()
+
+        self.assertTrue(ds.start)
+        self.assertTrue(ds.is_processing)
 
 
-    def test_dataset_check(self):
-        pass
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_dataset_check(self, mock_request):
+        ds = pyrefinebio.Dataset(id="test-dataset")
+        is_done = ds.check()
 
-    def test_dataset_download(self):
-        pass
+        self.assertTrue(is_done)
+        self.assertTrue(ds.is_processing)
+        self.assertTrue(ds.is_processed)
+
+
+    @patch("pyrefinebio.http.shutil.copyfileobj")
+    @patch("pyrefinebio.http.open")
+    @patch("pyrefinebio.http.requests.get")
+    def test_dataset_download(self, mock_get, mock_open, mock_copy):
+        mr = MockResponse({}, "test")
+        setattr(mr, "raw", "raw")
+        mock_get.return_value.__enter__.return_value = mr
+        mock_open.return_value.__enter__.return_value = "file"
+
+        ds = pyrefinebio.Dataset(download_url="test")
+        ds.download("test")
+
+        mock_get.assert_called_with("test", stream=True)
+        mock_open.assert_called_with("test", "wb")
+        mock_copy.assert_called_with("raw", "file")

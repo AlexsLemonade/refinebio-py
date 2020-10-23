@@ -2,6 +2,7 @@ import logging
 import os
 import requests
 import json
+import shutil
 
 from pyrefinebio.config import Config
 from pyrefinebio.exceptions import (
@@ -86,5 +87,7 @@ def put_by_endpoint(endpoint, payload=None):
     url = config.base_url + endpoint + "/"
     return put(url, payload=payload)
 
-def download(url):
-    return requests.get(url)
+def download_file(url, path):
+    with requests.get(url, stream=True) as res:
+        with open(path, "wb") as f:
+            shutil.copyfileobj(res.raw, f)

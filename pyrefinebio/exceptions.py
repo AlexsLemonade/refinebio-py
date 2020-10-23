@@ -1,4 +1,3 @@
-
 class ServerError(Exception):
     base_message = "The server encountered an issue"
     def __init__(self, message=None):
@@ -6,12 +5,14 @@ class ServerError(Exception):
             self.base_message = message
         super().__init__(self.base_message)
 
+
 class BadRequest(Exception):
     base_message = "Bad Request"
     def __init__(self, message=None):
         if message:
             self.base_message += ": " + str(message)
         super().__init__(self.base_message)
+
 
 class NotFound(Exception):
     base_message = "The requested resource at {0} was not found"
@@ -24,7 +25,8 @@ class InvalidFilters(Exception):
     def __init__(self, invalid_filters):
         super().__init__(self.base_message.format(invalid_filters))
 
+
 class DownloadError(Exception):
     base_message = "Unable to download dataset"
-    def __init__(self, invalid_filters):
+    def __init__(self):
         super().__init__(self.base_message)

@@ -1,4 +1,4 @@
-from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download
+from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
 from pyrefinebio.exceptions import DownloadError
 
 class Dataset:
@@ -55,10 +55,12 @@ class Dataset:
         self.svd_algorithm = svd_algorithm
         self.download_url = download_url
 
+
     @classmethod
     def get(cls, id):
         response = get_by_endpoint("dataset/" + id)
         return Dataset(**response)
+
 
     def save(self):
         body = {}
@@ -87,10 +89,12 @@ class Dataset:
 
         return Dataset(**response)
 
+
     def process(self):
         self.start = True
         response = self.save()
         self.is_processing = response.is_processing
+
 
     def check(self):
         response = self.get(self.id)
@@ -98,13 +102,11 @@ class Dataset:
         self.is_processed = response.is_processed
         return response.is_processed
 
+
     def download(self, path):
         download_url = self.download_url or self.get(self.id).download_url
 
         if not download_url:
             raise DownloadError()
 
-        response = download(download_url)
-
-        with open(path, "wb") as f:
-            f.write(response.content)
+        download_file(download_url, path)
