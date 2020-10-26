@@ -30,6 +30,8 @@ class TokenTests(unittest.TestCase, CustomAssertions):
     def tearDownClass(cls):
         if os.path.exists("./temp"):
             os.remove("./temp")
+        
+        os.environ.pop("CONFIG_FILE", None)
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
