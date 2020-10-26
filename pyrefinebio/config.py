@@ -22,19 +22,17 @@ class Config:
                 with open(cls.config_file) as config_file:
                     config = yaml.full_load(config_file) or {}
 
-            cls.token = config.get("token") or ""
+            cls.token = config.get("token", "")
             cls.base_url = os.getenv("BASE_URL") or config.get("base_url") or "https://api.refine.bio/v1/"
 
         return cls._instance
 
     def save(self, key, value):
         if not os.path.exists(self.config_file):
-            with open(self.config_file, 'w'): pass
-
-        config = {}
-
-        with open(self.config_file, "r") as config_file:
-            config = yaml.full_load(config_file) or {}
+            config = {}
+        else:
+            with open(self.config_file, "r") as config_file:
+                config = yaml.full_load(config_file) or {}
 
         config[key] = value
         setattr(self._instance, key, value)

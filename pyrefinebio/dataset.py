@@ -87,6 +87,10 @@ class Dataset:
         else:
             response = post_by_endpoint("dataset", payload=body)
 
+        # add fields that aren't returned by the api
+        response["email_address"] = self.email_address
+        response["email_ccdl_ok"] = self.email_ccdl_ok
+
         return Dataset(**response)
 
 

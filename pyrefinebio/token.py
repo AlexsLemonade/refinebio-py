@@ -7,8 +7,6 @@ from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint
 from pyrefinebio.config import Config
 
 
-config = Config()
-
 class Token:
     """Handles the creation, activation, saving, and loading of api tokens.
 
@@ -66,6 +64,7 @@ class Token:
             api_token (str): the uuid string identifying the token
                              you want to save.
         """
+        config = Config()
         config.save("token", api_token)
 
     @classmethod
@@ -75,4 +74,5 @@ class Token:
         The default config file is ~/.refinebio.yaml, but
         you can use the environment variable `CONFIG_FILE` to change this path
         """
+        config = Config()
         return config.token

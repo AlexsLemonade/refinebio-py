@@ -22,5 +22,3 @@ from pyrefinebio.exceptions import (
     NotFound,
     DownloadError
 )
-
-from pyrefinebio.config import Config

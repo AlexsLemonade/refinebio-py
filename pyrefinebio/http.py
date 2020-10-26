@@ -1,4 +1,3 @@
-import logging
 import os
 import requests
 import json
@@ -12,13 +11,10 @@ from pyrefinebio.exceptions import (
     InvalidFilters
 )
 
-logger = logging.getLogger(__name__)
-
-config = Config()
-
 
 def request(method, url, params=None, payload=None):
     try:
+        config = Config()
         headers = {
             "Content-Type": "application/json",
             "API-KEY": config.token
@@ -74,16 +70,19 @@ def put(url, payload=None):
 
 
 def get_by_endpoint(endpoint, params=None):
+    config = Config()
     url = config.base_url + endpoint + "/"
     return get(url, params=params)
 
 
 def post_by_endpoint(endpoint, payload=None):
+    config = Config()
     url = config.base_url + endpoint + "/"
     return post(url, payload=payload)
 
 
 def put_by_endpoint(endpoint, payload=None):
+    config = Config()
     url = config.base_url + endpoint + "/"
     return put(url, payload=payload)
 
