@@ -1,4 +1,4 @@
-from pyrefinebio.common import Annotation, OrganismIndex
+from pyrefinebio.common import Annotation
 from pyrefinebio.compendia import Compendia
 from pyrefinebio.computational_result import ComputationalResult
 from pyrefinebio.computed_file import ComputedFile

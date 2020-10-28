@@ -1,6 +1,9 @@
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
 from pyrefinebio.exceptions import DownloadError
 
+from pyrefinebio.util import parse_date
+
+
 class Dataset:
 
     def __init__(
@@ -40,13 +43,13 @@ class Dataset:
         self.has_email = has_email
         self.email_address = email_address
         self.email_ccdl_ok = email_ccdl_ok
-        self.expires_on = expires_on
+        self.expires_on = parse_date(expires_on)
         self.s3_bucket = s3_bucket
         self.s3_key = s3_key
         self.success = success
         self.failure_reason = failure_reason
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
         self.start = start
         self.size_in_bytes = size_in_bytes
         self.sha1 = sha1

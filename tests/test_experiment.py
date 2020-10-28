@@ -83,7 +83,7 @@ experiment_search_result_1 = {
     "num_total_samples": 28706,
     "num_processed_samples": 0,
     "num_downloadable_samples": 0,
-    "source_first_published": "2018-11-02T00:00:00+00:00"
+    "source_first_published": "2018-05-31T00:00:00Z"
 }
 
 experiment_search_result_2 = {
@@ -120,7 +120,7 @@ experiment_search_result_2 = {
     "num_total_samples": 28706,
     "num_processed_samples": 0,
     "num_downloadable_samples": 0,
-    "source_first_published": "2018-11-02T00:00:00+00:00"
+    "source_first_published": "2018-05-31T00:00:00Z"
 }
 
 search_1 = {

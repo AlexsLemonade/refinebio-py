@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import generator_from_pagination, parse_date
 
 from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import sample as prb_sample
@@ -62,8 +62,8 @@ class ComputedFile:
         self.s3_key = s3_key
         self.s3_url = s3_url
         self.download_url = download_url
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
         self.result = prb_computational_result.ComputationalResult(**(result)) if result else None
 
     @classmethod

@@ -1,9 +1,10 @@
+from pyrefinebio.http import get_by_endpoint
+from pyrefinebio.util import generator_from_pagination, parse_date
+
 from pyrefinebio.common import annotation as prb_annotation
 from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import experiment as prb_experiment
 from pyrefinebio import organism as prb_organism
-from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
 
 
 class Sample:
@@ -96,8 +97,8 @@ class Sample:
         self.compound = compound
         self.time = time
         self.is_processed = is_processed
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
         self.original_files = original_files
         self.computed_files = computed_files
         self.experiment_accession_codes = experiment_accession_codes

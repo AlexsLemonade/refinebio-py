@@ -25,8 +25,8 @@ compendia_object_1 = {
         "sha1": "3c5de2dba42c2768e7542a0262d2b9a1e9fc9f45",
         "s3_bucket": "test-bucket",
         "s3_key": "test-compendia.zip",
-        "created_at": "2020-10-02:00:00.0Z",
-        "last_modified": "2020-10-02:00:00.0Z"
+        "created_at": "2020-10-02T00:00:00Z",
+        "last_modified": "2020-10-02T00:00:00Z"
     }
 }
 
@@ -49,8 +49,8 @@ compendia_object_2 = {
         "sha1": "3c5de2dba42c2768e7542a0262d2b9a1e9fc9f45",
         "s3_bucket": "test-bucket",
         "s3_key": "test-compendia-2.zip",
-        "created_at": "2020-10-05:00:00.0Z",
-        "last_modified": "2020-10-05:00:00.0Z"
+        "created_at": "2020-10-05T00:00:00Z",
+        "last_modified": "2020-10-05T00:00:00Z"
     }
 }
 
