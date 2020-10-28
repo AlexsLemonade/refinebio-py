@@ -1,8 +1,8 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import generator_from_pagination, parse_date
 
 from pyrefinebio.common import annotation as prb_annotation
-from pyrefinebio.common import organism_index as prb_organism_index
+from pyrefinebio import transcriptome_index as prb_transcriptome_index
 from pyrefinebio import computed_file as prb_computed_file
 from pyrefinebio import processor as prb_processor
 
@@ -49,12 +49,12 @@ class ComputationalResult:
         )
         self.files = [prb_computed_file.ComputedFile(**file) for file in files] if files else []
         self.organism_index = (
-            prb_organism_index.OrganismIndex(**(organism_index)) if organism_index else None
+            prb_transcriptome_index.TranscriptomeIndex(**(organism_index)) if organism_index else None
         )
-        self.time_start = time_start
-        self.time_end = time_end
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.time_start = parse_date(time_start)
+        self.time_end = parse_date(time_end)
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
 
     @classmethod
     def get(cls, id):

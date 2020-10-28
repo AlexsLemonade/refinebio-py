@@ -1,3 +1,6 @@
+from pyrefinebio.util import parse_date
+
+
 class Annotation:
     def __init__(
         self,
@@ -10,5 +13,5 @@ class Annotation:
         self.id = id
         self.data = data
         self.is_ccdl = is_ccdl
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)

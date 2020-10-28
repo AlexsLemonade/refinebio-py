@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import generator_from_pagination, parse_date
 
 
 class DownloaderJob:
@@ -48,10 +48,10 @@ class DownloaderJob:
         self.failure_reason = failure_reason
         self.success = success
         self.original_files = original_files
-        self.start_time = start_time
-        self.end_time = end_time
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.start_time = parse_date(start_time)
+        self.end_time = parse_date(end_time)
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
 
     @classmethod
     def get(cls, id):
@@ -168,10 +168,10 @@ class ProcessorJob:
         self.success = success
         self.original_files = original_files
         self.datasets = datasets
-        self.start_time = start_time
-        self.end_time = end_time
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.start_time = parse_date(start_time)
+        self.end_time = parse_date(end_time)
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
 
     @classmethod
     def get(cls, id):
@@ -272,10 +272,10 @@ class SurveyJob:
         self.id = id
         self.source_type = source_type
         self.success = success
-        self.start_time = start_time
-        self.end_time = end_time
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.start_time = parse_date(start_time)
+        self.end_time = parse_date(end_time)
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
 
     @classmethod
     def get(cls, id):

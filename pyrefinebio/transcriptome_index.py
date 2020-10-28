@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import generator_from_pagination, parse_date
 
 
 class TranscriptomeIndex:
@@ -41,7 +41,7 @@ class TranscriptomeIndex:
         self.salmon_version = salmon_version
         self.download_url = download_url
         self.result_id = result_id
-        self.last_modified = last_modified
+        self.last_modified = parse_date(last_modified)
 
     @classmethod
     def get(cls, id):

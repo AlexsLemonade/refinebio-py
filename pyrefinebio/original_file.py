@@ -1,7 +1,8 @@
+from pyrefinebio.http import get_by_endpoint
+from pyrefinebio.util import generator_from_pagination, parse_date
+
 import pyrefinebio.job as prb_job
 import pyrefinebio.sample as prb_sample
-from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
 
 
 class OriginalFile:
@@ -50,8 +51,8 @@ class OriginalFile:
         self.is_downloaded = is_downloaded
         self.is_archive = is_archive
         self.has_raw = has_raw
-        self.created_at = created_at
-        self.last_modified = last_modified
+        self.created_at = parse_date(created_at)
+        self.last_modified = parse_date(last_modified)
 
     @classmethod
     def get(cls, id):

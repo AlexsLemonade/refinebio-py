@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import generator_from_pagination, parse_date
 
 from pyrefinebio.common import annotation as prb_annotation
 from pyrefinebio import sample as prb_sample
@@ -72,13 +72,13 @@ class Experiment:
         self.publication_doi = publication_doi
         self.publication_authors = publication_authors
         self.pubmed_id = pubmed_id
-        self.source_first_published = source_first_published
-        self.source_last_modified = source_last_modified
+        self.source_first_published = parse_date(source_first_published)
+        self.source_last_modified = parse_date(source_last_modified)
         self.submitter_institution = submitter_institution
         self.platform_names = platform_names
         self.platform_accession_codes = platform_accession_codes
-        self.last_modified = last_modified
-        self.created_at = created_at
+        self.last_modified = parse_date(last_modified)
+        self.created_at = parse_date(created_at)
         self.organism_names = organism_names
         self.sample_metadata_fields = sample_metadata_fields
         self.sample_metadata = sample_metadata
