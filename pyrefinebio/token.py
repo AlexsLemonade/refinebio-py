@@ -4,6 +4,7 @@ from pathlib import Path
 
 import yaml
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint
+from pyrefinebio.config import Config
 
 
 class Token:
@@ -52,39 +53,26 @@ class Token:
         return response
 
     @classmethod
-    def save_token(
-        cls,
-        api_token,
-        file_path=os.getenv("CONFIG_FILE", str(Path.home()) + "/.refinebio.yaml")
-    ):
-        """Saves a token to a file.
+    def save_token(cls, api_token):
+        """Saves a token to the config file.
+
+        The default config file is ~/.refinebio.yaml, but
+        you can use the environment variable `CONFIG_FILE` to change this path
 
         parameters:
 
             api_token (str): the uuid string identifying the token
                              you want to save.
-            file_path (str): the path to the file where the token should be
-                             saved. Defaults to `~/.refinebio.yaml`. Alternatively
-                             you can set this path in an environment variable `CONFIG_FILE`.
         """
-
-        with open(file_path, "w") as file:
-            yaml.dump({"token": api_token}, file)
+        config = Config()
+        config.save("token", api_token)
 
     @classmethod
-    def load_token(cls, file_path=os.getenv("CONFIG_FILE", str(Path.home()) + "/.refinebio.yaml")):
-        """Loads a token from a file.
+    def get_token(cls):
+        """gets the token that's currently saved to the config file.
 
-        parameters:
-
-            file_path (str): the path to the file where the token should be
-                             loaded from. Defaults to `~/.refinebio.yaml`. Alternatively
-                             you can set this path in an environment variable `CONFIG_FILE`.
+        The default config file is ~/.refinebio.yaml, but
+        you can use the environment variable `CONFIG_FILE` to change this path
         """
-
-        if not os.path.exists(file_path):
-            raise Exception("Cannot load token - File {0} does not exist".format(file_path))
-
-        with open(file_path) as file:
-            tokens = yaml.full_load(file)
-            return tokens["token"]
+        config = Config()
+        return config.token

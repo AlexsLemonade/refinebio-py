@@ -1,7 +1,9 @@
-import logging
 import os
 import requests
+import json
+import shutil
 
+from pyrefinebio.config import Config
 from pyrefinebio.exceptions import (
     ServerError,
     BadRequest,
@@ -9,15 +11,21 @@ from pyrefinebio.exceptions import (
     InvalidFilters
 )
 
-logger = logging.getLogger(__name__)
-
-base_url = os.getenv("BASE_URL") or "https://api.refine.bio/v1/"
-
 
 def request(method, url, params=None, payload=None):
     try:
-        response = requests.request(method, url, params=params, data=payload)
+        config = Config()
+        headers = {
+            "Content-Type": "application/json",
+            "API-KEY": config.token
+        }
+
+        if payload:
+            payload = json.dumps(payload)
+
+        response = requests.request(method, url, params=params, data=payload, headers=headers)
         response.raise_for_status()
+
         return response.json()
 
     except requests.exceptions.HTTPError:
@@ -35,7 +43,7 @@ def request(method, url, params=None, payload=None):
 
                 raise BadRequest(message)
 
-            except (ValueError, KeyError):
+            except (ValueError, KeyError, TypeError):
                 raise BadRequest(response_body)
         
         elif code == 404:
@@ -45,6 +53,7 @@ def request(method, url, params=None, payload=None):
             raise ServerError()
 
         else:
+            print(response_body)
             raise Exception("An unexpected error has occured")
 
 
@@ -61,15 +70,23 @@ def put(url, payload=None):
 
 
 def get_by_endpoint(endpoint, params=None):
-    url = base_url + endpoint + "/"
+    config = Config()
+    url = config.base_url + endpoint + "/"
     return get(url, params=params)
 
 
 def post_by_endpoint(endpoint, payload=None):
-    url = base_url + endpoint + "/"
+    config = Config()
+    url = config.base_url + endpoint + "/"
     return post(url, payload=payload)
 
 
 def put_by_endpoint(endpoint, payload=None):
-    url = base_url + endpoint + "/"
+    config = Config()
+    url = config.base_url + endpoint + "/"
     return put(url, payload=payload)
+
+def download_file(url, path):
+    with requests.get(url, stream=True) as res:
+        with open(path, "wb") as f:
+            shutil.copyfileobj(res.raw, f)

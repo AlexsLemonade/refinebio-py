@@ -1,4 +1,3 @@
-
 class CustomAssertions:
 
     def assertObject(self, actual, expected):
