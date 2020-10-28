@@ -1,5 +1,5 @@
 from pyrefinebio.http import get
-from datetime import datetime
+from dateutil import parser
 
 
 def generator_from_pagination(response, T):
@@ -15,13 +15,8 @@ def generator_from_pagination(response, T):
             response = get(response["next"])
 
 def parse_date(date):
-    parsed = None
     try:
-        parsed = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%fZ")
-    except:
-        try:
-            parsed = datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
-        except:
-            pass
-    
-    return parsed
+        parsed = None
+        parsed = parser.isoparse(date)
+    finally:
+        return parsed
