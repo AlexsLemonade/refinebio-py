@@ -85,37 +85,39 @@ class ComputedFile:
 
         returns: list of ComputedFile
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the computed file
 
-            samples (str):
+            samples (str): filter based on the accession code for samples related to the computed file
 
-            is_qn_target (bool):
+            is_qn_target (bool): filters based on if the computed file is a qn target
 
-            is_smashable (bool):
+            is_smashable (bool): filters based on if the computed file is smashable
 
-            is_qc (bool):
+            is_qc (bool): filters based on if the computed file contains data about 
+                          the quality control of a result rather than data about the
+                          result itself
 
-            is_compendia (bool):
+            is_compendia (bool): filter based on if the computed file is part of a compendium
 
-            quant_sf_only (bool):
+            quant_sf_only (bool): filter based on if the computed file is quant sf only
 
-            svd_algorithm (str):
+            svd_algorithm (str): the svd algorithm used for the computed file
 
-            compendia_version (int):
+            compendia_version (int): the compendia version of the computed file
 
-            created_at (str):
+            created_at (str): the date that the computed file was created
 
-            last_modified (str):
+            last_modified (str): the date that the computed file was last modified
 
-            result__id (int):
+            result__id (int): the id of the computational result associated with the file
 
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results
         """
         result = get_by_endpoint("computed_files", params=kwargs)
         return generator_from_pagination(result, cls)

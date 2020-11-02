@@ -4,21 +4,21 @@ from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import generator_from_pagination
 
 
-class Compendia:
-    """Compendia
+class Compendium:
+    """Compendium
 
     Retrieve a compendium result based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
-        >>> sample = pyrefinebio.Compendia.get(id)
+        >>> result = pyrefinebio.Compendium.get(id)
 
     Retrieve a list of compendium results based on filters
 
         ex:
         >>> import pyrefinebio
-        >>> samples = pyrefinebio.Compendia.search(compendium_version="")
+        >>> result = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
     """
 
     def __init__(
@@ -60,24 +60,25 @@ class Compendia:
 
         returns: list of Compendia
 
-        parameters:
+        valid filters:
 
-            primary_organism__name (str):
+            primary_organism__name (str): filter based on the name of the primary
+                                          organism associated with the compendium 
 
-            compendium_version (int):
+            compendium_version (int): filter based on the compendium's version
 
-            quant_sf_only (bool): True for RNA-seq Sample Compendium
+            quant_sf_only (bool): true for RNA-seq Sample Compendium
                                   results or False for quantile normalized.
 
-            result__id (int):
+            result__id (int): filter based on the id of the result associated with the compendium
 
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results
 
-            latest_version (bool): True will only return the highest
+            latest_version (bool): true will only return the highest
                                    compendium_version for each primary_organism.
         """
         result = get_by_endpoint("compendia", params=kwargs)

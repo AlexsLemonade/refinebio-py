@@ -137,43 +137,62 @@ class Sample:
         returns: list of samples.
 
         Parameters:
-            ordering (str):                  which field to use when ordering the results
-            title (str):
-            organism (str):
-            source_database (str):
-            source_archive_url (str):
-            has_raw (str):
-            platform_name (str):
-            technology (str):
-            manufacturer (str):
-            sex (str):
-            age (number):
-            specimen_part (str):
-            genotype (str):
-            disease (str):
-            disease_stage (str):
+            ordering (str): which field to use when ordering the results
+
+            title (str): filter based on the sample's title
+
+            organism (str): filter based on the organism that the sample was taken from
+
+            source_database (str): filter based on the database that the sample was taken from
+
+            source_archive_url (str): filter based on sample's source url
+
+            has_raw (bool): filter based on if the sample
+
+            platform_name (str): filter based on the name of the platform that was used to create the sample
+
+            technology (str): filter based on the technology that was used to make the sample
+
+            manufacturer (str): filter based on the manufacturer of the technology that was used to create the sample
+
+            sex (str): filter based on the sex of the organism that the sample was taken from
+
+            age (number): filter based on the age of the organism that the sample was taken from
+
+            specimen_part (str): filter based on the part of the specimen that the sample was taken from
+
+            genotype (str): filter based on the genotype 
+
+            disease (str): filter based on the disease
+
+            disease_stage (str): filter based on the stage of the disease
+
             cell_line (str):
+
             treatment (str):
-            race (str):
+
+            race (str): filter based on the race of the organism 
+
             subject (str):
+
             compound (str):
-            time (str):
-            is_processed (str):
-            is_public (str):
-            limit (int):                     Number of results to return per page.
 
-            offset (int):                    The initial index from which to return the results.
+            time (str): filter based on the time 
 
-            dataset_id (str):                Filters the result and only returns samples
-                                             that are added to a dataset.
+            is_processed (bool): filter based on if the sample has been processed
 
-            experiment_accession_code (str): Filters the result and only returns only
-                                             the samples associated with an experiment
-                                             accession code.
+            is_public (bool): filter based on if the sample is public
 
-            accession_codes (str):           Provide a list of sample accession codes
-                                             separated by commas and the endpoint will
-                                             only return information about these samples.
+            limit (int): number of results to return per page.
+
+            offset (int): the initial index from which to return the results.
+
+            dataset_id (str): filter based on the dataset id that the sample has been added to
+
+            experiment_accession_code (str): filter based on the experiments that are associated
+                                             with the sample
+
+            accession_codes (str): filter based on multiple accession codes at once
         """
         result = get_by_endpoint("samples", params=kwargs)
         return generator_from_pagination(result, cls)

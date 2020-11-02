@@ -75,13 +75,13 @@ class ComputationalResult:
 
         returns: list of ComputationalResult
 
-        parameters:
+        valid filters:
 
-            processor__id (int):
+            processor__id (int): id of the processor that processed the result
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results
         """
         result = get_by_endpoint("computational_results", params=kwargs)
         return generator_from_pagination(result, cls)

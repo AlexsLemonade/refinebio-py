@@ -64,19 +64,19 @@ class TranscriptomeIndex:
 
         parameters:
 
-            salmon_version (str): Eg. salmon 0.13.1
+            salmon_version (str): filter based on the index's salmon version eg. salmon 0.13.1
 
-            index_type (str): Eg. TRANSCRIPTOME_LONG
+            index_type (str): filter based on the type of index eg. TRANSCRIPTOME_LONG
 
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
 
-            organism__name (str): Organism name. Eg. MUS_MUSCULUS
+            organism__name (str): filter based on the name of the organism associated with the index
 
-            length (str): Short hand for index_type Eg. short or long
+            length (str): short hand for index_type Eg. short or long
         """
         response = get_by_endpoint("transcriptome_indices", params=kwargs)
         return generator_from_pagination(response, cls)

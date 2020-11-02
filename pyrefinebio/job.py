@@ -72,47 +72,47 @@ class DownloaderJob:
 
         returns: list of DownloaderJob
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the downloader job
 
-            downloader_task (str):
+            downloader_task (str): filter based on the  task 
             
-            num_retries (int):
+            num_retries (int): filter based on the number of times the job has retried
 
-            retried (bool):
+            retried (bool): filter based on if the job has retried
             
-            was_recreated (bool):
+            was_recreated (bool): filter based on if the job was recreated
             
-            worker_id (str):
+            worker_id (str): filter based on the job's worker id
             
-            worker_version (str):
+            worker_version (str): filter based on the job's worker version
             
-            nomad_job_id (str):
+            nomad_job_id (str): filter based on the job's nomad id
             
-            failure_reason (str):
+            failure_reason (str): filter based on the reason why the job failed
             
-            success (bool):
+            success (bool): filter based on if the job succeeded
             
-            original_files (str):
+            original_files (str): filter based on the ids of the original files associated with the job
             
-            start_time (str):
+            start_time (str): filter based on the time when the job started
             
-            end_time (str):
+            end_time (str): filter based on the time when the job finished
             
-            created_at (str):
+            created_at (str): filter based on the time that the job was created
             
-            last_modified (str):
+            last_modified (str): filter based on the time that the job was last modified
             
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
 
-            sample_accession_code (str): List the downloader jobs associated with a sample
+            sample_accession_code (str): filter based on the samples associated with the job
 
-            nomad (str): Only return jobs that are in the nomad queue currently
+            nomad (bool): filter based on if the job is in the nomad queue currently
         """
         response = get_by_endpoint("jobs/downloader", params=kwargs)
         return generator_from_pagination(response, cls)
@@ -194,49 +194,49 @@ class ProcessorJob:
 
         parameters:
 
-            id (number):
+            id (int): filter based on the id of the downloader job
             
-            pipeline_applied (string):
+            pipeline_applied (str):
             
-            num_retries (number):
+            num_retries (int): filter based on the number of times the job has retried
             
-            retried (string):
+            retried (bool): filter based on if the job has retried
             
-            worker_id (string):
+            worker_id (str): filter based on the id of the job's worker
             
-            ram_amount (number):
+            ram_amount (int): filter based on the amount of ram assigned to the job
             
-            volume_index (string):
+            volume_index (str):
             
-            worker_version (string):
+            worker_version (str): filter based on the job's worker version
             
-            failure_reason (string):
+            failure_reason (str): filter based on the reason why the job failed
             
-            nomad_job_id (string):
+            nomad_job_id (str): filter based on the job's nomad id
             
-            success (string):
+            success (bool): filter based on if the job has succeeded
             
-            original_files (string):
+            original_files (str): filter based on the ids of the original files associated with the job
             
-            datasets (string):
+            datasets (str): filter based on the ids of the datasets associated with the job
             
-            start_time (string):
+            start_time (str): filter based on the time when the job started
             
-            end_time (string):
+            end_time (str): filter based on the time when the job finished
             
-            created_at (string):
+            created_at (str): filter based on the time when the job was created
             
-            last_modified (string):
+            last_modified (str): filter based on the time when the job was last modified
             
-            ordering (string): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (integer): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (integer): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
 
-            sample_accession_code (string): List the processor jobs associated with a sample
+            sample_accession_code (str): filter based on the samples associated with the job
 
-            nomad (string): Only return jobs that are in the nomad queue currently
+            nomad (bool): filter based on if the job is in the nomad queue currently
         """
         response = get_by_endpoint("jobs/processor", params=kwargs)
         return generator_from_pagination(response, cls)
@@ -296,27 +296,27 @@ class SurveyJob:
 
         returns: list of SurveyJob
 
-        parameters:
+        valid filters:
 
-            id (number):
+            id (int): filter based on the id of the survey job
                 
-            source_type (string):
+            source_type (str): 
             
-            success (string):
+            success (bool): filter based on if the job has succeeded
             
-            start_time (string):
+            start_time (str): filter based on the time when the job started
             
-            end_time (string):
+            end_time (str): filter based on the time when the job finished
             
-            created_at (string):
+            created_at (str): filter based on the time when the job was created
             
-            last_modified (string):
+            last_modified (str): filter based on the time when the job was last modified
             
-            ordering (string): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (integer): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (integer): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
         """
         response = get_by_endpoint("jobs/survey", params=kwargs)
         return generator_from_pagination(response, cls)

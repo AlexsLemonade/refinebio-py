@@ -74,39 +74,39 @@ class OriginalFile:
 
         returns: list of OriginalFile
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the original file
             
-            filename (str):
+            filename (str): filter based on the name of the original file
             
-            samples (str):
+            samples (str): filter based on the samples associated with the original file
             
-            size_in_bytes (int):
+            size_in_bytes (int): filter based on the original file's size 
             
-            sha1 (str):
+            sha1 (str): filter based on the original files sha1 hash
             
-            processor_jobs (str):
+            processor_jobs (str): filter based on the processor jobs associated with the original file
             
-            downloader_jobs (str):
+            downloader_jobs (str): filter based on the downloader jobs associated with the original file
             
-            source_url (str):
+            source_url (str): filter based on the original file's source url
             
-            is_archive (str):
+            is_archive (bool): filter based on if the original file is archived
             
-            source_filename (str):
+            source_filename (str): filter based on the original file's source's filename
             
-            has_raw (str):
+            has_raw (bool):
             
-            created_at (str):
+            created_at (str): filter based on the time when the original file was created
             
-            last_modified (str):
+            last_modified (str): filter based on the time when the original file was last modified
             
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
         """
 
         response = get_by_endpoint("original_files", params=kwargs)

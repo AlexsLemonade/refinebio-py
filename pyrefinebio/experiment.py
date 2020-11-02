@@ -105,35 +105,40 @@ class Experiment:
 
         returns: list of Experiment
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the experiment
 
-            technology (str): Allows filtering the results by technology, can have multiple values. Eg: ?technology=microarray&technology=rna-seq
+            technology (str): filter the results by technology (microarray, rna-seq, etc)
+                              can have multiple values.
 
-            has_publication (bool): Filter the results that have associated publications with ?has_publication=true
+            has_publication (bool): filters based on if the experiment has associated publications
 
-            accession_code (str): Allows filtering the results by accession code, can have multiple values. Eg: ?accession_code=microarray&accession_code=rna-seq
+            accession_code (str): filters based on the experiment accession code
+                                  can have multiple values
 
-            alternate_accession_code (str):
+            alternate_accession_code (str): filters based on the experiment's alternate
+                                            accession codes
 
-            platform (str): Allows filtering the results by platform, this parameter can have multiple values.
+            platform (str): filters based on  platform, this parameter can have multiple values
 
-            organism (str): Allows filtering the results by organism, this parameter can have multiple values.
+            organism (str): filters based on organism, this parameter can have multiple values
 
-            num_processed_samples (number): Use ElasticSearch queries to specify the number of processed samples of the results
+            num_processed_samples (number): filters based on the experiment's number of processed samples
 
-            num_downloadable_samples (int):
+            num_downloadable_samples (int): filters based on the experiment's number of downloadable samples
 
-            sample_keywords (str):
+            sample_keywords (str): filters based on keywords associated with the experiment's samples
 
-            ordering (str): Which field from to use when ordering the results.
+            ordering (str): which field from to use when ordering the results
 
-            search (str): Search in title, publication_authors, sample_keywords, publication_title, submitter_institution, description, accession_code, alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, platform_names.
+            search (str): specify a keyword which will be applied to the experiment's title, publication_authors,
+                          sample_keywords, publication_title, submitter_institution, description, accession_code,
+                          alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, platform_names
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results
         """
         response = get_by_endpoint("search", params=kwargs)
         return generator_from_pagination(response, cls)
