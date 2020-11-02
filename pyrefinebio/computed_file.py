@@ -91,9 +91,9 @@ class ComputedFile:
 
             samples (str): filter based on the accession code for samples related to the computed file
 
-            is_qn_target (bool): filters based on if the computed file is a qn target
+            is_qn_target (bool): filter based on if the computed file is a qn target
 
-            is_smashable (bool): filters based on if the computed file is smashable
+            is_smashable (bool): filter based on if the computed file is smashable
 
             is_qc (bool): filters based on if the computed file contains data about 
                           the quality control of a result rather than data about the
@@ -101,17 +101,18 @@ class ComputedFile:
 
             is_compendia (bool): filter based on if the computed file is part of a compendium
 
-            quant_sf_only (bool): filter based on if the computed file is quant sf only
+            quant_sf_only (bool): filter based on if the samples associated with the computed file
+                                  are RNA-seq only
 
-            svd_algorithm (str): the svd algorithm used for the computed file
+            svd_algorithm (str): filter based on the svd algorithm used for the computed file
 
-            compendia_version (int): the compendia version of the computed file
+            compendia_version (int): filter based on the compendia version of the computed file
 
-            created_at (str): the date that the computed file was created
+            created_at (str): filter based on the time that the computed file was created
 
-            last_modified (str): the date that the computed file was last modified
+            last_modified (str): filter based on the time that the computed file was last modified
 
-            result__id (int): the id of the computational result associated with the file
+            result__id (int): filter based on the id of the computational result associated with the file
 
             ordering (str): which field to use when ordering the results
 
