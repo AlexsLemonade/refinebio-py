@@ -169,15 +169,15 @@ class Sample:
 
             cell_line (str):
 
-            treatment (str):
+            treatment (str): filter based on the treatment used for the sample subject's disease
 
-            race (str): filter based on the race of the organism 
+            race (str): filter based on the race of the sample's subject 
 
-            subject (str):
+            subject (str): filter based on the name of the sample's subject
 
             compound (str):
 
-            time (str): filter based on the time 
+            time (str): filter based on the time
 
             is_processed (bool): filter based on if the sample has been processed
 
