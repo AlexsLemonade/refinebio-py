@@ -161,11 +161,11 @@ class Sample:
 
             specimen_part (str): filter based on the part of the specimen that the sample was taken from
 
-            genotype (str): filter based on the genotype 
+            genotype (str): filter based on the sample subject's genotype 
 
-            disease (str): filter based on the disease
+            disease (str): filter based on the sample subject's disease
 
-            disease_stage (str): filter based on the stage of the disease
+            disease_stage (str): filter based on the stage of the sample subject's disease
 
             cell_line (str):
 
