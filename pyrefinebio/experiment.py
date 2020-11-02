@@ -109,12 +109,12 @@ class Experiment:
 
             id (int): filter based on the id of the experiment
 
-            technology (str): filter the results by technology (microarray, rna-seq, etc)
-                              can have multiple values.
+            technology (str): filter based on the technology used for the experiment
+                              (microarray, rna-seq, etc) can have multiple values.
 
-            has_publication (bool): filters based on if the experiment has associated publications
+            has_publication (bool): filter based on if the experiment has associated publications
 
-            accession_code (str): filters based on the experiment accession code
+            accession_code (str): filter based on the experiment's accession code
                                   can have multiple values
 
             alternate_accession_code (str): filters based on the experiment's alternate
