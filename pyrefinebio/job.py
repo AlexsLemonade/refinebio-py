@@ -5,14 +5,14 @@ from pyrefinebio.util import generator_from_pagination, parse_date
 class DownloaderJob:
     """DownloaderJob.
 
-    Retrieve a downloader job by id
+    Retrieve a DownloaderJob by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.DownloaderJob.get(id)
 
-    Retrieve a list of downloader jobs based on filters
+    Retrieve a list of DownloaderJobs based on filters
 
         ex:
         >>> import pyrefinebio
@@ -55,28 +55,28 @@ class DownloaderJob:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a downloader job based on id
+        """Retrieve a DownloaderJob based on id
 
         returns: DownloaderJob
 
         parameters:
 
-            id (int): the id for the downloader job you want to get
+            id (int): the id for the DownloaderJob you want to get
         """
         response = get_by_endpoint("jobs/downloader/" + str(id))
         return DownloaderJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of downloader jobs based on various filters
+        """Retrieve a list of DownloaderJobs based on various filters
 
         returns: list of DownloaderJob
 
         valid filters:
 
-            id (int): filter based on the id of the downloader job
+            id (int): filter based on the id of the DownloaderJob
 
-            downloader_task (str): filter based on the  task 
+            downloader_task (str): filter based on the jobs task type
             
             num_retries (int): filter based on the number of times the job has retried
 
@@ -94,7 +94,7 @@ class DownloaderJob:
             
             success (bool): filter based on if the job succeeded
             
-            original_files (str): filter based on the ids of the original files associated with the job
+            original_files (str): filter based on the ids of the OriginalFiles associated with the job
             
             start_time (str): filter based on the time when the job started
             
@@ -110,7 +110,7 @@ class DownloaderJob:
 
             offset (int): the initial index from which to return the results.
 
-            sample_accession_code (str): filter based on the samples associated with the job
+            sample_accession_code (str): filter based on the Samples associated with the job
 
             nomad (bool): filter based on if the job is in the nomad queue currently
         """
@@ -121,18 +121,18 @@ class DownloaderJob:
 class ProcessorJob:
     """Processor Job.
 
-    Retrieve a processor job by id
+    Retrieve a ProcessorJob by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
-        >>> job = pyrefinebio.DownloaderJob.get(id)
+        >>> job = pyrefinebio.ProcessorJob.get(id)
 
-    Retrieve a list of processor jobs based on filters
+    Retrieve a list of ProcessorJobs based on filters
 
         ex:
         >>> import pyrefinebio
-        >>> jobs = pyrefinebio.DownloaderJob.search(num_retries=1)
+        >>> jobs = pyrefinebio.ProcessorJob.search(num_retries=1)
     """
 
     def __init__(
@@ -175,28 +175,28 @@ class ProcessorJob:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a processor job based on id
+        """Retrieve a ProcessorJob based on id
 
         returns: ProcessorJob
 
         parameters:
 
-            id (int): the id for the processor job you want to get
+            id (int): the id for the ProcessorJob you want to get
         """
         response = get_by_endpoint("jobs/processor/" + str(id))
         return ProcessorJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of processor jobs based on various filters
+        """Retrieve a list of ProcessorJobs based on various filters
 
         returns: list of ProcessorJob
 
         parameters:
 
-            id (int): filter based on the id of the downloader job
+            id (int): filter based on the id of the ProcessorJob
             
-            pipeline_applied (str):
+            pipeline_applied (str): filter based on the type of pipeline applied to the job
             
             num_retries (int): filter based on the number of times the job has retried
             
@@ -216,9 +216,9 @@ class ProcessorJob:
             
             success (bool): filter based on if the job has succeeded
             
-            original_files (str): filter based on the ids of the original files associated with the job
+            original_files (str): filter based on the ids of the OriginalFiles associated with the job
             
-            datasets (str): filter based on the ids of the datasets associated with the job
+            datasets (str): filter based on the ids of the Datasets associated with the job
             
             start_time (str): filter based on the time when the job started
             
@@ -245,14 +245,14 @@ class ProcessorJob:
 class SurveyJob:
     """Survey Job.
 
-    Retrieve a survey job by id
+    Retrieve a SurveyJob by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.SurveyJob.get(id)
 
-    Retrieve a list of survey jobs based on filters
+    Retrieve a list of SurveyJobs based on filters
 
         ex:
         >>> import pyrefinebio
@@ -279,28 +279,28 @@ class SurveyJob:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a survey job based on id
+        """Retrieve a SurveyJob based on id
 
         returns: SurveyJob
 
         parameters:
 
-            id (int): the id for the survey job you want to get
+            id (int): the id for the SurveyJob you want to get
         """
         response = get_by_endpoint("jobs/survey/" + str(id))
         return SurveyJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of survey jobs based on various filters
+        """Retrieve a list of SurveyJobs based on various filters
 
         returns: list of SurveyJob
 
         valid filters:
 
-            id (int): filter based on the id of the survey job
+            id (int): filter based on the id of the SurveyJob
                 
-            source_type (str): 
+            source_type (str): filter based on the name of the source database
             
             success (bool): filter based on if the job has succeeded
             

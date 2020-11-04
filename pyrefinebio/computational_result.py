@@ -10,14 +10,14 @@ from pyrefinebio import processor as prb_processor
 class ComputationalResult:
     """Computational Result
 
-    Retrieve a computational result based on id
+    Retrieve a ComputationalResult based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> result = pyrefinebio.ComputationalResult.get(id)
 
-    Retrieve a list of computational results based on filters
+    Retrieve a list of ComputationalResult based on filters
 
         ex:
         >>> import pyrefinebio
@@ -77,7 +77,7 @@ class ComputationalResult:
 
         valid filters:
 
-            processor__id (int): id of the processor that processed the result
+            processor__id (int): id of the Processor that processed the result
 
             limit (int): number of results to return per page
 

@@ -8,7 +8,8 @@ class Dataset:
     """Dataset
 
     Datasets are collections of experiments and their samples.
-    The dataset can be processed and then downloaded.
+    A Dataset needs to be constructed and then processed before it can be downloaded.  
+    Downloading a Dataset activated API token. See `pyrefinebio.Token` for more details
 
     Create and save a dataset
 
@@ -25,20 +26,20 @@ class Dataset:
     Start processing a dataset
 
         >>> import pyrefinebio
-        >>> dataset = pyrefinebio.Dataset(...).save()
+        >>> dataset = pyrefinebio.Dataset(...)
         >>> dataset.process()
 
     Check if a dataset is finished processing
 
         >>> import pyrefinebio
-        >>> dataset = pyrefinebio.Dataset(...).save()
+        >>> dataset = pyrefinebio.Dataset(...)
         >>> dataset.process()
         >>> dataset.check()
 
     Download a processed dataset
 
         >>> import pyrefinebio
-        >>> dataset = pyrefinebio.Dataset(...).save()
+        >>> dataset = pyrefinebio.Dataset(...)
         >>> dataset.process()
         >>> dataset.download("~/datasets/my_dataset.zip")
     """

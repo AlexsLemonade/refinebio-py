@@ -8,14 +8,14 @@ import pyrefinebio.sample as prb_sample
 class OriginalFile:
     """Original File.
 
-    Retrieve an original file by id
+    Retrieve an OriginalFile by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> og_file = pyrefinebio.OriginalFile.get(id)
 
-    Retrieve a list of original files based on filters
+    Retrieve a list of OriginalFiles based on filters
 
         ex:
         >>> import pyrefinebio
@@ -56,13 +56,13 @@ class OriginalFile:
 
     @classmethod
     def get(cls, id):
-        """Retrieve an original file based on id
+        """Retrieve an OriginalFile based on id
 
         returns: OriginalFile
 
         parameters:
 
-            id (int): the id for the original file you want to get
+            id (int): the id for the OriginalFile you want to get
         """
 
         response = get_by_endpoint("original_files/" + str(id))
@@ -70,37 +70,38 @@ class OriginalFile:
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of original files based on various filters
+        """Retrieve a list of OriginalFiles based on various filters
 
         returns: list of OriginalFile
 
         valid filters:
 
-            id (int): filter based on the id of the original file
+            id (int): filter based on the id of the OriginalFile
             
-            filename (str): filter based on the name of the original file
+            filename (str): filter based on the name of the OriginalFile
             
-            samples (str): filter based on the samples associated with the original file
+            samples (str): filter based on the Samples associated with the OriginalFile
             
-            size_in_bytes (int): filter based on the original file's size 
+            size_in_bytes (int): filter based on the OriginalFile's size 
             
-            sha1 (str): filter based on the original files sha1 hash
+            sha1 (str): filter based on the OriginalFiles sha1 hash
             
-            processor_jobs (str): filter based on the processor jobs associated with the original file
+            processor_jobs (str): filter based on the ProcessorJobs associated with the OriginalFile
             
-            downloader_jobs (str): filter based on the downloader jobs associated with the original file
+            downloader_jobs (str): filter based on the DownloaderJobs associated with the OriginalFile
             
-            source_url (str): filter based on the original file's source url
+            source_url (str): filter based on the OriginalFile's source url
             
-            is_archive (bool): filter based on if the original file is archived
+            is_archive (bool): filter based on if the OriginalFile is archived
             
-            source_filename (str): filter based on the original file's source's filename
+            source_filename (str): filter based on the OriginalFile's source's filename
             
-            has_raw (bool):
+            has_raw (bool): filter based on if the OriginalFile had raw data available in the source 
+                            database
             
-            created_at (str): filter based on the time when the original file was created
+            created_at (str): filter based on the time when the OriginalFile was created
             
-            last_modified (str): filter based on the time when the original file was last modified
+            last_modified (str): filter based on the time when the OriginalFile was last modified
             
             ordering (str): which field to use when ordering the results.
 

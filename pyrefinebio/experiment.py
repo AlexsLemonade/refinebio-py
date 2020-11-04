@@ -8,14 +8,14 @@ from pyrefinebio import sample as prb_sample
 class Experiment:
     """Experiment
 
-    Retrieve an experiment based on id
+    Retrieve an Experiment based on id
 
         ex:
         >>> import pyrefinebio
         >>> accession_code = 1
         >>> experiment = pyrefinebio.Experiment.get(accession_code)
 
-    Search for experiments based on filters
+    Search for Experiments based on filters
 
         ex:
         >>> import pyrefinebio
@@ -88,53 +88,54 @@ class Experiment:
 
     @classmethod
     def get(cls, accession_code):
-        """Retrieve an experiment based on accession code
+        """Retrieve an Experiment based on accession code
 
         returns: Experiment
 
         parameters:
 
-            accession code (str): the accession code for the experiment you want to get
+            accession code (str): the accession code for the Experiment you want to get
         """
         response = get_by_endpoint("experiments/" + accession_code)
         return Experiment(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for experiments based on various filters
+        """Search for Experiments based on various filters
 
         returns: list of Experiment
 
         valid filters:
 
-            id (int): filter based on the id of the experiment
+            id (int): filter based on the id of the Experiment
 
-            technology (str): filter based on the technology used for the experiment
-                              (microarray, rna-seq, etc) can have multiple values.
+            technology (str): filter based on the technology used for the Experiment
+                              (microarray, rna-seq, etc) this filter can have multiple values.
 
-            has_publication (bool): filter based on if the experiment has associated publications
+            has_publication (bool): filter based on if the Experiment has associated publications
 
-            accession_code (str): filter based on the experiment's accession code
-                                  can have multiple values
+            accession_code (str): filter based on the Experiment's accession code
+                                  this filter can have multiple values
 
-            alternate_accession_code (str): filters based on the experiment's alternate
+            alternate_accession_code (str): filter based on the Experiment's alternate
                                             accession codes
 
-            platform (str): filters based on  platform, this parameter can have multiple values
+            platform (str): filter based on  platform, this filter can have multiple values
 
-            organism (str): filters based on organism, this parameter can have multiple values
+            organism (str): filter based on Organism, this filter can have multiple values
 
-            num_processed_samples (number): filters based on the experiment's number of processed samples
+            num_processed_samples (number): filter based on the Experiment's number of processed samples
 
-            num_downloadable_samples (int): filters based on the experiment's number of downloadable samples
+            num_downloadable_samples (int): filter based on the Experiment's number of downloadable samples
 
-            sample_keywords (str): filters based on keywords associated with the experiment's samples
+            sample_keywords (str): filter based on keywords associated with the Experiment's Samples
 
             ordering (str): which field from to use when ordering the results
 
-            search (str): specify a keyword which will be applied to the experiment's title, publication_authors,
+            search (str): specify a keyword which will be applied to the Experiment's title, publication_authors,
                           sample_keywords, publication_title, submitter_institution, description, accession_code,
-                          alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, platform_names
+                          alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, and 
+                          platform_names
 
             limit (int): number of results to return per page
 

@@ -10,9 +10,6 @@ class Config:
     When instantiated, configurations are pulled first from environment variables,  
     then from the config file locaed at `~/.refinebio.yaml`. If neither exist, default  
     values are used.
-
-    The config instance should never be constructed or modified manually.  
-    Instead it should be created/modified internally by pyrefinebio classes and functions.
     """
 
     _instance = None
@@ -46,7 +43,9 @@ class Config:
     def save(self, key, value):
         """Save a value to the config
 
-        values that are saved are written to the config file at `~/.refinebio.yaml`
+        Values that are saved are written to the config file.  
+        The default path for this file is `~/.refinebio.yaml`  
+        but it can be set using the environment variable `CONFIG_FILE`.
         """
         if not os.path.exists(self.config_file):
             config = {}

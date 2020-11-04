@@ -10,14 +10,14 @@ class ComputedFile:
 
     ComputedFiles are representation of files created by data-refinery processes.
 
-    Retrieve a computed file based on id
+    Retrieve a ComputedFile based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> file = pyrefinebio.ComputedFile.get(id)
 
-    Retrieve a list of computed files based on filters
+    Retrieve a list of ComputedFile based on filters
 
         ex:
         >>> import pyrefinebio
@@ -68,51 +68,53 @@ class ComputedFile:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a specific computed file based on id
+        """Retrieve a specific ComputedFile based on id
 
         returns: ComputedFile
 
         parameters:
 
-            id (int): the id for the computed file you want to get
+            id (int): the id for the ComputedFile you want to get
         """
         response = get_by_endpoint("computed_files/" + str(id))
         return ComputedFile(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of a compendium result based on filters
+        """Retrieve a list of a ComputedFiles based on filters
 
         returns: list of ComputedFile
 
         valid filters:
 
-            id (int): filter based on the id of the computed file
+            id (int): filter based on the id of the ComputedFile
 
-            samples (str): filter based on the accession code for samples related to the computed file
+            samples (str): filter based on the accession code for Samples related to the ComputedFile
 
-            is_qn_target (bool): filter based on if the computed file is a qn target
+            is_qn_target (bool): filter based on if the ComputedFile is a qn target
 
-            is_smashable (bool): filter based on if the computed file is smashable
+            is_smashable (bool): filter based on if the ComputedFile can be added to a normalized
+                                 Dataset
 
-            is_qc (bool): filters based on if the computed file contains data about 
+            is_qc (bool): filter based on if the ComputedFile contains data about 
                           the quality control of a result rather than data about the
                           result itself
 
-            is_compendia (bool): filter based on if the computed file is part of a compendium
+            is_compendia (bool): filter based on if the ComputedFile is part of a compendium
 
-            quant_sf_only (bool): filter based on if the samples associated with the computed file
+            quant_sf_only (bool): filter based on if the Samples associated with the ComputedFile
                                   are RNA-seq only
 
-            svd_algorithm (str): filter based on the svd algorithm used for the computed file
+            svd_algorithm (str): filter based on the SVD algorithm used for the ComputedFile
 
-            compendia_version (int): filter based on the compendia version of the computed file
+            compendia_version (int): filter based on the compendia version of the ComputedFile
 
-            created_at (str): filter based on the time that the computed file was created
+            created_at (str): filter based on the time that the ComputedFile was created
 
-            last_modified (str): filter based on the time that the computed file was last modified
+            last_modified (str): filter based on the time that the ComputedFile was last modified
 
-            result__id (int): filter based on the id of the computational result associated with the file
+            result__id (int): filter based on the id of the ComputationalResult associated with the 
+                              ComputedFile
 
             ordering (str): which field to use when ordering the results
 

@@ -5,14 +5,14 @@ from pyrefinebio.util import generator_from_pagination
 class Organism:
     """Organism.
 
-    Retrieve an organism by name
+    Retrieve an Organism by name
 
         ex:
         >>> import pyrefinebio
         >>> name = "GORILLA"
         >>> organism = pyrefinebio.Organism.get(name)
 
-    Retrieve a list of organisms
+    Retrieve a list of Organisms
 
         ex:
         >>> import pyrefinebio
@@ -29,13 +29,13 @@ class Organism:
 
     @classmethod
     def get(cls, name):
-        """Retrieve an organism based on name
+        """Retrieve an Organism based on name
 
         returns: Organism
 
         parameters:
 
-            name (str): the name for the organism you want to get
+            name (str): the name for the Organism you want to get
         """
 
         response = get_by_endpoint("organisms/" + name)
@@ -43,7 +43,7 @@ class Organism:
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of organisms
+        """Retrieve a list of Organisms
 
         returns: list of Organism
 

@@ -10,14 +10,14 @@ from pyrefinebio import organism as prb_organism
 class Sample:
     """Sample.
 
-    Retrieve a sample based on accession code
+    Retrieve a Sample based on accession code
 
         ex:
         >>> import pyrefinebio
         >>> accession_code = "GSM000000"
         >>> sample = pyrefinebio.Sample.get(accession_code)
 
-    Retrieve a list of samples based on filters
+    Retrieve a list of Samples based on filters
 
         ex:
         >>> import pyrefinebio
@@ -119,78 +119,79 @@ class Sample:
 
     @classmethod
     def get(cls, accession_code):
-        """Retrieve a sample based on its accession code.
+        """Retrieve a Sample based on its accession code.
 
         returns: Sample
 
         parameters:
 
-            accession_code (str): The accession code for the sample to be retrieved.
+            accession_code (str): The accession code for the Sample to be retrieved.
         """
         result = get_by_endpoint("samples/" + accession_code)
         return cls(**result)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of samples based on various filters
+        """Retrieve a list of Samples based on various filters
 
-        returns: list of samples.
+        returns: list of Sample
 
         Parameters:
             ordering (str): which field to use when ordering the results
 
-            title (str): filter based on the sample's title
+            title (str): filter based on the Sample's title
 
-            organism (str): filter based on the organism that the sample was taken from
+            organism (str): filter based on the Organism that the Sample was taken from
 
-            source_database (str): filter based on the database that the sample was taken from
+            source_database (str): filter based on the database that the Sample was taken from
 
-            source_archive_url (str): filter based on sample's source url
+            source_archive_url (str): filter based on Sample's source url
 
-            has_raw (bool): filter based on if the sample
+            has_raw (bool): filter based on if the Sample had raw data available in the source database
 
-            platform_name (str): filter based on the name of the platform that was used to create the sample
+            platform_name (str): filter based on the name of the Platform that was used to create the Sample
 
-            technology (str): filter based on the technology that was used to make the sample
+            technology (str): filter based on the technology that was used to make the Sample
 
-            manufacturer (str): filter based on the manufacturer of the technology that was used to create the sample
+            manufacturer (str): filter based on the manufacturer of the technology that was used to create the Sample
 
-            sex (str): filter based on the sex of the organism that the sample was taken from
+            sex (str): filter based on the sex of the subject that the Sample was taken from
 
-            age (number): filter based on the age of the organism that the sample was taken from
+            age (number): filter based on the age of the subject that the Sample was taken from
 
-            specimen_part (str): filter based on the part of the specimen that the sample was taken from
+            specimen_part (str): filter based on the part of the specimen that the Sample was taken from
 
-            genotype (str): filter based on the sample subject's genotype 
+            genotype (str): filter based on the genotype of the subject that the Sample was taken from
 
-            disease (str): filter based on the sample subject's disease
+            disease (str): filter based on the disease of the subject that the Sample was taken from
 
-            disease_stage (str): filter based on the stage of the sample subject's disease
+            disease_stage (str): filter based on the stage of the disease of the subject that the Sample
+                                 was taken from
 
             cell_line (str):
 
-            treatment (str): filter based on the treatment used for the sample subject's disease
+            treatment (str): filter based on the treatment used on the subject that the Sample was taken from
 
-            race (str): filter based on the race of the sample's subject 
+            race (str): filter based on the race of the subject that the Sample was taken from
 
-            subject (str): filter based on the name of the sample's subject
+            subject (str): filter based on the name of the subject that the Sample was taken from
 
             compound (str):
 
             time (str): filter based on the time
 
-            is_processed (bool): filter based on if the sample has been processed
+            is_processed (bool): filter based on if the Sample has been processed
 
-            is_public (bool): filter based on if the sample is public
+            is_public (bool): filter based on if the Sample is public
 
             limit (int): number of results to return per page.
 
             offset (int): the initial index from which to return the results.
 
-            dataset_id (str): filter based on the dataset id that the sample has been added to
+            dataset_id (str): filter based on the Dataset ids that the Sample has been added to
 
-            experiment_accession_code (str): filter based on the experiments that are associated
-                                             with the sample
+            experiment_accession_code (str): filter based on the Dxperiments that are associated
+                                             with the Sample
 
             accession_codes (str): filter based on multiple accession codes at once
         """

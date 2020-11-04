@@ -5,14 +5,14 @@ from pyrefinebio.util import generator_from_pagination, parse_date
 class TranscriptomeIndex:
     """Transcriptome Index.
 
-    get a transcriptome index by id
+    get a TranscriptomeIndex by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> t_index = pyrefinebio.TranscriptomeIndex.get(id)
 
-    Retrieve a list of transcriptome indicies
+    Retrieve a list of TranscriptomeIndex based on filters
 
         ex:
         >>> import pyrefinebio
@@ -45,28 +45,31 @@ class TranscriptomeIndex:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a transcriptome index based on id
+        """Retrieve a TranscriptomeIndex based on id
 
         returns: TranscriptomeIndex
 
         parameters:
 
-            id (int): the id for the transcriptome index you want to get
+            id (int): the id for the TranscriptomeIndex you want to get
         """
         response = get_by_endpoint("transcriptome_indices/" + str(id))
         return TranscriptomeIndex(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of transcriptome indicies based on various filters
+        """Retrieve a list of TranscriptomeIndex based on various filters
 
         returns: list of TranscriptomeIndex
 
         parameters:
 
-            salmon_version (str): filter based on the index's salmon version eg. salmon 0.13.1
+            salmon_version (str): filter based on the TranscriptomeIndex's salmon version eg. salmon 0.13.1
 
-            index_type (str): filter based on the type of index eg. TRANSCRIPTOME_LONG
+            index_type (str): `TRANSCRIPTOME_LONG` or `TRANSCRIPTOME_SHORT`. 
+                              If the average read length of the RNA-Seq sample you want to process 
+                              is greater than 75 base pairs, use `TRANSCRIPTOME_LONG` otherwise use 
+                              `TRANSCRIPTOME_SHORT`
 
             ordering (str): which field to use when ordering the results.
 
@@ -74,9 +77,11 @@ class TranscriptomeIndex:
 
             offset (int): the initial index from which to return the results.
 
-            organism__name (str): filter based on the name of the organism associated with the index
+            organism__name (str): filter based on the name of the Organism associated 
+                                  with the TranscriptomeIndex
 
-            length (str): short hand for index_type Eg. short or long
+            length (str): short hand for index_type eg. `short` or `long` 
+                          see `index_type` for more info
         """
         response = get_by_endpoint("transcriptome_indices", params=kwargs)
         return generator_from_pagination(response, cls)

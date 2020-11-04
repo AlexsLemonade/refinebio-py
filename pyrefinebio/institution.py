@@ -4,7 +4,7 @@ from pyrefinebio.http import get_by_endpoint
 class Institution:
     """Institution 
 
-    Retrieve a list of institutions
+    Retrieve a list of Institutions
 
         ex:
         >>> import pyrefinebio
@@ -16,11 +16,11 @@ class Institution:
 
     @classmethod
     def search(cls):
-        """Retrieve a list of institutions
+        """Retrieve a list of Institutions
 
         returns: list of Institution
 
-        Since there are no filters, this method always gets all institutions.
+        Since there are no filters, this method always gets all Institutions.
         """
         response = get_by_endpoint("institutions")
         return [Institution(**institution) for institution in response]
