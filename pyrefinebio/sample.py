@@ -176,9 +176,9 @@ class Sample:
 
             subject (str): filter based on the name of the subject that the Sample was taken from
 
-            compound (str):
+            compound (str): filter based on the compound used on the subject that the Sample was taken from
 
-            time (str): filter based on the time
+            time (str): filter based on the time that the Sample was taken from the subject
 
             is_processed (bool): filter based on if the Sample has been processed
 
