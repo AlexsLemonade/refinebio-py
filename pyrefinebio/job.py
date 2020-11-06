@@ -76,7 +76,7 @@ class DownloaderJob:
 
             id (int): filter based on the id of the DownloaderJob
 
-            downloader_task (str): filter based on the jobs task type
+            downloader_task (str): filter based on the job's task type
             
             num_retries (int): filter based on the number of times the job has retried
 

@@ -7,36 +7,36 @@ from pyrefinebio.util import parse_date
 class Dataset:
     """Dataset
 
-    Datasets are collections of experiments and their samples.
+    Datasets are collections of experiments and their samples.  
     A Dataset needs to be constructed and then processed before it can be downloaded.  
-    Downloading a Dataset activated API token. See `pyrefinebio.Token` for more details
+    Downloading a Dataset requires an activated API token. See `pyrefinebio.Token` for more details
 
-    Create and save a dataset
+    Create and save a Dataset
 
         >>> import pyrefinebio
         >>> dataset = pyrefinebio.Dataset(email_address="example@refine.bio", data={"SRP003819": ["SRR069230"]})
         >>> dataset = dataset.save()
 
-    Get a dataset that has been saved
+    Get a Dataset that has been saved
 
         >>> import pyrefinebio
         >>> id = "dataset id <guid>"
         >>> dataset = pyrefinebio.Dataset.get(id)
 
-    Start processing a dataset
+    Start processing a Dataset
 
         >>> import pyrefinebio
         >>> dataset = pyrefinebio.Dataset(...)
         >>> dataset.process()
 
-    Check if a dataset is finished processing
+    Check if a Dataset is finished processing
 
         >>> import pyrefinebio
         >>> dataset = pyrefinebio.Dataset(...)
         >>> dataset.process()
         >>> dataset.check()
 
-    Download a processed dataset
+    Download a processed Dataset
 
         >>> import pyrefinebio
         >>> dataset = pyrefinebio.Dataset(...)
@@ -99,7 +99,7 @@ class Dataset:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a specific dataset based on id
+        """Retrieve a specific Dataset based on id
 
         returns: Dataset
 
@@ -112,7 +112,7 @@ class Dataset:
 
 
     def save(self):
-        """Save a dataset
+        """Save a Dataset
 
         In order for a dataset to be saved its `data` attribute must be properly set.
         The `data` attribute should be a dict with experiment accession codes as the keys  
@@ -162,9 +162,9 @@ class Dataset:
 
 
     def process(self):
-        """Start processing a dataset
+        """Start processing a Dataset
 
-        In order for a dataset to be processed, its `data` and `email_address` attributes  
+        In order for a Dataset to be processed, its `data` and `email_address` attributes  
         must be properly set.
 
         returns: void
@@ -175,7 +175,7 @@ class Dataset:
 
 
     def check(self):
-        """Check to see if a dataset has finished processing
+        """Check to see if a Dataset has finished processing
 
         returns: bool
         """
@@ -187,12 +187,12 @@ class Dataset:
 
 
     def download(self, path):
-        """Download a processed dataset
+        """Download a processed Dataset
 
         returns: void
 
         parameters:
-            path (str): the path that the dataset should be downloaded to
+            path (str): the path that the Dataset should be downloaded to
         """
         download_url = self.download_url or self.get(self.id).download_url
 

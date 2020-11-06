@@ -143,30 +143,30 @@ class Sample:
 
             organism (str): filter based on the Organism that the Sample was taken from
 
-            source_database (str): filter based on the database that the Sample was taken from
+            source_database (str): filter based on the publically available repository
+                                   that the Sample was taken from
 
             source_archive_url (str): filter based on Sample's source url
 
             has_raw (bool): filter based on if the Sample had raw data available in the source database
 
-            platform_name (str): filter based on the name of the Platform that was used to create the Sample
+            platform_name (str): filter based on the name of the Platform that was used to assay the Sample
 
-            technology (str): filter based on the technology that was used to make the Sample
+            technology (str): filter based on the technology that was used to assay the Sample
 
-            manufacturer (str): filter based on the manufacturer of the technology that was used to create the Sample
+            manufacturer (str): filter based on the manufacturer of the technology that was used to assay the Sample
 
-            sex (str): filter based on the sex of the subject that the Sample was taken from
+            sex (str): filter based on the sex information provided by the submitter
 
-            age (number): filter based on the age of the subject that the Sample was taken from
+            age (number): filter based on the age informtaion provided by the submitter
 
-            specimen_part (str): filter based on the part of the specimen that the Sample was taken from
+            specimen_part (str): filter based on the part of the specimen reported by the submitter
 
             genotype (str): filter based on the genotype of the subject that the Sample was taken from
 
-            disease (str): filter based on the disease of the subject that the Sample was taken from
+            disease (str): filter based on the disease information provided by the submitter
 
-            disease_stage (str): filter based on the stage of the disease of the subject that the Sample
-                                 was taken from
+            disease_stage (str): filter based on the disease stage information provided by the submitter
 
             cell_line (str):
 
