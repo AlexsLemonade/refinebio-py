@@ -14,7 +14,7 @@ class Compendium:
         >>> id = 1
         >>> result = pyrefinebio.Compendium.get(id)
 
-    Retrieve a list of Compendium based on filters
+    Retrieve a list of Compendia based on filters
 
         ex:
         >>> import pyrefinebio
@@ -45,14 +45,14 @@ class Compendium:
     def get(cls, id):
         """Retrieve a specific Compendium based on id
 
-        returns: Compendia
+        returns: Compendium
 
         parameters:
 
             id (int): the id for the Compendium you want to get
         """
         result = get_by_endpoint("compendia/" + str(id))
-        return Compendia(**result)
+        return Compendium(**result)
 
     @classmethod
     def search(cls, **kwargs):
