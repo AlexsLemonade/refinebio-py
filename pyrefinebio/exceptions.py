@@ -37,8 +37,9 @@ class InvalidData(Exception):
     def __init__(self, message, details):
         self.base_message = message
         if details:
-            self.base_message += " " + str(details)
+            self.base_message += "\nDetails: " + str(details)
         super().__init__(self.base_message)
+
 
 class DownloadError(Exception):
     base_message = "Unable to download dataset"
