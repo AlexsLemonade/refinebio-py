@@ -26,7 +26,30 @@ class InvalidFilters(Exception):
         super().__init__(self.base_message.format(invalid_filters))
 
 
+class InvalidFilterType(Exception):
+    base_message = "You have provided invalid type for the filter, {0} - {1}"
+    def __init__(self, filter, info):
+        super().__init__(self.base_message.format(filter, info))
+
+
+class InvalidData(Exception):
+    base_message = ""
+    def __init__(self, message, details):
+        self.base_message = message
+        if details:
+            self.base_message += " " + str(details)
+        super().__init__(self.base_message)
+
 class DownloadError(Exception):
     base_message = "Unable to download dataset"
     def __init__(self):
         super().__init__(self.base_message)
+
+
+class MultipleErrors(Exception):
+    base_message = "Multiple errors have occurred:\n"
+    def __init__(self, errors):
+        for error in errors:
+            self.base_message += str(error) + "\n"
+        super().__init__(self.base_message)
+
