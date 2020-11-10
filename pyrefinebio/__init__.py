@@ -19,6 +19,9 @@ from pyrefinebio.exceptions import (
     ServerError,
     BadRequest,
     InvalidFilters,
+    InvalidFilterType,
+    InvalidData,
     NotFound,
-    DownloadError
+    DownloadError,
+    MultipleErrors
 )

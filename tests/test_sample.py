@@ -349,6 +349,22 @@ class SampleTests(unittest.TestCase, CustomAssertions):
             self.assertTrue(result.has_raw)
 
 
+    def test_sample_search_with_invalid_filters(self):
+        with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):
+            pyrefinebio.Sample.search(foo="bar")
+
+
+
+    def test_sample_search_with_invalid_filter_type(self):
+        with self.assertRaises(pyrefinebio.exceptions.InvalidFilterType):
+            pyrefinebio.DownloaderJob.search(age="foo")
+
+
+    def test_sample_search_with_multiple_invalid_filter_types(self):
+        with self.assertRaises(pyrefinebio.exceptions.MultipleErrors):
+            pyrefinebio.DownloaderJob.search(age="foo", organism="bar")
+
+
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_sample_get_experiments(self, mock_request):
         result = pyrefinebio.Sample.get("SRR5445147")

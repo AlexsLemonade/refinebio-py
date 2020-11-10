@@ -107,7 +107,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
 
 
     def test_dataset_save_bad_data(self):
-        with self.assertRaises(pyrefinebio.exceptions.BadRequest):
+        with self.assertRaises(pyrefinebio.exceptions.InvalidData):
             pyrefinebio.Dataset(data={"lol": ["not-good"]}).save()
 
 
