@@ -168,17 +168,17 @@ class Sample:
 
             disease_stage (str): filter based on the disease stage information provided by the submitter
 
-            cell_line (str):
+            cell_line (str): filter based on the cell line used for the sample
 
-            treatment (str): filter based on the treatment used on the subject that the Sample was taken from
+            treatment (str): filter based on the treatment information provided by the submitter
 
-            race (str): filter based on the race of the subject that the Sample was taken from
+            race (str): filter based on the race information provided by the submitter
 
-            subject (str): filter based on the name of the subject that the Sample was taken from
+            subject (str): filter based on the subject identifier information provided by the submitter
 
-            compound (str): filter based on the compound used on the subject that the Sample was taken from
+            compound (str): filter based on the compound information provided by the submitter
 
-            time (str): filter based on the time that the Sample was taken from the subject
+            time (str): filter based on the time information provided by the submitter
 
             is_processed (bool): filter based on if the Sample has been processed
 
