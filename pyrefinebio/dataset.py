@@ -61,8 +61,22 @@ class Dataset:
 
     @classmethod
     def get(cls, id):
-        response = get_by_endpoint("dataset/" + id)
+        response = get_by_endpoint("dataset/" + id).json()
         return Dataset(**response)
+
+
+    def add_samples(self, experiment, samples=["ALL"]):
+        if self.is_processing or self.is_processed:
+            print("Cannot add samples to a dataset that has been processed!")
+            return
+
+        if self.data:
+            self.data = {**self.data, experiment: samples}
+        else:
+            self.data = {experiment: samples}
+
+        return self
+
 
 
     def save(self):
@@ -86,9 +100,9 @@ class Dataset:
             body["svd_algorithm"] = self.svd_algorithm
 
         if self.id:
-            response = put_by_endpoint("dataset/" + self.id, payload=body)
+            response = put_by_endpoint("dataset/" + self.id, payload=body).json()
         else:
-            response = post_by_endpoint("dataset", payload=body)
+            response = post_by_endpoint("dataset", payload=body).json()
 
         # add fields that aren't returned by the api
         response["email_address"] = self.email_address
@@ -114,6 +128,6 @@ class Dataset:
         download_url = self.download_url or self.get(self.id).download_url
 
         if not download_url:
-            raise DownloadError()
+            raise DownloadError("dataset", "Download url not found - did you process the dataset?")
 
         download_file(download_url, path)

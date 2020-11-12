@@ -22,5 +22,5 @@ class Institution:
 
         Since there are no filters, this method always gets all institutions.
         """
-        response = get_by_endpoint("institutions")
+        response = get_by_endpoint("institutions").json()
         return [Institution(**institution) for institution in response]

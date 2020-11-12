@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import sample as prb_sample
@@ -76,7 +76,7 @@ class ComputedFile:
 
             id (int): the id for the computed file you want to get
         """
-        response = get_by_endpoint("computed_files/" + str(id))
+        response = get_by_endpoint("computed_files/" + str(id)).json()
         return ComputedFile(**response)
 
     @classmethod
@@ -117,5 +117,5 @@ class ComputedFile:
 
             offset (int): The initial index from which to return the results.
         """
-        result = get_by_endpoint("computed_files", params=kwargs)
-        return generator_from_pagination(result, cls)
+        response = get_by_endpoint("computed_files", params=kwargs)
+        return create_paginated_list(cls, response)

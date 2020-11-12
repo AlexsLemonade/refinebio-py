@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 
 class DownloaderJob:
@@ -63,7 +63,7 @@ class DownloaderJob:
 
             id (int): the id for the downloader job you want to get
         """
-        response = get_by_endpoint("jobs/downloader/" + str(id))
+        response = get_by_endpoint("jobs/downloader/" + str(id)).json()
         return DownloaderJob(**response)
 
     @classmethod
@@ -115,7 +115,7 @@ class DownloaderJob:
             nomad (str): Only return jobs that are in the nomad queue currently
         """
         response = get_by_endpoint("jobs/downloader", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)
 
 
 class ProcessorJob:
@@ -183,7 +183,7 @@ class ProcessorJob:
 
             id (int): the id for the processor job you want to get
         """
-        response = get_by_endpoint("jobs/processor/" + str(id))
+        response = get_by_endpoint("jobs/processor/" + str(id)).json()
         return ProcessorJob(**response)
 
     @classmethod
@@ -239,7 +239,7 @@ class ProcessorJob:
             nomad (string): Only return jobs that are in the nomad queue currently
         """
         response = get_by_endpoint("jobs/processor", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)
 
 
 class SurveyJob:
@@ -287,7 +287,7 @@ class SurveyJob:
 
             id (int): the id for the survey job you want to get
         """
-        response = get_by_endpoint("jobs/survey/" + str(id))
+        response = get_by_endpoint("jobs/survey/" + str(id)).json()
         return SurveyJob(**response)
 
     @classmethod
@@ -319,4 +319,4 @@ class SurveyJob:
             offset (integer): The initial index from which to return the results.
         """
         response = get_by_endpoint("jobs/survey", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

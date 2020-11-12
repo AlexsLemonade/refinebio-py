@@ -25,7 +25,7 @@ class Token:
             email_address (str): the email that the terms and conditions should be sent to.
         """
 
-        response = post_by_endpoint("token")
+        response = post_by_endpoint("token").json()
 
         token_id = response["id"]
 
@@ -48,9 +48,7 @@ class Token:
             api_token (str): the uuid string identifying the token
                              you want to activate.
         """
-
-        response = put_by_endpoint("token/" + api_token, payload={"is_activated": True})
-        return response
+        put_by_endpoint("token/" + api_token, payload={"is_activated": True})
 
     @classmethod
     def save_token(cls, api_token):

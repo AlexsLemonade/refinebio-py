@@ -22,3 +22,9 @@ from pyrefinebio.exceptions import (
     NotFound,
     DownloadError
 )
+
+from pyrefinebio.hlf import (
+    help,
+    download_compendium,
+    download_quandfile_compendium
+)

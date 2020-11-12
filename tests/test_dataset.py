@@ -77,7 +77,8 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.dataset.post_by_endpoint")
     @patch("pyrefinebio.dataset.put_by_endpoint")
     def test_dataset_save(self, mock_put, mock_post):
-        mock_post.return_value = dataset
+        mock_post.return_value = MockResponse(dataset, "")
+        mock_put.return_value = MockResponse(dataset, "")
 
         ds = pyrefinebio.Dataset(data={"test-experiment": ["sample-1", "sample-2"]}, email_address="test-email")
         ds = ds.save()
