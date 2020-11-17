@@ -14,6 +14,12 @@ def parse_date(date):
 
 
 class PaginatedList:
+    """PaginatedList
+
+    PaginatedLists are returned by all model class `search` methods that deal
+    with paginated api responses. PaginatedLists can be indexed like lists and 
+    iterated through like generators.
+    """
 
     def __init__(self, T, response):
         self.cur = 0

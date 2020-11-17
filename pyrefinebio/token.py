@@ -48,7 +48,7 @@ class Token:
             api_token (str): the uuid string identifying the token
                              you want to activate.
         """
-        put_by_endpoint("token/" + api_token, payload={"is_activated": True})
+        return put_by_endpoint("token/" + api_token, payload={"is_activated": True})
 
     @classmethod
     def save_token(cls, api_token):

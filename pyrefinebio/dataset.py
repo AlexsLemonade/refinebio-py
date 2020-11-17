@@ -66,6 +66,18 @@ class Dataset:
 
 
     def add_samples(self, experiment, samples=["ALL"]):
+        """Add samples to a dataset
+
+        returns: Dataset
+
+        parameters:
+
+            experiment (str): accession code for the Experiment related to the Samples you
+                              are adding to the dataset
+
+            samples (list): list of Sample accession codes for the samples you are adding
+                            to the dataset
+        """
         if self.is_processing or self.is_processed:
             print("Cannot add samples to a dataset that has been processed!")
             return

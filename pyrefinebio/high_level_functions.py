@@ -1,5 +1,6 @@
 import pyrefinebio
 import re
+import time
 
 from pyrefinebio import Dataset, Compendia
 from pyrefinebio.http import download_file
@@ -23,10 +24,14 @@ def help(entity=None):
         >>> pyrefinebio.help("Sample.get")
         or
         >>> pyrefinebio.help("Sample get")
+
+        getting info about functions:
+
+        >>> pyrefinebio.help("download_dataset")
     """
 
     if not entity:
-        print()
+        print(help.__doc__)
         return
 
     try:
@@ -40,25 +45,80 @@ def help(entity=None):
 
 
 def download_dataset(
+    path,
+    dataset_dict=None,
     experiments=None,
-    samples=None,
     aggregation="EXPERIMENT",
     transformation="NONE",
     skip_quantile_normalization=False
 ):
+    """download_dataset
+
+        Automatically constructs a Dataset, processes it, waits for it
+        to finish processing, then downloads it to the path specified.
+
+        returns: void
+
+        parameters:
+
+            path (str):
+            
+            dataset_dict (dict):
+
+            experiments (list):
+
+            aggregation (str):
+
+            transformation (str):
+
+            skip_quantile_normalization (bool):
+    """
+    if dataset_dict and experiments:
+        raise DownloadError(
+            "Dataset", 
+            extra_info="You should either provide dataset_dict or experiments but not both"
+        )
+
     dataset = Dataset(
         aggregate_by=aggregation,
         quantile_normalize=(not skip_quantile_normalization)
     )
 
-    pass
+    if dataset_dict:
+        dataset.data = dataset_dict
+    
+    if experiments:
+        for experiment in experiments:
+            dataset.add_samples(experiment)
+    
+    dataset.process()
+
+    while not dataset.check():
+        time.sleep(5)
+
+    dataset.download(path)
 
 
 def download_compendium(
-    organism,
     path,
+    organism,
     quant_sf_only=False
 ):
+    """download_compendium
+
+    Download a Compendium for the specified organism.
+
+    returns: void
+
+    parameters:
+
+        path (str)
+
+        organism (str):
+
+        quant_sf_only (bool):
+
+    """
     compendia = Compendia.search(
         primary_organism__name=organism,
         quant_sf_only=quant_sf_only,
@@ -84,5 +144,18 @@ def download_compendium(
     download_file(download_url, path)
 
 
-def download_quandfile_compendium(organism, path):
+def download_quandfile_compendium(path, organism):
+    """download_quandfile_compendium
+
+    Download a Compendium for the specified organism.
+    This function will always download RNA-seq Sample Compedium results.
+
+    returns: void
+
+    parameters:
+
+        path (str):
+
+        organism (str): the name of the Organism 
+    """
     download_compendium(organism, path, True)
