@@ -46,6 +46,7 @@ def help(entity=None):
 
 def download_dataset(
     path,
+    email_address,
     dataset_dict=None,
     experiments=None,
     aggregation="EXPERIMENT",
@@ -62,6 +63,8 @@ def download_dataset(
         parameters:
 
             path (str):
+
+            email_address (str):
             
             dataset_dict (dict):
 
@@ -80,6 +83,7 @@ def download_dataset(
         )
 
     dataset = Dataset(
+        email_address=email_address,
         aggregate_by=aggregation,
         quantile_normalize=(not skip_quantile_normalization)
     )

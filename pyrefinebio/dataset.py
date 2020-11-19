@@ -1,7 +1,9 @@
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
 from pyrefinebio.exceptions import DownloadError
-
 from pyrefinebio.util import parse_date
+
+import pyrefinebio.experiment as prb_experiment
+import pyrefinebio.sample as prb_sample
 
 
 class Dataset:
@@ -82,13 +84,16 @@ class Dataset:
             print("Cannot add samples to a dataset that has been processed!")
             return
 
+        # get accession codes if Experiment or Sample objects are passed in
+        experiment = experiment.accession_code if isinstance(experiment, prb_experiment.Experiment) else experiment
+        samples = [sample.accession_code if isinstance(sample, prb_sample.Sample) else sample for sample in samples]
+
         if self.data:
-            self.data = {**self.data, experiment: samples}
+            self.data[experiment] = samples
         else:
             self.data = {experiment: samples}
 
         return self
-
 
 
     def save(self):
@@ -120,7 +125,10 @@ class Dataset:
         response["email_address"] = self.email_address
         response["email_ccdl_ok"] = self.email_ccdl_ok
 
-        return Dataset(**response)
+        for key, value in response.items():
+            setattr(self, key, value)
+
+        return self
 
 
     def process(self):

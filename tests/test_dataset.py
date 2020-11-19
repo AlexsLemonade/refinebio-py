@@ -203,3 +203,31 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         mock_copy.assert_called_with("raw", "file")
 
     
+    def test_add_samples(self):
+        dataset = pyrefinebio.Dataset()
+
+        dataset.add_samples("test-experiment-1")
+
+        experiment2 = pyrefinebio.Experiment(accession_code="test-experiment-2")
+
+        dataset.add_samples(experiment2)
+
+        sample1 = pyrefinebio.Sample(accession_code="sample1")
+        sample2 = pyrefinebio.Sample(accession_code="sample2")
+
+        dataset.add_samples("test-experiment-3", samples=[sample1, sample2, "sample3"])
+
+        self.assertDictEqual(
+            dataset.data,
+            {
+                "test-experiment-1": ["ALL"],
+                "test-experiment-2": ["ALL"],
+                "test-experiment-3": [
+                    "sample1",
+                    "sample2",
+                    "sample3"
+                ]
+            }
+        )
+
+
