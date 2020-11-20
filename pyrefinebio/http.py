@@ -26,7 +26,7 @@ def request(method, url, params=None, payload=None):
         response = requests.request(method, url, params=params, data=payload, headers=headers)
         response.raise_for_status()
 
-        return response.json()
+        return response
 
     except requests.exceptions.HTTPError:
         code = response.status_code

@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import create_paginated_list
 
 
 class Processor:
@@ -42,7 +42,7 @@ class Processor:
 
             id (int): the id for the processor you want to get
         """
-        response = get_by_endpoint("processors/" + str(id))
+        response = get_by_endpoint("processors/" + str(id)).json()
         return Processor(**response)
 
     @classmethod
@@ -54,4 +54,4 @@ class Processor:
         Since there are no filters, this method always returns all processors
         """
         response = get_by_endpoint("processors", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

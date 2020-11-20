@@ -27,6 +27,8 @@ class InvalidFilters(Exception):
 
 
 class DownloadError(Exception):
-    base_message = "Unable to download dataset"
-    def __init__(self):
-        super().__init__(self.base_message)
+    base_message = "Unable to download {0}"
+    def __init__(self, type, extra_info=None):
+        if extra_info:
+            self.base_message += "\n" + extra_info 
+        super().__init__(self.base_message.format(type))

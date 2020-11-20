@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 from pyrefinebio.common import annotation as prb_annotation
 from pyrefinebio import sample as prb_sample
@@ -96,7 +96,7 @@ class Experiment:
 
             accession code (str): the accession code for the experiment you want to get
         """
-        response = get_by_endpoint("experiments/" + accession_code)
+        response = get_by_endpoint("experiments/" + accession_code).json()
         return Experiment(**response)
 
     @classmethod
@@ -136,4 +136,4 @@ class Experiment:
             offset (int): The initial index from which to return the results.
         """
         response = get_by_endpoint("search", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

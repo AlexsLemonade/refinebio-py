@@ -80,7 +80,7 @@ def mock_request(method, url, **kwargs):
         return MockResponse(None, url, status=500)
 
     if url == "https://api.refine.bio/v1/compendia/":
-        return MockResponse(search_1, url)
+        return MockResponse(search_1, "search_2")
 
     if url == "search_2":
         return MockResponse(search_2, url)
@@ -107,12 +107,10 @@ class CompendiaTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendia_search_no_filters(self, mock_request):
-        result = pyrefinebio.Compendia.search()
+        results = pyrefinebio.Compendia.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], compendia_object_1)
-        self.assertObject(result_list[1], compendia_object_2)
+        self.assertObject(results[0], compendia_object_1)
+        self.assertObject(results[1], compendia_object_2)
 
         self.assertEqual(len(mock_request.call_args_list), 2)
 

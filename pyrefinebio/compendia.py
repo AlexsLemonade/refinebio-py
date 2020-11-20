@@ -1,7 +1,7 @@
 from pyrefinebio import computed_file as prb_computed_file
 
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import create_paginated_list
 
 
 class Compendia:
@@ -51,8 +51,8 @@ class Compendia:
 
             id (int): the id for the compendium result you want to get
         """
-        result = get_by_endpoint("compendia/" + str(id))
-        return Compendia(**result)
+        response = get_by_endpoint("compendia/" + str(id)).json()
+        return Compendia(**response)
 
     @classmethod
     def search(cls, **kwargs):
@@ -80,5 +80,5 @@ class Compendia:
             latest_version (bool): True will only return the highest
                                    compendium_version for each primary_organism.
         """
-        result = get_by_endpoint("compendia", params=kwargs)
-        return generator_from_pagination(result, cls)
+        response = get_by_endpoint("compendia", params=kwargs)
+        return create_paginated_list(cls, response)
