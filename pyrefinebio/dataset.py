@@ -76,7 +76,6 @@ class Dataset:
 
             experiment (str): accession code for the Experiment related to the Samples you
                               are adding to the dataset
-
                        (Experiment): Experiment object related to the Samples you are adding
                               the dataset
 

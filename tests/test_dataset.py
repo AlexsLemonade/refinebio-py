@@ -1,6 +1,7 @@
 import unittest
 import pyrefinebio
 import os
+import json
 from pyrefinebio.config import Config
 from unittest.mock import Mock, patch
 
@@ -40,6 +41,16 @@ dataset = {
 
 
 def mock_request(method, url, data, **kwargs):
+
+    if method == 'POST':
+        data = json.loads(data)
+        ds = {}
+        for key, value in dataset.items():
+            if data.get(key):
+                ds[key] = data.get(key)
+            else:
+                ds[key] = value
+        return MockResponse(ds, url)
 
     if url == "https://api.refine.bio/v1/dataset/test-dataset/":
         return MockResponse(dataset, url)
@@ -229,5 +240,3 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
                 ]
             }
         )
-
-
