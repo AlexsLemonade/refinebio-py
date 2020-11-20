@@ -62,19 +62,34 @@ def download_dataset(
 
         parameters:
 
-            path (str):
+            path (str): the path that the Dataset should be downloaded to
 
-            email_address (str):
+            email_address (str): the email address that will be contacted with info
+                                 related to the dataset
             
-            dataset_dict (dict):
+            dataset_dict (dict): a fully formed Dataset `data` attribute in the form:
+                                 {
+                                     "Experiment": [
+                                         "Sample",
+                                         "Sample"
+                                     ]
+                                 }
+                                 use this parameter if you want to specify specific Samples
+                                 for your dataset
+                                 each part of the dict can be a pyrefinebio object or an accession
+                                 code as a string
 
-            experiments (list):
+            experiments (list): a list of Experiments that should be added to the dataset
+                                use this parameter if you only care about the Experiments - all 
+                                available samples related to each Experiment will be added  
+                                the list can contain Experiment objects or accession codes as strings
 
-            aggregation (str):
+            aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT` or by `SPECIES`
 
-            transformation (str):
+            transformation (str): the transformation for the dataset - `NONE`, `MINMAX`, or `STANDARD`
 
-            skip_quantile_normalization (bool):
+            skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
+                                                normalization for RNA-seq Samples
     """
     if dataset_dict and experiments:
         raise DownloadError(
@@ -116,11 +131,13 @@ def download_compendium(
 
     parameters:
 
-        path (str)
+        path (str): the path that the Compendium should be downloaded to
 
-        organism (str):
+        organism (str): the name of the Organism for the Compendium you want to 
+                        download
 
-        quant_sf_only (bool):
+        quant_sf_only (bool): true for RNA-seq Sample Compendium results or False 
+                              for quantile normalized.
 
     """
     compendia = Compendia.search(
@@ -158,8 +175,9 @@ def download_quandfile_compendium(path, organism):
 
     parameters:
 
-        path (str):
+        path (str): the path that the Compendium should be downloaded to 
 
-        organism (str): the name of the Organism 
+        organism (str): the name of the Organism for the Compendium you want to 
+                        download
     """
     download_compendium(organism, path, True)
