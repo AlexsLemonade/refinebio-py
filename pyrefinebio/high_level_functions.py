@@ -2,7 +2,7 @@ import pyrefinebio
 import re
 import time
 
-from pyrefinebio import Dataset, Compendia
+from pyrefinebio import Dataset, Compendium
 from pyrefinebio.http import download_file
 from pyrefinebio.exceptions import DownloadError
 
@@ -140,20 +140,20 @@ def download_compendium(
                               for quantile normalized.
 
     """
-    compendia = Compendia.search(
+    compendium = Compendium.search(
         primary_organism__name=organism,
         quant_sf_only=quant_sf_only,
         latest_version=True
     )
 
-    if not compendia:
+    if not compendium:
         raise DownloadError(
             "Compendium", 
             extra_info="Could not find any Compendium with organism name, {0} and quant_sf_only, {1}"
                 .format(organism, quant_sf_only)
         )
 
-    download_url = compendia[0].computed_file.download_url
+    download_url = compendium[0].computed_file.download_url
 
     if not download_url:
         raise DownloadError(

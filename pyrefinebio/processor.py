@@ -5,14 +5,14 @@ from pyrefinebio.util import create_paginated_list
 class Processor:
     """Processor.
 
-    Retrieve a processor by id
+    Retrieve a Processor by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> processor = pyrefinebio.Processor.get(id)
 
-    Retrieve a list of processors
+    Retrieve a list of Processors
 
         ex:
         >>> import pyrefinebio
@@ -34,24 +34,24 @@ class Processor:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a processor based on id
+        """Retrieve a Processor based on id
 
         returns: Processor
 
         parameters:
 
-            id (int): the id for the processor you want to get
+            id (int): the id for the Processor you want to get
         """
         response = get_by_endpoint("processors/" + str(id)).json()
         return Processor(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of processors
+        """Retrieve a list of Processors
 
         returns: list of Processor
 
-        Since there are no filters, this method always returns all processors
+        Since there are no filters, this method always returns all Processors
         """
         response = get_by_endpoint("processors", params=kwargs)
         return create_paginated_list(cls, response)

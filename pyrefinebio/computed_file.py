@@ -10,14 +10,14 @@ class ComputedFile:
 
     ComputedFiles are representation of files created by data-refinery processes.
 
-    Retrieve a computed file based on id
+    Retrieve a ComputedFile based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> file = pyrefinebio.ComputedFile.get(id)
 
-    Retrieve a list of computed files based on filters
+    Retrieve a list of ComputedFile based on filters
 
         ex:
         >>> import pyrefinebio
@@ -68,54 +68,59 @@ class ComputedFile:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a specific computed file based on id
+        """Retrieve a specific ComputedFile based on id
 
         returns: ComputedFile
 
         parameters:
 
-            id (int): the id for the computed file you want to get
+            id (int): the id for the ComputedFile you want to get
         """
         response = get_by_endpoint("computed_files/" + str(id)).json()
         return ComputedFile(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of a compendium result based on filters
+        """Retrieve a list of a ComputedFiles based on filters
 
         returns: list of ComputedFile
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the ComputedFile
 
-            samples (str):
+            samples (str): filter based on the accession code for Samples related to the ComputedFile
 
-            is_qn_target (bool):
+            is_qn_target (bool): filter based on if the ComputedFile is a qn target
 
-            is_smashable (bool):
+            is_smashable (bool): filter based on if the ComputedFile can be added to a normalized
+                                 Dataset
 
-            is_qc (bool):
+            is_qc (bool): filter based on if the ComputedFile contains data about 
+                          the quality control of a result rather than data about the
+                          result itself
 
-            is_compendia (bool):
+            is_compendia (bool): filter based on if the ComputedFile is part of a compendium
 
-            quant_sf_only (bool):
+            quant_sf_only (bool): filter based on if the Samples associated with the ComputedFile
+                                  are RNA-seq only
 
-            svd_algorithm (str):
+            svd_algorithm (str): filter based on the SVD algorithm used for the ComputedFile
 
-            compendia_version (int):
+            compendia_version (int): filter based on the compendia version of the ComputedFile
 
-            created_at (str):
+            created_at (str): filter based on the time that the ComputedFile was created
 
-            last_modified (str):
+            last_modified (str): filter based on the time that the ComputedFile was last modified
 
-            result__id (int):
+            result__id (int): filter based on the id of the ComputationalResult associated with the 
+                              ComputedFile
 
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results
         """
         response = get_by_endpoint("computed_files", params=kwargs)
         return create_paginated_list(cls, response)

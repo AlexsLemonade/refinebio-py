@@ -7,6 +7,44 @@ import pyrefinebio.sample as prb_sample
 
 
 class Dataset:
+    """Dataset
+
+    Datasets are collections of experiments and their samples.  
+    A Dataset needs to be constructed and then processed before it can be downloaded.  
+    Downloading a Dataset requires an activated API token. See `pyrefinebio.Token` for more details
+
+    Create and save a Dataset
+
+        >>> import pyrefinebio
+        >>> dataset = pyrefinebio.Dataset(email_address="example@refine.bio", data={"SRP003819": ["SRR069230"]})
+        >>> dataset = dataset.save()
+
+    Get a Dataset that has been saved
+
+        >>> import pyrefinebio
+        >>> id = "dataset id <guid>"
+        >>> dataset = pyrefinebio.Dataset.get(id)
+
+    Start processing a Dataset
+
+        >>> import pyrefinebio
+        >>> dataset = pyrefinebio.Dataset(...)
+        >>> dataset.process()
+
+    Check if a Dataset is finished processing
+
+        >>> import pyrefinebio
+        >>> dataset = pyrefinebio.Dataset(...)
+        >>> dataset.process()
+        >>> dataset.check()
+
+    Download a processed Dataset
+
+        >>> import pyrefinebio
+        >>> dataset = pyrefinebio.Dataset(...)
+        >>> dataset.process()
+        >>> dataset.download("~/datasets/my_dataset.zip")
+    """
 
     def __init__(
         self,
@@ -63,6 +101,14 @@ class Dataset:
 
     @classmethod
     def get(cls, id):
+        """Retrieve a specific Dataset based on id
+
+        returns: Dataset
+
+        parameters:
+
+            id (str): the guid id for the computed file you want to get
+        """
         response = get_by_endpoint("dataset/" + id).json()
         return Dataset(**response)
 
@@ -99,6 +145,24 @@ class Dataset:
 
 
     def save(self):
+        """Save a Dataset
+
+        In order for a dataset to be saved its `data` attribute must be properly set.
+        The `data` attribute should be a dict with experiment accession codes as the keys  
+        and lists of sample accession codes as the values. If you want all samples associated  
+        with the experiment, you can use the value `"ALL"`.
+
+            ex:
+            data = {
+                "SRP003819": [
+                    "SRR069230",
+                    "SRR069231"
+                ],
+                "SRP003820": ["ALL"]
+            }
+
+        returns: Dataset
+        """
         body = {}
         body["data"] = self.data
         if self.aggregate_by:
@@ -134,12 +198,24 @@ class Dataset:
 
 
     def process(self):
+        """Start processing a Dataset
+
+        In order for a Dataset to be processed, its `data` and `email_address` attributes  
+        must be properly set.
+
+        returns: void
+        """
         self.start = True
         response = self.save()
         self.is_processing = response.is_processing
 
 
     def check(self):
+        """Check to see if a Dataset has finished processing
+
+        returns: bool
+        """
+
         response = self.get(self.id)
         self.is_processing = response.is_processing
         self.is_processed = response.is_processed
@@ -147,6 +223,13 @@ class Dataset:
 
 
     def download(self, path):
+        """Download a processed Dataset
+
+        returns: void
+
+        parameters:
+            path (str): the path that the Dataset should be downloaded to
+        """
         download_url = self.download_url or self.get(self.id).download_url
 
         if not download_url:

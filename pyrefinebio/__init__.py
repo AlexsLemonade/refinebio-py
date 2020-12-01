@@ -1,5 +1,5 @@
 from pyrefinebio.common import Annotation
-from pyrefinebio.compendia import Compendia
+from pyrefinebio.compendia import Compendium
 from pyrefinebio.computational_result import ComputationalResult
 from pyrefinebio.computed_file import ComputedFile
 from pyrefinebio.dataset import Dataset
