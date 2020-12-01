@@ -27,5 +27,5 @@ class Platform:
 
         Since there are no filters, this method always returns all Platforms
         """
-        response = get_by_endpoint("platforms", params=kwargs)
+        response = get_by_endpoint("platforms", params=kwargs).json()
         return [Platform(**platform) for platform in response]

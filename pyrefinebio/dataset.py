@@ -1,7 +1,9 @@
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
 from pyrefinebio.exceptions import DownloadError
-
 from pyrefinebio.util import parse_date
+
+import pyrefinebio.experiment as prb_experiment
+import pyrefinebio.sample as prb_sample
 
 
 class Dataset:
@@ -107,8 +109,39 @@ class Dataset:
 
             id (str): the guid id for the computed file you want to get
         """
-        response = get_by_endpoint("dataset/" + id)
+        response = get_by_endpoint("dataset/" + id).json()
         return Dataset(**response)
+
+
+    def add_samples(self, experiment, samples=["ALL"]):
+        """Add samples to a dataset
+
+        returns: Dataset
+
+        parameters:
+
+            experiment (str): accession code for the Experiment related to the Samples you
+                              are adding to the dataset
+                       (Experiment): Experiment object related to the Samples you are adding
+                              the dataset
+
+            samples (list): list of Sample objects or Sample accession codes for the samples
+                            you are adding to the dataset
+        """
+        if self.is_processing or self.is_processed:
+            print("Cannot add samples to a dataset that has been processed!")
+            return
+
+        # get accession codes if Experiment or Sample objects are passed in
+        experiment = experiment.accession_code if isinstance(experiment, prb_experiment.Experiment) else experiment
+        samples = [sample.accession_code if isinstance(sample, prb_sample.Sample) else sample for sample in samples]
+
+        if self.data:
+            self.data[experiment] = samples
+        else:
+            self.data = {experiment: samples}
+
+        return self
 
 
     def save(self):
@@ -150,15 +183,18 @@ class Dataset:
             body["svd_algorithm"] = self.svd_algorithm
 
         if self.id:
-            response = put_by_endpoint("dataset/" + self.id, payload=body)
+            response = put_by_endpoint("dataset/" + self.id, payload=body).json()
         else:
-            response = post_by_endpoint("dataset", payload=body)
+            response = post_by_endpoint("dataset", payload=body).json()
 
         # add fields that aren't returned by the api
         response["email_address"] = self.email_address
         response["email_ccdl_ok"] = self.email_ccdl_ok
 
-        return Dataset(**response)
+        for key, value in response.items():
+            setattr(self, key, value)
+
+        return self
 
 
     def process(self):
@@ -197,6 +233,6 @@ class Dataset:
         download_url = self.download_url or self.get(self.id).download_url
 
         if not download_url:
-            raise DownloadError()
+            raise DownloadError("dataset", "Download url not found - did you process the dataset?")
 
         download_file(download_url, path)

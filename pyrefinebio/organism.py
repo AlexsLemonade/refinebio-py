@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import create_paginated_list
 
 
 class Organism:
@@ -38,7 +38,7 @@ class Organism:
             name (str): the name for the Organism you want to get
         """
 
-        response = get_by_endpoint("organisms/" + name)
+        response = get_by_endpoint("organisms/" + name).json()
         return Organism(**response)
 
     @classmethod
@@ -50,4 +50,4 @@ class Organism:
         Since there are no filters, this method always returns all organisms
         """
         response = get_by_endpoint("organisms", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

@@ -1,6 +1,7 @@
 import unittest
 import pyrefinebio
 import os
+import json
 from pyrefinebio.config import Config
 from unittest.mock import Mock, patch
 
@@ -41,6 +42,16 @@ dataset = {
 
 def mock_request(method, url, data, **kwargs):
 
+    if method == 'POST':
+        data = json.loads(data)
+        ds = {}
+        for key, value in dataset.items():
+            if data.get(key):
+                ds[key] = data.get(key)
+            else:
+                ds[key] = value
+        return MockResponse(ds, url)
+
     if url == "https://api.refine.bio/v1/dataset/test-dataset/":
         return MockResponse(dataset, url)
 
@@ -77,7 +88,8 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.dataset.post_by_endpoint")
     @patch("pyrefinebio.dataset.put_by_endpoint")
     def test_dataset_save(self, mock_put, mock_post):
-        mock_post.return_value = dataset
+        mock_post.return_value = MockResponse(dataset, "")
+        mock_put.return_value = MockResponse(dataset, "")
 
         ds = pyrefinebio.Dataset(data={"test-experiment": ["sample-1", "sample-2"]}, email_address="test-email")
         ds = ds.save()
@@ -202,3 +214,29 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         mock_copy.assert_called_with("raw", "file")
 
     
+    def test_add_samples(self):
+        dataset = pyrefinebio.Dataset()
+
+        dataset.add_samples("test-experiment-1")
+
+        experiment2 = pyrefinebio.Experiment(accession_code="test-experiment-2")
+
+        dataset.add_samples(experiment2)
+
+        sample1 = pyrefinebio.Sample(accession_code="sample1")
+        sample2 = pyrefinebio.Sample(accession_code="sample2")
+
+        dataset.add_samples("test-experiment-3", samples=[sample1, sample2, "sample3"])
+
+        self.assertDictEqual(
+            dataset.data,
+            {
+                "test-experiment-1": ["ALL"],
+                "test-experiment-2": ["ALL"],
+                "test-experiment-3": [
+                    "sample1",
+                    "sample2",
+                    "sample3"
+                ]
+            }
+        )

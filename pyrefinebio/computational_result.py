@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 from pyrefinebio.common import annotation as prb_annotation
 from pyrefinebio import transcriptome_index as prb_transcriptome_index
@@ -66,8 +66,8 @@ class ComputationalResult:
 
             id (int): The id for the computational result to be retrieved.
         """
-        result = get_by_endpoint("computational_results/" + str(id))
-        return ComputationalResult(**result)
+        response = get_by_endpoint("computational_results/" + str(id)).json()
+        return ComputationalResult(**response)
 
     @classmethod
     def search(cls, **kwargs):
@@ -83,5 +83,5 @@ class ComputationalResult:
 
             offset (int): the initial index from which to return the results
         """
-        result = get_by_endpoint("computational_results", params=kwargs)
-        return generator_from_pagination(result, cls)
+        response = get_by_endpoint("computational_results", params=kwargs)
+        return create_paginated_list(cls, response)

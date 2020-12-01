@@ -149,7 +149,7 @@ def mock_request(method, url, **kwargs):
         return MockResponse(None, url, status=500)
 
     if url == "https://api.refine.bio/v1/search/":
-        return MockResponse(search_1, url)
+        return MockResponse(search_1, "search_2")
 
     if url == "search_2":
         return MockResponse(search_2, url)

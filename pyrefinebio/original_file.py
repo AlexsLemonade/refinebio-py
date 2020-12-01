@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 import pyrefinebio.job as prb_job
 import pyrefinebio.sample as prb_sample
@@ -65,7 +65,7 @@ class OriginalFile:
             id (int): the id for the OriginalFile you want to get
         """
 
-        response = get_by_endpoint("original_files/" + str(id))
+        response = get_by_endpoint("original_files/" + str(id)).json()
         return OriginalFile(**response)
 
     @classmethod
@@ -111,4 +111,4 @@ class OriginalFile:
         """
 
         response = get_by_endpoint("original_files", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

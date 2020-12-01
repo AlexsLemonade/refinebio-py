@@ -57,7 +57,7 @@ class QNTarget:
 
             organism_name (str): the name of the organism for the QNTarget you want to get
         """
-        response = get_by_endpoint("qn_targets/" + organism_name)
+        response = get_by_endpoint("qn_targets/" + organism_name).json()
         return QNTarget(**response)
 
     @classmethod
@@ -68,5 +68,5 @@ class QNTarget:
 
         Since there are no filters, this method always returns all Organisms that have available QNTargets
         """
-        response = get_by_endpoint("qn_targets", params=kwargs)
+        response = get_by_endpoint("qn_targets", params=kwargs).json()
         return [prb_organism.Organism(**qn_organism) for qn_organism in response]

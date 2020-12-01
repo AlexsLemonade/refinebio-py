@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 from pyrefinebio.common import annotation as prb_annotation
 from pyrefinebio import computational_result as prb_computational_result
@@ -127,8 +127,8 @@ class Sample:
 
             accession_code (str): The accession code for the Sample to be retrieved.
         """
-        result = get_by_endpoint("samples/" + accession_code)
-        return cls(**result)
+        response = get_by_endpoint("samples/" + accession_code).json()
+        return cls(**response)
 
     @classmethod
     def search(cls, **kwargs):
@@ -195,5 +195,5 @@ class Sample:
 
             accession_codes (str): filter based on multiple accession codes at once
         """
-        result = get_by_endpoint("samples", params=kwargs)
-        return generator_from_pagination(result, cls)
+        response = get_by_endpoint("samples", params=kwargs)
+        return create_paginated_list(cls, response)
