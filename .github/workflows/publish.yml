@@ -25,7 +25,6 @@ jobs:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         VERSION: ${{ github.event.release.tag_name }}
-      # using testpypi for now to test!!
       run: |
         python setup.py sdist bdist_wheel
-        twine upload --repository testpypi dist/*
+        twine upload dist/*
