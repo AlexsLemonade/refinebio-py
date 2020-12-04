@@ -97,7 +97,7 @@ def mock_request(method, url, **kwargs):
         )
         
 
-class paginatedListTests(unittest.TestCase, CustomAssertions):
+class PaginatedListTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_indexing(self, mock_request):
