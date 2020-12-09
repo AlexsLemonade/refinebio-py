@@ -50,7 +50,7 @@ class Token:
     ):
         if id:
             try:
-                response = get_by_endpoint("token/" + str(id))
+                response = get_by_endpoint("token/" + str(id)).json()
             except NotFound:
                 raise BadRequest(
                     "Token with id '" + str(id) + "' does not exist in RefineBio. " 
