@@ -40,6 +40,11 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         self.assertEqual(result.token_id, token["id"])
 
 
+    def test_token_create_bad_id(self):
+        with self.assertRaises(pyrefinebio.exceptions.BadRequest):
+            pyrefinebio.Token(id="test")
+
+
     @patch("pyrefinebio.config.yaml.dump")
     @patch("pyrefinebio.config.open")
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)

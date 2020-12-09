@@ -5,7 +5,7 @@ from pathlib import Path
 import yaml
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint
 from pyrefinebio.config import Config
-from pyrefinebio.exceptions import NotFound
+from pyrefinebio.exceptions import NotFound, BadRequest
 
 
 class Token:
@@ -51,12 +51,11 @@ class Token:
         if id:
             try:
                 response = get_by_endpoint("token/" + str(id))
-            except NotFound as e:
-                e.base_message = (
-                    "Token with id " + str(id) + " does not exist in RefineBio. " 
+            except NotFound:
+                raise BadRequest(
+                    "Token with id '" + str(id) + "' does not exist in RefineBio. " 
                     "Please create a new token."
                 )
-                raise e
         else:
             response = post_by_endpoint(
                 "token",
