@@ -73,10 +73,10 @@ class ComputationalResult:
     def search(cls, **kwargs):
         """Retrieve a list of computational results based on filters.
 
-        returns: list of ComputationalResult
+        Returns:
+            list of ComputationalResult
 
-        valid filters:
-
+        Valid Filters:
             processor__id (int): id of the Processor that processed the result
 
             limit (int): number of results to return per page

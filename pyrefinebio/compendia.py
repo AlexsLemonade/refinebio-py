@@ -7,18 +7,17 @@ from pyrefinebio.util import create_paginated_list
 class Compendium:
     """Compendium
 
-    Retrieve a Compendium based on id
+    Examples:
+        Retrieve a Compendium based on id
 
-        ex:
-        >>> import pyrefinebio
-        >>> id = 1
-        >>> result = pyrefinebio.Compendium.get(id)
+            >>> import pyrefinebio
+            >>> id = 1
+            >>> result = pyrefinebio.Compendium.get(id)
 
-    Retrieve a list of Compendia based on filters
+        Retrieve a list of Compendia based on filters
 
-        ex:
-        >>> import pyrefinebio
-        >>> results = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
+            >>> import pyrefinebio
+            >>> results = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
     """
 
     def __init__(
@@ -45,10 +44,10 @@ class Compendium:
     def get(cls, id):
         """Retrieve a specific Compendium based on id
 
-        returns: Compendium
+        Returns:
+            Compendium
 
-        parameters:
-
+        Parameters:
             id (int): the id for the Compendium you want to get
         """
         response = get_by_endpoint("compendia/" + str(id)).json()
@@ -58,10 +57,10 @@ class Compendium:
     def search(cls, **kwargs):
         """Retrieve a list of Compendium results based on filters
 
-        returns: list of Compendium
+        Returns:
+            list of Compendium
 
-        valid filters:
-
+        Valid Filters:
             primary_organism__name (str): filter based on the name of the primary Organism
                                           associated with the compendium 
 
