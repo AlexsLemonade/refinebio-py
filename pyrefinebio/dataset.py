@@ -103,10 +103,10 @@ class Dataset:
     def get(cls, id):
         """Retrieve a specific Dataset based on id
 
-        returns: Dataset
+        Returns:
+            Dataset
 
-        parameters:
-
+        Parameters:
             id (str): the guid id for the computed file you want to get
         """
         response = get_by_endpoint("dataset/" + id).json()
@@ -116,10 +116,10 @@ class Dataset:
     def add_samples(self, experiment, samples=["ALL"]):
         """Add samples to a dataset
 
-        returns: Dataset
+        Returns:
+            Dataset
 
-        parameters:
-
+        Parameters:
             experiment (str): accession code for the Experiment related to the Samples you
                               are adding to the dataset
                        (Experiment): Experiment object related to the Samples you are adding
@@ -152,16 +152,17 @@ class Dataset:
         and lists of sample accession codes as the values. If you want all samples associated  
         with the experiment, you can use the value `"ALL"`.
 
-            ex:
-            data = {
-                "SRP003819": [
-                    "SRR069230",
-                    "SRR069231"
-                ],
-                "SRP003820": ["ALL"]
-            }
+        Example:
+            >>> data = {
+            >>>     "SRP003819": [
+            >>>         "SRR069230",
+            >>>         "SRR069231"
+            >>>     ],
+            >>>     "SRP003820": ["ALL"]
+            >>> }
 
-        returns: Dataset
+        Returns:
+            Dataset
         """
         body = {}
         body["data"] = self.data
@@ -203,7 +204,8 @@ class Dataset:
         In order for a Dataset to be processed, its `data` and `email_address` attributes  
         must be properly set.
 
-        returns: void
+        Returns:
+            void
         """
         self.start = True
         response = self.save()
@@ -213,7 +215,8 @@ class Dataset:
     def check(self):
         """Check to see if a Dataset has finished processing
 
-        returns: bool
+        Returns:
+            bool
         """
 
         response = self.get(self.id)
@@ -225,9 +228,10 @@ class Dataset:
     def download(self, path):
         """Download a processed Dataset
 
-        returns: void
+        Returns:
+            void
 
-        parameters:
+        Parameters:
             path (str): the path that the Dataset should be downloaded to
         """
         download_url = self.download_url or self.get(self.id).download_url

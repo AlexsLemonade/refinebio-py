@@ -58,10 +58,10 @@ def download_dataset(
         Automatically constructs a Dataset, processes it, waits for it
         to finish processing, then downloads it to the path specified.
 
-        returns: void
+        Returns:
+            void
 
-        parameters:
-
+        Parameters:
             path (str): the path that the Dataset should be downloaded to
 
             email_address (str): the email address that will be contacted with info
@@ -127,10 +127,10 @@ def download_compendium(
 
     Download a Compendium for the specified organism.
 
-    returns: void
+    Returns:
+        void
 
-    parameters:
-
+    Parameters:
         path (str): the path that the Compendium should be downloaded to
 
         organism (str): the name of the Organism for the Compendium you want to 
@@ -171,10 +171,10 @@ def download_quandfile_compendium(path, organism):
     Download a Compendium for the specified organism.
     This function will always download RNA-seq Sample Compedium results.
 
-    returns: void
+    Returns:
+        void
 
-    parameters:
-
+    Parameters:
         path (str): the path that the Compendium should be downloaded to 
 
         organism (str): the name of the Organism for the Compendium you want to 

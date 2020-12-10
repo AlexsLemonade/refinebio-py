@@ -18,27 +18,23 @@ class Token:
 
     Create a new Token
 
-        ex:
         >>> import pyrefinebio
         >>> token = pyrefinebio.Token(email_address="foo@bar.com")
 
     Create a Token and activate it
 
-        ex:
         >>> import pyrefinebio
         >>> token = pyrefinebio.Token(email_address="foo@bar.com")
         >>> token.agree_to_terms_and_conditions()
 
     Save a Token to the config file
 
-        ex:
         >>> import pyrefinebio
         >>> token = pyrefinebio.Token(email_address="foo@bar.com")
         >>> token.save_token()
 
     Load the Token that is currently saved to the config file
 
-        ex:
         >>> import pyrefinebio
         >>> token = pyrefinebio.Token.load_token()
     """

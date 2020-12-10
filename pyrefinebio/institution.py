@@ -6,7 +6,6 @@ class Institution:
 
     Retrieve a list of Institutions
 
-        ex:
         >>> import pyrefinebio
         >>> institutions = pyrefinebio.Institution.search()
     """
@@ -18,7 +17,8 @@ class Institution:
     def search(cls):
         """Retrieve a list of Institutions
 
-        returns: list of Institution
+        Returns:
+            list of Institution
 
         Since there are no filters, this method always gets all Institutions.
         """

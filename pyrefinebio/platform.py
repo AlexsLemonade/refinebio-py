@@ -23,7 +23,8 @@ class Platform:
     def search(cls, **kwargs):
         """Retrieve a list of Platforms
 
-        returns: list of Platform
+        Returns:
+            list of Platform
 
         Since there are no filters, this method always returns all Platforms
         """

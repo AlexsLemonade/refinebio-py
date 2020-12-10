@@ -70,10 +70,10 @@ class ComputedFile:
     def get(cls, id):
         """Retrieve a specific ComputedFile based on id
 
-        returns: ComputedFile
+        Returns:
+            ComputedFile
 
-        parameters:
-
+        Parameters:
             id (int): the id for the ComputedFile you want to get
         """
         response = get_by_endpoint("computed_files/" + str(id)).json()
@@ -83,9 +83,10 @@ class ComputedFile:
     def search(cls, **kwargs):
         """Retrieve a list of a ComputedFiles based on filters
 
-        returns: list of ComputedFile
+        Returns:
+            list of ComputedFile
 
-        valid filters:
+        Keyword Arguments:
 
             id (int): filter based on the id of the ComputedFile
 

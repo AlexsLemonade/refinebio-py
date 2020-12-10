@@ -7,14 +7,12 @@ class TranscriptomeIndex:
 
     get a TranscriptomeIndex by id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> t_index = pyrefinebio.TranscriptomeIndex.get(id)
 
     Retrieve a list of TranscriptomeIndex based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> t_indecies = pyrefinebio.TranscriptomeIndex.search(organism_name="GORILLA")
     """
@@ -47,10 +45,10 @@ class TranscriptomeIndex:
     def get(cls, id):
         """Retrieve a TranscriptomeIndex based on id
 
-        returns: TranscriptomeIndex
+        Returns:
+            TranscriptomeIndex
 
-        parameters:
-
+        Parameters:
             id (int): the id for the TranscriptomeIndex you want to get
         """
         response = get_by_endpoint("transcriptome_indices/" + str(id)).json()
@@ -60,10 +58,10 @@ class TranscriptomeIndex:
     def search(cls, **kwargs):
         """Retrieve a list of TranscriptomeIndex based on various filters
 
-        returns: list of TranscriptomeIndex
+        Returns:
+            list of TranscriptomeIndex
 
-        parameters:
-
+        Parameters:
             salmon_version (str): filter based on the TranscriptomeIndex's salmon version eg. salmon 0.13.1
 
             index_type (str): `TRANSCRIPTOME_LONG` or `TRANSCRIPTOME_SHORT`. 

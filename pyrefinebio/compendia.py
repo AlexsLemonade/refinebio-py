@@ -60,7 +60,7 @@ class Compendium:
         Returns:
             list of Compendium
 
-        Valid Filters:
+        Keyword Arguments:
             primary_organism__name (str): filter based on the name of the primary Organism
                                           associated with the compendium 
 

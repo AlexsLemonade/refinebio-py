@@ -10,14 +10,12 @@ class Experiment:
 
     Retrieve an Experiment based on id
 
-        ex:
         >>> import pyrefinebio
         >>> accession_code = 1
         >>> experiment = pyrefinebio.Experiment.get(accession_code)
 
     Search for Experiments based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> experiments = pyrefinebio.Experiment.search(is_compendia=True, is_public=True)
     """
@@ -90,10 +88,10 @@ class Experiment:
     def get(cls, accession_code):
         """Retrieve an Experiment based on accession code
 
-        returns: Experiment
+        Returns:
+            Experiment
 
-        parameters:
-
+        Parameters:
             accession code (str): the accession code for the Experiment you want to get
         """
         response = get_by_endpoint("experiments/" + accession_code).json()
@@ -103,10 +101,10 @@ class Experiment:
     def search(cls, **kwargs):
         """Search for Experiments based on various filters
 
-        returns: list of Experiment
+        Returns:
+            list of Experiment
 
-        valid filters:
-
+        Keyword Arguments:
             id (int): filter based on the id of the Experiment
 
             technology (str): filter based on the technology used for the Experiment
