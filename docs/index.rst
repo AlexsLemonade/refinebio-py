@@ -16,8 +16,10 @@ Classes
 
    compendium
    computational_result
+   computed_file
    dataset
    experiment
+   institution
    organism
    original_file
    platform

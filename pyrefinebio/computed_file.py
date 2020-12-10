@@ -12,14 +12,12 @@ class ComputedFile:
 
     Retrieve a ComputedFile based on id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> file = pyrefinebio.ComputedFile.get(id)
 
     Retrieve a list of ComputedFile based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> files = pyrefinebio.ComputedFile.search(is_compendia=True, is_public=True)
     """

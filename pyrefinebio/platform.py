@@ -6,7 +6,6 @@ class Platform:
 
     Retrieve a list of Platforms based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> og_files = pyrefinebio.Platform.search()
     """

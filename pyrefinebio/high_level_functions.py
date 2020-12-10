@@ -13,8 +13,7 @@ def help(entity=None):
     To get information about a class method, pass in the class name and method name  
     separated by either a space or a `.`
     
-    usage:
-
+    Usage:
         getting info about classes:
 
         >>> pyrefinebio.help("Sample")
