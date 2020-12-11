@@ -9,14 +9,12 @@ class QNTarget:
 
     Retrieve a QN target by organism name
 
-        ex:
         >>> import pyrefinebio
         >>> organism_name = "GORILLA"
         >>> qn_target = pyrefinebio.QNTarget.get(organism_name)
 
     Retrieve a list of QN target organisms
 
-        ex:
         >>> import pyrefinebio
         >>> qn_target_organisms = pyrefinebio.QNTarget.search()
     """

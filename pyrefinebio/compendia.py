@@ -7,17 +7,16 @@ from pyrefinebio.util import create_paginated_list
 class Compendium:
     """Compendium
 
-    Examples:
-        Retrieve a Compendium based on id
+    Retrieve a Compendium based on id
 
-            >>> import pyrefinebio
-            >>> id = 1
-            >>> result = pyrefinebio.Compendium.get(id)
+        >>> import pyrefinebio
+        >>> id = 1
+        >>> result = pyrefinebio.Compendium.get(id)
 
-        Retrieve a list of Compendia based on filters
+    Retrieve a list of Compendia based on filters
 
-            >>> import pyrefinebio
-            >>> results = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
+        >>> import pyrefinebio
+        >>> results = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
     """
 
     def __init__(
