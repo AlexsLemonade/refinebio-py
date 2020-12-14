@@ -110,4 +110,5 @@ class TokenTests(unittest.TestCase, CustomAssertions):
 
         token = pyrefinebio.Token.get_token()
 
-        mock_get.assert_called_with("token/this-is-a-test-token")
+        self.assertEqual(token.id, "this-is-a-test-token")
+
