@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiment &#8212; pyrefinebio 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Institution" href="institution.html" />
+    <link rel="prev" title="Dataset" href="dataset.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="experiment">
+<h1>Experiment<a class="headerlink" href="#experiment" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyrefinebio.Experiment">
+<em class="property">class </em><code class="sig-prename descclassname">pyrefinebio.</code><code class="sig-name descname">Experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">technology</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">annotations</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">samples</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">protocol_description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">accession_code</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alternate_accession_code</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">source_database</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">source_url</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">has_publication</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">publication_title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">publication_doi</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">publication_authors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pubmed_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">source_first_published</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">source_last_modified</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">submitter_institution</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">platform_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">platform_accession_codes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">last_modified</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">created_at</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">organism_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sample_metadata_fields</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sample_metadata</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_total_samples</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_processed_samples</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_downloadable_samples</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve an Experiment based on id</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accession_code</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiment</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Experiment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">accession_code</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Search for Experiments based on filters</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">experiments</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Experiment</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">is_compendia</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="pyrefinebio.Experiment.get">
+<em class="property">classmethod </em><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">accession_code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Experiment.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve an Experiment based on accession code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Experiment</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>code</strong> (<em>accession</em>) – the accession code for the Experiment you want to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.Experiment.search">
+<em class="property">classmethod </em><code class="sig-name descname">search</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Experiment.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for Experiments based on various filters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of Experiment</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – filter based on the id of the Experiment</p></li>
+<li><p><strong>technology</strong> (<em>str</em>) – filter based on the technology used for the Experiment
+(microarray, rna-seq, etc) this filter can have multiple values.</p></li>
+<li><p><strong>has_publication</strong> (<em>bool</em>) – filter based on if the Experiment has associated publications</p></li>
+<li><p><strong>accession_code</strong> (<em>str</em>) – filter based on the Experiment’s accession code
+this filter can have multiple values</p></li>
+<li><p><strong>alternate_accession_code</strong> (<em>str</em>) – filter based on the Experiment’s alternate
+accession codes</p></li>
+<li><p><strong>platform</strong> (<em>str</em>) – filter based on  platform, this filter can have multiple values</p></li>
+<li><p><strong>organism</strong> (<em>str</em>) – filter based on Organism, this filter can have multiple values</p></li>
+<li><p><strong>num_processed_samples</strong> (<em>number</em>) – filter based on the Experiment’s number of processed samples</p></li>
+<li><p><strong>num_downloadable_samples</strong> (<em>int</em>) – filter based on the Experiment’s number of downloadable samples</p></li>
+<li><p><strong>sample_keywords</strong> (<em>str</em>) – filter based on keywords associated with the Experiment’s Samples</p></li>
+<li><p><strong>ordering</strong> (<em>str</em>) – which field from to use when ordering the results</p></li>
+<li><p><strong>search</strong> (<em>str</em>) – specify a keyword which will be applied to the Experiment’s title, publication_authors,
+sample_keywords, publication_title, submitter_institution, description, accession_code,
+alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, and
+platform_names</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – number of results to return per page</p></li>
+<li><p><strong>offset</strong> (<em>int</em>) – the initial index from which to return the results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyrefinebio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dataset.html" title="previous chapter">Dataset</a></li>
+      <li>Next: <a href="institution.html" title="next chapter">Institution</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, CCDL.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/experiment.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

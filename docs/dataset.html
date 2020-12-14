@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dataset &#8212; pyrefinebio 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Experiment" href="experiment.html" />
+    <link rel="prev" title="Computed File" href="computed_file.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="dataset">
+<h1>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyrefinebio.Dataset">
+<em class="property">class </em><code class="sig-prename descclassname">pyrefinebio.</code><code class="sig-name descname">Dataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">aggregate_by</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scale_by</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_processing</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_processed</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_available</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">has_email</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">email_address</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">email_ccdl_ok</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">expires_on</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">s3_bucket</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">s3_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">success</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">failure_reason</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">created_at</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">last_modified</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size_in_bytes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sha1</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quantile_normalize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quant_sf_only</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">svd_algorithm</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">download_url</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Datasets are collections of experiments and their samples.
+A Dataset needs to be constructed and then processed before it can be downloaded.
+Downloading a Dataset requires an activated API token. See <cite>pyrefinebio.Token</cite> for more details</p>
+<p>Create and save a Dataset</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">email_address</span><span class="o">=</span><span class="s2">&quot;example@refine.bio&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;SRP003819&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;SRR069230&quot;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Get a Dataset that has been saved</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">id</span> <span class="o">=</span> <span class="s2">&quot;dataset id &lt;guid&gt;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Start processing a Dataset</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Check if a Dataset is finished processing</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Download a processed Dataset</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;~/datasets/my_dataset.zip&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="pyrefinebio.Dataset.add_samples">
+<code class="sig-name descname">add_samples</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">samples</span><span class="o">=</span><span class="default_value">['ALL']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Dataset.add_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add samples to a dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dataset</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>experiment</strong> (<em>str</em>) – <dl class="simple">
+<dt>accession code for the Experiment related to the Samples you</dt><dd><p>are adding to the dataset</p>
+</dd>
+<dt>(Experiment): Experiment object related to the Samples you are adding</dt><dd><p>the dataset</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>samples</strong> (<em>list</em>) – list of Sample objects or Sample accession codes for the samples
+you are adding to the dataset</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.Dataset.check">
+<code class="sig-name descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Dataset.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check to see if a Dataset has finished processing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.Dataset.download">
+<code class="sig-name descname">download</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Dataset.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a processed Dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>void</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>path</strong> (<em>str</em>) – the path that the Dataset should be downloaded to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.Dataset.get">
+<em class="property">classmethod </em><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Dataset.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a specific Dataset based on id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dataset</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>id</strong> (<em>str</em>) – the guid id for the computed file you want to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.Dataset.process">
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Dataset.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing a Dataset</p>
+<p>In order for a Dataset to be processed, its <cite>data</cite> and <cite>email_address</cite> attributes
+must be properly set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>void</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.Dataset.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Dataset.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a Dataset</p>
+<p>In order for a dataset to be saved its <cite>data</cite> attribute must be properly set.
+The <cite>data</cite> attribute should be a dict with experiment accession codes as the keys
+and lists of sample accession codes as the values. If you want all samples associated
+with the experiment, you can use the value <cite>“ALL”</cite>.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;SRP003819&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="s2">&quot;SRR069230&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="s2">&quot;SRR069231&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;SRP003820&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyrefinebio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="computed_file.html" title="previous chapter">Computed File</a></li>
+      <li>Next: <a href="experiment.html" title="next chapter">Experiment</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, CCDL.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/dataset.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

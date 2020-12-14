@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High Level Functions &#8212; pyrefinebio 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="http" href="http.html" />
+    <link rel="prev" title="Transcriptome Index" href="transcriptome_index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pyrefinebio.high_level_functions">
+<span id="high-level-functions"></span><h1>High Level Functions<a class="headerlink" href="#module-pyrefinebio.high_level_functions" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="pyrefinebio.high_level_functions.download_compendium">
+<code class="sig-prename descclassname">pyrefinebio.high_level_functions.</code><code class="sig-name descname">download_compendium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">organism</span></em>, <em class="sig-param"><span class="n">quant_sf_only</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.high_level_functions.download_compendium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a Compendium for the specified organism.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>void</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – the path that the Compendium should be downloaded to</p></li>
+<li><p><strong>organism</strong> (<em>str</em>) – the name of the Organism for the Compendium you want to
+download</p></li>
+<li><p><strong>quant_sf_only</strong> (<em>bool</em>) – true for RNA-seq Sample Compendium results or False
+for quantile normalized.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyrefinebio.high_level_functions.download_dataset">
+<code class="sig-prename descclassname">pyrefinebio.high_level_functions.</code><code class="sig-name descname">download_dataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">email_address</span></em>, <em class="sig-param"><span class="n">dataset_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">experiments</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">aggregation</span><span class="o">=</span><span class="default_value">'EXPERIMENT'</span></em>, <em class="sig-param"><span class="n">transformation</span><span class="o">=</span><span class="default_value">'NONE'</span></em>, <em class="sig-param"><span class="n">skip_quantile_normalization</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.high_level_functions.download_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically constructs a Dataset, processes it, waits for it
+to finish processing, then downloads it to the path specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>void</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – the path that the Dataset should be downloaded to</p></li>
+<li><p><strong>email_address</strong> (<em>str</em>) – the email address that will be contacted with info
+related to the dataset</p></li>
+<li><p><strong>dataset_dict</strong> (<em>dict</em>) – <p>a fully formed Dataset <cite>data</cite> attribute in the form:
+{</p>
+<blockquote>
+<div><dl class="simple">
+<dt>”Experiment”: [</dt><dd><p>“Sample”,
+“Sample”</p>
+</dd>
+</dl>
+<p>]</p>
+</div></blockquote>
+<p>}
+use this parameter if you want to specify specific Samples
+for your dataset
+each part of the dict can be a pyrefinebio object or an accession
+code as a string</p>
+</p></li>
+<li><p><strong>experiments</strong> (<em>list</em>) – a list of Experiments that should be added to the dataset
+use this parameter if you only care about the Experiments - all
+available samples related to each Experiment will be added
+the list can contain Experiment objects or accession codes as strings</p></li>
+<li><p><strong>aggregation</strong> (<em>str</em>) – how the Dataset should be aggregated - by <cite>EXPERIMENT</cite> or by <cite>SPECIES</cite></p></li>
+<li><p><strong>transformation</strong> (<em>str</em>) – the transformation for the dataset - <cite>NONE</cite>, <cite>MINMAX</cite>, or <cite>STANDARD</cite></p></li>
+<li><p><strong>skip_quantile_normalization</strong> (<em>bool</em>) – control whether or not the dataset should skip quantile
+normalization for RNA-seq Samples</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyrefinebio.high_level_functions.download_quandfile_compendium">
+<code class="sig-prename descclassname">pyrefinebio.high_level_functions.</code><code class="sig-name descname">download_quandfile_compendium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">organism</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.high_level_functions.download_quandfile_compendium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a Compendium for the specified organism.
+This function will always download RNA-seq Sample Compedium results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>void</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – the path that the Compendium should be downloaded to</p></li>
+<li><p><strong>organism</strong> (<em>str</em>) – the name of the Organism for the Compendium you want to
+download</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyrefinebio.high_level_functions.help">
+<code class="sig-prename descclassname">pyrefinebio.high_level_functions.</code><code class="sig-name descname">help</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entity</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.high_level_functions.help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Help</p>
+<p>Prints out information about pyrefinebio’s classes and functions.
+To get information about a class method, pass in the class name and method name
+separated by either a space or a <cite>.</cite></p>
+<p class="rubric">Examples</p>
+<p>getting info about classes:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">help</span><span class="p">(</span><span class="s2">&quot;Sample&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>gettting info about class methods:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">help</span><span class="p">(</span><span class="s2">&quot;Sample.get&quot;</span><span class="p">)</span>
+<span class="go">or</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">help</span><span class="p">(</span><span class="s2">&quot;Sample get&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>getting info about functions:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">help</span><span class="p">(</span><span class="s2">&quot;download_dataset&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyrefinebio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">High Level Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="transcriptome_index.html" title="previous chapter">Transcriptome Index</a></li>
+      <li>Next: <a href="http.html" title="next chapter">http</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, CCDL.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/high_level_functions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

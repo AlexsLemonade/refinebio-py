@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transcriptome Index &#8212; pyrefinebio 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="High Level Functions" href="high_level_functions.html" />
+    <link rel="prev" title="Token" href="token.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="transcriptome-index">
+<h1>Transcriptome Index<a class="headerlink" href="#transcriptome-index" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyrefinebio.TranscriptomeIndex">
+<em class="property">class </em><code class="sig-prename descclassname">pyrefinebio.</code><code class="sig-name descname">TranscriptomeIndex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">assembly_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">organism_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">database_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">release_version</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">salmon_version</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">download_url</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">result_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">last_modified</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.TranscriptomeIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transcriptome Index.</p>
+<p>get a TranscriptomeIndex by id</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">id</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_index</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">TranscriptomeIndex</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Retrieve a list of TranscriptomeIndex based on filters</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_indecies</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">TranscriptomeIndex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">organism_name</span><span class="o">=</span><span class="s2">&quot;GORILLA&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="pyrefinebio.TranscriptomeIndex.get">
+<em class="property">classmethod </em><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.TranscriptomeIndex.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a TranscriptomeIndex based on id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>TranscriptomeIndex</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>id</strong> (<em>int</em>) – the id for the TranscriptomeIndex you want to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.TranscriptomeIndex.search">
+<em class="property">classmethod </em><code class="sig-name descname">search</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.TranscriptomeIndex.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a list of TranscriptomeIndex based on various filters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of TranscriptomeIndex</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>salmon_version</strong> (<em>str</em>) – filter based on the TranscriptomeIndex’s salmon version eg. salmon 0.13.1</p></li>
+<li><p><strong>index_type</strong> (<em>str</em>) – <cite>TRANSCRIPTOME_LONG</cite> or <cite>TRANSCRIPTOME_SHORT</cite>.
+If the average read length of the RNA-Seq sample you want to process
+is greater than 75 base pairs, use <cite>TRANSCRIPTOME_LONG</cite> otherwise use
+<cite>TRANSCRIPTOME_SHORT</cite></p></li>
+<li><p><strong>ordering</strong> (<em>str</em>) – which field to use when ordering the results.</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – number of results to return per page.</p></li>
+<li><p><strong>offset</strong> (<em>int</em>) – the initial index from which to return the results.</p></li>
+<li><p><strong>organism__name</strong> (<em>str</em>) – filter based on the name of the Organism associated
+with the TranscriptomeIndex</p></li>
+<li><p><strong>length</strong> (<em>str</em>) – short hand for index_type eg. <cite>short</cite> or <cite>long</cite>
+see <cite>index_type</cite> for more info</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyrefinebio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Transcriptome Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="token.html" title="previous chapter">Token</a></li>
+      <li>Next: <a href="high_level_functions.html" title="next chapter">High Level Functions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, CCDL.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/transcriptome_index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
