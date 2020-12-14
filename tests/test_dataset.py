@@ -152,8 +152,6 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         with self.assertRaises(pyrefinebio.exceptions.BadRequest) as br:
             ds.process()
         
-        e = br.exception
-
         self.assertEqual(br.exception.base_message, "Bad Request: ['You must provide an active API token ID']")
 
     
