@@ -39,6 +39,28 @@ class PaginatedList:
 
 
     def __getitem__(self, index):
+
+        if isinstance(index, slice):
+            step = index.step or 1
+
+            default_start = 0 if step > 0 else self.total_items-1
+            default_stop = self.total_items-1 if step > 0 else 0
+
+            start = index.start or default_start
+            stop = index.stop or default_stop
+
+            if start < 0:
+                start += self.total_items
+
+            if stop < 0:
+                stop += self.total_items
+
+            if start < 0 or stop < 0: 
+                raise IndexError("index out of range!")
+
+            return [self[i] for i in range(start, stop, step)]
+
+
         if index < 0:
             index += self.total_items
 
