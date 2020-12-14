@@ -15,6 +15,12 @@ token = {
     "terms_and_conditions": "TL;DR"
 }
 
+token2 = {
+    "id": "test",
+    "is_activated": True,
+    "terms_and_conditions": "TL;DR"
+}
+
 def mock_request(method, url, **kwargs):
 
     if url == "https://api.refine.bio/v1/token/":
@@ -22,6 +28,9 @@ def mock_request(method, url, **kwargs):
 
     if url == "https://api.refine.bio/v1/token/123456789/":
         return MockResponse(token, url)
+
+    if url == "https://api.refine.bio/v1/token/test/":
+        return MockResponse(token2, url)
 
 
 class TokenTests(unittest.TestCase, CustomAssertions):
@@ -40,7 +49,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_token_create(self, mock_request):
         result = pyrefinebio.Token(email_address="")
-        self.assertEqual(result.token_id, token["id"])
+        self.assertEqual(result.id, token["id"])
 
 
     @patch("pyrefinebio.config.yaml.dump")
@@ -50,11 +59,11 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         os.environ["CONFIG_FILE"] = "test"
         mock_open.return_value.__enter__.return_value = "file"
 
-        token = pyrefinebio.Token()
+        token = pyrefinebio.Token(id="test")
         token.save_token()
 
         mock_open.assert_called_with("test", "w")
-        mock_yaml.assert_called_with({"token": token.token_id}, "file")
+        mock_yaml.assert_called_with({"token": token.id}, "file")
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
@@ -64,7 +73,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         if os.path.exists("./temp"):
             os.remove("./temp")
 
-        token = pyrefinebio.Token()
+        token = pyrefinebio.Token(id="test")
         token.save_token()
 
         self.assertTrue(os.path.exists("./temp"))
