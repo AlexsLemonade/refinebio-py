@@ -7,8 +7,8 @@ with open("README.md", "r") as readme:
 setuptools.setup(
     name="pyrefinebio",
     version=os.getenv("VERSION"),
-    author="CCDL",
-    author_email="",
+    author="Childhood Cancer Data Lab",
+    author_email="ccdl@alexslemonade.org",
     description="A python client for the refine.bio API.",
     long_description=long_description,
     long_description_content_type="text/markdown",
