@@ -8,7 +8,10 @@ from pyrefinebio.exceptions import (
     ServerError,
     BadRequest,
     NotFound,
-    InvalidFilters
+    InvalidFilters,
+    InvalidData,
+    InvalidFilterType,
+    MultipleErrors
 )
 
 
@@ -33,18 +36,8 @@ def request(method, url, params=None, payload=None):
         response_body = response.json()
 
         if code == 400:
-            try:
-                error_type = response_body["error_type"]
-                message = response_body["detail"]
-
-                if error_type == "invalid_filters":
-                    invalid_filters = response_body["invalid_filters"]
-                    raise InvalidFilters(invalid_filters)
-
-                raise BadRequest(message)
-
-            except (ValueError, KeyError, TypeError):
-                raise BadRequest(response_body)
+            error = _handle_error(response_body)
+            raise error
         
         elif code == 404:
             raise NotFound(response.url)
@@ -90,3 +83,38 @@ def download_file(url, path):
     with requests.get(url, stream=True) as res:
         with open(path, "wb") as f:
             shutil.copyfileobj(res.raw, f)
+
+
+def _handle_error(response_body):
+    try:
+        error_type = response_body["error_type"]
+        message = response_body["message"]
+        details = response_body["details"]
+
+        if error_type == "multiple_errors":
+            return _hanlde_multiple_errors(details)
+
+        if error_type == "invalid_filters":
+            return InvalidFilters(details)
+
+        if error_type == "invalid_data":
+            return InvalidData(message, details)
+
+        if error_type == "invalid" or error_type == "invalid_choice":
+            return InvalidFilterType(details, message)
+
+        return BadRequest(message)
+
+    except (ValueError, KeyError, TypeError):
+        return BadRequest(response_body)
+
+
+def _hanlde_multiple_errors(errors):
+    exceptions = []
+
+    for error in errors:
+        exceptions.append(
+            _handle_error(error)
+        )
+
+    return MultipleErrors(exceptions)
