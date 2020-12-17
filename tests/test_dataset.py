@@ -152,7 +152,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         with self.assertRaises(pyrefinebio.exceptions.BadRequest) as br:
             ds.process()
         
-        self.assertEqual(br.exception.base_message, "Bad Request: ['You must provide an active API token ID']")
+        self.assertEqual(br.exception.base_message, "Bad Request: You must provide an active API token ID")
 
     
     @patch("pyrefinebio.config.os.path.exists")
@@ -182,7 +182,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         with self.assertRaises(pyrefinebio.exceptions.BadRequest) as br:
             ds.process()
 
-        self.assertEqual(br.exception.base_message, "Bad Request: ['You must provide an email address.']")
+        self.assertEqual(br.exception.base_message, "Bad Request: You must provide an email address.")
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)

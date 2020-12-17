@@ -357,12 +357,12 @@ class SampleTests(unittest.TestCase, CustomAssertions):
 
     def test_sample_search_with_invalid_filter_type(self):
         with self.assertRaises(pyrefinebio.exceptions.InvalidFilterType):
-            pyrefinebio.DownloaderJob.search(age="foo")
+            pyrefinebio.Sample.search(age="foo")
 
 
     def test_sample_search_with_multiple_invalid_filter_types(self):
         with self.assertRaises(pyrefinebio.exceptions.MultipleErrors):
-            pyrefinebio.DownloaderJob.search(age="foo", organism="bar")
+            pyrefinebio.Sample.search(age="foo", organism="bar")
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
