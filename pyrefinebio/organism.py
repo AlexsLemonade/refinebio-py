@@ -1,18 +1,18 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import create_paginated_list
 
 
 class Organism:
     """Organism.
 
-    Retrieve an organism by name
+    Retrieve an Organism by name
 
         ex:
         >>> import pyrefinebio
         >>> name = "GORILLA"
         >>> organism = pyrefinebio.Organism.get(name)
 
-    Retrieve a list of organisms
+    Retrieve a list of Organisms
 
         ex:
         >>> import pyrefinebio
@@ -29,25 +29,25 @@ class Organism:
 
     @classmethod
     def get(cls, name):
-        """Retrieve an organism based on name
+        """Retrieve an Organism based on name
 
         returns: Organism
 
         parameters:
 
-            name (str): the name for the organism you want to get
+            name (str): the name for the Organism you want to get
         """
 
-        response = get_by_endpoint("organisms/" + name)
+        response = get_by_endpoint("organisms/" + name).json()
         return Organism(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of organisms
+        """Retrieve a list of Organisms
 
         returns: list of Organism
 
         Since there are no filters, this method always returns all organisms
         """
         response = get_by_endpoint("organisms", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

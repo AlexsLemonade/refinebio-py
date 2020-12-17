@@ -49,24 +49,24 @@ class QNTarget:
 
     @classmethod
     def get(cls, organism_name):
-        """Retrieve a QN target based on organism name
+        """Retrieve a QNTarget based on organism name
 
         returns: QNTarget
 
         parameters:
 
-            organism_name (str): the name of the organism for the qn target you want to get
+            organism_name (str): the name of the organism for the QNTarget you want to get
         """
-        response = get_by_endpoint("qn_targets/" + organism_name)
+        response = get_by_endpoint("qn_targets/" + organism_name).json()
         return QNTarget(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of organisms that have available QN targets
+        """Retrieve a list of Organisms that have available QNTargets
 
         returns: list of Organism
 
-        Since there are no filters, this method always returns all organisms that have available QN targets
+        Since there are no filters, this method always returns all Organisms that have available QNTargets
         """
-        response = get_by_endpoint("qn_targets", params=kwargs)
+        response = get_by_endpoint("qn_targets", params=kwargs).json()
         return [prb_organism.Organism(**qn_organism) for qn_organism in response]

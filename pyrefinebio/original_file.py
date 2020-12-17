@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 import pyrefinebio.job as prb_job
 import pyrefinebio.sample as prb_sample
@@ -8,14 +8,14 @@ import pyrefinebio.sample as prb_sample
 class OriginalFile:
     """Original File.
 
-    Retrieve an original file by id
+    Retrieve an OriginalFile by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> og_file = pyrefinebio.OriginalFile.get(id)
 
-    Retrieve a list of original files based on filters
+    Retrieve a list of OriginalFiles based on filters
 
         ex:
         >>> import pyrefinebio
@@ -56,58 +56,59 @@ class OriginalFile:
 
     @classmethod
     def get(cls, id):
-        """Retrieve an original file based on id
+        """Retrieve an OriginalFile based on id
 
         returns: OriginalFile
 
         parameters:
 
-            id (int): the id for the original file you want to get
+            id (int): the id for the OriginalFile you want to get
         """
 
-        response = get_by_endpoint("original_files/" + str(id))
+        response = get_by_endpoint("original_files/" + str(id)).json()
         return OriginalFile(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of original files based on various filters
+        """Retrieve a list of OriginalFiles based on various filters
 
         returns: list of OriginalFile
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the OriginalFile
             
-            filename (str):
+            filename (str): filter based on the name of the OriginalFile
             
-            samples (str):
+            samples (str): filter based on the Samples associated with the OriginalFile
             
-            size_in_bytes (int):
+            size_in_bytes (int): filter based on the OriginalFile's size 
             
-            sha1 (str):
+            sha1 (str): filter based on the OriginalFiles sha1 hash
             
-            processor_jobs (str):
+            processor_jobs (str): filter based on the ProcessorJobs associated with the OriginalFile
             
-            downloader_jobs (str):
+            downloader_jobs (str): filter based on the DownloaderJobs associated with the OriginalFile
             
-            source_url (str):
+            source_url (str): filter based on the OriginalFile's source url
             
-            is_archive (str):
+            is_archive (bool): filter based on if the OriginalFile is archived
             
-            source_filename (str):
+            source_filename (str): filter based on the OriginalFile's source's filename
             
-            has_raw (str):
+            has_raw (bool): filter based on if the OriginalFile had raw data available in the source 
+                            database
             
-            created_at (str):
+            created_at (str): filter based on the time when the OriginalFile was created
             
-            last_modified (str):
+            last_modified (str): filter based on the time when the OriginalFile was last modified
             
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
         """
 
         response = get_by_endpoint("original_files", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

@@ -1,24 +1,24 @@
 from pyrefinebio import computed_file as prb_computed_file
 
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination
+from pyrefinebio.util import create_paginated_list
 
 
-class Compendia:
-    """Compendia
+class Compendium:
+    """Compendium
 
-    Retrieve a compendium result based on id
+    Retrieve a Compendium based on id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
-        >>> sample = pyrefinebio.Compendia.get(id)
+        >>> result = pyrefinebio.Compendium.get(id)
 
-    Retrieve a list of compendium results based on filters
+    Retrieve a list of Compendia based on filters
 
         ex:
         >>> import pyrefinebio
-        >>> samples = pyrefinebio.Compendia.search(compendium_version="")
+        >>> results = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
     """
 
     def __init__(
@@ -43,42 +43,44 @@ class Compendia:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a specific compendium result based on id
+        """Retrieve a specific Compendium based on id
 
-        returns: Compendia
+        returns: Compendium
 
         parameters:
 
-            id (int): the id for the compendium result you want to get
+            id (int): the id for the Compendium you want to get
         """
-        result = get_by_endpoint("compendia/" + str(id))
-        return Compendia(**result)
+        response = get_by_endpoint("compendia/" + str(id)).json()
+        return Compendium(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of compendium results based on filters
+        """Retrieve a list of Compendium results based on filters
 
-        returns: list of Compendia
+        returns: list of Compendium
 
-        parameters:
+        valid filters:
 
-            primary_organism__name (str):
+            primary_organism__name (str): filter based on the name of the primary Organism
+                                          associated with the compendium 
 
-            compendium_version (int):
+            compendium_version (int): filter based on the Compendium's version
 
-            quant_sf_only (bool): True for RNA-seq Sample Compendium
-                                  results or False for quantile normalized.
+            quant_sf_only (bool): true for RNA-seq Sample Compendium results or False 
+                                  for quantile normalized
 
-            result__id (int):
+            result__id (int): filter based on the id of the ComputationalResult associated 
+                              with the compendium
 
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results
 
-            latest_version (bool): True will only return the highest
-                                   compendium_version for each primary_organism.
+            latest_version (bool): true will only return the highest
+                                   compendium_version for each primary_organism
         """
-        result = get_by_endpoint("compendia", params=kwargs)
-        return generator_from_pagination(result, cls)
+        response = get_by_endpoint("compendia", params=kwargs)
+        return create_paginated_list(cls, response)

@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 from pyrefinebio.common import annotation as prb_annotation
 from pyrefinebio import sample as prb_sample
@@ -8,14 +8,14 @@ from pyrefinebio import sample as prb_sample
 class Experiment:
     """Experiment
 
-    Retrieve an experiment based on id
+    Retrieve an Experiment based on id
 
         ex:
         >>> import pyrefinebio
         >>> accession_code = 1
         >>> experiment = pyrefinebio.Experiment.get(accession_code)
 
-    Search for experiments based on filters
+    Search for Experiments based on filters
 
         ex:
         >>> import pyrefinebio
@@ -88,52 +88,58 @@ class Experiment:
 
     @classmethod
     def get(cls, accession_code):
-        """Retrieve an experiment based on accession code
+        """Retrieve an Experiment based on accession code
 
         returns: Experiment
 
         parameters:
 
-            accession code (str): the accession code for the experiment you want to get
+            accession code (str): the accession code for the Experiment you want to get
         """
-        response = get_by_endpoint("experiments/" + accession_code)
+        response = get_by_endpoint("experiments/" + accession_code).json()
         return Experiment(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Search for experiments based on various filters
+        """Search for Experiments based on various filters
 
         returns: list of Experiment
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the Experiment
 
-            technology (str): Allows filtering the results by technology, can have multiple values. Eg: ?technology=microarray&technology=rna-seq
+            technology (str): filter based on the technology used for the Experiment
+                              (microarray, rna-seq, etc) this filter can have multiple values.
 
-            has_publication (bool): Filter the results that have associated publications with ?has_publication=true
+            has_publication (bool): filter based on if the Experiment has associated publications
 
-            accession_code (str): Allows filtering the results by accession code, can have multiple values. Eg: ?accession_code=microarray&accession_code=rna-seq
+            accession_code (str): filter based on the Experiment's accession code
+                                  this filter can have multiple values
 
-            alternate_accession_code (str):
+            alternate_accession_code (str): filter based on the Experiment's alternate
+                                            accession codes
 
-            platform (str): Allows filtering the results by platform, this parameter can have multiple values.
+            platform (str): filter based on  platform, this filter can have multiple values
 
-            organism (str): Allows filtering the results by organism, this parameter can have multiple values.
+            organism (str): filter based on Organism, this filter can have multiple values
 
-            num_processed_samples (number): Use ElasticSearch queries to specify the number of processed samples of the results
+            num_processed_samples (number): filter based on the Experiment's number of processed samples
 
-            num_downloadable_samples (int):
+            num_downloadable_samples (int): filter based on the Experiment's number of downloadable samples
 
-            sample_keywords (str):
+            sample_keywords (str): filter based on keywords associated with the Experiment's Samples
 
-            ordering (str): Which field from to use when ordering the results.
+            ordering (str): which field from to use when ordering the results
 
-            search (str): Search in title, publication_authors, sample_keywords, publication_title, submitter_institution, description, accession_code, alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, platform_names.
+            search (str): specify a keyword which will be applied to the Experiment's title, publication_authors,
+                          sample_keywords, publication_title, submitter_institution, description, accession_code,
+                          alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, and 
+                          platform_names
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results
         """
         response = get_by_endpoint("search", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

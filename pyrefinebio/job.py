@@ -1,18 +1,18 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 
 class DownloaderJob:
     """DownloaderJob.
 
-    Retrieve a downloader job by id
+    Retrieve a DownloaderJob by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.DownloaderJob.get(id)
 
-    Retrieve a list of downloader jobs based on filters
+    Retrieve a list of DownloaderJobs based on filters
 
         ex:
         >>> import pyrefinebio
@@ -55,84 +55,84 @@ class DownloaderJob:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a downloader job based on id
+        """Retrieve a DownloaderJob based on id
 
         returns: DownloaderJob
 
         parameters:
 
-            id (int): the id for the downloader job you want to get
+            id (int): the id for the DownloaderJob you want to get
         """
-        response = get_by_endpoint("jobs/downloader/" + str(id))
+        response = get_by_endpoint("jobs/downloader/" + str(id)).json()
         return DownloaderJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of downloader jobs based on various filters
+        """Retrieve a list of DownloaderJobs based on various filters
 
         returns: list of DownloaderJob
 
-        parameters:
+        valid filters:
 
-            id (int):
+            id (int): filter based on the id of the DownloaderJob
 
-            downloader_task (str):
+            downloader_task (str): filter based on the job's task type
             
-            num_retries (int):
+            num_retries (int): filter based on the number of times the job has retried
 
-            retried (bool):
+            retried (bool): filter based on if the job has retried
             
-            was_recreated (bool):
+            was_recreated (bool): filter based on if the job was recreated
             
-            worker_id (str):
+            worker_id (str): filter based on the job's worker id
             
-            worker_version (str):
+            worker_version (str): filter based on the job's worker version
             
-            nomad_job_id (str):
+            nomad_job_id (str): filter based on the job's nomad id
             
-            failure_reason (str):
+            failure_reason (str): filter based on the reason why the job failed
             
-            success (bool):
+            success (bool): filter based on if the job succeeded
             
-            original_files (str):
+            original_files (str): filter based on the ids of the OriginalFiles associated with the job
             
-            start_time (str):
+            start_time (str): filter based on the time when the job started
             
-            end_time (str):
+            end_time (str): filter based on the time when the job finished
             
-            created_at (str):
+            created_at (str): filter based on the time that the job was created
             
-            last_modified (str):
+            last_modified (str): filter based on the time that the job was last modified
             
-            ordering (str): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (int): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (int): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
 
-            sample_accession_code (str): List the downloader jobs associated with a sample
+            sample_accession_code (str): filter based on the Samples associated with the job
 
-            nomad (str): Only return jobs that are in the nomad queue currently
+            nomad (bool): filter based on if the job is in the nomad queue currently
         """
         response = get_by_endpoint("jobs/downloader", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)
 
 
 class ProcessorJob:
     """Processor Job.
 
-    Retrieve a processor job by id
+    Retrieve a ProcessorJob by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
-        >>> job = pyrefinebio.DownloaderJob.get(id)
+        >>> job = pyrefinebio.ProcessorJob.get(id)
 
-    Retrieve a list of processor jobs based on filters
+    Retrieve a list of ProcessorJobs based on filters
 
         ex:
         >>> import pyrefinebio
-        >>> jobs = pyrefinebio.DownloaderJob.search(num_retries=1)
+        >>> jobs = pyrefinebio.ProcessorJob.search(num_retries=1)
     """
 
     def __init__(
@@ -175,84 +175,84 @@ class ProcessorJob:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a processor job based on id
+        """Retrieve a ProcessorJob based on id
 
         returns: ProcessorJob
 
         parameters:
 
-            id (int): the id for the processor job you want to get
+            id (int): the id for the ProcessorJob you want to get
         """
-        response = get_by_endpoint("jobs/processor/" + str(id))
+        response = get_by_endpoint("jobs/processor/" + str(id)).json()
         return ProcessorJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of processor jobs based on various filters
+        """Retrieve a list of ProcessorJobs based on various filters
 
         returns: list of ProcessorJob
 
         parameters:
 
-            id (number):
+            id (int): filter based on the id of the ProcessorJob
             
-            pipeline_applied (string):
+            pipeline_applied (str): filter based on the type of pipeline applied to the job
             
-            num_retries (number):
+            num_retries (int): filter based on the number of times the job has retried
             
-            retried (string):
+            retried (bool): filter based on if the job has retried
             
-            worker_id (string):
+            worker_id (str): filter based on the id of the job's worker
             
-            ram_amount (number):
+            ram_amount (int): filter based on the amount of ram assigned to the job
             
-            volume_index (string):
+            volume_index (str):
             
-            worker_version (string):
+            worker_version (str): filter based on the job's worker version
             
-            failure_reason (string):
+            failure_reason (str): filter based on the reason why the job failed
             
-            nomad_job_id (string):
+            nomad_job_id (str): filter based on the job's nomad id
             
-            success (string):
+            success (bool): filter based on if the job has succeeded
             
-            original_files (string):
+            original_files (str): filter based on the ids of the OriginalFiles associated with the job
             
-            datasets (string):
+            datasets (str): filter based on the ids of the Datasets associated with the job
             
-            start_time (string):
+            start_time (str): filter based on the time when the job started
             
-            end_time (string):
+            end_time (str): filter based on the time when the job finished
             
-            created_at (string):
+            created_at (str): filter based on the time when the job was created
             
-            last_modified (string):
+            last_modified (str): filter based on the time when the job was last modified
             
-            ordering (string): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (integer): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (integer): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
 
-            sample_accession_code (string): List the processor jobs associated with a sample
+            sample_accession_code (str): filter based on the samples associated with the job
 
-            nomad (string): Only return jobs that are in the nomad queue currently
+            nomad (bool): filter based on if the job is in the nomad queue currently
         """
         response = get_by_endpoint("jobs/processor", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)
 
 
 class SurveyJob:
     """Survey Job.
 
-    Retrieve a survey job by id
+    Retrieve a SurveyJob by id
 
         ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.SurveyJob.get(id)
 
-    Retrieve a list of survey jobs based on filters
+    Retrieve a list of SurveyJobs based on filters
 
         ex:
         >>> import pyrefinebio
@@ -279,44 +279,44 @@ class SurveyJob:
 
     @classmethod
     def get(cls, id):
-        """Retrieve a survey job based on id
+        """Retrieve a SurveyJob based on id
 
         returns: SurveyJob
 
         parameters:
 
-            id (int): the id for the survey job you want to get
+            id (int): the id for the SurveyJob you want to get
         """
-        response = get_by_endpoint("jobs/survey/" + str(id))
+        response = get_by_endpoint("jobs/survey/" + str(id)).json()
         return SurveyJob(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of survey jobs based on various filters
+        """Retrieve a list of SurveyJobs based on various filters
 
         returns: list of SurveyJob
 
-        parameters:
+        valid filters:
 
-            id (number):
+            id (int): filter based on the id of the SurveyJob
                 
-            source_type (string):
+            source_type (str): filter based on the name of the source database
             
-            success (string):
+            success (bool): filter based on if the job has succeeded
             
-            start_time (string):
+            start_time (str): filter based on the time when the job started
             
-            end_time (string):
+            end_time (str): filter based on the time when the job finished
             
-            created_at (string):
+            created_at (str): filter based on the time when the job was created
             
-            last_modified (string):
+            last_modified (str): filter based on the time when the job was last modified
             
-            ordering (string): Which field to use when ordering the results.
+            ordering (str): which field to use when ordering the results.
 
-            limit (integer): Number of results to return per page.
+            limit (int): number of results to return per page.
 
-            offset (integer): The initial index from which to return the results.
+            offset (int): the initial index from which to return the results.
         """
         response = get_by_endpoint("jobs/survey", params=kwargs)
-        return generator_from_pagination(response, cls)
+        return create_paginated_list(cls, response)

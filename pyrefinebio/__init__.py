@@ -1,5 +1,5 @@
 from pyrefinebio.common import Annotation
-from pyrefinebio.compendia import Compendia
+from pyrefinebio.compendia import Compendium
 from pyrefinebio.computational_result import ComputationalResult
 from pyrefinebio.computed_file import ComputedFile
 from pyrefinebio.dataset import Dataset
@@ -24,4 +24,11 @@ from pyrefinebio.exceptions import (
     NotFound,
     DownloadError,
     MultipleErrors
+)
+
+from pyrefinebio.high_level_functions import (
+    help,
+    download_dataset,
+    download_compendium,
+    download_quandfile_compendium
 )

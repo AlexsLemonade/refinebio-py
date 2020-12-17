@@ -1,5 +1,5 @@
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import generator_from_pagination, parse_date
+from pyrefinebio.util import create_paginated_list, parse_date
 
 from pyrefinebio.common import annotation as prb_annotation
 from pyrefinebio import computational_result as prb_computational_result
@@ -10,14 +10,14 @@ from pyrefinebio import organism as prb_organism
 class Sample:
     """Sample.
 
-    Retrieve a sample based on accession code
+    Retrieve a Sample based on accession code
 
         ex:
         >>> import pyrefinebio
         >>> accession_code = "GSM000000"
         >>> sample = pyrefinebio.Sample.get(accession_code)
 
-    Retrieve a list of samples based on filters
+    Retrieve a list of Samples based on filters
 
         ex:
         >>> import pyrefinebio
@@ -119,61 +119,81 @@ class Sample:
 
     @classmethod
     def get(cls, accession_code):
-        """Retrieve a sample based on its accession code.
+        """Retrieve a Sample based on its accession code.
 
         returns: Sample
 
         parameters:
 
-            accession_code (str): The accession code for the sample to be retrieved.
+            accession_code (str): The accession code for the Sample to be retrieved.
         """
-        result = get_by_endpoint("samples/" + accession_code)
-        return cls(**result)
+        response = get_by_endpoint("samples/" + accession_code).json()
+        return cls(**response)
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of samples based on various filters
+        """Retrieve a list of Samples based on various filters
 
-        returns: list of samples.
+        returns: list of Sample
 
         Parameters:
-            ordering (str):                  which field to use when ordering the results
-            title (str):
-            organism (str):
-            source_database (str):
-            source_archive_url (str):
-            has_raw (str):
-            platform_name (str):
-            technology (str):
-            manufacturer (str):
-            sex (str):
-            age (number):
-            specimen_part (str):
-            genotype (str):
-            disease (str):
-            disease_stage (str):
-            cell_line (str):
-            treatment (str):
-            race (str):
-            subject (str):
-            compound (str):
-            time (str):
-            is_processed (str):
-            is_public (str):
-            limit (int):                     Number of results to return per page.
+            ordering (str): which field to use when ordering the results
 
-            offset (int):                    The initial index from which to return the results.
+            title (str): filter based on the Sample's title
 
-            dataset_id (str):                Filters the result and only returns samples
-                                             that are added to a dataset.
+            organism (str): filter based on the Organism that the Sample was taken from
 
-            experiment_accession_code (str): Filters the result and only returns only
-                                             the samples associated with an experiment
-                                             accession code.
+            source_database (str): filter based on the publically available repository
+                                   that the Sample was taken from
 
-            accession_codes (str):           Provide a list of sample accession codes
-                                             separated by commas and the endpoint will
-                                             only return information about these samples.
+            source_archive_url (str): filter based on Sample's source url
+
+            has_raw (bool): filter based on if the Sample had raw data available in the source database
+
+            platform_name (str): filter based on the name of the Platform that was used to assay the Sample
+
+            technology (str): filter based on the technology that was used to assay the Sample
+
+            manufacturer (str): filter based on the manufacturer of the technology that was used to assay the Sample
+
+            sex (str): filter based on the sex information provided by the submitter
+
+            age (number): filter based on the age informtaion provided by the submitter
+
+            specimen_part (str): filter based on the part of the specimen reported by the submitter
+
+            genotype (str): filter based on the genotype of the subject that the Sample was taken from
+
+            disease (str): filter based on the disease information provided by the submitter
+
+            disease_stage (str): filter based on the disease stage information provided by the submitter
+
+            cell_line (str): filter based on the cell line used for the sample
+
+            treatment (str): filter based on the treatment information provided by the submitter
+
+            race (str): filter based on the race information provided by the submitter
+
+            subject (str): filter based on the subject identifier information provided by the submitter
+
+            compound (str): filter based on the compound information provided by the submitter
+
+            time (str): filter based on the time information provided by the submitter
+
+            is_processed (bool): filter based on if the Sample has been processed
+
+            is_public (bool): filter based on if the Sample is public
+
+            limit (int): number of results to return per page.
+
+            offset (int): the initial index from which to return the results.
+
+            dataset_id (str): filter based on the Dataset ids that the Sample has been added to
+
+            experiment_accession_code (str): filter based on the Dxperiments that are associated
+                                             with the Sample
+
+            accession_codes (str): filter based on multiple accession codes at once
         """
-        result = get_by_endpoint("samples", params=kwargs)
-        return generator_from_pagination(result, cls)
+        response = get_by_endpoint("samples", params=kwargs)
+        return create_paginated_list(cls, response)
