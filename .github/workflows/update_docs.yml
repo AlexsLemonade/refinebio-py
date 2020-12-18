@@ -30,6 +30,8 @@ jobs:
         cd doc-output
         mv html/ docs/
         git add .
-        git -c user.name="Documentation Robot" commit -m "updating docs for $VERSION"
+        git config --global user.name 'Documentation Robot'
+        git config --global user.email ''
+        git commit -m "updating docs for $VERSION"
         git push
         
