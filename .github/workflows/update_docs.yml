@@ -30,6 +30,6 @@ jobs:
         cd doc-output
         mv html/ docs/
         git add .
-        git commit --author "Documentation Robot <>" -m "updating docs for $VERSION"
+        git -c user.name="Documentation Robot" commit -m "updating docs for $VERSION"
         git push
         
