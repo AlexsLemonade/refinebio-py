@@ -33,5 +33,5 @@ jobs:
         git config --global user.name 'Documentation Robot'
         git config --global user.email ''
         git commit -m "updating docs for $VERSION"
-        git push
+        git push origin gh-pages
         
