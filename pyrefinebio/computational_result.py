@@ -12,14 +12,12 @@ class ComputationalResult:
 
     Retrieve a ComputationalResult based on id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> result = pyrefinebio.ComputationalResult.get(id)
 
     Retrieve a list of ComputationalResult based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> results = pyrefinebio.ComputationalResult.search(processor_id=4)
     """
@@ -60,10 +58,10 @@ class ComputationalResult:
     def get(cls, id):
         """Retrieve a computational result based on its id.
 
-        returns: ComputationalResult
+        Returns:
+            ComputationalResult
 
-        parameters:
-
+        Parameters:
             id (int): The id for the computational result to be retrieved.
         """
         response = get_by_endpoint("computational_results/" + str(id)).json()
@@ -73,10 +71,10 @@ class ComputationalResult:
     def search(cls, **kwargs):
         """Retrieve a list of computational results based on filters.
 
-        returns: list of ComputationalResult
+        Returns:
+            list of ComputationalResult
 
-        valid filters:
-
+        Keyword Arguments:
             processor__id (int): id of the Processor that processed the result
 
             limit (int): number of results to return per page

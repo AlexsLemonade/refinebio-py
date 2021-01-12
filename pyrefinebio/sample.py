@@ -12,14 +12,12 @@ class Sample:
 
     Retrieve a Sample based on accession code
 
-        ex:
         >>> import pyrefinebio
         >>> accession_code = "GSM000000"
         >>> sample = pyrefinebio.Sample.get(accession_code)
 
     Retrieve a list of Samples based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> samples = pyrefinebio.Sample.search(is_processed=True, specimen_part="soft-tissue sarcoma")
     """
@@ -121,10 +119,10 @@ class Sample:
     def get(cls, accession_code):
         """Retrieve a Sample based on its accession code.
 
-        returns: Sample
+        Returns:
+            Sample
 
-        parameters:
-
+        Parameters:
             accession_code (str): The accession code for the Sample to be retrieved.
         """
         response = get_by_endpoint("samples/" + accession_code).json()
@@ -134,7 +132,8 @@ class Sample:
     def search(cls, **kwargs):
         """Retrieve a list of Samples based on various filters
 
-        returns: list of Sample
+        Returns:
+            list of Sample
 
         Parameters:
             ordering (str): which field to use when ordering the results

@@ -7,14 +7,12 @@ class DownloaderJob:
 
     Retrieve a DownloaderJob by id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.DownloaderJob.get(id)
 
     Retrieve a list of DownloaderJobs based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> jobs = pyrefinebio.DownloaderJob.search(nomad_job_id=0, success=True)
     """
@@ -57,10 +55,10 @@ class DownloaderJob:
     def get(cls, id):
         """Retrieve a DownloaderJob based on id
 
-        returns: DownloaderJob
+        Returns:
+            DownloaderJob
 
-        parameters:
-
+        Parameters:
             id (int): the id for the DownloaderJob you want to get
         """
         response = get_by_endpoint("jobs/downloader/" + str(id)).json()
@@ -70,9 +68,10 @@ class DownloaderJob:
     def search(cls, **kwargs):
         """Retrieve a list of DownloaderJobs based on various filters
 
-        returns: list of DownloaderJob
+        Returns:
+            list of DownloaderJob
 
-        valid filters:
+        Keyword Arguments:
 
             id (int): filter based on the id of the DownloaderJob
 
@@ -123,14 +122,12 @@ class ProcessorJob:
 
     Retrieve a ProcessorJob by id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.ProcessorJob.get(id)
 
     Retrieve a list of ProcessorJobs based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> jobs = pyrefinebio.ProcessorJob.search(num_retries=1)
     """
@@ -177,10 +174,10 @@ class ProcessorJob:
     def get(cls, id):
         """Retrieve a ProcessorJob based on id
 
-        returns: ProcessorJob
+        Returns:
+            ProcessorJob
 
-        parameters:
-
+        Parameters:
             id (int): the id for the ProcessorJob you want to get
         """
         response = get_by_endpoint("jobs/processor/" + str(id)).json()
@@ -190,10 +187,10 @@ class ProcessorJob:
     def search(cls, **kwargs):
         """Retrieve a list of ProcessorJobs based on various filters
 
-        returns: list of ProcessorJob
+        Returns:
+            list of ProcessorJob
 
-        parameters:
-
+        Keyword Arguments:
             id (int): filter based on the id of the ProcessorJob
             
             pipeline_applied (str): filter based on the type of pipeline applied to the job
@@ -247,14 +244,12 @@ class SurveyJob:
 
     Retrieve a SurveyJob by id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> job = pyrefinebio.SurveyJob.get(id)
 
     Retrieve a list of SurveyJobs based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> jobs = pyrefinebio.SurveyJob.search(num_retries=1)
     """
@@ -281,10 +276,10 @@ class SurveyJob:
     def get(cls, id):
         """Retrieve a SurveyJob based on id
 
-        returns: SurveyJob
+        Returns:
+            SurveyJob
 
-        parameters:
-
+        Parameters:
             id (int): the id for the SurveyJob you want to get
         """
         response = get_by_endpoint("jobs/survey/" + str(id)).json()
@@ -294,10 +289,10 @@ class SurveyJob:
     def search(cls, **kwargs):
         """Retrieve a list of SurveyJobs based on various filters
 
-        returns: list of SurveyJob
+        Returns:
+            list of SurveyJob
 
-        valid filters:
-
+        Keyword Arguments:
             id (int): filter based on the id of the SurveyJob
                 
             source_type (str): filter based on the name of the source database

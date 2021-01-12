@@ -10,14 +10,12 @@ class OriginalFile:
 
     Retrieve an OriginalFile by id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> og_file = pyrefinebio.OriginalFile.get(id)
 
     Retrieve a list of OriginalFiles based on filters
 
-        ex:
         >>> import pyrefinebio
         >>> og_files = pyrefinebio.OriginalFile.search()
     """
@@ -58,10 +56,10 @@ class OriginalFile:
     def get(cls, id):
         """Retrieve an OriginalFile based on id
 
-        returns: OriginalFile
+        Returns:
+            OriginalFile
 
-        parameters:
-
+        Parameters:
             id (int): the id for the OriginalFile you want to get
         """
 
@@ -72,9 +70,10 @@ class OriginalFile:
     def search(cls, **kwargs):
         """Retrieve a list of OriginalFiles based on various filters
 
-        returns: list of OriginalFile
+        Returns:
+            list of OriginalFile
 
-        valid filters:
+        Keyword Arguments:
 
             id (int): filter based on the id of the OriginalFile
             

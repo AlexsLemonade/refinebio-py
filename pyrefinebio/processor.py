@@ -7,14 +7,12 @@ class Processor:
 
     Retrieve a Processor by id
 
-        ex:
         >>> import pyrefinebio
         >>> id = 1
         >>> processor = pyrefinebio.Processor.get(id)
 
     Retrieve a list of Processors
 
-        ex:
         >>> import pyrefinebio
         >>> processors = pyrefinebio.Processor.search()
     """
@@ -36,10 +34,10 @@ class Processor:
     def get(cls, id):
         """Retrieve a Processor based on id
 
-        returns: Processor
+        Returns:
+            Processor
 
-        parameters:
-
+        Parameters:
             id (int): the id for the Processor you want to get
         """
         response = get_by_endpoint("processors/" + str(id)).json()
@@ -49,7 +47,8 @@ class Processor:
     def search(cls, **kwargs):
         """Retrieve a list of Processors
 
-        returns: list of Processor
+        Returns:
+            list of Processor
 
         Since there are no filters, this method always returns all Processors
         """

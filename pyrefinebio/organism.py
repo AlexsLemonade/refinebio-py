@@ -7,14 +7,12 @@ class Organism:
 
     Retrieve an Organism by name
 
-        ex:
         >>> import pyrefinebio
         >>> name = "GORILLA"
         >>> organism = pyrefinebio.Organism.get(name)
 
     Retrieve a list of Organisms
 
-        ex:
         >>> import pyrefinebio
         >>> organisms = pyrefinebio.Organism.search()
     """
@@ -31,10 +29,10 @@ class Organism:
     def get(cls, name):
         """Retrieve an Organism based on name
 
-        returns: Organism
+        Returns:
+            Organism
 
-        parameters:
-
+        Parameters:
             name (str): the name for the Organism you want to get
         """
 
@@ -45,7 +43,8 @@ class Organism:
     def search(cls, **kwargs):
         """Retrieve a list of Organisms
 
-        returns: list of Organism
+        Returns:
+            list of Organism
 
         Since there are no filters, this method always returns all organisms
         """
