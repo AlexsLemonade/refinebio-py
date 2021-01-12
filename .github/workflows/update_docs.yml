@@ -1,8 +1,6 @@
 name: Update Documentation
 
 on:
-  pull_request:
-    branches: [ master ]
 
 jobs:
   documentation:
