@@ -16,7 +16,10 @@ help:
 
 # Used when publishing a new version to github pages
 github:
-	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "../doc-output" $(SPHINXOPTS) $(O)
+	rm -rf ../doc-output/*; \
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "../doc-output" $(SPHINXOPTS) $(O); \
+	mv ../doc-output/html ../doc-output/docs
+	
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
