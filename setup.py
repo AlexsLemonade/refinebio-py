@@ -23,6 +23,11 @@ setuptools.setup(
     install_requires=[
         "python-dateutil",
         "PyYAML",
-        "requests"
-    ]
+        "requests",
+        "Click"
+    ],
+    entry_points='''
+        [console_scripts]
+        refinebio=pyrefinebio.script:cli
+    ''',
 )
