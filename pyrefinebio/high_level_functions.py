@@ -1,15 +1,12 @@
 import pyrefinebio
 import re
 import time
-import click
 
 from pyrefinebio import Dataset, Compendium
 from pyrefinebio.http import download_file
 from pyrefinebio.exceptions import DownloadError
-from pyrefinebio.script import cli, DictParamType, ListParamType
 
-@cli.command()
-@click.option("--entity", default="", help="entity to print help for")
+
 def help(entity=None):
     """Help
 
@@ -46,14 +43,6 @@ def help(entity=None):
         print("could not find class or attribute: ", entity)
 
 
-@cli.command()
-@click.option("--path", help="Path that the dataset should be downloaded to")
-@click.option("--email-address", help="The email that will be contacted with info related to the Dataset")
-@click.option("--dataset-dict", default=None, type=DictParamType(), help="A fully formed Dataset `data` attribute. Use this parameter if you want to specify specific Samples for your Dataset")
-@click.option("--experiments", default=None, type=ListParamType(), help="A space separated list of experiment accession codes. Ex: 'SRP051449 GSE44421 GSE44422'")
-@click.option("--aggregation", default="EXPERIMENT", type=click.Choice(("EXPERIMENT", "SPECIES", "ALL"), case_sensitive=True), help="How the Dataset should be aggregated")
-@click.option("--transformation", default="NONE", type=click.Choice(("NONE", "MINMAX", "STANDARD"), case_sensitive=True), help="The transformation for the Dataset")
-@click.option("--skip-quantile-normalization", default=False, help="Control whether the Dataset should skip quantile normalization for RNA-seq Samples")
 def download_dataset(
     path,
     email_address,
@@ -136,10 +125,6 @@ def download_dataset(
     print("done!")
 
 
-@cli.command()
-@click.option("--path", help="Path that the Compendium should be downloaded to")
-@click.option("--organism", help="The name fo the Organism for the Compendium you want to download")
-@click.option("--quant-sf-only", default=False, help="True for RNA-seq Sample Compendium results or False for quantile normalized")
 def download_compendium(
     path,
     organism,
@@ -187,9 +172,6 @@ def download_compendium(
     download_file(download_url, path)
 
 
-@cli.command()
-@click.option("--path", help="Path that the Compendium should be downloaded to")
-@click.option("--organism", help="The name fo the Organism for the Compendium you want to download")
 def download_quandfile_compendium(path, organism):
     """download_quandfile_compendium
 
