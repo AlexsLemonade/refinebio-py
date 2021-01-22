@@ -42,21 +42,26 @@ class ListParamType(click.ParamType):
 
 
 @cli.command()
-@click.option("--entity", default="", help="entity to print help for")
+@click.argument("entity", nargs=1) 
 def help(entity=None):
     """
     Prints out information about pyrefinebio's classes and functions.
+
+    ENTITY is the pyrefinebio class or function you want information about.
+
     To get information about a class method, pass in the class name and method name  
     separated by either a space or a `.`
 
     Example:
-        $ refinebio help --entity "Sample.search"
+
+    $ refinebio help "Sample.search"
+
     """
     hlf.help(entity)
 
 
 @cli.command()
-@click.option("--path", required=True, help="Path that the dataset should be downloaded to")
+@click.option("--path", required=True, type=click.Path(), help="Path that the dataset should be downloaded to")
 @click.option("--email-address", required=True, help="The email that will be contacted with info related to the Dataset")
 @click.option("--dataset-dict", default=None, type=DictParamType(), help="A fully formed Dataset `data` attribute. Use this parameter if you want to specify specific Samples for your Dataset. Ex: '{\"GSE74410\": [\"GSM1919903\"]}' ")
 @click.option("--experiments", default=None, type=ListParamType(), help="A space separated list of experiment accession codes. Ex: 'SRP051449 GSE44421 GSE44422'")
