@@ -96,7 +96,6 @@ def download_dataset(
             extra_info="You should either provide dataset_dict or experiments but not both"
         )
 
-    print("creating dataset...")
     dataset = Dataset(
         email_address=email_address,
         aggregate_by=aggregation,
@@ -110,19 +109,12 @@ def download_dataset(
         for experiment in experiments:
             dataset.add_samples(experiment)
 
-    print("done!")
-    
-    print("processing dataset...")
     dataset.process()
 
     while not dataset.check():
         time.sleep(5)
 
-    print("done!")
-
-    print("downloading dataset...")
     dataset.download(path)
-    print("done!")
 
 
 def download_compendium(
