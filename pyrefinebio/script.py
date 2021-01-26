@@ -1,15 +1,16 @@
 import click
 import json
 
-import pyrefinebio.high_level_functions as hlf 
+import pyrefinebio.high_level_functions as hlf
 
 from pyrefinebio.exceptions import DownloadError
 
+
 @click.group()
 def cli():
-    """RefineBio CLI
-    """
+    """RefineBio CLI"""
     pass
+
 
 class DictParamType(click.ParamType):
     name = "dict"
@@ -18,12 +19,7 @@ class DictParamType(click.ParamType):
         try:
             return json.loads(value)
         except:
-            self.fail(
-                "expected valid string in a dict form, "
-                "got: {0}".format(value),
-                param,
-                ctx
-            )
+            self.fail("expected valid string in a dict form, " "got: {0}".format(value), param, ctx)
 
 
 class ListParamType(click.ParamType):
@@ -33,41 +29,68 @@ class ListParamType(click.ParamType):
         try:
             return value.split()
         except:
-            self.fail(
-                "expected valid string in list form, "
-                "got: {0}".format(value),
-                param,
-                ctx
-            )
+            self.fail("expected valid string in list form, " "got: {0}".format(value), param, ctx)
 
 
 @cli.command()
-@click.argument("entity", nargs=1) 
+@click.argument("entity", nargs=1)
 def help(entity=None):
     """
     Prints out information about pyrefinebio's classes and functions.
 
     ENTITY is the pyrefinebio class or function you want information about.
 
-    To get information about a class method, pass in the class name and method name  
+    To get information about a class method, pass in the class name and method name
     separated by either a space or a `.`
 
     Example:
 
     $ refinebio help "Sample.search"
-
     """
     hlf.help(entity)
 
 
 @cli.command()
-@click.option("--path", required=True, type=click.Path(), help="Path that the dataset should be downloaded to")
-@click.option("--email-address", required=True, help="The email that will be contacted with info related to the Dataset")
-@click.option("--dataset-dict", default=None, type=DictParamType(), help="A fully formed Dataset `data` attribute. Use this parameter if you want to specify specific Samples for your Dataset. Ex: '{\"GSE74410\": [\"GSM1919903\"]}' ")
-@click.option("--experiments", default=None, type=ListParamType(), help="A space separated list of experiment accession codes. Ex: 'SRP051449 GSE44421 GSE44422'")
-@click.option("--aggregation", default="EXPERIMENT", type=click.Choice(("EXPERIMENT", "SPECIES", "ALL"), case_sensitive=True), help="How the Dataset should be aggregated")
-@click.option("--transformation", default="NONE", type=click.Choice(("NONE", "MINMAX", "STANDARD"), case_sensitive=True), help="The transformation for the Dataset")
-@click.option("--skip-quantile-normalization", default=False, help="Control whether the Dataset should skip quantile normalization for RNA-seq Samples")
+@click.option(
+    "--path", required=True, type=click.Path(), help="Path that the dataset should be downloaded to"
+)
+@click.option(
+    "--email-address",
+    required=True,
+    help="The email that will be contacted with info related to the Dataset",
+)
+@click.option(
+    "--dataset-dict",
+    default=None,
+    type=DictParamType(),
+    help=(
+        "A fully formed Dataset `data` attribute in JSON format. Use this parameter if you want "
+        "to specify specific Samples for your Dataset. Ex: '{\"GSE74410\": [\"GSM1919903\"]}'"
+    )
+)
+@click.option(
+    "--experiments",
+    default=None,
+    type=ListParamType(),
+    help="A space separated list of experiment accession codes. Ex: 'SRP051449 GSE44421 GSE44422'",
+)
+@click.option(
+    "--aggregation",
+    default="EXPERIMENT",
+    type=click.Choice(("EXPERIMENT", "SPECIES", "ALL"), case_sensitive=True),
+    help="How the Dataset should be aggregated",
+)
+@click.option(
+    "--transformation",
+    default="NONE",
+    type=click.Choice(("NONE", "MINMAX", "STANDARD"), case_sensitive=True),
+    help="The transformation for the Dataset",
+)
+@click.option(
+    "--skip-quantile-normalization",
+    default=False,
+    help="Control whether the Dataset should skip quantile normalization for RNA-seq Samples",
+)
 def download_dataset(
     path,
     email_address,
@@ -75,7 +98,7 @@ def download_dataset(
     experiments,
     aggregation,
     transformation,
-    skip_quantile_normalization
+    skip_quantile_normalization,
 ):
     """
     Automatically constructs a Dataset, processes it, waits for it
@@ -89,7 +112,7 @@ def download_dataset(
             experiments,
             aggregation,
             transformation,
-            skip_quantile_normalization
+            skip_quantile_normalization,
         )
     except DownloadError as e:
         raise click.ClickException(e.message)
@@ -97,33 +120,34 @@ def download_dataset(
 
 @cli.command()
 @click.option("--path", help="Path that the Compendium should be downloaded to")
-@click.option("--organism", help="The name fo the Organism for the Compendium you want to download")
-@click.option("--quant-sf-only", default=False, type=click.BOOL, help="True for RNA-seq Sample Compendium results or False for quantile normalized")
-def download_compendium(
-    path,
-    organism,
-    quant_sf_only=False
-):
+@click.option("--organism", help="The name of the Organism for the Compendium you want to download")
+@click.option(
+    "--quant-sf-only",
+    default=False,
+    type=click.BOOL,
+    help="True for RNA-seq Sample Compendium results or False for quantile normalized",
+)
+def download_compendium(path, organism, quant_sf_only=False):
     """
     Download a Compendium for the specified organism.
+    For more information on normalized Compendia check out the following link: 
+    http://docs.refine.bio/en/latest/main_text.html#normalized-compendia
     """
     try:
-        hlf.download_compendium(
-            path,
-            organism,
-            quant_sf_only
-        )
+        hlf.download_compendium(path, organism, quant_sf_only)
     except DownloadError as e:
         raise click.ClickException(e.message)
 
 
 @cli.command()
 @click.option("--path", help="Path that the Compendium should be downloaded to")
-@click.option("--organism", help="The name fo the Organism for the Compendium you want to download")
+@click.option("--organism", help="The name of the Organism for the Compendium you want to download")
 def download_quandfile_compendium(path, organism):
     """
     Download a Compendium for the specified organism.
     This command will always download RNA-seq Sample Compedium results.
+    For more information on RNA-seq Sample Compendia check out the following link: 
+    http://docs.refine.bio/en/latest/main_text.html#rna-seq-sample-compendia
     """
     try:
         hlf.download_quandfile_compendium(path, organism)
