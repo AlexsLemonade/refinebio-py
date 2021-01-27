@@ -39,7 +39,7 @@ More Stuff
    :maxdepth: 2
 
    high_level_functions
-   http
+   config
    util
 
 Indices and tables

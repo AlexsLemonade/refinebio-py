@@ -63,7 +63,13 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         token.save_token()
 
         mock_open.assert_called_with("test", "w")
-        mock_yaml.assert_called_with({"token": token.id}, "file")
+        mock_yaml.assert_called_with(
+            {
+                "token": token.id,
+                "base_url": "https://api.refine.bio/v1/"
+            },
+            "file"
+        )
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
@@ -90,7 +96,6 @@ class TokenTests(unittest.TestCase, CustomAssertions):
             "Token with id 'test' does not exist in RefineBio. " 
             "Please create a new token."
         )
-
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
