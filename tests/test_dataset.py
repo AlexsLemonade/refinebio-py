@@ -132,15 +132,8 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         self.assertTrue(ds.is_processing)
 
 
-    @patch("pyrefinebio.config.os.path.exists")
-    @patch("pyrefinebio.config.yaml.full_load")
-    @patch("pyrefinebio.config.open")
-    def test_dataset_process_bad_token(self, mock_open, mock_load, mock_exists):
-        Config._instance = None
-        os.environ["CONFIG_FILE"] = "./temp"
-        mock_open.return_value.__enter__.return_value = "file"
-        mock_load.return_value = {"token": "this-is-a-bad-token"}
-        mock_exists.return_value = True
+    def test_dataset_process_bad_token(self):
+        pyrefinebio.config.Config().token = "this-is-a-bad-token"
 
         data = {}
         exs = pyrefinebio.Experiment.search(num_downloadable_samples=1)
@@ -155,22 +148,13 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         self.assertEqual(br.exception.base_message, "Bad Request: You must provide an active API token ID")
 
     
-    @patch("pyrefinebio.config.os.path.exists")
-    @patch("pyrefinebio.config.yaml.full_load")
-    @patch("pyrefinebio.config.open")
-    def test_dataset_process_no_email(self, mock_open, mock_load, mock_exists):
-        Config._instance = None
-        os.environ["CONFIG_FILE"] = "./temp"
-        mock_open.return_value.__enter__.return_value = "file"
-        mock_load.return_value = {"token": "42240c84-b3d9-4f41-8001-6f40abce9d7d"}
-        mock_exists.return_value = True
-
+    def test_dataset_process_no_email(self):
         try:
-            token = pyrefinebio.Token.get_token()
-            pyrefinebio.Token.agree_to_terms_and_conditions(token)
+            token = pyrefinebio.Token(id="42240c84-b3d9-4f41-8001-6f40abce9d7d")
+            token.agree_to_terms_and_conditions()
         except pyrefinebio.exceptions.NotFound:
-            token = pyrefinebio.Token.create_token("")
-            pyrefinebio.Token.agree_to_terms_and_conditions(token)
+            token = pyrefinebio.Token()
+            token.agree_to_terms_and_conditions()
 
         data = {}
         exs = pyrefinebio.Experiment.search(num_downloadable_samples=1)

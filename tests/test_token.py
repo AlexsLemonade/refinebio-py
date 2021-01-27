@@ -112,15 +112,10 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         )
 
 
-    @patch("pyrefinebio.token.get_by_endpoint")
-    @patch("pyrefinebio.config.os.path.exists")
-    @patch("pyrefinebio.config.yaml.full_load")
-    @patch("pyrefinebio.config.open")
-    def test_token_get(self, mock_open, mock_load, mock_exists, mock_get):
-        os.environ["CONFIG_FILE"] = "./temp"
-        mock_open.return_value.__enter__.return_value = "file"
-        mock_load.return_value = {"token": "this-is-a-test-token"}
-        mock_exists.return_value = True
+    @patch("pyrefinebio.token.put_by_endpoint")
+    def test_token_get(self, mock_put):
+        mock_put.return_value = True
+        pyrefinebio.Token(id="this-is-a-test-token").agree_to_terms_and_conditions()
 
         token = pyrefinebio.Token.get_token()
 
