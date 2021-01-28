@@ -108,8 +108,8 @@ class Token:
 
 
     @classmethod
-    def get_token(cls):
-        """Gets the token that's currently set to Config."""
+    def load_token(cls):
+        """Loads the token that's currently set to Config."""
         return Token(id=config.token)
 
 

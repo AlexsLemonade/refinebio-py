@@ -17,7 +17,7 @@ class Config:
         token:
             The refine.bio api token that is used when making requests
 
-            environment variable: `RB_TOKEN`
+            environment variable: `REFINEBIO_TOKEN`
 
         base_url: 
             The base url for the refine.bio api that should be used 
@@ -61,7 +61,7 @@ class Config:
                 with open(cls.config_file) as config_file:
                     config = yaml.full_load(config_file) or {}
 
-            cls.token = os.getenv("RB_TOKEN") or config.get("token", "")
+            cls.token = os.getenv("REFINEBIO_TOKEN") or config.get("token", "")
             cls.base_url = os.getenv("BASE_URL") or config.get("base_url", "https://api.refine.bio/v1/")
 
         return cls._instance
