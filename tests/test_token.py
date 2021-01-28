@@ -113,11 +113,11 @@ class TokenTests(unittest.TestCase, CustomAssertions):
 
 
     @patch("pyrefinebio.token.put_by_endpoint")
-    def test_token_get(self, mock_put):
+    def test_token_load(self, mock_put):
         mock_put.return_value = True
         pyrefinebio.Token(id="this-is-a-test-token").agree_to_terms_and_conditions()
 
-        token = pyrefinebio.Token.get_token()
+        token = pyrefinebio.Token.load_token()
 
         self.assertEqual(token.id, "this-is-a-test-token")
 
