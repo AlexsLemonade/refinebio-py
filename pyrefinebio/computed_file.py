@@ -125,7 +125,7 @@ class ComputedFile:
         return create_paginated_list(cls, response)
 
 
-    def download(self, path):
+    def download(self, path, prompt=True):
         """Download a ComputedFile
 
         Returns:
@@ -133,9 +133,13 @@ class ComputedFile:
 
         Parameters:
             path (str): the path that the ComputedFile should be downloaded to
+
+            prompt (bool): if true, will prompt before downloading files bigger than 1GB
         """
         if not self.download_url:
             raise DownloadError("ComputedFile", "Download url not found - did you set up and activate a Token?")
 
-        download_file(self.download_url, path)
+        download_file(self.download_url, path, prompt)
+
+        return self
 

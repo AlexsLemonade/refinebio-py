@@ -3,8 +3,8 @@ import re
 import time
 
 from pyrefinebio import Dataset, Compendium
-from pyrefinebio.http import download_file
 from pyrefinebio.exceptions import DownloadError
+
 
 def help(entity=None):
     """Help
@@ -50,45 +50,48 @@ def download_dataset(
     experiments=None,
     aggregation="EXPERIMENT",
     transformation="NONE",
-    skip_quantile_normalization=False
+    skip_quantile_normalization=False,
+    prompt=True
 ):
     """download_dataset
 
-        Automatically constructs a Dataset, processes it, waits for it
-        to finish processing, then downloads it to the path specified.
+    Automatically constructs a Dataset, processes it, waits for it
+    to finish processing, then downloads it to the path specified.
 
-        Returns:
-            void
+    Returns:
+        void
 
-        Parameters:
-            path (str): the path that the Dataset should be downloaded to
+    Parameters:
+        path (str): the path that the Dataset should be downloaded to
 
-            email_address (str): the email address that will be contacted with info
-                                 related to the dataset
-            
-            dataset_dict (dict): a fully formed Dataset `data` attribute in the form:
-                                 {
-                                     "Experiment": [
-                                         "Sample",
-                                         "Sample"
-                                     ]
-                                 }
-                                 use this parameter if you want to specify specific Samples
-                                 for your dataset
-                                 each part of the dict can be a pyrefinebio object or an accession
-                                 code as a string
+        email_address (str): the email address that will be contacted with info
+                                related to the dataset
+        
+        dataset_dict (dict): a fully formed Dataset `data` attribute in the form:
+                                {
+                                    "Experiment": [
+                                        "Sample",
+                                        "Sample"
+                                    ]
+                                }
+                                use this parameter if you want to specify specific Samples
+                                for your dataset
+                                each part of the dict can be a pyrefinebio object or an accession
+                                code as a string
 
-            experiments (list): a list of Experiments that should be added to the dataset
-                                use this parameter if you only care about the Experiments - all 
-                                available samples related to each Experiment will be added  
-                                the list can contain Experiment objects or accession codes as strings
+        experiments (list): a list of Experiments that should be added to the dataset
+                            use this parameter if you only care about the Experiments - all 
+                            available samples related to each Experiment will be added  
+                            the list can contain Experiment objects or accession codes as strings
 
-            aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT` or by `SPECIES`
+        aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT` or by `SPECIES`
 
-            transformation (str): the transformation for the dataset - `NONE`, `MINMAX`, or `STANDARD`
+        transformation (str): the transformation for the dataset - `NONE`, `MINMAX`, or `STANDARD`
 
-            skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
-                                                normalization for RNA-seq Samples
+        skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
+                                            normalization for RNA-seq Samples
+
+        prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     if dataset_dict and experiments:
         raise DownloadError(
@@ -114,14 +117,15 @@ def download_dataset(
     while not dataset.check():
         time.sleep(5)
 
-    dataset.download(path)
+    return dataset.download(path, prompt)
 
 
 def download_compendium(
     path,
     organism,
     version=None,
-    quant_sf_only=False
+    quant_sf_only=False,
+    prompt=True
 ):
     """download_compendium
 
@@ -142,6 +146,7 @@ def download_compendium(
         quant_sf_only (bool): true for RNA-seq Sample Compendium results or False 
                               for quantile normalized
 
+        prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     search_params = {
         "primary_organism__name": organism,
@@ -162,10 +167,10 @@ def download_compendium(
                 .format(organism, version, quant_sf_only)
         )
 
-    compendium[0].download(path)
+    return compendium[0].download(path, prompt)
 
 
-def download_quandfile_compendium(path, organism):
+def download_quandfile_compendium(path, organism, prompt=True):
     """download_quandfile_compendium
 
     Download a Compendium for the specified organism.
@@ -179,5 +184,11 @@ def download_quandfile_compendium(path, organism):
 
         organism (str): the name of the Organism for the Compendium you want to 
                         download
+
+        prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
-    download_compendium(organism, path, True)
+    return download_compendium(
+        organism,
+        path, 
+        quant_sf_only=True,
+        prompt=prompt)

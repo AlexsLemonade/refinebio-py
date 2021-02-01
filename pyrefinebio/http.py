@@ -79,7 +79,7 @@ def put_by_endpoint(endpoint, payload=None):
     url = config.base_url + endpoint + "/"
     return put(url, payload=payload)
 
-def download_file(url, path):
+def download_file(url, path, prompt):
     user_path = os.path.expanduser(path)
     full_path = os.path.abspath(user_path)
 
@@ -88,10 +88,45 @@ def download_file(url, path):
 
     with requests.get(url, stream=True) as res:
 
-        # check size, and notify if bigger than 1gb
+        if prompt:
+            total_size_in_bytes = int(res.headers.get('content-length', None))
+            message = None
+
+            if total_size_in_bytes is None:
+                message = (
+                    "Could not get the size for the file you are tying to download. "
+                    "Would you still like to download it? (y/n)"
+                )
+            if total_size_in_bytes > 1000000000:
+                message = (
+                    "The file you are trying to download is bigger than 1GB. "
+                    "Would you still like to download it? (y/n)"
+                )
+
+            if message:
+                yn = _prompt(
+                    message,
+                    valid_responses=["y", "n"]
+                )
+
+                if yn == "n":
+                    return
 
         with open(full_path, "wb") as f:
             shutil.copyfileobj(res.raw, f)
+
+
+def _prompt(message, valid_responses=None):
+    print(message)
+
+    if not valid_responses:
+        return input()
+    else:
+        while True:
+            res = input()
+            if res in valid_responses:
+                return res
+
 
 
 def _handle_error(response_body):
