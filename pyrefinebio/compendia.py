@@ -1,6 +1,6 @@
 from pyrefinebio import computed_file as prb_computed_file
 
-from pyrefinebio.http import get_by_endpoint
+from pyrefinebio.http import get_by_endpoint, download_file
 from pyrefinebio.util import create_paginated_list
 
 
@@ -82,3 +82,15 @@ class Compendium:
         """
         response = get_by_endpoint("compendia", params=kwargs)
         return create_paginated_list(cls, response)
+
+
+    def download(self, path):
+        """Download a Compendium result
+
+        Returns:
+            void
+
+        Parameters:
+            path (str): the path that the Compendium result should be downloaded to
+        """
+        self.computed_file.download(path)

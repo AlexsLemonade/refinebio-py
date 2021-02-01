@@ -120,6 +120,7 @@ def download_dataset(
 def download_compendium(
     path,
     organism,
+    version=None,
     quant_sf_only=False
 ):
     """download_compendium
@@ -134,34 +135,34 @@ def download_compendium(
 
         organism (str): the name of the Organism for the Compendium you want to 
                         download
+        
+        version (int): the version for the Compendium you want to download - None
+                       for latest version
 
         quant_sf_only (bool): true for RNA-seq Sample Compendium results or False 
-                              for quantile normalized.
+                              for quantile normalized
 
     """
-    compendium = Compendium.search(
-        primary_organism__name=organism,
-        quant_sf_only=quant_sf_only,
-        latest_version=True
-    )
+    search_params = {
+        "primary_organism__name": organism,
+        "quant_sf_only": quant_sf_only
+    }
+
+    if version:
+        search_params["compendium_version"] = version
+    else:
+        search_params["latest_version"] = True
+
+    compendium = Compendium.search(**search_params)
 
     if not compendium:
         raise DownloadError(
             "Compendium", 
-            extra_info="Could not find any Compendium with organism name, {0} and quant_sf_only, {1}"
-                .format(organism, quant_sf_only)
+            extra_info="Could not find any Compendium with organism name, {0}, version {1}, and quant_sf_only, {2}"
+                .format(organism, version, quant_sf_only)
         )
 
-    download_url = compendium[0].computed_file.download_url
-
-    if not download_url:
-        raise DownloadError(
-            "Compendium", 
-            extra_info="No download url found. Make sure you have an activated api token set up.\n" +
-                       "See pyrefinebio.Token for more info"
-        )
-    
-    download_file(download_url, path)
+    compendium[0].download(path)
 
 
 def download_quandfile_compendium(path, organism):

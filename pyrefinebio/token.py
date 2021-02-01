@@ -77,7 +77,7 @@ class Token:
             put_by_endpoint("token/" + self.id, payload={"is_activated": True})
         except NotFound:
             raise BadRequest(
-                "Token with id '" + str(self.id) + "' does not exist in RefineBio. " 
+                "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
                 "Please create a new token."
             )
         
@@ -99,7 +99,7 @@ class Token:
                 )
         except NotFound:
             raise BadRequest(
-                "Token with id '" + str(self.id) + "' does not exist in RefineBio. " 
+                "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
                 "Please create a new token."
             )
 

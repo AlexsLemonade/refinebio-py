@@ -93,7 +93,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         self.assertEqual(
             br.exception.base_message,
             "Bad Request: "
-            "Token with id 'test' does not exist in RefineBio. " 
+            "Token with id 'test' does not exist in refine.bio. " 
             "Please create a new token."
         )
 
