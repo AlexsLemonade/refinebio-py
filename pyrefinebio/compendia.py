@@ -1,6 +1,6 @@
 from pyrefinebio import computed_file as prb_computed_file
 
-from pyrefinebio.http import get_by_endpoint, download_file
+from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list
 
 

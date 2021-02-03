@@ -89,10 +89,10 @@ def download_file(url, path, prompt):
     with requests.get(url, stream=True) as res:
 
         if prompt:
-            total_size_in_bytes = int(res.headers.get('content-length', None))
+            total_size_in_bytes = int(res.headers.get("content-length", -1))
             message = None
 
-            if total_size_in_bytes is None:
+            if total_size_in_bytes == -1:
                 message = (
                     "Could not get the size for the file you are tying to download. "
                     "Would you still like to download it? (y/n)"

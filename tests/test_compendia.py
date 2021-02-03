@@ -25,6 +25,7 @@ compendium_object_1 = {
         "sha1": "3c5de2dba42c2768e7542a0262d2b9a1e9fc9f45",
         "s3_bucket": "test-bucket",
         "s3_key": "test-compendium.zip",
+        "download_url": "test_download_url",
         "created_at": "2020-10-02T00:00:00Z",
         "last_modified": "2020-10-02T00:00:00Z"
     }
@@ -72,6 +73,9 @@ def mock_request(method, url, **kwargs):
 
     if url == "https://api.refine.bio/v1/compendia/1/":
         return MockResponse(compendium_object_1, url)
+
+    if url == "https://api.refine.bio/v1/compendia/2/":
+        return MockResponse(compendium_object_2, url)
 
     if url == "https://api.refine.bio/v1/compendia/0/":
         return MockResponse(None, url, status=404)
@@ -125,3 +129,26 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
     def test_compendium_search_with_invalid_filters(self):
         with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):
             pyrefinebio.Compendium.search(foo="bar")
+
+
+    # just mock download - it's already tested in depth in test_dataset
+    @patch("pyrefinebio.computed_file.download_file") 
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_compendium_download(self, mock_request, mock_download):
+        result = pyrefinebio.Compendium.get(1)
+
+        result.download("test-path")
+
+        mock_download.assert_called_with(
+            "test_download_url",
+            "test-path",
+            True
+        )
+
+
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_compendium_download(self, mock_request):
+        result = pyrefinebio.Compendium.get(2) # 2 has no download_url
+
+        with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
+            result.download("test-path")

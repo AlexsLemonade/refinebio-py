@@ -183,19 +183,76 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.http.open")
     @patch("pyrefinebio.http.requests.get")
     def test_dataset_download(self, mock_get, mock_open, mock_copy):
-        mr = MockResponse({}, "test")
+        ds = pyrefinebio.Dataset(download_url="test_download_url")
+
+        mr = MockResponse(
+            None,
+            "test_download_url",
+            headers={
+                "content-length": 3
+            }
+        )
+
         setattr(mr, "raw", "raw")
+
         mock_get.return_value.__enter__.return_value = mr
         mock_open.return_value.__enter__.return_value = "file"
 
-        ds = pyrefinebio.Dataset(download_url="test")
-        ds.download("test")
+        ds.download("test_path")
 
-        mock_get.assert_called_with("test", stream=True)
-        mock_open.assert_called_with("test", "wb")
+        mock_get.assert_called_with("test_download_url", stream=True)
+        mock_open.assert_called_with(os.path.abspath("test_path"), "wb")
         mock_copy.assert_called_with("raw", "file")
 
+
+    @patch("pyrefinebio.http.shutil.copyfileobj")
+    @patch("pyrefinebio.http.input")
+    @patch("pyrefinebio.http.requests.get")
+    def test_dataset_download_big_file(self, mock_get, mock_input, mock_copy):
+        ds = pyrefinebio.Dataset(download_url="test_download_url")
+
+        mr = MockResponse(
+            None,
+            "test_download_url",
+            headers={
+                "content-length": 1000000000000
+            }
+        )
+
+        setattr(mr, "raw", "raw")
+
+        mock_get.return_value.__enter__.return_value = mr
+        mock_input.return_value = "n"
+
+        ds.download("test_path")
+
+        mock_get.assert_called_with("test_download_url", stream=True)
+        mock_copy.assert_not_called()
     
+
+    @patch("pyrefinebio.http.shutil.copyfileobj")
+    @patch("pyrefinebio.http.input")
+    @patch("pyrefinebio.http.requests.get")
+    def test_dataset_download_no_size_header(self, mock_get, mock_input, mock_copy):
+        ds = pyrefinebio.Dataset(download_url="test_download_url")
+
+        mr = MockResponse(
+            None,
+            "test_download_url",
+            headers={}
+        )
+
+        setattr(mr, "raw", "raw")
+
+        mock_get.return_value.__enter__.return_value = mr
+        mock_input.return_value = "n"
+
+        ds.download("test_path")
+
+        mock_get.assert_called_with("test_download_url", stream=True)
+        mock_copy.assert_not_called()
+
+
     def test_add_samples(self):
         dataset = pyrefinebio.Dataset()
 

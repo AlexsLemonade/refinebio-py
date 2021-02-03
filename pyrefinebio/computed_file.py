@@ -1,5 +1,6 @@
 from pyrefinebio.http import get_by_endpoint, download_file
 from pyrefinebio.util import create_paginated_list, parse_date
+from pyrefinebio.exceptions import DownloadError
 
 from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import sample as prb_sample
