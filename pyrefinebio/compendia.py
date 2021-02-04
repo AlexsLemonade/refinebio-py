@@ -88,7 +88,7 @@ class Compendium:
         """Download a Compendium result
 
         Returns:
-            void
+            Compendium
 
         Parameters:
             path (str): the path that the Compendium result should be downloaded to

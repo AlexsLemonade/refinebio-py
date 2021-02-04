@@ -130,7 +130,7 @@ class ComputedFile:
         """Download a ComputedFile
 
         Returns:
-            void
+            ComputedFile
 
         Parameters:
             path (str): the path that the ComputedFile should be downloaded to

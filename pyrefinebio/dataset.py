@@ -229,7 +229,7 @@ class Dataset:
         """Download a processed Dataset
 
         Returns:
-            void
+            Dataset
 
         Parameters:
             path (str): the path that the Dataset should be downloaded to

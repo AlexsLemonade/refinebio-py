@@ -95,38 +95,24 @@ def download_file(url, path, prompt):
             if total_size_in_bytes == -1:
                 message = (
                     "Could not get the size for the file you are tying to download. "
-                    "Would you still like to download it? (y/n)"
+                    "Would you still like to download it? (y/N)"
                 )
-            if total_size_in_bytes > 1000000000:
+            if total_size_in_bytes > 1024 * 1024 * 1024:
                 message = (
-                    "The file you are trying to download is bigger than 1GB. "
-                    "Would you still like to download it? (y/n)"
+                    "The file you are trying to download is bigger than 1GB ({:.2f}GB). "
+                    "Would you still like to download it? (y/N)"
+                ).format(
+                    total_size_in_bytes / (1024 * 1024 * 1024)
                 )
 
             if message:
-                yn = _prompt(
-                    message,
-                    valid_responses=["y", "n"]
-                )
+                yn = input(message)
 
-                if yn == "n":
+                if yn.lower() not in ("y", "yes"):
                     return
 
         with open(full_path, "wb") as f:
             shutil.copyfileobj(res.raw, f)
-
-
-def _prompt(message, valid_responses=None):
-    print(message)
-
-    if not valid_responses:
-        return input()
-    else:
-        while True:
-            res = input()
-            if res in valid_responses:
-                return res
-
 
 
 def _handle_error(response_body):
