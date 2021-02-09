@@ -106,7 +106,7 @@ def download_file(url, path, prompt):
                 if yn.lower() not in ("y", "yes"):
                     return
 
-        with open(full_path, "wb") as f:
+        with open(path, "wb") as f:
             shutil.copyfileobj(res.raw, f)
 
 

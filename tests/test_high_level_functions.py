@@ -43,7 +43,7 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
             }
         )
 
-        mock_download.assert_called_with("test_url", "test", True)
+        mock_download.assert_called_with("test_url", os.path.abspath("test"), True)
 
 
     @patch("pyrefinebio.dataset.download_file")
@@ -80,7 +80,7 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
             }
         )
 
-        mock_download.assert_called_with("test_url", "test", True)
+        mock_download.assert_called_with("test_url", os.path.abspath("test"), True)
 
 
     def test_download_dataset_both(self):
@@ -88,7 +88,7 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
             pyrefinebio.download_dataset("test", "foo@test.com", dataset_dict={"bad"}, experiments=["bad"])
 
 
-    @patch("pyrefinebio.computed_file.download_file")
+    @patch("pyrefinebio.compendia.download_file")
     @patch("pyrefinebio.compendia.get_by_endpoint")
     def test_download_compendium(self, mock_get, mock_download):
         mock_get.return_value = MockResponse(
@@ -118,7 +118,7 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
             }
         )
 
-        mock_download.assert_called_with("test_url", "test", True)
+        mock_download.assert_called_with("test_url", os.path.abspath("test"), True)
 
 
     def test_download_compendium_no_results(self):

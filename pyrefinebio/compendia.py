@@ -1,6 +1,6 @@
 from pyrefinebio import computed_file as prb_computed_file
 
-from pyrefinebio.http import get_by_endpoint
+from pyrefinebio.http import get_by_endpoint, download_file
 from pyrefinebio.util import create_paginated_list, expand_path, extract
 from pyrefinebio.exceptions import DownloadError
 
@@ -103,7 +103,7 @@ class Compendium:
 
         full_path = expand_path(path, "compendia-" + str(self.id) + ".zip")
 
-        download_file(self.download_url, full_path, prompt)
+        download_file(self.computed_file.download_url, full_path, prompt)
 
         self._downloaded_path = full_path
 
