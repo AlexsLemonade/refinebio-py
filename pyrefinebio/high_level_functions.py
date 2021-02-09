@@ -98,6 +98,8 @@ def download_dataset(
             extra_info="You should either provide dataset_dict or experiments but not both"
         )
 
+    print("Creating Dataset...")
+
     dataset = Dataset(
         email_address=email_address,
         aggregate_by=aggregation,
@@ -111,10 +113,14 @@ def download_dataset(
         for experiment in experiments:
             dataset.add_samples(experiment)
 
+    print("Processing Dataset...")
+
     dataset.process()
 
     while not dataset.check():
         time.sleep(5)
+
+    print("Downloading Dataset...")
 
     return dataset.download(path, prompt)
 
@@ -157,6 +163,8 @@ def download_compendium(
     else:
         search_params["latest_version"] = True
 
+    print("Searching for Compendium...")
+
     compendium = Compendium.search(**search_params)
 
     if not compendium:
@@ -165,6 +173,8 @@ def download_compendium(
             extra_info="Could not find any Compendium with organism name, {0}, version {1}, and quant_sf_only, {2}"
                 .format(organism, version, quant_sf_only)
         )
+
+    print("Downloading Compendium...")
 
     return compendium[0].download(path, prompt)
 

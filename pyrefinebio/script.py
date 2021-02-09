@@ -19,7 +19,11 @@ class DictParamType(click.ParamType):
         try:
             return json.loads(value)
         except:
-            self.fail("expected valid string in a dict form, " "got: {0}".format(value), param, ctx)
+            self.fail(
+                "expected valid json string, got: {0}".format(value),
+                param,
+                ctx
+            )
 
 
 class ListParamType(click.ParamType):
@@ -29,7 +33,11 @@ class ListParamType(click.ParamType):
         try:
             return value.split()
         except:
-            self.fail("expected valid string in list form, " "got: {0}".format(value), param, ctx)
+            self.fail(
+                "expected valid string in list form, got: {0}".format(value),
+                param,
+                ctx
+            )
 
 
 @cli.command()
