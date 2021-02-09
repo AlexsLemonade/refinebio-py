@@ -152,3 +152,14 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
         with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
             result.download("test-path")
+
+
+    @patch("pyrefinebio.util.shutil.unpack_archive")
+    def test_compendium_extract(self, mock_unpack):
+        c = pyrefinebio.Compendium()
+
+        c._downloaded_path = "foo"
+        
+        c.extract()
+
+        mock_unpack.assert_called_with("foo")

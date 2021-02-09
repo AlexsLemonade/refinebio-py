@@ -1,5 +1,5 @@
 import os
-from zipfile import ZipFile
+import shutil
 
 from pyrefinebio.http import get
 from dateutil import parser
@@ -28,8 +28,7 @@ def expand_path(path, filename):
 
 
 def extract(path):
-    with ZipFile(path) as archive:
-        archive.extractall()
+    shutil.unpack_archive(path)
 
 
 class PaginatedList:

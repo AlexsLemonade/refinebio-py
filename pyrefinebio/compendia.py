@@ -1,7 +1,7 @@
 from pyrefinebio import computed_file as prb_computed_file
 
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import create_paginated_list, expand_path
+from pyrefinebio.util import create_paginated_list, expand_path, extract
 from pyrefinebio.exceptions import DownloadError
 
 
