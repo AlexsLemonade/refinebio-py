@@ -1,6 +1,6 @@
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
 from pyrefinebio.exceptions import DownloadError
-from pyrefinebio.util import parse_date
+from pyrefinebio.util import parse_date, expand_path, extract
 
 import pyrefinebio.experiment as prb_experiment
 import pyrefinebio.sample as prb_sample
@@ -97,6 +97,8 @@ class Dataset:
         self.quant_sf_only = quant_sf_only
         self.svd_algorithm = svd_algorithm
         self.download_url = download_url
+
+        self._downloaded_path = None
 
 
     @classmethod
@@ -228,6 +230,8 @@ class Dataset:
     def download(self, path, prompt=True):
         """Download a processed Dataset
 
+        The path that the dataset is downloaded to is stored in `_downloaded_path`
+
         Returns:
             Dataset
 
@@ -241,6 +245,26 @@ class Dataset:
         if not download_url:
             raise DownloadError("dataset", "Download url not found - did you process the dataset?")
 
-        download_file(download_url, path, prompt)
+        full_path = expand_path(path, "dataset-" + str(self.id) + ".zip")
 
+        download_file(download_url, full_path, prompt)
+
+        self._downloaded_path = full_path
+
+        return self
+
+    
+    def extract(self):
+        """Extract a downloaded Dataset
+
+        Returns:
+            Dataset
+        """
+        if not self._downloaded_path:
+            raise Exception(
+                "No downloaded path exists. "
+                "Make sure you have successfully downloaded the Dataset before extracting."
+            )
+
+        extract(self._downloaded_path)
         return self

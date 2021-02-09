@@ -65,6 +65,9 @@ class ComputedFile:
         self.last_modified = parse_date(last_modified)
         self.result = prb_computational_result.ComputationalResult(**(result)) if result else None
 
+        self._downloaded_path = None
+
+
     @classmethod
     def get(cls, id):
         """Retrieve a specific ComputedFile based on id
@@ -140,7 +143,27 @@ class ComputedFile:
         if not self.download_url:
             raise DownloadError("ComputedFile", "Download url not found - did you set up and activate a Token?")
 
-        download_file(self.download_url, path, prompt)
+        full_path = expand_path(path, "computedfile-" + str(self.id) + ".zip")
 
+        download_file(self.download_url, full_path, prompt)
+
+        self._downloaded_path = full_path
+
+        return self
+
+
+    def extract(self):
+        """Extract a downloaded ComputedFile
+
+        Returns:
+            ComputedFile
+        """
+        if not self._downloaded_path:
+            raise Exception(
+                "No downloaded path exists. "
+                "Make sure you have successfully downloaded the ComputedFile before extracting."
+            )
+
+        extract(self._downloaded_path)
         return self
 

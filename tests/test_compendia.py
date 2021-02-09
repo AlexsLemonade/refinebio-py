@@ -132,7 +132,7 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
 
     # just mock download - it's already tested in depth in test_dataset
-    @patch("pyrefinebio.computed_file.download_file") 
+    @patch("pyrefinebio.compendia.download_file") 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendium_download(self, mock_request, mock_download):
         result = pyrefinebio.Compendium.get(1)

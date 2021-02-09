@@ -1,7 +1,8 @@
 from pyrefinebio import computed_file as prb_computed_file
 
 from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import create_paginated_list
+from pyrefinebio.util import create_paginated_list, expand_path
+from pyrefinebio.exceptions import DownloadError
 
 
 class Compendium:
@@ -38,6 +39,8 @@ class Compendium:
         self.computed_file = (
             prb_computed_file.ComputedFile(**(computed_file)) if computed_file else None
         )
+
+        self._downloaded_path = None
 
     @classmethod
     def get(cls, id):
@@ -95,6 +98,29 @@ class Compendium:
 
             prompt (bool): if true, will prompt before downloading files bigger than 1GB
         """
-        self.computed_file.download(path, prompt)
+        if not self.computed_file.download_url:
+            raise DownloadError("Compendia", "Download url not found - did you set up and activate a Token?")
 
+        full_path = expand_path(path, "compendia-" + str(self.id) + ".zip")
+
+        download_file(self.download_url, full_path, prompt)
+
+        self._downloaded_path = full_path
+
+        return self
+
+
+    def extract(self):
+        """Extract a downloaded Compendium
+
+        Returns:
+            Compendium
+        """
+        if not self._downloaded_path:
+            raise Exception(
+                "No downloaded path exists. "
+                "Make sure you have successfully downloaded the Compendium before extracting."
+            )
+
+        extract(self._downloaded_path)
         return self
