@@ -5,6 +5,7 @@ from dateutil import parser
 def create_paginated_list(T, response):
     return PaginatedList(T, response)
 
+
 def parse_date(date):
     try:
         parsed = None

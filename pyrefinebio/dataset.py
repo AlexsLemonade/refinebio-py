@@ -225,18 +225,22 @@ class Dataset:
         return response.is_processed
 
 
-    def download(self, path):
+    def download(self, path, prompt=True):
         """Download a processed Dataset
 
         Returns:
-            void
+            Dataset
 
         Parameters:
             path (str): the path that the Dataset should be downloaded to
+
+            prompt (bool): if true, will prompt before downloading files bigger than 1GB
         """
         download_url = self.download_url or self.get(self.id).download_url
 
         if not download_url:
             raise DownloadError("dataset", "Download url not found - did you process the dataset?")
 
-        download_file(download_url, path)
+        download_file(download_url, path, prompt)
+
+        return self

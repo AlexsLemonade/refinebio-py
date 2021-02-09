@@ -79,9 +79,39 @@ def put_by_endpoint(endpoint, payload=None):
     url = config.base_url + endpoint + "/"
     return put(url, payload=payload)
 
-def download_file(url, path):
+def download_file(url, path, prompt):
+    user_path = os.path.expanduser(path)
+    full_path = os.path.abspath(user_path)
+
+    if os.path.isdir(full_path):
+        full_path = os.path.join(full_path, "refinebio-download.zip")
+
     with requests.get(url, stream=True) as res:
-        with open(path, "wb") as f:
+
+        if prompt:
+            total_size_in_bytes = int(res.headers.get("content-length", -1))
+            message = None
+
+            if total_size_in_bytes == -1:
+                message = (
+                    "Could not get the size for the file you are tying to download. "
+                    "Would you still like to download it? (y/N)"
+                )
+            if total_size_in_bytes > 1024 * 1024 * 1024:
+                message = (
+                    "The file you are trying to download is bigger than 1GB ({:.2f}GB). "
+                    "Would you still like to download it? (y/N)"
+                ).format(
+                    total_size_in_bytes / (1024 * 1024 * 1024)
+                )
+
+            if message:
+                yn = input(message)
+
+                if yn.lower() not in ("y", "yes"):
+                    return
+
+        with open(full_path, "wb") as f:
             shutil.copyfileobj(res.raw, f)
 
 
