@@ -124,6 +124,7 @@ class ScriptTests(unittest.TestCase):
         self.assertEqual(result.exit_code, 1)
         self.assertEqual(
             result.output,
-            "Error: Unable to download Compendium\nCould not find any Compendium with organism name, foo and quant_sf_only, False\n"
+            "Error: Unable to download Compendium\nCould not find any Compendium " +
+            "with organism name, foo, version False, and quant_sf_only, False\n"
         )
 

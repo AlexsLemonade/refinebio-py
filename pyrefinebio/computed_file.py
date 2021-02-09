@@ -1,5 +1,6 @@
-from pyrefinebio.http import get_by_endpoint
+from pyrefinebio.http import get_by_endpoint, download_file
 from pyrefinebio.util import create_paginated_list, parse_date
+from pyrefinebio.exceptions import DownloadError
 
 from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import sample as prb_sample
@@ -123,3 +124,23 @@ class ComputedFile:
         """
         response = get_by_endpoint("computed_files", params=kwargs)
         return create_paginated_list(cls, response)
+
+
+    def download(self, path, prompt=True):
+        """Download a ComputedFile
+
+        Returns:
+            ComputedFile
+
+        Parameters:
+            path (str): the path that the ComputedFile should be downloaded to
+
+            prompt (bool): if true, will prompt before downloading files bigger than 1GB
+        """
+        if not self.download_url:
+            raise DownloadError("ComputedFile", "Download url not found - did you set up and activate a Token?")
+
+        download_file(self.download_url, path, prompt)
+
+        return self
+

@@ -8,13 +8,15 @@ from pyrefinebio.config import Config
 from pyrefinebio.exceptions import NotFound, BadRequest
 
 
+config = Config()
+
 class Token:
-    """Handles the creation, activation, saving, and loading of api tokens.
+    """Handles the creation, activation, saving, and loading of refine.bio's api tokens.
 
     These tokens can be used in requests that provide urls to download computed files.
 
-    Please review refine.bio's [Terms of Use](https://www.refine.bio/terms) and [Privacy Policy](https://www.refine.bio/privacy)
-    before use of these tokens.
+    Please review refine.bio's [Terms of Use](https://www.refine.bio/terms) and 
+    [Privacy Policy](https://www.refine.bio/privacy) before use of these tokens.
 
     Create a new Token
 
@@ -33,7 +35,7 @@ class Token:
         >>> token = pyrefinebio.Token(email_address="foo@bar.com")
         >>> token.save_token()
 
-    Load the Token that is currently saved to the config file
+    Load the Token that is currently set to Config
 
         >>> import pyrefinebio
         >>> token = pyrefinebio.Token.load_token()
@@ -60,6 +62,12 @@ class Token:
 
     def agree_to_terms_and_conditions(self):
         """Activates a token.
+        
+        Tokens that are activated will be added to Config and can be used to make requests
+        until pyrefinebio is re-imported.
+
+        If you would like to continue using the same Token for other scripts that use pyrefinebio
+        save the Token to the Config file using save_token().
 
         Activating a token indicates agreement with refine.bio's
         [Terms of Use](https://www.refine.bio/terms) and
@@ -69,9 +77,11 @@ class Token:
             put_by_endpoint("token/" + self.id, payload={"is_activated": True})
         except NotFound:
             raise BadRequest(
-                "Token with id '" + str(self.id) + "' does not exist in RefineBio. " 
+                "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
                 "Please create a new token."
             )
+        
+        config.token = self.id
 
 
     def save_token(self):
@@ -89,23 +99,19 @@ class Token:
                 )
         except NotFound:
             raise BadRequest(
-                "Token with id '" + str(self.id) + "' does not exist in RefineBio. " 
+                "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
                 "Please create a new token."
             )
 
-        config = Config()
-        config.save("token", self.id)
+        config.token = self.id
+        config.save()
 
 
     @classmethod
-    def get_token(cls):
-        """gets the token that's currently saved to the config file.
-
-        The default config file is ~/.refinebio.yaml, but
-        you can use the environment variable `CONFIG_FILE` to change this path
-        """
-        config = Config()
+    def load_token(cls):
+        """Loads the token that's currently set to Config."""
         return Token(id=config.token)
+
 
     def __str__(self):
         return str(self.id)

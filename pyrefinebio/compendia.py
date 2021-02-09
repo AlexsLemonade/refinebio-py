@@ -82,3 +82,19 @@ class Compendium:
         """
         response = get_by_endpoint("compendia", params=kwargs)
         return create_paginated_list(cls, response)
+
+
+    def download(self, path, prompt=True):
+        """Download a Compendium result
+
+        Returns:
+            Compendium
+
+        Parameters:
+            path (str): the path that the Compendium result should be downloaded to
+
+            prompt (bool): if true, will prompt before downloading files bigger than 1GB
+        """
+        self.computed_file.download(path, prompt)
+
+        return self

@@ -29,7 +29,7 @@ computed_file_1 = {
     "s3_bucket": "data-refinery-s3-circleci-prod",
     "s3_key": "gqo8hxhqm3tcz4c2x9sthhw5_salmontools-result.tar.gz",
     "s3_url": "https://s3.amazonaws.com/data-refinery-s3-circleci-prod/gqo8hxhqm3tcz4c2x9sthhw5_salmontools-result.tar.gz",
-    "download_url": "https://data-refinery-s3-circleci-prod.s3.amazonaws.com/gqo8hxhqm3tcz4c2x9sthhw5_salmontools-result.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAYSVVCNE545GJ4DP5%2F20201008%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20201008T190717Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIFS9gjbsRxcVwxgE2SOF%2B1aGzsJzDTeF9cJqS7TXg7fBAiEApWf2yVT7yl4kgVVEE37doQTDZEzoUpYTabinRKiXROoqtAMINBABGgw1ODk4NjQwMDM4OTkiDDwu6a4uA9fA%2FpLUWiqRA9FrrpW7HGp8o%2BTgeKarp5fJBxQC%2FMfWHQSuaM%2BUMUGZoT5DWSI0D37APfw52Jgb5c6J%2FO7pt0UL721AzB8mVkGQmiuVshfsBmJBK5l7gq9H6gcKB2D21brhvPciXf7HrTdMf%2Fr3xcFu3iux%2B0yu6C6gj19xI7FepOhGEsh%2FZD1UshsSzQEonGxOrwhBGQj6ge7UXW4M5SDPRrXPXDt6Qmm%2FdeDptns9Gr6sqtq969BE3G61uz2FEEUELcye8U544sk8rGuGhDSwzaSeY6sxytxjWSylFPlETlp0kLLmJtLxBqe0X3cjNN7W0MybNtj7RVHApgByY4DLAS7h4xOEpLrZgQfsr9phF%2FYaZKKrTV1UUIvk%2BQgUNPDPN5yrBjrY%2FHB9eegYiw9YoI6k%2FaK4TRI6LT7POfYsRkkZBRi2hqCdcwYjXZX6s3wonmFuJiCYZ%2B3yi5eGg6LKe8yoO1UvbiFLABCMKk6h2fDYlPtbupLyRpGqjt3FPyPsq37y7MyZS8AFzAmiXgjVENuLRO3IGqKaMKO3%2FfsFOusBVWVEsZwZvX%2BuDjd%2BpMrMt%2FZbrCcGoaIVrGIkrNxilAIGzH4YfbK8CNgQVWpjmezL6ayA5fBNNajW9XQJfVOFDKEiB5o5dD4fzM1Aahj6orQJ5Y7P1pNdPU4y05auGkcIxygt%2BbY6g%2F%2FMZ0ca6ofU0m9qrsgyzPjot38hWRDlo%2BTYyNjYqOQCt5gsFX0MXO43R2wZ%2FPNUl8VH9Mo3L80M%2Fa7gv%2FXdYpZHQWzC8jia6dygolN2OGzpK5VSZa48EnT8zc%2B7y2S9asKnrAhSOwb7BaCGz2eFMWqZz9jcys6nad6R2P4Zldh4ilopig%3D%3D&X-Amz-Signature=abb7cc628781043a9afd41bf4c0114c26f27a22c8940b94befe07448b8f71a49",
+    "download_url": "test_download_url",
     "created_at": "2020-10-01T20:23:41.661425Z",
     "last_modified": "2020-10-01T20:23:42.378884Z",
     "result": {
@@ -106,7 +106,6 @@ computed_file_2 = {
     "s3_bucket": "data-refinery-s3-circleci-prod",
     "s3_key": "gqo8hxhqm3tcz4c2x9sthhw5_salmontools-result.tar.gz",
     "s3_url": "https://s3.amazonaws.com/data-refinery-s3-circleci-prod/gqo8hxhqm3tcz4c2x9sthhw5_salmontools-result.tar.gz",
-    "download_url": "https://data-refinery-s3-circleci-prod.s3.amazonaws.com/gqo8hxhqm3tcz4c2x9sthhw5_salmontools-result.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAYSVVCNE545GJ4DP5%2F20201008%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20201008T190717Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIFS9gjbsRxcVwxgE2SOF%2B1aGzsJzDTeF9cJqS7TXg7fBAiEApWf2yVT7yl4kgVVEE37doQTDZEzoUpYTabinRKiXROoqtAMINBABGgw1ODk4NjQwMDM4OTkiDDwu6a4uA9fA%2FpLUWiqRA9FrrpW7HGp8o%2BTgeKarp5fJBxQC%2FMfWHQSuaM%2BUMUGZoT5DWSI0D37APfw52Jgb5c6J%2FO7pt0UL721AzB8mVkGQmiuVshfsBmJBK5l7gq9H6gcKB2D21brhvPciXf7HrTdMf%2Fr3xcFu3iux%2B0yu6C6gj19xI7FepOhGEsh%2FZD1UshsSzQEonGxOrwhBGQj6ge7UXW4M5SDPRrXPXDt6Qmm%2FdeDptns9Gr6sqtq969BE3G61uz2FEEUELcye8U544sk8rGuGhDSwzaSeY6sxytxjWSylFPlETlp0kLLmJtLxBqe0X3cjNN7W0MybNtj7RVHApgByY4DLAS7h4xOEpLrZgQfsr9phF%2FYaZKKrTV1UUIvk%2BQgUNPDPN5yrBjrY%2FHB9eegYiw9YoI6k%2FaK4TRI6LT7POfYsRkkZBRi2hqCdcwYjXZX6s3wonmFuJiCYZ%2B3yi5eGg6LKe8yoO1UvbiFLABCMKk6h2fDYlPtbupLyRpGqjt3FPyPsq37y7MyZS8AFzAmiXgjVENuLRO3IGqKaMKO3%2FfsFOusBVWVEsZwZvX%2BuDjd%2BpMrMt%2FZbrCcGoaIVrGIkrNxilAIGzH4YfbK8CNgQVWpjmezL6ayA5fBNNajW9XQJfVOFDKEiB5o5dD4fzM1Aahj6orQJ5Y7P1pNdPU4y05auGkcIxygt%2BbY6g%2F%2FMZ0ca6ofU0m9qrsgyzPjot38hWRDlo%2BTYyNjYqOQCt5gsFX0MXO43R2wZ%2FPNUl8VH9Mo3L80M%2Fa7gv%2FXdYpZHQWzC8jia6dygolN2OGzpK5VSZa48EnT8zc%2B7y2S9asKnrAhSOwb7BaCGz2eFMWqZz9jcys6nad6R2P4Zldh4ilopig%3D%3D&X-Amz-Signature=abb7cc628781043a9afd41bf4c0114c26f27a22c8940b94befe07448b8f71a49",
     "created_at": "2020-10-01T20:23:41.661425Z",
     "last_modified": "2020-10-01T20:23:42.378884Z",
     "result": {
@@ -179,6 +178,9 @@ def mock_request(method, url, **kwargs):
     if url == "https://api.refine.bio/v1/computed_files/1/":
         return MockResponse(computed_file_1, url)
 
+    if url == "https://api.refine.bio/v1/computed_files/2/":
+        return MockResponse(computed_file_2, url)
+
     if url == "https://api.refine.bio/v1/computed_files/0/":
         return MockResponse(None, url, status=404)
 
@@ -234,3 +236,26 @@ class ComputedFileTests(unittest.TestCase, CustomAssertions):
     def test_computed_file_search_with_invalid_filters(self):
         with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):
             pyrefinebio.ComputedFile.search(foo="bar")
+
+    
+    # just mock download - it's already tested in depth in test_dataset
+    @patch("pyrefinebio.computed_file.download_file") 
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_computed_file_download(self, mock_request, mock_download):
+        result = pyrefinebio.ComputedFile.get(1)
+
+        result.download("test-path")
+
+        mock_download.assert_called_with(
+            "test_download_url",
+            "test-path",
+            True
+        )
+
+
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_computed_file_download(self, mock_request):
+        result = pyrefinebio.ComputedFile.get(2) # 2 has no download_url
+
+        with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
+            result.download("test-path")
