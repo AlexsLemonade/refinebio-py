@@ -52,12 +52,15 @@ def help(entity=None):
 
 @cli.command()
 @click.option(
-    "--path", required=True, type=click.Path(), help="Path that the dataset should be downloaded to"
-)
-@click.option(
     "--email-address",
     required=True,
     help="The email that will be contacted with info related to the Dataset",
+)
+@click.option(
+    "--path",
+    default="./",
+    type=click.Path(),
+    help="Path that the dataset should be downloaded to"
 )
 @click.option(
     "--dataset-dict",
@@ -89,11 +92,12 @@ def help(entity=None):
 @click.option(
     "--skip-quantile-normalization",
     default=False,
+    type=click.BOOL,
     help="Control whether the Dataset should skip quantile normalization for RNA-seq Samples",
 )
 def download_dataset(
-    path,
     email_address,
+    path,
     dataset_dict,
     experiments,
     aggregation,
@@ -119,15 +123,23 @@ def download_dataset(
 
 
 @cli.command()
-@click.option("--path", help="Path that the Compendium should be downloaded to")
-@click.option("--organism", help="The name of the Organism for the Compendium you want to download")
+@click.option(
+    "--organism",
+    help="The name of the Organism for the Compendium you want to download"
+)
+@click.option(
+    "--path",
+    default="./",
+    type=click.Path(),
+    help="Path that the Compendium should be downloaded to"
+)
 @click.option(
     "--quant-sf-only",
     default=False,
     type=click.BOOL,
     help="True for RNA-seq Sample Compendium results or False for quantile normalized",
 )
-def download_compendium(path, organism, quant_sf_only=False):
+def download_compendium(organism, path, quant_sf_only=False):
     """
     Download a Compendium for the specified organism.
     For more information on normalized Compendia check out the following link: 
@@ -140,9 +152,17 @@ def download_compendium(path, organism, quant_sf_only=False):
 
 
 @cli.command()
-@click.option("--path", help="Path that the Compendium should be downloaded to")
-@click.option("--organism", help="The name of the Organism for the Compendium you want to download")
-def download_quandfile_compendium(path, organism):
+@click.option(
+    "--organism",
+    help="The name of the Organism for the Compendium you want to download"
+)
+@click.option(
+    "--path",
+    default="./",
+    type=click.Path(),
+    help="Path that the Compendium should be downloaded to"
+)
+def download_quandfile_compendium(organism, path):
     """
     Download a Compendium for the specified organism.
     This command will always download RNA-seq Sample Compedium results.

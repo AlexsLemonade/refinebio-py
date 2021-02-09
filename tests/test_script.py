@@ -17,8 +17,8 @@ class ScriptTests(unittest.TestCase):
             cli,
             [
                 "download-dataset",
-                "--path",          "./test.zip",
                 "--email-address", "foo@bar.net",
+                "--path",          "./test.zip",
                 "--dataset-dict",  '{"foo": ["bar"]}'
             ]
         )
@@ -40,8 +40,8 @@ class ScriptTests(unittest.TestCase):
             cli,
             [
                 "download-dataset",
-                "--path",          "./test.zip",
                 "--email-address", "foo@bar.net",
+                "--path",          "./test.zip",
                 "--experiments",  "foo bar baz"
             ]
         )
@@ -56,14 +56,36 @@ class ScriptTests(unittest.TestCase):
             False
         )
 
+
+    @patch("pyrefinebio.script.hlf.download_dataset")
+    def test_download_dataset_defualt_path(self, mock_download_dataset):
+        self.runner.invoke(
+            cli,
+            [
+                "download-dataset",
+                "--email-address", "foo@bar.net",
+                "--experiments",  "foo bar baz"
+            ]
+        )
+
+        mock_download_dataset.assert_called_with(
+            "./",
+            "foo@bar.net",
+            None,
+            ["foo", "bar", "baz"],
+            "EXPERIMENT",
+            "NONE",
+            False
+        )
     
+
     def test_download_dataset_both(self):
         result = self.runner.invoke(
             cli,
             [
                 "download-dataset",
-                "--path",          "./test.zip",
                 "--email-address", "foo@bar.net",
+                "--path",          "./test.zip",
                 "--dataset-dict",  '{"foo": ["bar"]}',
                 "--experiments",  "foo bar baz"
             ]
@@ -82,8 +104,8 @@ class ScriptTests(unittest.TestCase):
             cli,
             [
                 "download-compendium",
-                "--path",          "./test.zip",
                 "--organism",      "foo",
+                "--path",          "./test.zip",
                 "--quant-sf-only", "true"
             ]
         )
@@ -101,8 +123,8 @@ class ScriptTests(unittest.TestCase):
             cli,
             [
                 "download-quandfile-compendium",
-                "--path",          "./test.zip",
-                "--organism",      "foo"
+                "--organism",      "foo",
+                "--path",          "./test.zip"
             ]
         )
 
@@ -116,8 +138,8 @@ class ScriptTests(unittest.TestCase):
             cli,
             [
                 "download-compendium",
-                "--path",          "./test.zip",
                 "--organism",      "foo",
+                "--path",          "./test.zip"
             ]
         )
 
