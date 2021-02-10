@@ -133,6 +133,7 @@ class ScriptTests(unittest.TestCase):
             "foo"
         )
 
+
     def test_download_compendium_bad_organism(self):
         result = self.runner.invoke(
             cli,
@@ -146,6 +147,7 @@ class ScriptTests(unittest.TestCase):
         self.assertEqual(result.exit_code, 1)
         self.assertEqual(
             result.output,
+            "Searching for Compendium...\n"
             "Error: Unable to download Compendium\nCould not find any Compendium " +
             "with organism name, foo, version False, and quant_sf_only, False\n"
         )
