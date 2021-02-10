@@ -1,3 +1,5 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
 
@@ -5,7 +7,7 @@ import pyrefinebio.job as prb_job
 import pyrefinebio.sample as prb_sample
 
 
-class OriginalFile:
+class OriginalFile(Base):
     """Original File.
 
     Retrieve an OriginalFile by id

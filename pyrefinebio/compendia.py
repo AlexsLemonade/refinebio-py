@@ -1,10 +1,12 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio import computed_file as prb_computed_file
 
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list
 
 
-class Compendium:
+class Compendium(Base):
     """Compendium
 
     Retrieve a Compendium based on id

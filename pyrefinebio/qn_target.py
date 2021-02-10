@@ -1,10 +1,12 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import parse_date
 
 import pyrefinebio.organism as prb_organism
 
 
-class QNTarget:
+class QNTarget(Base):
     """QN Target.
 
     Retrieve a QN target by organism name

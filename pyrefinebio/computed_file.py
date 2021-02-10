@@ -1,3 +1,5 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint, download_file
 from pyrefinebio.util import create_paginated_list, parse_date
 from pyrefinebio.exceptions import DownloadError
@@ -6,7 +8,7 @@ from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import sample as prb_sample
 
 
-class ComputedFile:
+class ComputedFile(Base):
     """Computed File.
 
     ComputedFiles are representation of files created by data-refinery processes.

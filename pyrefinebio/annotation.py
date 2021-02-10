@@ -1,7 +1,9 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.util import parse_date
 
 
-class Annotation:
+class Annotation(Base):
     def __init__(
         self,
         id=None,

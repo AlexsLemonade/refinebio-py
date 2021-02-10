@@ -1,7 +1,9 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 
 
-class Platform:
+class Platform(Base):
     """Platform.
 
     Retrieve a list of Platforms based on filters

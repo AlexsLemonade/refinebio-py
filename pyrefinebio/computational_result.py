@@ -1,13 +1,15 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
 
-from pyrefinebio.common import annotation as prb_annotation
+from pyrefinebio import annotation as prb_annotation
 from pyrefinebio import transcriptome_index as prb_transcriptome_index
 from pyrefinebio import computed_file as prb_computed_file
 from pyrefinebio import processor as prb_processor
 
 
-class ComputationalResult:
+class ComputationalResult(Base):
     """Computational Result
 
     Retrieve a ComputationalResult based on id

@@ -1,13 +1,15 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
 
-from pyrefinebio.common import annotation as prb_annotation
+from pyrefinebio import annotation as prb_annotation
 from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import experiment as prb_experiment
 from pyrefinebio import organism as prb_organism
 
 
-class Sample:
+class Sample(Base):
     """Sample.
 
     Retrieve a Sample based on accession code

@@ -1,7 +1,9 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 
 
-class Institution:
+class Institution(Base):
     """Institution 
 
     Retrieve a list of Institutions
