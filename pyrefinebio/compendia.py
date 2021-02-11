@@ -1,8 +1,10 @@
+import shutil
+
 from pyrefinebio import computed_file as prb_computed_file
 
 from pyrefinebio.http import get_by_endpoint, download_file
-from pyrefinebio.util import create_paginated_list, expand_path, extract
-from pyrefinebio.exceptions import DownloadError
+from pyrefinebio.util import create_paginated_list, expand_path
+from pyrefinebio.exceptions import DownloadError, MissingFile
 
 
 class Compendium:
@@ -117,10 +119,10 @@ class Compendium:
             Compendium
         """
         if not self._downloaded_path:
-            raise Exception(
-                "No downloaded path exists. "
+            raise MissingFile(
+                "Compendium downloaded file",
                 "Make sure you have successfully downloaded the Compendium before extracting."
             )
 
-        extract(self._downloaded_path)
+        shutil.unpack_archive(self._downloaded_path)
         return self

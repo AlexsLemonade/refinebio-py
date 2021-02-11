@@ -1,6 +1,8 @@
+import shutil
+
 from pyrefinebio.http import get_by_endpoint, download_file
-from pyrefinebio.util import create_paginated_list, parse_date, expand_path, extract
-from pyrefinebio.exceptions import DownloadError
+from pyrefinebio.util import create_paginated_list, parse_date, expand_path
+from pyrefinebio.exceptions import DownloadError, MissingFile
 
 from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio import sample as prb_sample
@@ -159,11 +161,11 @@ class ComputedFile:
             ComputedFile
         """
         if not self._downloaded_path:
-            raise Exception(
-                "No downloaded path exists. "
+            raise MissingFile(
+                "ComputedFile downloaded file",
                 "Make sure you have successfully downloaded the ComputedFile before extracting."
             )
 
-        extract(self._downloaded_path)
+        shutil.unpack_archive(self._downloaded_path)
         return self
 

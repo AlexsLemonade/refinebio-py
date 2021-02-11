@@ -1,5 +1,4 @@
 import os
-import shutil
 
 from pyrefinebio.http import get
 from dateutil import parser
@@ -25,10 +24,6 @@ def expand_path(path, filename):
         full_path = os.path.join(full_path, filename)
 
     return full_path
-
-
-def extract(path):
-    shutil.unpack_archive(path)
 
 
 class PaginatedList:

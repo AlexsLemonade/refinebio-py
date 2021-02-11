@@ -1,6 +1,8 @@
+import shutil
+
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
-from pyrefinebio.exceptions import DownloadError
-from pyrefinebio.util import parse_date, expand_path, extract
+from pyrefinebio.exceptions import DownloadError, MissingFile
+from pyrefinebio.util import parse_date, expand_path
 
 import pyrefinebio.experiment as prb_experiment
 import pyrefinebio.sample as prb_sample
@@ -261,10 +263,10 @@ class Dataset:
             Dataset
         """
         if not self._downloaded_path:
-            raise Exception(
-                "No downloaded path exists. "
+            raise MissingFile(
+                "Dataset downloaded file"
                 "Make sure you have successfully downloaded the Dataset before extracting."
             )
 
-        extract(self._downloaded_path)
+        shutil.unpack_archive(self._downloaded_path)
         return self
