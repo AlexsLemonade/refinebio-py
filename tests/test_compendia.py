@@ -154,7 +154,7 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
             result.download("test-path")
 
 
-    @patch("pyrefinebio.util.shutil.unpack_archive")
+    @patch("pyrefinebio.compendia.shutil.unpack_archive")
     def test_compendium_extract(self, mock_unpack):
         c = pyrefinebio.Compendium()
 

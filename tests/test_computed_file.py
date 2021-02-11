@@ -261,7 +261,7 @@ class ComputedFileTests(unittest.TestCase, CustomAssertions):
             result.download("test-path")
 
 
-    @patch("pyrefinebio.util.shutil.unpack_archive")
+    @patch("pyrefinebio.computed_file.shutil.unpack_archive")
     def test_computed_file_extract(self, mock_unpack):
         cf = pyrefinebio.ComputedFile()
 

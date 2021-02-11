@@ -281,7 +281,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         )
 
 
-    @patch("pyrefinebio.util.shutil.unpack_archive")
+    @patch("pyrefinebio.dataset.shutil.unpack_archive")
     def test_dataset_extract(self, mock_unpack):
         ds = pyrefinebio.Dataset()
 

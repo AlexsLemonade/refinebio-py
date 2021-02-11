@@ -103,7 +103,7 @@ class Compendium:
         if not self.computed_file.download_url:
             raise DownloadError("Compendia", "Download url not found - did you set up and activate a Token?")
 
-        full_path = expand_path(path, "compendia-" + str(self.id) + ".zip")
+        full_path = expand_path(path, "compendium-" + str(self.id) + ".zip")
 
         download_file(self.computed_file.download_url, full_path, prompt)
 

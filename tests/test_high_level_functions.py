@@ -83,6 +83,35 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
         mock_download.assert_called_with("test_url", os.path.abspath("test"), True)
 
 
+    @patch("pyrefinebio.dataset.shutil.unpack_archive")
+    @patch("pyrefinebio.dataset.download_file")
+    @patch("pyrefinebio.dataset.get_by_endpoint")
+    @patch("pyrefinebio.dataset.post_by_endpoint")
+    def test_download_dataset_extract(self, mock_post, mock_get, mock_download, mock_unpack):
+        mr = MockResponse(
+            {
+                "id": "test_dataset",
+                "is_processed": True,
+                "download_url": "test_url"
+            },
+            "url"
+        )
+
+        mock_get.return_value = mr
+        mock_post.return_value = mr
+
+        dataset_dict = {
+            "test": ["foo", "bar"]
+        }
+
+        pyrefinebio.download_dataset("./", "foo@test.com", dataset_dict=dataset_dict, extract=True)
+
+        expected_path = os.path.abspath("dataset-test_dataset.zip")
+
+        mock_download.assert_called_with("test_url", expected_path, True)
+        mock_unpack.assert_called_with(expected_path)
+
+
     def test_download_dataset_both(self):
         with self.assertRaises(pyrefinebio.exceptions.DownloadError):
             pyrefinebio.download_dataset("test", "foo@test.com", dataset_dict={"bad"}, experiments=["bad"])
@@ -119,6 +148,35 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
         )
 
         mock_download.assert_called_with("test_url", os.path.abspath("test"), True)
+
+
+    @patch("pyrefinebio.compendia.shutil.unpack_archive")
+    @patch("pyrefinebio.compendia.download_file")
+    @patch("pyrefinebio.compendia.get_by_endpoint")
+    def test_download_compendium_extract(self, mock_get, mock_download, mock_unpack):
+        mock_get.return_value = MockResponse(
+            {
+                "count": 1,
+                "next": None,
+                "previous": None,
+                "results": [
+                    {
+                        "id": 123,
+                        "computed_file": {
+                            "download_url": "test_url"
+                        }
+                    }
+                ]
+            },
+            "url"
+        )
+
+        pyrefinebio.download_compendium("./", "test_organism", extract=True)
+
+        expected_path = os.path.abspath("compendium-123.zip")
+
+        mock_download.assert_called_with("test_url", expected_path, True)
+        mock_unpack.assert_called_with(expected_path)
 
 
     def test_download_compendium_no_results(self):
