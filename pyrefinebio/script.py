@@ -42,7 +42,7 @@ class ListParamType(click.ParamType):
 
 @cli.command(no_args_is_help=True)
 @click.argument("entity", nargs=1)
-def help(entity=None):
+def describe(entity=None):
     """
     Prints out information about pyrefinebio's classes and functions.
 
@@ -53,7 +53,7 @@ def help(entity=None):
 
     Example:
 
-    $ refinebio help "Sample.search"
+    $ refinebio describe "Sample.search"
     """
     hlf.help(entity)
 
