@@ -12,8 +12,8 @@ def cli():
     pass
 
 
-class DictParamType(click.ParamType):
-    name = "dict"
+class JsonParamType(click.ParamType):
+    name = "json"
 
     def convert(self, value, param, ctx):
         try:
@@ -73,7 +73,7 @@ def help(entity=None):
 @click.option(
     "--dataset-dict",
     default=None,
-    type=DictParamType(),
+    type=JsonParamType(),
     help=(
         "A fully formed Dataset `data` attribute in JSON format. Use this parameter if you want "
         "to specify specific Samples for your Dataset. Ex: '{\"GSE74410\": [\"GSM1919903\"]}'"
