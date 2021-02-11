@@ -40,7 +40,7 @@ class ListParamType(click.ParamType):
             )
 
 
-@cli.command()
+@cli.command(no_args_is_help=True)
 @click.argument("entity", nargs=1)
 def help(entity=None):
     """
