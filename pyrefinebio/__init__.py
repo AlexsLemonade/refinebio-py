@@ -1,4 +1,3 @@
-from pyrefinebio.common import Annotation
 from pyrefinebio.compendia import Compendium
 from pyrefinebio.computational_result import ComputationalResult
 from pyrefinebio.computed_file import ComputedFile

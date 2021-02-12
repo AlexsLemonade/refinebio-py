@@ -1,5 +1,6 @@
 import shutil
 
+from pyrefinebio.base import Base
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
 from pyrefinebio.exceptions import DownloadError, MissingFile
 from pyrefinebio.util import parse_date, expand_path
@@ -8,7 +9,7 @@ import pyrefinebio.experiment as prb_experiment
 import pyrefinebio.sample as prb_sample
 
 
-class Dataset:
+class Dataset(Base):
     """Dataset
 
     Datasets are collections of experiments and their samples.  

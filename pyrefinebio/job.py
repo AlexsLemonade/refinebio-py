@@ -1,8 +1,10 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
 
 
-class DownloaderJob:
+class DownloaderJob(Base):
     """DownloaderJob.
 
     Retrieve a DownloaderJob by id
@@ -117,7 +119,7 @@ class DownloaderJob:
         return create_paginated_list(cls, response)
 
 
-class ProcessorJob:
+class ProcessorJob(Base):
     """Processor Job.
 
     Retrieve a ProcessorJob by id
@@ -239,7 +241,7 @@ class ProcessorJob:
         return create_paginated_list(cls, response)
 
 
-class SurveyJob:
+class SurveyJob(Base):
     """Survey Job.
 
     Retrieve a SurveyJob by id

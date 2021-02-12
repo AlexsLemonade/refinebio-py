@@ -1,8 +1,10 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list
 
 
-class Organism:
+class Organism(Base):
     """Organism.
 
     Retrieve an Organism by name

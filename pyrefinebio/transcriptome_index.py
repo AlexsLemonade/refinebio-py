@@ -1,8 +1,10 @@
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
 
 
-class TranscriptomeIndex:
+class TranscriptomeIndex(Base):
     """Transcriptome Index.
 
     get a TranscriptomeIndex by id

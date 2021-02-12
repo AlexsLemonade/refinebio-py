@@ -1,13 +1,13 @@
 import shutil
 
+from pyrefinebio.base import Base
 from pyrefinebio import computed_file as prb_computed_file
-
 from pyrefinebio.http import get_by_endpoint, download_file
 from pyrefinebio.util import create_paginated_list, expand_path
 from pyrefinebio.exceptions import DownloadError, MissingFile
 
 
-class Compendium:
+class Compendium(Base):
     """Compendium
 
     Retrieve a Compendium based on id

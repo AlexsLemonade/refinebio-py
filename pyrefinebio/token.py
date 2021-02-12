@@ -3,6 +3,9 @@ import os
 from pathlib import Path
 
 import yaml
+
+from pyrefinebio.base import Base
+
 from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint
 from pyrefinebio.config import Config
 from pyrefinebio.exceptions import NotFound, BadRequest
@@ -10,7 +13,7 @@ from pyrefinebio.exceptions import NotFound, BadRequest
 
 config = Config()
 
-class Token:
+class Token(Base):
     """Handles the creation, activation, saving, and loading of refine.bio's api tokens.
 
     These tokens can be used in requests that provide urls to download computed files.
