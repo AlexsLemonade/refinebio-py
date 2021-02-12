@@ -51,6 +51,7 @@ def download_dataset(
     aggregation="EXPERIMENT",
     transformation="NONE",
     skip_quantile_normalization=False,
+    extract=False,
     prompt=True
 ):
     """download_dataset
@@ -91,6 +92,8 @@ def download_dataset(
         skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
                                             normalization for RNA-seq Samples
 
+        extract (bool): if true, the downloaded zip file will be automatically extracted
+
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     if dataset_dict and experiments:
@@ -117,7 +120,12 @@ def download_dataset(
     while not dataset.check():
         time.sleep(5)
 
-    return dataset.download(path, prompt)
+    datset = dataset.download(path, prompt)
+
+    if extract:
+        dataset.extract()
+
+    return dataset
 
 
 def download_compendium(
@@ -125,6 +133,7 @@ def download_compendium(
     organism,
     version=None,
     quant_sf_only=False,
+    extract=False,
     prompt=True
 ):
     """download_compendium
@@ -145,6 +154,8 @@ def download_compendium(
 
         quant_sf_only (bool): true for RNA-seq Sample Compendium results or False 
                               for quantile normalized
+
+        extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
@@ -167,10 +178,21 @@ def download_compendium(
                 .format(organism, version, quant_sf_only)
         )
 
-    return compendium[0].download(path, prompt)
+    compendium = compendium[0].download(path, prompt)
+
+    if extract:
+        compendium.extract()
+
+    return compendium
 
 
-def download_quandfile_compendium(path, organism, prompt=True):
+
+def download_quandfile_compendium(
+    path,
+    organism,
+    extract=False,
+    prompt=True
+):
     """download_quandfile_compendium
 
     Download a Compendium for the specified organism.
@@ -185,10 +207,14 @@ def download_quandfile_compendium(path, organism, prompt=True):
         organism (str): the name of the Organism for the Compendium you want to 
                         download
 
+        extract (bool): if true, the downloaded zip file will be automatically extracted
+
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     return download_compendium(
         organism,
         path, 
         quant_sf_only=True,
-        prompt=prompt)
+        extract=extract,
+        prompt=prompt
+    )

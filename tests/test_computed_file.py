@@ -259,3 +259,14 @@ class ComputedFileTests(unittest.TestCase, CustomAssertions):
 
         with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
             result.download("test-path")
+
+
+    @patch("pyrefinebio.computed_file.shutil.unpack_archive")
+    def test_computed_file_extract(self, mock_unpack):
+        cf = pyrefinebio.ComputedFile()
+
+        cf._downloaded_path = "foo"
+        
+        cf.extract()
+
+        mock_unpack.assert_called_with("foo")
