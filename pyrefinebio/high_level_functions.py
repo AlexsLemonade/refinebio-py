@@ -42,7 +42,6 @@ def help(entity=None):
         print("could not find class or attribute: ", entity)
 
 
-
 def download_dataset(
     path,
     email_address,
@@ -102,6 +101,8 @@ def download_dataset(
             extra_info="You should either provide dataset_dict or experiments but not both"
         )
 
+    print("Creating Dataset...")
+
     dataset = Dataset(
         email_address=email_address,
         aggregate_by=aggregation,
@@ -114,15 +115,20 @@ def download_dataset(
     if experiments:
         for experiment in experiments:
             dataset.add_samples(experiment)
-    
+
+    print("Processing Dataset...")
+
     dataset.process()
 
     while not dataset.check():
         time.sleep(5)
 
+    print("Downloading Dataset...")
+
     datset = dataset.download(path, prompt)
 
     if extract:
+        print("Extracting Dataset...")
         dataset.extract()
 
     return dataset
@@ -169,6 +175,8 @@ def download_compendium(
     else:
         search_params["latest_version"] = True
 
+    print("Searching for Compendium...")
+
     compendium = Compendium.search(**search_params)
 
     if not compendium:
@@ -178,9 +186,12 @@ def download_compendium(
                 .format(organism, version, quant_sf_only)
         )
 
+    print("Downloading Compendium...")
+
     compendium = compendium[0].download(path, prompt)
 
     if extract:
+        print("Extracting Compendium...")
         compendium.extract()
 
     return compendium
