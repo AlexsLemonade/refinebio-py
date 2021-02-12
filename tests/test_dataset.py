@@ -300,3 +300,14 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
                 ]
             }
         )
+
+
+    @patch("pyrefinebio.dataset.shutil.unpack_archive")
+    def test_dataset_extract(self, mock_unpack):
+        ds = pyrefinebio.Dataset()
+
+        ds._downloaded_path = "foo"
+        
+        ds.extract()
+
+        mock_unpack.assert_called_with("foo")

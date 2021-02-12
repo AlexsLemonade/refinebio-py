@@ -1,3 +1,5 @@
+import os
+
 from pyrefinebio.http import get
 from dateutil import parser
 
@@ -12,6 +14,16 @@ def parse_date(date):
         parsed = parser.isoparse(date)
     finally:
         return parsed
+
+
+def expand_path(path, filename):
+    user_path = os.path.expanduser(path)
+    full_path = os.path.abspath(user_path)
+
+    if os.path.isdir(full_path):
+        full_path = os.path.join(full_path, filename)
+
+    return full_path
 
 
 class PaginatedList:

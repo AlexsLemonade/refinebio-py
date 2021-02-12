@@ -79,13 +79,8 @@ def put_by_endpoint(endpoint, payload=None):
     url = config.base_url + endpoint + "/"
     return put(url, payload=payload)
 
+
 def download_file(url, path, prompt):
-    user_path = os.path.expanduser(path)
-    full_path = os.path.abspath(user_path)
-
-    if os.path.isdir(full_path):
-        full_path = os.path.join(full_path, "refinebio-download.zip")
-
     with requests.get(url, stream=True) as res:
 
         if prompt:
@@ -111,7 +106,7 @@ def download_file(url, path, prompt):
                 if yn.lower() not in ("y", "yes"):
                     return
 
-        with open(full_path, "wb") as f:
+        with open(path, "wb") as f:
             shutil.copyfileobj(res.raw, f)
 
 

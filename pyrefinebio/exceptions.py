@@ -62,3 +62,10 @@ class MultipleErrors(Error):
             self.base_message += str(error) + "\n"
         super().__init__(self.base_message)
 
+
+class MissingFile(Error):
+    base_message = "Missing file: {0}"
+    def __init__(self, file_name, extra_info=None):
+        if extra_info:
+            self.base_message += "\n" + extra_info
+        super().__init__(self.base_message.format(file_name))
