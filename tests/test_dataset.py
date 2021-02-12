@@ -39,6 +39,12 @@ dataset = {
     "svd_algorithm": "NONE"
 }
 
+non_processed_dataset = {
+    "id": "non-processed-dataset",
+    "is_processing": False,
+    "is_processed": False,
+    "download_url": None
+}
 
 def mock_request(method, url, data, **kwargs):
 
@@ -54,6 +60,9 @@ def mock_request(method, url, data, **kwargs):
 
     if url == "https://api.refine.bio/v1/dataset/test-dataset/":
         return MockResponse(dataset, url)
+
+    if url == "https://api.refine.bio/v1/dataset/non-processed-dataset/":
+        return MockResponse(non_processed_dataset, url)
 
     if url == "https://api.refine.bio/v1/dataset/":
         return MockResponse(dataset, url)
@@ -230,6 +239,18 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         mock_copy.assert_not_called()
     
 
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_dataset_download_no_url(self, mock_request):
+        ds = pyrefinebio.Dataset(id="non-processed-dataset", download_url=None)
+        with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
+            ds.download("test")
+        
+        self.assertEqual(
+            de.exception.message,
+            "Unable to download dataset\nDownload url not found - did you process the dataset?"
+        )
+    
+
     @patch("pyrefinebio.http.shutil.copyfileobj")
     @patch("pyrefinebio.http.input")
     @patch("pyrefinebio.http.requests.get")
@@ -279,3 +300,14 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
                 ]
             }
         )
+
+
+    @patch("pyrefinebio.dataset.shutil.unpack_archive")
+    def test_dataset_extract(self, mock_unpack):
+        ds = pyrefinebio.Dataset()
+
+        ds._downloaded_path = "foo"
+        
+        ds.extract()
+
+        mock_unpack.assert_called_with("foo")
