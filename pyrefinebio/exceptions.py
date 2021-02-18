@@ -1,10 +1,4 @@
-class Error(Exception):
-    def __init__(self, message=None):
-        self.message = message
-        super().__init__(self.message)
-
-
-class ServerError(Error):
+class ServerError(Exception):
     base_message = "The server encountered an issue"
     def __init__(self, message=None):
         if message:
@@ -12,7 +6,7 @@ class ServerError(Error):
         super().__init__(self.base_message)
 
 
-class BadRequest(Error):
+class BadRequest(Exception):
     base_message = "Bad Request"
     def __init__(self, message=None):
         if message:
@@ -20,25 +14,29 @@ class BadRequest(Error):
         super().__init__(self.base_message)
 
 
-class NotFound(Error):
+class NotFound(Exception):
     base_message = "The requested resource at {0} was not found"
     def __init__(self, url):
         super().__init__(self.base_message.format(url))
 
 
-class InvalidFilters(Error):
-    base_message = "You have provided invalid filters: {0}"
+class InvalidFilters(Exception):
+    base_message = (
+        "You have provided invalid filters: {0}\n"
+        "Check the documentation for a list of valid filters\n"
+        "https://alexslemonade.github.io/refinebio-py/"
+    )
     def __init__(self, invalid_filters):
         super().__init__(self.base_message.format(invalid_filters))
 
 
-class InvalidFilterType(Error):
+class InvalidFilterType(Exception):
     base_message = "You have provided invalid type for the filter, {0} - {1}"
     def __init__(self, filter, info):
         super().__init__(self.base_message.format(filter, info))
 
 
-class InvalidData(Error):
+class InvalidData(Exception):
     base_message = ""
     def __init__(self, message, details):
         self.base_message = message
@@ -47,7 +45,7 @@ class InvalidData(Error):
         super().__init__(self.base_message)
 
 
-class DownloadError(Error):
+class DownloadError(Exception):
     base_message = "Unable to download {0}"
     def __init__(self, type, extra_info=None):
         if extra_info:
@@ -55,7 +53,7 @@ class DownloadError(Error):
         super().__init__(self.base_message.format(type))
 
 
-class MultipleErrors(Error):
+class MultipleErrors(Exception):
     base_message = "Multiple errors have occurred:\n"
     def __init__(self, errors):
         for error in errors:
@@ -63,7 +61,7 @@ class MultipleErrors(Error):
         super().__init__(self.base_message)
 
 
-class MissingFile(Error):
+class MissingFile(Exception):
     base_message = "Missing file: {0}"
     def __init__(self, file_name, extra_info=None):
         if extra_info:

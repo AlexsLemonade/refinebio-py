@@ -246,7 +246,16 @@ class Dataset(Base):
         download_url = self.download_url or self.get(self.id).download_url
 
         if not download_url:
-            raise DownloadError("dataset", "Download url not found - did you process the dataset?")
+            if self.check():
+                raise DownloadError(
+                    "Dataset",
+                    "Download url not found - did you set up and activate a Token?"
+                )
+            else:
+                raise DownloadError(
+                    "Dataset",
+                    "Download url not found - you must process the Dataset before downloading."
+                )
 
         full_path = expand_path(path, "dataset-" + str(self.id) + ".zip")
 
