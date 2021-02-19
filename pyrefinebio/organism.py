@@ -16,16 +16,20 @@ class Organism(Base):
     Retrieve a list of Organisms
 
         >>> import pyrefinebio
-        >>> organisms = pyrefinebio.Organism.search()
+        >>> organisms = pyrefinebio.Organism.search(has_compendia=True)
     """
 
     def __init__(
         self,
         name=None,
-        taxonomy_id=None
+        taxonomy_id=None,
+        has_compendia=None,
+        has_quantfile_compendia=None
     ):
         self.name = name
         self.taxonomy_id = taxonomy_id
+        self.has_compendia = has_compendia
+        self.has_quantfile_compendia = has_quantfile_compendia
 
     @classmethod
     def get(cls, name):
@@ -43,12 +47,15 @@ class Organism(Base):
 
     @classmethod
     def search(cls, **kwargs):
-        """Retrieve a list of Organisms
+        """Retrieve a list of Organisms based on filters
 
         Returns:
             list of Organism
 
-        Since there are no filters, this method always returns all organisms
+        Keyword Arguments:
+            has_compendia (bool): if true, the downloaded zip file will be automatically extracted
+
+            has_quantfile_compendia (bool): if true, will prompt before downloading files bigger than 1GB
         """
         response = get_by_endpoint("organisms", params=kwargs)
         return create_paginated_list(cls, response)
