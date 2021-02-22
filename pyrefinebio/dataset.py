@@ -249,7 +249,9 @@ class Dataset(Base):
             if self.check():
                 raise DownloadError(
                     "Dataset",
-                    "Download url not found - did you set up and activate a Token?"
+                    "Download url not found - make sure you have set up and activated your Token. "
+                    "You can create and activate a new token using pyrefinebio.Token. "
+                    "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html"
                 )
             else:
                 raise DownloadError(
