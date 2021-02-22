@@ -247,7 +247,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         
         self.assertEqual(
             str(de.exception),
-            "Unable to download Dataset\nDownload url not found - did you process the dataset?"
+            "Unable to download Dataset\nDownload url not found - you must process the Dataset before downloading."
         )
     
 
