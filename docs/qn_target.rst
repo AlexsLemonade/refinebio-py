@@ -1,4 +1,6 @@
 
+.. _QNTarget:
+
 QN Target
 =========
 
