@@ -137,7 +137,7 @@ class Sample(Base):
         Returns:
             list of Sample
 
-        Parameters:
+        Keyword Arguments:
             ordering (str): which field to use when ordering the results
 
             title (str): filter based on the Sample's title

@@ -63,7 +63,7 @@ class TranscriptomeIndex(Base):
         Returns:
             list of TranscriptomeIndex
 
-        Parameters:
+        Keyword Arguments:
             salmon_version (str): filter based on the TranscriptomeIndex's salmon version eg. salmon 0.13.1
 
             index_type (str): `TRANSCRIPTOME_LONG` or `TRANSCRIPTOME_SHORT`. 

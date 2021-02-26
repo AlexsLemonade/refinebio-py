@@ -1,0 +1,192 @@
+/*
+  This file contains styles that override the base theme
+*/
+
+body {
+  line-height: 1.5;
+}
+
+.wy-nav-content {
+  background: #fdfdfd;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin-bottom: 16px;
+}
+
+p {
+  margin-bottom: 32px;
+}
+
+.wy-nav-top {
+  background-image: linear-gradient(
+    179.93deg,
+    rgba(12, 52, 131, 0.94) 15%,
+    rgb(107, 140, 206) 80.03%,
+    rgb(162, 182, 223)
+  );
+}
+
+.wy-side-nav-search {
+  background-image: linear-gradient(
+    179.93deg,
+    rgba(12, 52, 131, 0.94) 15%,
+    rgba(25, 64, 142, 0.95) 40.45%,
+    rgb(107, 140, 206) 80.03%,
+    rgb(162, 182, 223) 95.1%,
+    rgb(162, 182, 223)
+  );
+  padding: 56px 24px 24px 24px;
+  position: relative;
+}
+
+.icon-home {
+  width: 154px;
+  height: 59px;
+  padding: 32px;
+  background-repeat: no-repeat;
+  filter: brightness(0) invert(1);
+  color: transparent !important;
+  margin-top: 32px;
+}
+
+.wy-side-nav-search a:not(.wy-side-nav-search__back) {
+  background: transparent;
+  width: 122px;
+  height: 59px;
+  padding: 32px;
+  background-image: url('../pyrefinebio-logo.svg');
+  background-repeat: no-repeat;
+  filter: brightness(0) invert(1);
+  color: transparent;
+}
+
+.wy-side-nav-search input[type='text'] {
+  border-radius: 3px;
+  padding: 8px 16px;
+  font-size: 100%;
+}
+
+.wy-side-nav-search__back,
+.wy-side-nav-search__back:hover {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 14px !important;
+  background-image: url('../icon-exit.svg') !important;
+  background-position: 6px center !important;
+  padding-left: 24px;
+
+  background-repeat: no-repeat !important;
+  padding-left: 34px !important;
+  color: #ccc !important;
+  background-size: 22px !important;
+}
+
+.wy-nav-side {
+  background: #e9f0f8;
+  color: #000000;
+}
+.wy-menu-vertical a {
+  color: #000000;
+}
+
+.btn {
+  border-radius: 3px;
+  line-height: 1.5px;
+  padding: 4px 24px;
+  box-shadow: None;
+}
+
+.btn-neutral:hover {
+  background-color: #386db0 !important;
+  color: #fdfdfd !important;
+  border-color: #386db0;
+}
+
+.btn-neutral,
+.btn-neutral:visited {
+  background-color: #fdfdfd !important;
+  color: #386db0 !important;
+  border-color: #386db0;
+}
+
+.wy-menu-vertical a {
+  line-height: 24px;
+  font-size: 110%;
+}
+
+.wy-menu-vertical li.current a:hover {
+  background-color: #d4e1f1;
+}
+
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.current > a {
+  font-weight: black;
+}
+
+.wy-menu-vertical li.toctree-l1.current > a,
+.wy-menu-vertical li.toctree-l2.current > a,
+.wy-menu-vertical li.toctree-l3.current > a {
+  background: #fdfdfd;
+}
+
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3 > a,
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4 > a {
+  background: #fdfdfd;
+}
+
+.wy-menu-vertical li.toctree-l1 > a,
+.wy-menu-vertical li.toctree-l2 > a,
+.wy-menu-vertical li.toctree-l3 > a,
+li.toctree-4 > a {
+  background: #e9f0f8;
+}
+
+.wy-menu-vertical li.toctree-l1 > a:hover,
+.wy-menu-vertical li.toctree-l2 > a:hover,
+.wy-menu-vertical li.toctree-l3 > a:hover,
+.wy-menu-vertical li.toctree-l4 > a:hover {
+  background: #d4e1f1;
+}
+
+.wy-table-responsive table td,
+.wy-table-responsive table th {
+  white-space: normal;
+}
+
+@media (min-width: 950px) {
+  .wy-grid-for-nav {
+    position: relative;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wy-nav-side {
+    position: absolute;
+    overflow-x: visible;
+    overflow-y: visible;
+  }
+
+  .wy-side-scroll {
+    overflow: visible;
+    width: auto;
+    height: auto;
+  }
+}
+
+div.version {
+  color: white !important;
+}
