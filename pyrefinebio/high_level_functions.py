@@ -84,7 +84,7 @@ def download_dataset(
                             available samples related to each Experiment will be added  
                             the list can contain Experiment objects or accession codes as strings
 
-        aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT` or by `SPECIES`
+        aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT`, by `SPECIES`, or by `ALL`
 
         transformation (str): the transformation for the dataset - `NONE`, `MINMAX`, or `STANDARD`
 
@@ -198,13 +198,13 @@ def download_compendium(
 
 
 
-def download_quandfile_compendium(
+def download_quantfile_compendium(
     path,
     organism,
     extract=False,
     prompt=True
 ):
-    """download_quandfile_compendium
+    """download_quantfile_compendium
 
     Download a Compendium for the specified organism.
     This function will always download RNA-seq Sample Compedium results.

@@ -61,7 +61,7 @@ Downloading Datasets
 
 After you set up and activate a Token you can start creating and downloading Datasets.
 
-pyrefinebio provides the function `download_dataset()` that makes creating and downloading Datasets super easy.
+pyrefinebio provides the function `download_dataset()` for creating and downloading Datasets.
 It will will automatically handle every part of the creation and download process for you.
 
 `download_dataset()` requires that you pass in the parameters `path`, `email_address`, and either `dataset_dict` or `experiments`.
@@ -97,15 +97,19 @@ The parameters `dataset_dict` and `experiments` both control the Experiments and
 
 You can also pass in other optional parameters to alter the Dataset itself and to alter how the download process works.
 
-* `aggregation` can be used to change how the Dataset is aggregated.
+* `aggregation` can be used to change how the Dataset is aggregated. The default is "EXPERIMENT", and the other available choices are "SPECIES" and "ALL". For more information about Dataset aggregation check out `Aggregations`_.
 
-* `transformation` can be used to change the transformation of the Dataset.
+* `transformation` can be used to change the transformation of the Dataset. The default is "NONE", and the other available choices are "MINMAX" and "STANDARD". For more information on Dataset transformation check out `Gene transformations`_. 
 
-* `skip_quantile_normalization` can be used to choose whether or not quantile normalization is skipped.
+* `skip_quantile_normalization` can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information
 
-* `extract` can be used to choose whether the downloaded zip file should be automatically extracted.
+* `extract` can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as `path`. So if `path` is a zip file: `./path/to/dataset.zip` it will be extracted to the dir `./path/to/dataset/`, if `path` is a dir: `./path/to/dir/` it will be extracted to `./path/to/dir/[generated-file-name]/`. By default, `extract` is False. 
 
-* `prompt` can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte.
+* `prompt` can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte. By default, `prompt` is True.
+
+.. _Aggregations: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=aggregation#aggregations 
+
+.. _Gene transformations: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile#gene-transformations
 
 Below is a simple example of downloading a Dataset using `dataset_dict`:
 
@@ -137,7 +141,7 @@ Downloading Compendia
 
 You can start downloading Compendia after you set up and activate a Token.
 
-pyrefinebio provides the function `download_compendium()` that makes downloading Compendium results super easy.
+pyrefinebio provides the function `download_compendium()` for downloading Compendium results.
 It will will automatically search for Compendia based on organisms and download the results.
 
 `download_compendium()` requires that you pass in the parameters `path` and `organism`. 
@@ -150,11 +154,11 @@ You can also pass in other optional parameters to alter the type of Compendium y
 
 * `version` is the Compendium version. The default is `None` which will get the latest version.
 
-* `quant_sf_only` can be used to choose if the Compendium is quantile normalized. Pass in True for RNA-seq Sample Compendium results or False for quantile normalized
+* `quant_sf_only` can be used to choose if the Compendium is quantile normalized. Pass in True for RNA-seq Sample Compendium results or False for quantile normalized. By default, `quant_sf_only` is False.
 
-* `extract` can be used to choose whether the downloaded zip file should be automatically extracted.
+* `extract` can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as `path`. So if `path` is a zip file: `./path/to/dataset.zip` it will be extracted to the dir `./path/to/dataset/`, if `path` is a dir: `./path/to/dir/` it will be extracted to `./path/to/dir/[generated-file-name]/`. By default, `extract` is False. 
 
-* `prompt` can be used to choose whether or not you should be prompted before downloading if the Compendium zip file is larger than 1 gigabyte.
+* `prompt` can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte. By default, `prompt` is True.
 
 Below is a simple example of Downloading a Compendium result:
 
@@ -165,15 +169,15 @@ Below is a simple example of Downloading a Compendium result:
         "DANIO_RERIO",
     )
 
-pyrefinebio also provides the function `download_quandfile_compendium()` which is equivalent to calling `download_compendium(quant_sf_only=True)`.
+pyrefinebio also provides the function `download_quantfile_compendium()` which is equivalent to calling `download_compendium(quant_sf_only=True)`.
 
-You can use this function when you want to be explicit to future users of your script that you are downloading quandfile Compendium results.
+You can use this function when you want to be explicit to future users of your script that you are downloading quantfile Compendium results.
 
-Below is a simple example of Downloading a Compendium result using `download_quandfile_compendium()`:
+Below is a simple example of Downloading a Compendium result using `download_quantfile_compendium()`:
 
 .. code-block:: python
 
-    pyrefinebio.download_quandfile_compendium(
+    pyrefinebio.download_quantfile_compendium(
         "~/path/to/dir/for/compendium/",
         "HOMO_SAPIENS",
     )
@@ -254,9 +258,9 @@ Here's an example:
 Using the CLI
 -------------
 
-pyrefinebio also provides a CLI that exposes the `download_dataset()`, `download_compendium()`, `download_quandfile_compendium()`, and `help()` functions.
+pyrefinebio also provides a CLI that exposes the `download_dataset()`, `download_compendium()`, `download_quantfile_compendium()`, and `help()` functions.
 
-Each function has its own command: `download-dataset`, `download-compendium`, `download-quandfile-compendium`, and `describe`, respectively.
+Each function has its own command: `download-dataset`, `download-compendium`, `download-quantfile-compendium`, and `describe`, respectively.
 
 To use the CLI just type `refinebio COMMAND` into a shell.
 
