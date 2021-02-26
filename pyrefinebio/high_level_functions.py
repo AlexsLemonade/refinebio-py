@@ -2,7 +2,7 @@ import pyrefinebio
 import re
 import time
 
-from pyrefinebio import Dataset, Compendium
+from pyrefinebio import Dataset, Compendium, Token
 from pyrefinebio.exceptions import DownloadError
 
 
@@ -197,7 +197,6 @@ def download_compendium(
     return compendium
 
 
-
 def download_quandfile_compendium(
     path,
     organism,
@@ -229,3 +228,31 @@ def download_quandfile_compendium(
         extract=extract,
         prompt=prompt
     )
+
+
+def create_token():
+    """create_token
+
+    Automatically creates a Token, activates it, and stores it to the Config file.
+
+    Will promp the user before activating and storing the created Token.
+
+    Returns:
+        Token
+    """
+
+    print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
+    yn = input("Do you understand and accept both documents? (Y/n)")
+
+    if yn.lower() in ("n", "no"):
+        return
+
+    token = Token()
+    token.agree_to_terms_and_conditions()
+
+    yn = input("Would you like to save your Token to the Config file for future use? (Y/n)")
+
+    if yn.lower() not in ("n", "no"):
+        token.save_token()
+    
+    return token

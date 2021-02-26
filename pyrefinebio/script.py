@@ -181,3 +181,13 @@ def download_quandfile_compendium(organism, path):
         hlf.download_quandfile_compendium(path, organism)
     except DownloadError as e:
         raise click.ClickException(e.message)
+
+
+@cli.command()
+def create_token():
+    """
+    Automatically creates a Token, activates it, and stores it to the Config file.
+
+    Will promp the user before activating and storing the created Token.
+    """
+    hlf.create_token()
