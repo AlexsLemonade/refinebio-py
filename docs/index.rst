@@ -24,6 +24,7 @@ Documentation
    :maxdepth: 2
 
    quickstart
+   cli
    classes
    more_stuff
 

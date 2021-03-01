@@ -201,6 +201,7 @@ def download_compendium(
 def download_quantfile_compendium(
     path,
     organism,
+    version=None,
     extract=False,
     prompt=True
 ):
@@ -218,13 +219,17 @@ def download_quantfile_compendium(
         organism (str): the name of the Organism for the Compendium you want to 
                         download
 
+        version (int): the version for the Compendium you want to download - None
+                       for latest version
+
         extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     return download_compendium(
-        organism,
         path, 
+        organism,
+        version=version,
         quant_sf_only=True,
         extract=extract,
         prompt=prompt

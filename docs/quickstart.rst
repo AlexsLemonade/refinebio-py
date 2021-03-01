@@ -11,6 +11,7 @@ pyrefinebio can be installed through PyPI:
 
    $ pip install pyrefinebio
 
+.. _`Quickstart/Setting up Tokens`:
 
 Setting up Tokens
 -----------------
@@ -63,37 +64,41 @@ After you set up and activate a Token you can start creating and downloading Dat
 
 pyrefinebio provides the function `download_dataset()` for creating and downloading Datasets.
 It will will automatically handle every part of the creation and download process for you.
+You will receive the Dataset as a zip file.
 
 `download_dataset()` requires that you pass in the parameters `path`, `email_address`, and either `dataset_dict` or `experiments`.
 
-* `path` is the path that the Dataset will be downloaded to. This can be a path to a directory, in which case a filename will automatically be created, or a path to a zip file. 
+* `path` is the path that the Dataset will be downloaded to. You specify a path to a zip file or a directory. If you pass in a path to a directory, the name of the zip file will be automatically generated in the format `dataset-<dataset_id>.zip`.
 
 * `email_address` is the email address that will be notified when the Dataset is finished processing.
 
-The parameters `dataset_dict` and `experiments` both control the Experiments and Samples that will be a part of the Dataset.
+The parameters `experiments` and `dataset_dict` both control the which Experiments and Samples will be a part of the Dataset.
 
-* `dataset_dict` should be used when you want to specify specific Samples to be included in the Dataset. It should be in the format:
+* `experiments` can be used when you want to add specific Experiments to your Dataset. All the downloadable samples associated with the Experiments that you pass in will be added to the Dataset. 
 
-.. code-block:: python
-
-    dd = {
-        "Experiment 1 Accession Code": [
-            "Sample 1 Accession Code",
-            "Sample 2 Accession Code"
-        ],
-        "Experiment 2 Accession Code": [
-            "Sample 3 Accession Code",
-            "Sample 4 Accession Code"
-        ]
-    }
-
-* `experiments` can be used when you only care about experiments. All the samples associated with the Experiments that you pass in that are downloadable will be added to the Dataset. It is just a list of Experiment accession codes or pyrefinebio Experiment objects:
+The `experiments` parameter is just a list of Experiment accession codes or pyrefinebio Experiment objects. Here's an example:
 
 .. code-block:: python
 
     ex2 = pyrefinebio.Experiment.get("Experiment 2 Accession Code")
 
     exs = ["Experiment 1 Accession Code", ex2]
+
+* `dataset_dict` should be used when you want to specify specific Samples to be included in the Dataset. It should be in the format:
+
+.. code-block:: python
+
+    dd = {
+        "<Experiment 1 Accession Code>": [
+            "<Sample 1 Accession Code>",
+            "<Sample 2 Accession Code>"
+        ],
+        "<Experiment 2 Accession Code>": [
+            "<Sample 3 Accession Code>",
+            "<Sample 4 Accession code>"
+        ]
+    }
+
 
 You can also pass in other optional parameters to alter the Dataset itself and to alter how the download process works.
 
@@ -111,11 +116,21 @@ You can also pass in other optional parameters to alter the Dataset itself and t
 
 .. _Gene transformations: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile#gene-transformations
 
+Below is a simple example of downloading a Dataset using `experiments`:
+
+.. code-block:: python
+
+    pyrefinebio.download_dataset(
+        "~/path/to/dir/for/dataset/",
+        "foo@bar.com",
+        experiments=["GSE24528", "GSE30631"]
+    )
+
 Below is a simple example of downloading a Dataset using `dataset_dict`:
 
 .. code-block:: python
 
-    pyrefinebio.download_Dataset(
+    pyrefinebio.download_dataset(
         "./path/to/dataset.zip",
         "foo@bar.com",
         dataset_dict={
@@ -126,16 +141,6 @@ Below is a simple example of downloading a Dataset using `dataset_dict`:
         }
     )
 
-Below is a simple example of downloading a Dataset using `experiments`:
-
-.. code-block:: python
-
-    pyrefinebio.download_Dataset(
-        "~/path/to/dir/for/dataset/",
-        "foo@bar.com",
-        experiments=["GSE24528", "GSE30631"]
-    )
-
 Downloading Compendia
 ---------------------
 
@@ -143,22 +148,25 @@ You can start downloading Compendia after you set up and activate a Token.
 
 pyrefinebio provides the function `download_compendium()` for downloading Compendium results.
 It will will automatically search for Compendia based on organisms and download the results.
+You will receive the Compendium as a zip file.
 
 `download_compendium()` requires that you pass in the parameters `path` and `organism`. 
 
-* `path` is the path that the Compendium will be downloaded to. This can be a path to a directory, in which case a filename will automatically be created, or a path to a zip file. 
+* `path` is the path that the Dataset will be downloaded to. You specify a path to a zip file or a directory. If you pass in a path to a directory, the name of the zip file will be automatically generated in the format `compendium-<compendium_id>.zip`.
 
-* `organism` is the name of the Organism for the Compendium that you want to download.
+* `organism` is the scientific name of the Organism for the Compendium that you want to download.
 
 You can also pass in other optional parameters to alter the type of Compendium you download.
 
 * `version` is the Compendium version. The default is `None` which will get the latest version.
 
-* `quant_sf_only` can be used to choose if the Compendium is quantile normalized. Pass in True for RNA-seq Sample Compendium results or False for quantile normalized. By default, `quant_sf_only` is False.
+* `quant_sf_only` can be used to choose if the Compendium is quantile normalized. Pass in True for RNA-seq Sample Compendium results or False for quantile normalized. By default, `quant_sf_only` is False. For more information on normalized vs RNA-seq compendia check out `refine.bio Compendia`_.
 
 * `extract` can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as `path`. So if `path` is a zip file: `./path/to/dataset.zip` it will be extracted to the dir `./path/to/dataset/`, if `path` is a dir: `./path/to/dir/` it will be extracted to `./path/to/dir/[generated-file-name]/`. By default, `extract` is False. 
 
 * `prompt` can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte. By default, `prompt` is True.
+
+.. _refine.bio Compendia: http://docs.refine.bio/en/latest/main_text.html#refine-bio-compendia
 
 Below is a simple example of Downloading a Compendium result:
 
@@ -255,16 +263,18 @@ Here's an example:
     >>> import pyrefinebio
     >>> pyrefinebio.help("Sample.search")
 
-Using the CLI
--------------
+Getting Started with the CLI
+----------------------------
 
-pyrefinebio also provides a CLI that exposes the `download_dataset()`, `download_compendium()`, `download_quantfile_compendium()`, and `help()` functions.
+pyrefinebio provides a CLI that exposes the `download_dataset()`, `download_compendium()`, `download_quantfile_compendium()`, and `help()` functions.
 
 Each function has its own command: `download-dataset`, `download-compendium`, `download-quantfile-compendium`, and `describe`, respectively.
 
 To use the CLI just type `refinebio COMMAND` into a shell.
 
-You can pass in the option `--help` to each command to get more information about it as well.
+Each command has the option `--help` which will print out usage information and descriptions for every available option for that command.
+
+If you want usage examples and a more in depth look at each CLI command you can also check out :ref:`Using the CLI`.
 
 Here's an example of downloading a Dataset using the CLI:
 
@@ -380,7 +390,7 @@ Then once the Dataset has finished processing, you can download it using the `do
 
     dataset.download("./path/to/dataset.zip")
 
-Once the Dataset has been downloaded, you can extract the downloaded zip file with the `extract() method:
+Once the Dataset has been downloaded, you can extract the downloaded zip file with the `extract()` method:
 
 .. code-block:: python
 
