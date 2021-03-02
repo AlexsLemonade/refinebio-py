@@ -127,7 +127,7 @@ def download_dataset(
             skip_quantile_normalization,
         )
     except DownloadError as e:
-        raise click.ClickException(e.message)
+        raise click.ClickException(str(e))
 
 
 @cli.command()
@@ -156,7 +156,7 @@ def download_compendium(organism, path, quant_sf_only=False):
     try:
         hlf.download_compendium(path, organism, quant_sf_only)
     except DownloadError as e:
-        raise click.ClickException(e.message)
+        raise click.ClickException(str(e))
 
 
 @cli.command()
@@ -180,4 +180,4 @@ def download_quandfile_compendium(organism, path):
     try:
         hlf.download_quandfile_compendium(path, organism)
     except DownloadError as e:
-        raise click.ClickException(e.message)
+        raise click.ClickException(str(e))
