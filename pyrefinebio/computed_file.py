@@ -144,7 +144,12 @@ class ComputedFile(Base):
             prompt (bool): if true, will prompt before downloading files bigger than 1GB
         """
         if not self.download_url:
-            raise DownloadError("ComputedFile", "Download url not found - did you set up and activate a Token?")
+            raise DownloadError(
+                "ComputedFile",
+                "Download url not found - make sure you have set up and activated your Token. "
+                "You can create and activate a new token using pyrefinebio.Token. "
+                "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html"
+            )
 
         full_path = expand_path(path, "computedfile-" + str(self.id) + ".zip")
 
