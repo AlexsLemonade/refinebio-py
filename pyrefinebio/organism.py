@@ -53,9 +53,11 @@ class Organism(Base):
             list of Organism
 
         Keyword Arguments:
-            has_compendia (bool): if true, the downloaded zip file will be automatically extracted
+            has_compendia (bool): filter based on if this Organism has a normalized Compendium
+                                  associated with it
 
-            has_quantfile_compendia (bool): if true, will prompt before downloading files bigger than 1GB
+            has_quantfile_compendia (bool): filter based on if this Organism has an
+                                            RNA-seq Sample Compendium associated with it
         """
         response = get_by_endpoint("organisms", params=kwargs)
         return create_paginated_list(cls, response)
