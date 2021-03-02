@@ -230,29 +230,36 @@ def download_quandfile_compendium(
     )
 
 
-def create_token():
+def create_token(silent=False):
     """create_token
 
     Automatically creates a Token, activates it, and stores it to the Config file.
 
-    Will promp the user before activating and storing the created Token.
+    By default, will prompt the user before activating and storing the created Token.
 
     Returns:
         Token
+
+    Parameters:
+        silent (bool): if true, you will not be prompted before activating and storing
+                       the Token.
     """
+    if not silent:
+        print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
+        yn = input("Do you understand and accept both documents? (Y/n)")
 
-    print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
-    yn = input("Do you understand and accept both documents? (Y/n)")
-
-    if yn.lower() in ("n", "no"):
-        return
+        if yn.lower() in ("n", "no"):
+            return
 
     token = Token()
     token.agree_to_terms_and_conditions()
 
-    yn = input("Would you like to save your Token to the Config file for future use? (Y/n)")
+    if not silent:
+        yn = input("Would you like to save your Token to the Config file for future use? (Y/n)")
 
-    if yn.lower() not in ("n", "no"):
-        token.save_token()
+        if yn.lower() in ("n", "no"):
+            return
     
+    token.save_token()
+
     return token

@@ -184,10 +184,16 @@ def download_quandfile_compendium(organism, path):
 
 
 @cli.command()
-def create_token():
+@click.option(
+    "-s",
+    "--silent",
+    is_flag=True,
+    help="Add this flag if you don't want to be prompted before activating and saving your token."
+)
+def create_token(silent):
     """
     Automatically creates a Token, activates it, and stores it to the Config file.
 
-    Will promp the user before activating and storing the created Token.
+    By default, will prompt the user before activating and storing the created Token.
     """
-    hlf.create_token()
+    hlf.create_token(silent)
