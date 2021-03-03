@@ -13,6 +13,8 @@ Downloading Datasets
 
 After you set up and activate a Token you can use the CLI to start creating and downloading Datasets.
 
+See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
+
 pyrefinebio provides the CLI command `download-dataset` for creating and downloading Datasets.
 It will will automatically handle every part of the creation and download process for you.
 You will receive the Dataset as a zip file.
@@ -48,7 +50,7 @@ You can also pass in other optional command options to alter the Dataset itself 
 
 * `transformation` can be used to change the transformation of the Dataset. The default is "NONE", and the other available choices are "MINMAX" and "STANDARD". For more information on Dataset transformation check out `Gene transformations`_. 
 
-* `skip-quantile-normalization` can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information
+* `skip-quantile-normalization` can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information check out `Quantile normalization`_.
 
 * `extract` can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as `path`. So if `path` is a zip file: `./path/to/dataset.zip` it will be extracted to the dir `./path/to/dataset/`, if `path` is a dir: `./path/to/dir/` it will be extracted to `./path/to/dir/[generated-file-name]/`. By default, `extract` is False. 
 
@@ -57,6 +59,8 @@ You can also pass in other optional command options to alter the Dataset itself 
 .. _Aggregations: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=aggregation#aggregations 
 
 .. _Gene transformations: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile#gene-transformations
+
+.. _Quantile normalization: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile%20normalization#quantile-normalization
 
 Below is a simple example of downloading a Dataset using `experiments`:
 
@@ -75,6 +79,8 @@ Downloading Compendia
 ---------------------
 
 You can start using the CLI to download Compendia after you set up and activate a Token.
+
+See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
 
 pyrefinebio provides the CLI command `download-compendium` for downloading Compendium results.
 It will will automatically search for Compendia based on organisms and download the results.
@@ -115,8 +121,8 @@ Below is a simple example of Downloading a Compendium result using `download-qua
 
     $ refinebio download-quantfile-compendium --path "~/path/to/dir/for/compendium/" --organism "HOMO_SAPIENS"
 
-Getting Info About pyrefinebio Classes and Functions
-----------------------------------------------------
+Getting Information About pyrefinebio Classes and Functions
+-----------------------------------------------------------
 
 If you are re-reading a script that you wrote and forget what a pyrefinebio function or class does -
 or if you just want more information about a pyrefinebio class or function, pyrefinebio exposes its `help()` function

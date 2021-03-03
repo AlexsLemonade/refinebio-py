@@ -14,17 +14,17 @@ def help(entity=None):
     separated by either a space or a `.`
     
     Examples:
-        getting info about classes:
+        getting information about classes:
 
         >>> pyrefinebio.help("Sample")
         
-        gettting info about class methods:
+        getting information about class methods:
 
         >>> pyrefinebio.help("Sample.get")
         or
         >>> pyrefinebio.help("Sample get")
 
-        getting info about functions:
+        getting information about functions:
 
         >>> pyrefinebio.help("download_dataset")
     """

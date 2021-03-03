@@ -62,6 +62,8 @@ Downloading Datasets
 
 After you set up and activate a Token you can start creating and downloading Datasets.
 
+See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
+
 pyrefinebio provides the function `download_dataset()` for creating and downloading Datasets.
 It will will automatically handle every part of the creation and download process for you.
 You will receive the Dataset as a zip file.
@@ -80,9 +82,9 @@ The `experiments` parameter is just a list of Experiment accession codes or pyre
 
 .. code-block:: python
 
-    ex2 = pyrefinebio.Experiment.get("Experiment 2 Accession Code")
+    ex2 = pyrefinebio.Experiment.get("<Experiment 2 Accession Code>")
 
-    exs = ["Experiment 1 Accession Code", ex2]
+    exs = ["<Experiment 1 Accession Code>", ex2]
 
 * `dataset_dict` should be used when you want to specify specific Samples to be included in the Dataset. It should be in the format:
 
@@ -106,7 +108,7 @@ You can also pass in other optional parameters to alter the Dataset itself and t
 
 * `transformation` can be used to change the transformation of the Dataset. The default is "NONE", and the other available choices are "MINMAX" and "STANDARD". For more information on Dataset transformation check out `Gene transformations`_. 
 
-* `skip_quantile_normalization` can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information
+* `skip_quantile_normalization` can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information check out `Quantile normalization`_.
 
 * `extract` can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as `path`. So if `path` is a zip file: `./path/to/dataset.zip` it will be extracted to the dir `./path/to/dataset/`, if `path` is a dir: `./path/to/dir/` it will be extracted to `./path/to/dir/[generated-file-name]/`. By default, `extract` is False. 
 
@@ -115,6 +117,8 @@ You can also pass in other optional parameters to alter the Dataset itself and t
 .. _Aggregations: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=aggregation#aggregations 
 
 .. _Gene transformations: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile#gene-transformations
+
+.. _Quantile normalization: https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile%20normalization#quantile-normalization
 
 Below is a simple example of downloading a Dataset using `experiments`:
 
@@ -145,6 +149,8 @@ Downloading Compendia
 ---------------------
 
 You can start downloading Compendia after you set up and activate a Token.
+
+See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
 
 pyrefinebio provides the function `download_compendium()` for downloading Compendium results.
 It will will automatically search for Compendia based on organisms and download the results.
@@ -254,7 +260,7 @@ This is what the output looks like:
 
             prompt (bool): if true, will prompt before downloading files bigger than 1GB
 
-You can also get info on class methods by passing in `class.method` to the help function.
+You can also get information on class methods by passing in `class.method` to the help function.
 
 Here's an example:
 
@@ -302,7 +308,7 @@ Here's an example with a refine.bio Sample:
 Use `search()` to look for refine.bio API objects based on filters.
 
 `search()` will return a PaginatedList which can be indexed and iterated through like a regular python list.
-For more info checkout the :ref:`PaginatedList` documentation.
+For more information checkout the :ref:`PaginatedList` documentation.
 
 Here's an example of searching for a refine.bio Sample:
 
@@ -381,7 +387,7 @@ You can check if the Dataset has finished at any time by calling the `check()` m
 
 .. code-block:: python
 
-    if datset.check():
+    if dataset.check():
         # do something...
 
 Then once the Dataset has finished processing, you can download it using the `download()` method:
