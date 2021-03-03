@@ -230,7 +230,7 @@ def download_quandfile_compendium(
     )
 
 
-def create_token(silent=False):
+def create_token(agree_to_terms=None, save_token=None):
     """create_token
 
     Automatically creates a Token, activates it, and stores it to the Config file.
@@ -241,25 +241,28 @@ def create_token(silent=False):
         Token
 
     Parameters:
-        silent (bool): if true, you will not be prompted before activating and storing
-                       the Token.
-    """
-    if not silent:
-        print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
-        yn = input("Do you understand and accept both documents? (Y/n)")
+        agree_to_terms (bool): if true, the token will be automatically activated without prompting.
+                               If false, the token will not be activated. Leave as None to be prompted
+                               before activating.
 
-        if yn.lower() in ("n", "no"):
-            return
+        save_token (bool): if true, the token will be automatically saved. If false, the token will
+                           not be saved. Leave as None to be prompted before saving.
+    """
+    if agree_to_terms is None:
+        print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
+        yn = input("Do you understand and accept both documents? (y/N)")
+        agree_to_terms = yn.lower() in ("y", "yes")
 
     token = Token()
-    token.agree_to_terms_and_conditions()
 
-    if not silent:
-        yn = input("Would you like to save your Token to the Config file for future use? (Y/n)")
+    if agree_to_terms:
+        token.agree_to_terms_and_conditions()
 
-        if yn.lower() in ("n", "no"):
-            return
+    if save_token is None:
+        yn = input("Would you like to save your Token to the Config file for future use? (y/N)")
+        save_token = yn.lower() in ("y", "yes")
     
-    token.save_token()
+    if save_token:
+        token.save_token()
 
     return token

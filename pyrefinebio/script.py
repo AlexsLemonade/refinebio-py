@@ -188,12 +188,16 @@ def download_quandfile_compendium(organism, path):
     "-s",
     "--silent",
     is_flag=True,
-    help="Add this flag if you don't want to be prompted before activating and saving your token."
+    help="Add this flag if you don't want to be prompted before activating AND saving your token."
 )
 def create_token(silent):
     """
     Automatically creates a Token, activates it, and stores it to the Config file.
+    The Config file's location is `~/.refinebio.yaml` this file will be created if it
+    doesn't exist. For more information see 
 
     By default, will prompt the user before activating and storing the created Token.
     """
-    hlf.create_token(silent)
+    agree_to_terms = silent or None
+    save_token = silent or None
+    hlf.create_token(agree_to_terms, save_token)
