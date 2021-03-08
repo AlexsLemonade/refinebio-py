@@ -65,7 +65,7 @@ After you set up and activate a Token you can start creating and downloading Dat
 See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
 
 pyrefinebio provides the function `download_dataset()` for creating and downloading Datasets.
-It will will automatically handle every part of the creation and download process for you.
+It will automatically handle every part of the creation and download process for you.
 You will receive the Dataset as a zip file.
 
 `download_dataset()` requires that you pass in the parameters `path`, `email_address`, and either `dataset_dict` or `experiments`.
@@ -74,7 +74,7 @@ You will receive the Dataset as a zip file.
 
 * `email_address` is the email address that will be notified when the Dataset is finished processing.
 
-The parameters `experiments` and `dataset_dict` both control the which Experiments and Samples will be a part of the Dataset.
+The parameters `experiments` and `dataset_dict` both control which Experiments and Samples will be a part of the Dataset.
 
 * `experiments` can be used when you want to add specific Experiments to your Dataset. All the downloadable samples associated with the Experiments that you pass in will be added to the Dataset. 
 
@@ -86,7 +86,9 @@ The `experiments` parameter is just a list of Experiment accession codes or pyre
 
     exs = ["<Experiment 1 Accession Code>", ex2]
 
-* `dataset_dict` should be used when you want to specify specific Samples to be included in the Dataset. It should be in the format:
+* `dataset_dict` should be used when you want to specify specific Samples to be included in the Dataset. However, you can pass in "ALL" instead of specific Sample accession codes to add all downloadable Samples associated with that Experiment to the Dataset.
+
+`dataset_dict` should be in the format:
 
 .. code-block:: python
 
@@ -98,6 +100,9 @@ The `experiments` parameter is just a list of Experiment accession codes or pyre
         "<Experiment 2 Accession Code>": [
             "<Sample 3 Accession Code>",
             "<Sample 4 Accession code>"
+        ],
+        "<Experiment 3 Accession Code>": [
+            "ALL"
         ]
     }
 
@@ -153,7 +158,7 @@ You can start downloading Compendia after you set up and activate a Token.
 See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
 
 pyrefinebio provides the function `download_compendium()` for downloading Compendium results.
-It will will automatically search for Compendia based on organisms and download the results.
+It will automatically search for Compendia based on organisms and download the results.
 You will receive the Compendium as a zip file.
 
 `download_compendium()` requires that you pass in the parameters `path` and `organism`. 

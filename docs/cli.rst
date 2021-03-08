@@ -16,14 +16,14 @@ After you set up and activate a Token you can use the CLI to start creating and 
 See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
 
 pyrefinebio provides the CLI command `download-dataset` for creating and downloading Datasets.
-It will will automatically handle every part of the creation and download process for you.
+It will automatically handle every part of the creation and download process for you.
 You will receive the Dataset as a zip file.
 
 `download-dataset` requires that you pass in the options `email-address`, and either `experiments` or `dataset-dict`.
 
 * `email_address` is the email address that will be notified when the Dataset is finished processing.
 
-The options `experiments` and `dataset-dict` both control the which Experiments and Samples will be a part of the Dataset.
+The options `experiments` and `dataset-dict` both control which Experiments and Samples will be a part of the Dataset.
 
 * `experiments` can be used when you want to add specific Experiments to your Dataset. All the downloadable samples associated with the Experiments that you pass in will be added to the Dataset. 
 
@@ -34,13 +34,14 @@ The `experiments` option is just a space separated list of Experiment accession 
     $ refinebio download-datset --experiments "<Experiment 1 Accession Code> <Experiment 2 Accession Code>"
 
 
-* `dataset-dict` should be used when you want to specify specific Samples to be included in the Dataset.
+* `dataset-dict` should be used when you want to specify specific Samples to be included in the Dataset. However, you can pass in "ALL" instead of specific Sample accession codes to add all downloadable Samples associated with that Experiment to the Dataset.
 
-The `dataset_dict` option is a JSON object in the following format:
+The `dataset-dict` option is a JSON object in the following format:
 
 .. code-block:: shell
 
-    $ refinebio download-dataset --dataset-dict '{"<Experiment 1 Accession Code>": ["<Sample 1 Accession Code>", "<Sample 2 Accession Code>"], "<Experiment 2 Accession Code>": ["<Sample 3 Accession Code>", "<Sample 4 Accession Code>"]}'
+    $ dataset-json='{"<Experiment 1 Accession Code>": ["<Sample 1 Accession Code>", "<Sample 2 Accession Code>"], "<Experiment 2 Accession Code>": ["ALL"]}'
+    $ refinebio download-dataset --dataset-dict 
 
 You can also pass in other optional command options to alter the Dataset itself and to alter how the download process works.
 
@@ -72,7 +73,8 @@ Below is a simple example of downloading a Dataset using `dataset_dict`:
 
 .. code-block:: shell
 
-    $ refinebio download-dataset --path "./path/to/dataset.zip" --email-address "foo@bar.com" --dataset-dict '{"GSE74410": ["ALL"]}'
+    $ dataset-json='{"GSE74410": ["ALL"], "GSE24528": ["GSM604796", "GSM604797"]}'
+    $ refinebio download-dataset --path "./path/to/dataset.zip" --email-address "foo@bar.com" --dataset-dict $dataset-json
 
 
 Downloading Compendia
@@ -83,7 +85,7 @@ You can start using the CLI to download Compendia after you set up and activate 
 See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
 
 pyrefinebio provides the CLI command `download-compendium` for downloading Compendium results.
-It will will automatically search for Compendia based on organisms and download the results.
+It will automatically search for Compendia based on organisms and download the results.
 You will receive the Compendium as a zip file.
 
 `download-compendium` requires that you pass in the parameter `organism`. 
