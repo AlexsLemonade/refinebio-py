@@ -11,6 +11,7 @@ pyrefinebio can be installed through PyPI:
 
    $ pip install pyrefinebio
 
+
 .. _`Quickstart/Setting up Tokens`:
 
 Setting up Tokens
@@ -25,37 +26,32 @@ Creating and activating a refine.bio Token indicates agreement with refine.bio's
 .. _Terms of Use: https://www.refine.bio/terms
 .. _Privacy Policy: https://www.refine.bio/privacy
 
-To create a token, make an object of the Token class:
+pyrefinebio provides the function `create_token()` which can automatically create, activate, and save a Token for you.
 
-.. code-block:: python
+By default, `create_token()` will prompt you before activating and saving the Token it creates.
 
-    import pyrefinebio
+Alternatively, it has the parameters `agree_to_terms` and `save_token` which you can set to bypass the prompts.
 
-    token = pyrefinebio.Token()
+Here's an example of creating, activating, and saving a Token with prompts:
 
-Then, to activate your token, call `agree_to_terms_and_conditions()` on it:
+.. code-block:: shell
 
-.. code-block:: python
+    >>> pyrefinebio.create_token()
+    Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy
+    Do you understand and accept both documents? (y/N)y
+    Would you like to save your Token to the Config file for future use? (y/N)y
 
-    token.agree_to_terms_and_conditions()
+Here's an example lof creating and activating but not saving a Token without prompts:
 
-Now, your Token is fully set up and will be used in any API requests made during the execution of this script.
+.. code-block:: shell
 
-If you want to use the same Token in future scripts, you can save it to the Config file:
+    >>> pyrefinebio.create_token(agree_to_terms=True, save_token=False)
 
-.. code-block:: python
+Alternatively, you can manually create, activate and save a Token using the Token class.
+See :ref:`Advanced Token Usage` for more information.
 
-    token.save_token()
-
-Now, the token will be automatically loaded every time you import pyrefinebio.
-
-If you want to get access to the token that is saved to the config file in the future, you can load it:
-
-.. code-block:: python
-
-    token = pyrefinebio.Token.load_token()
-
-For more information check out the :ref:`Token` class documentation and :ref:`Config`.
+You can also use the CLI to create, activate and save a Token.
+See :ref:`Using the CLI/Setting up Tokens` for more information.
 
 Downloading Datasets
 --------------------
@@ -277,9 +273,9 @@ Here's an example:
 Getting Started with the CLI
 ----------------------------
 
-pyrefinebio provides a CLI that exposes the `download_dataset()`, `download_compendium()`, `download_quantfile_compendium()`, and `help()` functions.
+pyrefinebio provides a CLI that exposes the `create_token()`, `download_dataset()`, `download_compendium()`, `download_quantfile_compendium()`, and `help()` functions.
 
-Each function has its own command: `download-dataset`, `download-compendium`, `download-quantfile-compendium`, and `describe`, respectively.
+Each function has its own command: `create-token`, `download-dataset`, `download-compendium`, `download-quantfile-compendium`, and `describe`, respectively.
 
 To use the CLI just type `refinebio COMMAND` into a shell.
 
@@ -408,3 +404,41 @@ Once the Dataset has been downloaded, you can extract the downloaded zip file wi
     dataset.extract()
 
 For more information checkout the :ref:`Dataset` documentation.
+
+
+.. _Advanced Token Usage:
+
+Advanced Token Usage
+--------------------
+
+To create a token, make an object of the Token class:
+
+.. code-block:: python
+
+    import pyrefinebio
+
+    token = pyrefinebio.Token()
+
+Then, to activate your token, call `agree_to_terms_and_conditions()` on it:
+
+.. code-block:: python
+
+    token.agree_to_terms_and_conditions()
+
+Now, your Token is fully set up and will be used in any API requests made during the execution of this script.
+
+If you want to use the same Token in future scripts, you can save it to the Config file:
+
+.. code-block:: python
+
+    token.save_token()
+
+Now, the token will be automatically loaded every time you import pyrefinebio.
+
+If you want to get access to the token that is saved to the config file in the future, you can load it:
+
+.. code-block:: python
+
+    token = pyrefinebio.Token.load_token()
+
+For more information check out the :ref:`Token` class documentation and :ref:`Config`.

@@ -6,14 +6,51 @@ Using the CLI
 
 Before you can use the CLI to download Datasets and Compendia, you need to create and activate a Token.
 
-See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
+See :ref:`Using the CLI/Setting up Tokens` for information on setting up Tokens using the CLI.
+
+Or you can go to :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token using python.
+
+
+.. _Using the CLI/Setting up Tokens:
+
+Setting up Tokens
+-----------------
+
+pyrefinebio provides the CLI command `create-token` which can automatically create, activate, and save a Token for you.
+
+By default, `create-token` will prompt you before activating and saving the Token it creates.
+
+Alternatively, it has the flag `--silent` or `-s` which you can use to bypass the prompts.
+
+If you use the silent flag, the created Token will be automatically activated and saved to the config file located by default at `~/.refinebio.yaml`.
+You must save the Token in order for it to be used in future CLI commands.
+
+For more information about pyrefinebio's Config see :ref:`Config`.
+
+Here's an example of creating, activating, and saving a Token with prompts:
+
+.. code-block:: shell
+
+    $ refinebio create-token
+    Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy
+    Do you understand and accept both documents? (y/N)y
+    Would you like to save your Token to the Config file for future use? (y/N)y
+
+Here's an example of creating, activating, and saving a Token without prompts:
+
+.. code-block:: shell
+
+    $ refinebio create-token -s
+
 
 Downloading Datasets
 --------------------
 
 After you set up and activate a Token you can use the CLI to start creating and downloading Datasets.
 
-See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
+See :ref:`Using the CLI/Setting up Tokens` for information on setting up Tokens using the CLI.
+
+Or you can go to :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token using python.
 
 pyrefinebio provides the CLI command `download-dataset` for creating and downloading Datasets.
 It will automatically handle every part of the creation and download process for you.
@@ -82,7 +119,9 @@ Downloading Compendia
 
 You can start using the CLI to download Compendia after you set up and activate a Token.
 
-See :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token.
+See :ref:`Using the CLI/Setting up Tokens` for information on setting up Tokens using the CLI.
+
+Or you can go to :ref:`Quickstart/Setting up Tokens` for a tutorial on setting up a Token using python.
 
 pyrefinebio provides the CLI command `download-compendium` for downloading Compendium results.
 It will automatically search for Compendia based on organisms and download the results.
