@@ -61,7 +61,7 @@ class Experiment(Base):
         self.annotations = (
             [prb_annotation.Annotation(**a) for a in annotations] if annotations else []
         )
-        self.samples = [prb_sample.Sample(**sample) for sample in samples] if annotations else []
+        self.samples = [prb_sample.Sample(**sample) for sample in samples] if samples else []
         self.protocol_description = protocol_description
         self.accession_code = accession_code
         self.alternate_accession_code = alternate_accession_code

@@ -1,4 +1,6 @@
 
+.. _TranscriptomeIndex:
+
 Transcriptome Index
 ===================
 

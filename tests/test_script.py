@@ -117,12 +117,12 @@ class ScriptTests(unittest.TestCase):
         )
 
 
-    @patch("pyrefinebio.script.hlf.download_quandfile_compendium")
+    @patch("pyrefinebio.script.hlf.download_quantfile_compendium")
     def test_download_compendium(self, mock_download_q_compendium):
         self.runner.invoke(
             cli,
             [
-                "download-quandfile-compendium",
+                "download-quantfile-compendium",
                 "--organism",      "foo",
                 "--path",          "./test.zip"
             ]

@@ -137,7 +137,7 @@ class Sample(Base):
         Returns:
             list of Sample
 
-        Parameters:
+        Keyword Arguments:
             ordering (str): which field to use when ordering the results
 
             title (str): filter based on the Sample's title
@@ -159,7 +159,7 @@ class Sample(Base):
 
             sex (str): filter based on the sex information provided by the submitter
 
-            age (number): filter based on the age informtaion provided by the submitter
+            age (number): filter based on the age information provided by the submitter
 
             specimen_part (str): filter based on the part of the specimen reported by the submitter
 
@@ -191,7 +191,7 @@ class Sample(Base):
 
             dataset_id (str): filter based on the Dataset ids that the Sample has been added to
 
-            experiment_accession_code (str): filter based on the Dxperiments that are associated
+            experiment_accession_code (str): filter based on the Experiments that are associated
                                              with the Sample
 
             accession_codes (str): filter based on multiple accession codes at once

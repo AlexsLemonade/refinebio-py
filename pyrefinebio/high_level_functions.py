@@ -14,17 +14,17 @@ def help(entity=None):
     separated by either a space or a `.`
     
     Examples:
-        getting info about classes:
+        getting information about classes:
 
         >>> pyrefinebio.help("Sample")
         
-        gettting info about class methods:
+        getting information about class methods:
 
         >>> pyrefinebio.help("Sample.get")
         or
         >>> pyrefinebio.help("Sample get")
 
-        getting info about functions:
+        getting information about functions:
 
         >>> pyrefinebio.help("download_dataset")
     """
@@ -84,7 +84,7 @@ def download_dataset(
                             available samples related to each Experiment will be added  
                             the list can contain Experiment objects or accession codes as strings
 
-        aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT` or by `SPECIES`
+        aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT`, by `SPECIES`, or by `ALL`
 
         transformation (str): the transformation for the dataset - `NONE`, `MINMAX`, or `STANDARD`
 
@@ -198,13 +198,14 @@ def download_compendium(
 
 
 
-def download_quandfile_compendium(
+def download_quantfile_compendium(
     path,
     organism,
+    version=None,
     extract=False,
     prompt=True
 ):
-    """download_quandfile_compendium
+    """download_quantfile_compendium
 
     Download a Compendium for the specified organism.
     This function will always download RNA-seq Sample Compedium results.
@@ -218,13 +219,17 @@ def download_quandfile_compendium(
         organism (str): the name of the Organism for the Compendium you want to 
                         download
 
+        version (int): the version for the Compendium you want to download - None
+                       for latest version
+
         extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     return download_compendium(
-        organism,
         path, 
+        organism,
+        version=version,
         quant_sf_only=True,
         extract=extract,
         prompt=prompt

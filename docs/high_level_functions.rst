@@ -1,4 +1,6 @@
 
+.. _High Level Functions:
+
 High Level Functions
 ====================
 
