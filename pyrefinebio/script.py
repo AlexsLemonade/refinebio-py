@@ -170,15 +170,15 @@ def download_compendium(organism, path, quant_sf_only=False):
     type=click.Path(),
     help="Path that the Compendium should be downloaded to"
 )
-def download_quandfile_compendium(organism, path):
+def download_quantfile_compendium(organism, path):
     """
     Download a Compendium for the specified organism.
-    This command will always download RNA-seq Sample Compedium results.
+    This command will always download RNA-seq Sample Compendium results.
     For more information on RNA-seq Sample Compendia check out the following link: 
     http://docs.refine.bio/en/latest/main_text.html#rna-seq-sample-compendia
     """
     try:
-        hlf.download_quandfile_compendium(path, organism)
+        hlf.download_quantfile_compendium(path, organism)
     except DownloadError as e:
         raise click.ClickException(e.message)
 

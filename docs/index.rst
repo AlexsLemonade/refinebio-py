@@ -2,45 +2,32 @@
    sphinx-quickstart on Thu Dec 10 12:22:10 2020.
 
 Welcome to pyrefinebio!
-=======================================
+=======================
 
-Welcome to pyrefinebio's documentation. A good place to start is :doc:`high_level_functions`.
-You can also take a look at the main Classes below.
+pyrefinebio is a python client for the `refine.bio`_ API.
+
+.. _refine.bio: https://www.refine.bio/
+
+You can use it to create and download Datasets, download Compendia, and to interact with the refine.bio API.
+
+pyrefinebio can be installed through PyPI:
+
+.. code-block:: shell
+
+   $ pip install pyrefinebio
 
 
-Classes
--------
-
-.. toctree::
-   :maxdepth: 2
-
-   compendium
-   computational_result
-   computed_file
-   dataset
-   experiment
-   institution
-   organism
-   original_file
-   platform
-   downloader_job
-   processor_job
-   survey_job
-   processor
-   qn_target
-   sample
-   token
-   transcriptome_index
-
-More Stuff
-----------
+Documentation
+-------------
 
 .. toctree::
    :maxdepth: 2
 
-   high_level_functions
-   config
-   util
+   quickstart
+   cli
+   classes
+   more_stuff
+
 
 Indices and tables
 ------------------

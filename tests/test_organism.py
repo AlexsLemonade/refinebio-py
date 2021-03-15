@@ -8,12 +8,16 @@ from tests.mocks import MockResponse
 
 gorilla = {
     "name": "GORILLA",
-    "taxonomy_id": 9592
+    "taxonomy_id": 9592,
+    "has_compendia": True,
+    "has_quantfile_compendia": False
 }
 
 mouse = {
     "name": "MUS",
-    "taxonomy_id": 862507
+    "taxonomy_id": 862507,
+    "has_compendia": False,
+    "has_quantfile_compendia": True
 }
 
 search_1 = {
@@ -78,3 +82,15 @@ class OrganismTests(unittest.TestCase, CustomAssertions):
         self.assertObject(result_list[1], mouse)
 
         self.assertEqual(len(mock_request.call_args_list), 2)
+
+    
+    def test_organism_search_with_filters(self):
+        filtered_results = pyrefinebio.Organism.search(has_quantfile_compendia=True)
+
+        for result in filtered_results:
+            self.assertTrue(result.has_quantfile_compendia)
+
+
+    def test_organism_search_with_invalid_filters(self):
+        with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):
+            pyrefinebio.OriginalFile.search(foo="bar")

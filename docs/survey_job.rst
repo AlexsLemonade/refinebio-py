@@ -1,4 +1,6 @@
 
+.. _SurveyJob:
+
 Survey Job
 ==========
 
