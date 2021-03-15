@@ -194,7 +194,8 @@ def create_token(silent):
     """
     Automatically creates a Token, activates it, and stores it to the Config file.
     The Config file's location is `~/.refinebio.yaml` this file will be created if it
-    doesn't exist. For more information see 
+    doesn't exist. For more information see pyrefinbio.Config.
+    https://alexslemonade.github.io/refinebio-py/config.html
 
     By default, will prompt the user before activating and storing the created Token.
     """

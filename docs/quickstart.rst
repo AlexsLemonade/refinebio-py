@@ -41,7 +41,7 @@ Here's an example of creating, activating, and saving a Token with prompts:
     Do you understand and accept both documents? (y/N)y
     Would you like to save your Token to the Config file for future use? (y/N)y
 
-Here's an example lof creating and activating but not saving a Token without prompts:
+Here's an example of creating and activating but not saving a Token without prompts:
 
 .. code-block:: shell
 
