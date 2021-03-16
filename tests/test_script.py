@@ -152,3 +152,27 @@ class ScriptTests(unittest.TestCase):
             "with organism name, foo, version False, and quant_sf_only, False\n"
         )
 
+
+    @patch("pyrefinebio.script.hlf.create_token")
+    def test_create_token_prompt(self, mock_create_token):
+        self.runner.invoke(
+            cli,
+            [
+                "create-token",
+            ]
+        )
+
+        mock_create_token.assert_called_with(None, None)
+
+
+    @patch("pyrefinebio.script.hlf.create_token")
+    def test_create_token_automatic(self, mock_create_token):
+        self.runner.invoke(
+            cli,
+            [
+                "create-token",
+                "-s"
+            ]
+        )
+
+        mock_create_token.assert_called_with(True, True)

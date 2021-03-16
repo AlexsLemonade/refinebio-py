@@ -180,4 +180,25 @@ def download_quantfile_compendium(organism, path):
     try:
         hlf.download_quantfile_compendium(path, organism)
     except DownloadError as e:
-        raise click.ClickException(str(e))
+        raise click.ClickException(e.message)
+
+
+@cli.command()
+@click.option(
+    "-s",
+    "--silent",
+    is_flag=True,
+    help="Add this flag if you don't want to be prompted before activating AND saving your token."
+)
+def create_token(silent):
+    """
+    Automatically creates a Token, activates it, and stores it to the Config file.
+    The Config file's location is `~/.refinebio.yaml` this file will be created if it
+    doesn't exist. For more information see pyrefinbio.Config.
+    https://alexslemonade.github.io/refinebio-py/config.html
+
+    By default, will prompt the user before activating and storing the created Token.
+    """
+    agree_to_terms = silent or None
+    save_token = silent or None
+    hlf.create_token(agree_to_terms, save_token)

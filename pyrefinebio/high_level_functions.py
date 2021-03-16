@@ -2,7 +2,7 @@ import pyrefinebio
 import re
 import time
 
-from pyrefinebio import Dataset, Compendium
+from pyrefinebio import Dataset, Compendium, Token
 from pyrefinebio.exceptions import DownloadError
 
 
@@ -234,3 +234,41 @@ def download_quantfile_compendium(
         extract=extract,
         prompt=prompt
     )
+
+
+def create_token(agree_to_terms=None, save_token=None):
+    """create_token
+
+    Automatically creates a Token, activates it, and stores it to the Config file.
+
+    By default, will prompt the user before activating and storing the created Token.
+
+    Returns:
+        Token
+
+    Parameters:
+        agree_to_terms (bool): if true, the token will be automatically activated without prompting.
+                               If false, the token will not be activated. Leave as None to be prompted
+                               before activating.
+
+        save_token (bool): if true, the token will be automatically saved. If false, the token will
+                           not be saved. Leave as None to be prompted before saving.
+    """
+    if agree_to_terms is None:
+        print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
+        yn = input("Do you understand and accept both documents? (y/N)")
+        agree_to_terms = yn.lower() in ("y", "yes")
+
+    token = Token()
+
+    if agree_to_terms:
+        token.agree_to_terms_and_conditions()
+
+    if save_token is None:
+        yn = input("Would you like to save your Token to the Config file for future use? (y/N)")
+        save_token = yn.lower() in ("y", "yes")
+    
+    if save_token:
+        token.save_token()
+
+    return token
