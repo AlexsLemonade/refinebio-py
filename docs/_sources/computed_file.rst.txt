@@ -1,4 +1,6 @@
 
+.. _ComputedFile:
+
 Computed File
 =============
 

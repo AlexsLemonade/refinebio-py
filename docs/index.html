@@ -14,7 +14,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Compendium" href="compendium.html" />
+    <link rel="next" title="Quickstart" href="quickstart.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,38 +33,61 @@
             
   <div class="section" id="welcome-to-pyrefinebio">
 <h1>Welcome to pyrefinebio!<a class="headerlink" href="#welcome-to-pyrefinebio" title="Permalink to this headline">¶</a></h1>
-<p>Welcome to pyrefinebio’s documentation. A good place to start is <a class="reference internal" href="high_level_functions.html"><span class="doc">High Level Functions</span></a>.
-You can also take a look at the main Classes below.</p>
-<div class="section" id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<p>pyrefinebio is a python client for the <a class="reference external" href="https://www.refine.bio/">refine.bio</a> API.</p>
+<p>You can use it to create and download Datasets, download Compendia, and to interact with the refine.bio API.</p>
+<p>pyrefinebio can be installed through PyPI:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install pyrefinebio
+</pre></div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computed_file.html">Computed File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset.html">Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
-<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
-<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
-<li class="toctree-l1"><a class="reference internal" href="token.html">Token</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setting-up-tokens">Setting up Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#downloading-compendia">Downloading Compendia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#getting-started-with-the-cli">Getting Started with the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#interacting-with-the-api">Interacting with the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-dataset-usage">Advanced Dataset Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-token-usage">Advanced Token Usage</a></li>
 </ul>
-</div>
-</div>
-<div class="section" id="more-stuff">
-<h2>More Stuff<a class="headerlink" href="#more-stuff" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#setting-up-tokens">Setting up Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#downloading-compendia">Downloading Compendia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#getting-information-about-pyrefinebio-classes-and-functions">Getting Information About pyrefinebio Classes and Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paginated_list.html">Paginated List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Config</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -96,34 +119,17 @@ You can also take a look at the main Classes below.</p>
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computed_file.html">Computed File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset.html">Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
-<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
-<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
-<li class="toctree-l1"><a class="reference internal" href="token.html">Token</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="compendium.html" title="next chapter">Compendium</a></li>
+      <li>Next: <a href="quickstart.html" title="next chapter">Quickstart</a></li>
   </ul></li>
 </ul>
 </div>
@@ -153,7 +159,7 @@ You can also take a look at the main Classes below.</p>
       &copy;2020, CCDL.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

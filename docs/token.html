@@ -33,14 +33,14 @@
           <div class="body" role="main">
             
   <div class="section" id="token">
-<h1>Token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="pyrefinebio.Token">
-<em class="property">class </em><code class="sig-prename descclassname">pyrefinebio.</code><code class="sig-name descname">Token</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email_address</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handles the creation, activation, saving, and loading of api tokens.</p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyrefinebio.</span></code><code class="sig-name descname"><span class="pre">Token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email_address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles the creation, activation, saving, and loading of refine.bio’s api tokens.</p>
 <p>These tokens can be used in requests that provide urls to download computed files.</p>
-<p>Please review refine.bio’s [Terms of Use](<a class="reference external" href="https://www.refine.bio/terms">https://www.refine.bio/terms</a>) and [Privacy Policy](<a class="reference external" href="https://www.refine.bio/privacy">https://www.refine.bio/privacy</a>)
-before use of these tokens.</p>
+<p>Please review refine.bio’s [Terms of Use](<a class="reference external" href="https://www.refine.bio/terms">https://www.refine.bio/terms</a>) and
+[Privacy Policy](<a class="reference external" href="https://www.refine.bio/privacy">https://www.refine.bio/privacy</a>) before use of these tokens.</p>
 <p>Create a new Token</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">token</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Token</span><span class="p">(</span><span class="n">email_address</span><span class="o">=</span><span class="s2">&quot;foo@bar.com&quot;</span><span class="p">)</span>
@@ -58,31 +58,33 @@ before use of these tokens.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">token</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Load the Token that is currently saved to the config file</p>
+<p>Load the Token that is currently set to Config</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">token</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">load_token</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="py method">
 <dt id="pyrefinebio.Token.agree_to_terms_and_conditions">
-<code class="sig-name descname">agree_to_terms_and_conditions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token.agree_to_terms_and_conditions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">agree_to_terms_and_conditions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token.agree_to_terms_and_conditions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Activates a token.</p>
+<p>Tokens that are activated will be added to Config and can be used to make requests
+until pyrefinebio is re-imported.</p>
+<p>If you would like to continue using the same Token for other scripts that use pyrefinebio
+save the Token to the Config file using save_token().</p>
 <p>Activating a token indicates agreement with refine.bio’s
 [Terms of Use](<a class="reference external" href="https://www.refine.bio/terms">https://www.refine.bio/terms</a>) and
 [Privacy Policy](<a class="reference external" href="https://www.refine.bio/privacy">https://www.refine.bio/privacy</a>).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="pyrefinebio.Token.get_token">
-<em class="property">classmethod </em><code class="sig-name descname">get_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token.get_token" title="Permalink to this definition">¶</a></dt>
-<dd><p>gets the token that’s currently saved to the config file.</p>
-<p>The default config file is ~/.refinebio.yaml, but
-you can use the environment variable <cite>CONFIG_FILE</cite> to change this path</p>
+<dt id="pyrefinebio.Token.load_token">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">load_token</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token.load_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the token that’s currently set to Config.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="pyrefinebio.Token.save_token">
-<code class="sig-name descname">save_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token.save_token" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">save_token</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.Token.save_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves a token to the config file.</p>
 <p>The default config file is ~/.refinebio.yaml, but
 you can use the environment variable <cite>CONFIG_FILE</cite> to change this path</p>
@@ -110,35 +112,39 @@ you can use the environment variable <cite>CONFIG_FILE</cite> to change this pat
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computed_file.html">Computed File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset.html">Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
-<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
-<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Token</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="classes.html">Classes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="classes.html">Classes</a><ul>
       <li>Previous: <a href="sample.html" title="previous chapter">Sample</a></li>
       <li>Next: <a href="transcriptome_index.html" title="next chapter">Transcriptome Index</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
@@ -168,7 +174,7 @@ you can use the environment variable <cite>CONFIG_FILE</cite> to change this pat
       &copy;2020, CCDL.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

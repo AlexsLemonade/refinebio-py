@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Config &#8212; pyrefinebio 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Paginated List" href="paginated_list.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="config">
+<span id="id1"></span><h1>Config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyrefinebio.config.Config">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyrefinebio.config.</span></code><code class="sig-name descname"><span class="pre">Config</span></code><a class="headerlink" href="#pyrefinebio.config.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Config for pyrefinebio.</p>
+<p>Config values can be set by environment variables or in the Config file.</p>
+<p>The Config file’s default location is <cite>~/.refinebio.yaml</cite>, but this location
+can be set by using the environment variable <cite>CONFIG_FILE</cite></p>
+<p>pyrefinebio’s configurable values are:</p>
+<blockquote>
+<div><dl>
+<dt>token:</dt><dd><p>The refine.bio api token that is used when making requests</p>
+<p>environment variable: <cite>REFINEBIO_TOKEN</cite></p>
+</dd>
+<dt>base_url:</dt><dd><p>The base url for the refine.bio api that should be used
+when making requests. The default is <cite>https://api.refine.bio/v1/</cite></p>
+<p>environment variable: <cite>BASE_URL</cite></p>
+</dd>
+</dl>
+</div></blockquote>
+<p>These config values can be modified directly in code, but it recommended that you
+set them by using environment variables, by modifying them in Config file, or by
+using other class methods provided - like <cite>pyrefinebio.Token</cite> for example.</p>
+<p>example Config file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>token: foo-bar-baz
+base_url: https://api.refine.bio/v1/
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="pyrefinebio.config.Config.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.config.Config.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the config to a file</p>
+<p>The default path for this file is <cite>~/.refinebio.yaml</cite>
+but it can be set using the environment variable <cite>CONFIG_FILE</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyrefinebio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="more_stuff.html">More Stuff</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paginated_list.html">Paginated List</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Config</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="more_stuff.html">More Stuff</a><ul>
+      <li>Previous: <a href="paginated_list.html" title="previous chapter">Paginated List</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, CCDL.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/config.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

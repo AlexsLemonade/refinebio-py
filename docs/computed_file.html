@@ -33,10 +33,10 @@
           <div class="body" role="main">
             
   <div class="section" id="computed-file">
-<h1>Computed File<a class="headerlink" href="#computed-file" title="Permalink to this headline">¶</a></h1>
+<span id="computedfile"></span><h1>Computed File<a class="headerlink" href="#computed-file" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="pyrefinebio.ComputedFile">
-<em class="property">class </em><code class="sig-prename descclassname">pyrefinebio.</code><code class="sig-name descname">ComputedFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">samples</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size_in_bytes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_qn_target</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_smashable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_qc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_compendia</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quant_sf_only</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compendia_version</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compendia_organism_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sha1</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">s3_bucket</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">s3_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">s3_url</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">download_url</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">created_at</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">last_modified</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">result</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyrefinebio.</span></code><code class="sig-name descname"><span class="pre">ComputedFile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_in_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_qn_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_smashable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_qc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_compendia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_sf_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compendia_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compendia_organism_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sha1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_bucket</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_modified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computed File.</p>
 <p>ComputedFiles are representation of files created by data-refinery processes.</p>
 <p>Retrieve a ComputedFile based on id</p>
@@ -51,8 +51,36 @@
 </pre></div>
 </div>
 <dl class="py method">
+<dt id="pyrefinebio.ComputedFile.download">
+<code class="sig-name descname"><span class="pre">download</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a ComputedFile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ComputedFile</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – the path that the ComputedFile should be downloaded to</p></li>
+<li><p><strong>prompt</strong> (<em>bool</em>) – if true, will prompt before downloading files bigger than 1GB</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.ComputedFile.extract">
+<code class="sig-name descname"><span class="pre">extract</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a downloaded ComputedFile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ComputedFile</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="pyrefinebio.ComputedFile.get">
-<em class="property">classmethod </em><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.get" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a specific ComputedFile based on id</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -66,7 +94,7 @@
 
 <dl class="py method">
 <dt id="pyrefinebio.ComputedFile.search">
-<em class="property">classmethod </em><code class="sig-name descname">search</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.search" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a list of a ComputedFiles based on filters</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -121,35 +149,39 @@ ComputedFile</p></li>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="compendium.html">Compendium</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Computed File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataset.html">Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="experiment.html">Experiment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="institution.html">Institution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="organism.html">Organism</a></li>
-<li class="toctree-l1"><a class="reference internal" href="original_file.html">Original File</a></li>
-<li class="toctree-l1"><a class="reference internal" href="platform.html">Platform</a></li>
-<li class="toctree-l1"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processor.html">Processor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="qn_target.html">QN Target</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample</a></li>
-<li class="toctree-l1"><a class="reference internal" href="token.html">Token</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="classes.html">Classes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Computed File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util.html">util</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="classes.html">Classes</a><ul>
       <li>Previous: <a href="computational_result.html" title="previous chapter">Computational Result</a></li>
       <li>Next: <a href="dataset.html" title="next chapter">Dataset</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
@@ -179,7 +211,7 @@ ComputedFile</p></li>
       &copy;2020, CCDL.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

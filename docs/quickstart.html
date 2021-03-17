@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quickstart &#8212; pyrefinebio 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using the CLI" href="cli.html" />
+    <link rel="prev" title="Welcome to pyrefinebio!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>pyrefinebio can be installed through PyPI:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ pip install pyrefinebio
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-tokens">
+<span id="quickstart-setting-up-tokens"></span><h2>Setting up Tokens<a class="headerlink" href="#setting-up-tokens" title="Permalink to this headline">¶</a></h2>
+<p>Before you start downloading or interacting with the API you should set up a Token.
+Tokens will allow you to be able to download Compendia, Computed Files, and Datasets.</p>
+<p>Creating and activating a refine.bio Token indicates agreement with refine.bio’s <a class="reference external" href="https://www.refine.bio/terms">Terms of Use</a> and
+<a class="reference external" href="https://www.refine.bio/privacy">Privacy Policy</a> so make sure you have read and understood both before you continue.</p>
+<p>pyrefinebio provides the function <cite>create_token()</cite> which can automatically create, activate, and save a Token for you.</p>
+<p>By default, <cite>create_token()</cite> will prompt you before activating and saving the Token it creates.</p>
+<p>Alternatively, it has the parameters <cite>agree_to_terms</cite> and <cite>save_token</cite> which you can set to bypass the prompts.</p>
+<p>Here’s an example of creating, activating, and saving a Token with prompts:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; pyrefinebio.create_token<span class="o">()</span>
+Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy
+Do you understand and accept both documents? <span class="o">(</span>y/N<span class="o">)</span>y
+Would you like to save your Token to the Config file <span class="k">for</span> future use? <span class="o">(</span>y/N<span class="o">)</span>y
+</pre></div>
+</div>
+<p>Here’s an example of creating and activating but not saving a Token without prompts:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; pyrefinebio.create_token<span class="o">(</span><span class="nv">agree_to_terms</span><span class="o">=</span>True, <span class="nv">save_token</span><span class="o">=</span>False<span class="o">)</span>
+</pre></div>
+</div>
+<p>Alternatively, you can manually create, activate and save a Token using the Token class.
+See <a class="reference internal" href="#advanced-token-usage"><span class="std std-ref">Advanced Token Usage</span></a> for more information.</p>
+<p>You can also use the CLI to create, activate and save a Token.
+See <a class="reference internal" href="cli.html#using-the-cli-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for more information.</p>
+</div>
+<div class="section" id="downloading-datasets">
+<h2>Downloading Datasets<a class="headerlink" href="#downloading-datasets" title="Permalink to this headline">¶</a></h2>
+<p>After you set up and activate a Token you can start creating and downloading Datasets.</p>
+<p>See <a class="reference internal" href="#quickstart-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for a tutorial on setting up a Token.</p>
+<p>pyrefinebio provides the function <cite>download_dataset()</cite> for creating and downloading Datasets.
+It will automatically handle every part of the creation and download process for you.
+You will receive the Dataset as a zip file.</p>
+<p><cite>download_dataset()</cite> requires that you pass in the parameters <cite>path</cite>, <cite>email_address</cite>, and either <cite>dataset_dict</cite> or <cite>experiments</cite>.</p>
+<ul class="simple">
+<li><p><cite>path</cite> is the path that the Dataset will be downloaded to. You specify a path to a zip file or a directory. If you pass in a path to a directory, the name of the zip file will be automatically generated in the format <cite>dataset-&lt;dataset_id&gt;.zip</cite>.</p></li>
+<li><p><cite>email_address</cite> is the email address that will be notified when the Dataset is finished processing.</p></li>
+</ul>
+<p>The parameters <cite>experiments</cite> and <cite>dataset_dict</cite> both control which Experiments and Samples will be a part of the Dataset.</p>
+<ul class="simple">
+<li><p><cite>experiments</cite> can be used when you want to add specific Experiments to your Dataset. All the downloadable samples associated with the Experiments that you pass in will be added to the Dataset.</p></li>
+</ul>
+<p>The <cite>experiments</cite> parameter is just a list of Experiment accession codes or pyrefinebio Experiment objects. Here’s an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ex2</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Experiment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;&lt;Experiment 2 Accession Code&gt;&quot;</span><span class="p">)</span>
+
+<span class="n">exs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&lt;Experiment 1 Accession Code&gt;&quot;</span><span class="p">,</span> <span class="n">ex2</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><cite>dataset_dict</cite> should be used when you want to specify specific Samples to be included in the Dataset. However, you can pass in “ALL” instead of specific Sample accession codes to add all downloadable Samples associated with that Experiment to the Dataset.</p></li>
+</ul>
+<p><cite>dataset_dict</cite> should be in the format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;&lt;Experiment 1 Accession Code&gt;&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;&lt;Sample 1 Accession Code&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Sample 2 Accession Code&gt;&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;&lt;Experiment 2 Accession Code&gt;&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;&lt;Sample 3 Accession Code&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Sample 4 Accession code&gt;&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;&lt;Experiment 3 Accession Code&gt;&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;ALL&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can also pass in other optional parameters to alter the Dataset itself and to alter how the download process works.</p>
+<ul class="simple">
+<li><p><cite>aggregation</cite> can be used to change how the Dataset is aggregated. The default is “EXPERIMENT”, and the other available choices are “SPECIES” and “ALL”. For more information about Dataset aggregation check out <a class="reference external" href="https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=aggregation#aggregations">Aggregations</a>.</p></li>
+<li><p><cite>transformation</cite> can be used to change the transformation of the Dataset. The default is “NONE”, and the other available choices are “MINMAX” and “STANDARD”. For more information on Dataset transformation check out <a class="reference external" href="https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile#gene-transformations">Gene transformations</a>.</p></li>
+<li><p><cite>skip_quantile_normalization</cite> can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information check out <a class="reference external" href="https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile%20normalization#quantile-normalization">Quantile normalization</a>.</p></li>
+<li><p><cite>extract</cite> can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as <cite>path</cite>. So if <cite>path</cite> is a zip file: <cite>./path/to/dataset.zip</cite> it will be extracted to the dir <cite>./path/to/dataset/</cite>, if <cite>path</cite> is a dir: <cite>./path/to/dir/</cite> it will be extracted to <cite>./path/to/dir/[generated-file-name]/</cite>. By default, <cite>extract</cite> is False.</p></li>
+<li><p><cite>prompt</cite> can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte. By default, <cite>prompt</cite> is True.</p></li>
+</ul>
+<p>Below is a simple example of downloading a Dataset using <cite>experiments</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span>
+    <span class="s2">&quot;~/path/to/dir/for/dataset/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;foo@bar.com&quot;</span><span class="p">,</span>
+    <span class="n">experiments</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GSE24528&quot;</span><span class="p">,</span> <span class="s2">&quot;GSE30631&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Below is a simple example of downloading a Dataset using <cite>dataset_dict</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">download_dataset</span><span class="p">(</span>
+    <span class="s2">&quot;./path/to/dataset.zip&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;foo@bar.com&quot;</span><span class="p">,</span>
+    <span class="n">dataset_dict</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;GSE24528&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;GSM604796&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;GSM604797&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="downloading-compendia">
+<h2>Downloading Compendia<a class="headerlink" href="#downloading-compendia" title="Permalink to this headline">¶</a></h2>
+<p>You can start downloading Compendia after you set up and activate a Token.</p>
+<p>See <a class="reference internal" href="#quickstart-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for a tutorial on setting up a Token.</p>
+<p>pyrefinebio provides the function <cite>download_compendium()</cite> for downloading Compendium results.
+It will automatically search for Compendia based on organisms and download the results.
+You will receive the Compendium as a zip file.</p>
+<p><cite>download_compendium()</cite> requires that you pass in the parameters <cite>path</cite> and <cite>organism</cite>.</p>
+<ul class="simple">
+<li><p><cite>path</cite> is the path that the Dataset will be downloaded to. You specify a path to a zip file or a directory. If you pass in a path to a directory, the name of the zip file will be automatically generated in the format <cite>compendium-&lt;compendium_id&gt;.zip</cite>.</p></li>
+<li><p><cite>organism</cite> is the scientific name of the Organism for the Compendium that you want to download.</p></li>
+</ul>
+<p>You can also pass in other optional parameters to alter the type of Compendium you download.</p>
+<ul class="simple">
+<li><p><cite>version</cite> is the Compendium version. The default is <cite>None</cite> which will get the latest version.</p></li>
+<li><p><cite>quant_sf_only</cite> can be used to choose if the Compendium is quantile normalized. Pass in True for RNA-seq Sample Compendium results or False for quantile normalized. By default, <cite>quant_sf_only</cite> is False. For more information on normalized vs RNA-seq compendia check out <a class="reference external" href="http://docs.refine.bio/en/latest/main_text.html#refine-bio-compendia">refine.bio Compendia</a>.</p></li>
+<li><p><cite>extract</cite> can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as <cite>path</cite>. So if <cite>path</cite> is a zip file: <cite>./path/to/dataset.zip</cite> it will be extracted to the dir <cite>./path/to/dataset/</cite>, if <cite>path</cite> is a dir: <cite>./path/to/dir/</cite> it will be extracted to <cite>./path/to/dir/[generated-file-name]/</cite>. By default, <cite>extract</cite> is False.</p></li>
+<li><p><cite>prompt</cite> can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte. By default, <cite>prompt</cite> is True.</p></li>
+</ul>
+<p>Below is a simple example of Downloading a Compendium result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">download_compendium</span><span class="p">(</span>
+    <span class="s2">&quot;./path/to/compendium.zip&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DANIO_RERIO&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>pyrefinebio also provides the function <cite>download_quantfile_compendium()</cite> which is equivalent to calling <cite>download_compendium(quant_sf_only=True)</cite>.</p>
+<p>You can use this function when you want to be explicit to future users of your script that you are downloading quantfile Compendium results.</p>
+<p>Below is a simple example of Downloading a Compendium result using <cite>download_quantfile_compendium()</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyrefinebio</span><span class="o">.</span><span class="n">download_quantfile_compendium</span><span class="p">(</span>
+    <span class="s2">&quot;~/path/to/dir/for/compendium/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;HOMO_SAPIENS&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h2>
+<p>If you are re-reading a script that you wrote and forget what a pyrefinebio function or class does -
+or if you just want more information about a pyrefinebio class or function, pyrefinebio has a <cite>help()</cite> function
+that can print out information about all its classes/functions.</p>
+<p>The <cite>help()</cite> function is probably most useful in the REPL.</p>
+<p>Here’s and example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import pyrefinebio
+&gt;&gt;&gt; pyrefinebio.help<span class="o">(</span><span class="s2">&quot;download_dataset&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>This will print out information about the <cite>download_dataset()</cite> function.</p>
+<p>This is what the output looks like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>download_dataset
+
+    Automatically constructs a Dataset, processes it, waits <span class="k">for</span> it
+    to finish processing, <span class="k">then</span> downloads it to the path specified.
+
+    Returns:
+        Dataset
+
+    Parameters:
+        path <span class="o">(</span>str<span class="o">)</span>: the path that the Dataset should be downloaded to
+
+        email_address <span class="o">(</span>str<span class="o">)</span>: the email address that will be contacted with info
+                                related to the dataset
+
+        dataset_dict <span class="o">(</span>dict<span class="o">)</span>: a fully formed Dataset <span class="sb">`</span>data<span class="sb">`</span> attribute <span class="k">in</span> the form:
+                                <span class="o">{</span>
+                                    <span class="s2">&quot;Experiment&quot;</span>: <span class="o">[</span>
+                                        <span class="s2">&quot;Sample&quot;</span>,
+                                        <span class="s2">&quot;Sample&quot;</span>
+                                    <span class="o">]</span>
+                                <span class="o">}</span>
+                                use this parameter <span class="k">if</span> you want to specify specific Samples
+                                <span class="k">for</span> your dataset
+                                each part of the dict can be a pyrefinebio object or an accession
+                                code as a string
+
+        experiments <span class="o">(</span>list<span class="o">)</span>: a list of Experiments that should be added to the dataset
+                            use this parameter <span class="k">if</span> you only care about the Experiments - all
+                            available samples related to each Experiment will be added
+                            the list can contain Experiment objects or accession codes as strings
+
+        aggregation <span class="o">(</span>str<span class="o">)</span>: how the Dataset should be aggregated - by <span class="sb">`</span>EXPERIMENT<span class="sb">`</span> or by <span class="sb">`</span>SPECIES<span class="sb">`</span>
+
+        transformation <span class="o">(</span>str<span class="o">)</span>: the transformation <span class="k">for</span> the dataset - <span class="sb">`</span>NONE<span class="sb">`</span>, <span class="sb">`</span>MINMAX<span class="sb">`</span>, or <span class="sb">`</span>STANDARD<span class="sb">`</span>
+
+        skip_quantile_normalization <span class="o">(</span>bool<span class="o">)</span>: control whether or not the dataset should skip quantile
+                                            normalization <span class="k">for</span> RNA-seq Samples
+
+        extract <span class="o">(</span>bool<span class="o">)</span>: <span class="k">if</span> true, the downloaded zip file will be automatically extracted
+
+        prompt <span class="o">(</span>bool<span class="o">)</span>: <span class="k">if</span> true, will prompt before downloading files bigger than 1GB
+</pre></div>
+</div>
+<p>You can also get information on class methods by passing in <cite>class.method</cite> to the help function.</p>
+<p>Here’s an example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import pyrefinebio
+&gt;&gt;&gt; pyrefinebio.help<span class="o">(</span><span class="s2">&quot;Sample.search&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-started-with-the-cli">
+<h2>Getting Started with the CLI<a class="headerlink" href="#getting-started-with-the-cli" title="Permalink to this headline">¶</a></h2>
+<p>pyrefinebio provides a CLI that exposes the <cite>create_token()</cite>, <cite>download_dataset()</cite>, <cite>download_compendium()</cite>, <cite>download_quantfile_compendium()</cite>, and <cite>help()</cite> functions.</p>
+<p>Each function has its own command: <cite>create-token</cite>, <cite>download-dataset</cite>, <cite>download-compendium</cite>, <cite>download-quantfile-compendium</cite>, and <cite>describe</cite>, respectively.</p>
+<p>To use the CLI just type <cite>refinebio COMMAND</cite> into a shell.</p>
+<p>Each command has the option <cite>–help</cite> which will print out usage information and descriptions for every available option for that command.</p>
+<p>If you want usage examples and a more in depth look at each CLI command you can also check out <a class="reference internal" href="cli.html#using-the-cli"><span class="std std-ref">Using the CLI</span></a>.</p>
+<p>Here’s an example of downloading a Dataset using the CLI:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio download-dataset --path <span class="s2">&quot;./path/to/dataset.zip&quot;</span> --email-address <span class="s2">&quot;foo@bar.com&quot;</span> --dataset-dict <span class="s1">&#39;{&quot;GSE74410&quot;: [&quot;ALL&quot;]}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="interacting-with-the-api">
+<h2>Interacting with the API<a class="headerlink" href="#interacting-with-the-api" title="Permalink to this headline">¶</a></h2>
+<p>You can use pyrefinebio to interact with all endpoints of the refine.bio API.</p>
+<p>Each endpoint is its own pyrefinebio class.</p>
+<p>Most classes provide the <cite>get()</cite> and <cite>search()</cite> methods.</p>
+<p>Use <cite>get()</cite> to get one refine.bio API object based on its identifying property.</p>
+<p>Here’s an example with a refine.bio Sample:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Sample</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GSM604797&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use <cite>search()</cite> to look for refine.bio API objects based on filters.</p>
+<p><cite>search()</cite> will return a PaginatedList which can be indexed and iterated through like a regular python list.
+For more information checkout the <a class="reference internal" href="paginated_list.html#paginatedlist"><span class="std std-ref">Paginated List</span></a> documentation.</p>
+<p>Here’s an example of searching for a refine.bio Sample:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Sample</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">organism</span><span class="o">=</span><span class="s2">&quot;HOMO_SAPIENS&quot;</span><span class="p">,</span> <span class="n">is_processed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Other classes provide additional methods like <cite>download()</cite> or <cite>extract()</cite>.</p>
+<p>For more information checkout the <a class="reference internal" href="classes.html#classes"><span class="std std-ref">Classes</span></a> documentation.</p>
+</div>
+<div class="section" id="advanced-dataset-usage">
+<h2>Advanced Dataset Usage<a class="headerlink" href="#advanced-dataset-usage" title="Permalink to this headline">¶</a></h2>
+<p>pyrefinebio offers the <cite>download_dataset()</cite> function which takes care of creating the Dataset, processing it, waiting for it to finish,
+downloading it, and optionally extracting it - all automatically.</p>
+<p>If you only want to do a certain part of this process, however, you can do each step manually as well.</p>
+<p>To manually create a Dataset, first create an object of the Dataset class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Before you are able to process the Dataset you must add an email address and Experiments/Samples to it.</p>
+<p>You can add the email address when creating the Dataset object by passing it into the constructor.
+Or you can just set the attribute after creating the object.</p>
+<p>Here’s an example of both:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># using the constructor</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">email_address</span><span class="o">=</span><span class="s2">&quot;foo@bar.com&quot;</span><span class="p">)</span>
+
+<span class="c1"># setting the attribute</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Dataset</span><span class="p">()</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">email_address</span> <span class="o">=</span> <span class="s2">&quot;foo@bar.com&quot;</span>
+</pre></div>
+</div>
+<p>You can add Experiments and Samples to your dataset by manually setting its <cite>data</cite> attribute or by using the <cite>add_samples()</cite> method.</p>
+<p>Here’s an example of manually setting its <cite>data</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;GSE24528&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;GSM604796&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GSM604797&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here’s an example of using the <cite>add_samples()</cite> method.
+Notice that <cite>add_samples()</cite> can take pyrefinebio objects as arguments as well as accession codes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Sample</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">experiment_accession_code</span><span class="o">=</span><span class="s2">&quot;GSE60783&quot;</span><span class="p">,</span> <span class="n">is_processed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">dataset</span><span class="o">.</span><span class="n">add_samples</span><span class="p">(</span>
+    <span class="s2">&quot;GSE60783&quot;</span><span class="p">,</span>
+    <span class="n">samples</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Once you have set the email address and added Experiments/Samples to you Dataset,
+you can then start processing the Dataset using the <cite>process()</cite> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can check if the Dataset has finished at any time by calling the <cite>check()</cite> method on it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">dataset</span><span class="o">.</span><span class="n">check</span><span class="p">():</span>
+    <span class="c1"># do something...</span>
+</pre></div>
+</div>
+<p>Then once the Dataset has finished processing, you can download it using the <cite>download()</cite> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;./path/to/dataset.zip&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once the Dataset has been downloaded, you can extract the downloaded zip file with the <cite>extract()</cite> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For more information checkout the <a class="reference internal" href="dataset.html#dataset"><span class="std std-ref">Dataset</span></a> documentation.</p>
+</div>
+<div class="section" id="advanced-token-usage">
+<span id="id1"></span><h2>Advanced Token Usage<a class="headerlink" href="#advanced-token-usage" title="Permalink to this headline">¶</a></h2>
+<p>To create a token, make an object of the Token class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Token</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then, to activate your token, call <cite>agree_to_terms_and_conditions()</cite> on it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">token</span><span class="o">.</span><span class="n">agree_to_terms_and_conditions</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, your Token is fully set up and will be used in any API requests made during the execution of this script.</p>
+<p>If you want to use the same Token in future scripts, you can save it to the Config file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">token</span><span class="o">.</span><span class="n">save_token</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, the token will be automatically loaded every time you import pyrefinebio.</p>
+<p>If you want to get access to the token that is saved to the config file in the future, you can load it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">token</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">Token</span><span class="o">.</span><span class="n">load_token</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For more information check out the <a class="reference internal" href="token.html#token"><span class="std std-ref">Token</span></a> class documentation and <a class="reference internal" href="config.html#config"><span class="std std-ref">Config</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyrefinebio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-tokens">Setting up Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-compendia">Downloading Compendia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-the-cli">Getting Started with the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interacting-with-the-api">Interacting with the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-dataset-usage">Advanced Dataset Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-token-usage">Advanced Token Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to pyrefinebio!</a></li>
+      <li>Next: <a href="cli.html" title="next chapter">Using the CLI</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, CCDL.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/quickstart.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
