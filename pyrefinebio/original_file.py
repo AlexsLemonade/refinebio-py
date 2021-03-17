@@ -113,15 +113,3 @@ class OriginalFile(Base):
 
         response = get_by_endpoint("original_files", params=kwargs)
         return create_paginated_list(cls, response)
-        
-
-    def download(self, path):
-        """Download an OriginalFile
-
-        Returns:
-            void
-
-        Parameters:
-            path (str): the path that then OriginalFile should be downloaded to
-        """
-        pass
