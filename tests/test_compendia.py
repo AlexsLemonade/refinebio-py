@@ -1,5 +1,7 @@
 import unittest
 import pyrefinebio
+import os
+
 from unittest.mock import Mock, patch
 
 from tests.custom_assertions import CustomAssertions
@@ -141,13 +143,13 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
         mock_download.assert_called_with(
             "test_download_url",
-            "test-path",
+            os.path.abspath("test-path"),
             True
         )
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
-    def test_compendium_download(self, mock_request):
+    def test_compendium_download_no_url(self, mock_request):
         result = pyrefinebio.Compendium.get(2) # 2 has no download_url
 
         with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:

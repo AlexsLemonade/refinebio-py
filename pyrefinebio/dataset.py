@@ -76,6 +76,8 @@ class Dataset(Base):
         svd_algorithm=None,
         download_url=None
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.data = data 
         self.aggregate_by = aggregate_by

@@ -32,6 +32,8 @@ class Compendium(Base):
         compendium_version=None,
         computed_file=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.primary_organism_name = primary_organism_name
         self.organism_names = organism_names

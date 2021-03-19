@@ -254,7 +254,7 @@ class ComputedFileTests(unittest.TestCase, CustomAssertions):
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
-    def test_computed_file_download(self, mock_request):
+    def test_computed_file_download_no_url(self, mock_request):
         result = pyrefinebio.ComputedFile.get(2) # 2 has no download_url
 
         with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:

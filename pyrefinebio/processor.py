@@ -26,6 +26,8 @@ class Processor(Base):
         docker_image=None,
         environment=None
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.name = name
         self.version = version

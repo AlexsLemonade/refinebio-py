@@ -39,6 +39,8 @@ class OriginalFile(Base):
         created_at=None,
         last_modified=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.filename = filename
         self.size_in_bytes = size_in_bytes

@@ -32,6 +32,8 @@ class TranscriptomeIndex(Base):
         result_id=None,
         last_modified=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.assembly_name = assembly_name
         self.organism_name = organism_name
