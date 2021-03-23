@@ -9,7 +9,7 @@ from tests.mocks import MockResponse
 
 
 compendium_object_1 = {
-    "id": 69,
+    "id": 1,
     "primary_organism_name": "HUMAN",
     "organism_names": [
         "HUMAN",
@@ -73,7 +73,7 @@ search_2 = {
 
 def mock_request(method, url, **kwargs):
 
-    if url == "https://api.refine.bio/v1/compendia/69/":
+    if url == "https://api.refine.bio/v1/compendia/1/":
         return MockResponse(compendium_object_1, url)
 
     if url == "https://api.refine.bio/v1/compendia/42/":
@@ -95,7 +95,7 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendium_get(self, mock_request):
-        result = pyrefinebio.Compendium.get(69)
+        result = pyrefinebio.Compendium.get(1)
         self.assertObject(result, compendium_object_1)
 
 
@@ -135,7 +135,7 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.compendia.download_file") 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendium_download(self, mock_request, mock_download):
-        result = pyrefinebio.Compendium.get(69)
+        result = pyrefinebio.Compendium.get(1)
 
         result.download("test-path")
 

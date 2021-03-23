@@ -53,7 +53,7 @@ experiment = {
 }
 
 experiment_search_result_1 = {
-    "id": 69,
+    "id": 42,
     "title": "test title 1",
     "publication_title": "test title 1",
     "description": "test description 1",
@@ -87,7 +87,7 @@ experiment_search_result_1 = {
 }
 
 experiment_search_result_2 = {
-    "id": 42,
+    "id": 43,
     "title": "test title 2",
     "publication_title": "test title 2",
     "description": "test description 2",
