@@ -73,10 +73,10 @@ search_2 = {
 
 def mock_request(method, url, **kwargs):
 
-    if url == "https://api.refine.bio/v1/compendia/1/":
+    if url == "https://api.refine.bio/v1/compendia/69/":
         return MockResponse(compendium_object_1, url)
 
-    if url == "https://api.refine.bio/v1/compendia/2/":
+    if url == "https://api.refine.bio/v1/compendia/42/":
         return MockResponse(compendium_object_2, url)
 
     if url == "https://api.refine.bio/v1/compendia/0/":
@@ -95,7 +95,7 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendium_get(self, mock_request):
-        result = pyrefinebio.Compendium.get(1)
+        result = pyrefinebio.Compendium.get(69)
         self.assertObject(result, compendium_object_1)
 
 
@@ -118,8 +118,6 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
         self.assertObject(results[0], compendium_object_1)
         self.assertObject(results[1], compendium_object_2)
 
-        self.assertEqual(len(mock_request.call_args_list), 2)
-
 
     def test_compendium_search_with_filters(self):
         filtered_results = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
@@ -137,7 +135,7 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.compendia.download_file") 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendium_download(self, mock_request, mock_download):
-        result = pyrefinebio.Compendium.get(1)
+        result = pyrefinebio.Compendium.get(69)
 
         result.download("test-path")
 
@@ -150,7 +148,9 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendium_download_no_url(self, mock_request):
-        result = pyrefinebio.Compendium.get(2) # 2 has no download_url
+        result = pyrefinebio.Compendium.get(42) # 2 has no download_url
+
+        result.computed_file._fetched = True # set fetched to true so that a request isn't made to /computed_files
 
         with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
             result.download("test-path")

@@ -104,11 +104,7 @@ class ProcessorTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_processor_search_no_filters(self, mock_request):
-        result = pyrefinebio.Processor.search()
+        results = pyrefinebio.Processor.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], processor_1)
-        self.assertObject(result_list[1], processor_2)
-
-        self.assertEqual(len(mock_request.call_args_list), 2)
+        self.assertObject(results[0], processor_1)
+        self.assertObject(results[1], processor_2)

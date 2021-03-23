@@ -194,35 +194,27 @@ sample_2 = {
     ],
     "results": [
         {
-            "id": 1523591,
+            "id": 1339595,
             "processor": {
-                "id": 328,
-                "name": "Affymetrix SCAN",
-                        "version": "v1.23.4-hotfix",
-                        "docker_image": "dr_affymetrix",
+                "id": 303,
+                "name": "Salmontools",
+                        "version": "v1.21.2-hotfix",
+                        "docker_image": "dr_salmon",
                         "environment": {
-                            "R": {
-                                "sva": "3.26.0",
-                                "affy": "1.56.0",
-                                "limma": "3.34.9",
-                                "oligo": "1.42.0",
-                                "affyio": "1.48.0",
-                                "SCAN.UPC": "2.20.0",
-                                "Brainarray": "22.0.0",
-                                "Bioconductor": "3.5",
-                                "AnnotationDbi": "1.40.0"
-                            },
                             "os_pkg": {
-                                "r-base": "r-base",
+                                "g++": "4:5.3.1-1ubuntu1",
+                                "cmake": "3.5.1-1ubuntu3",
                                 "python3": "3.5.1-3",
                                 "python3-pip": "8.1.1-2ubuntu0.4"
                             },
                             "python": {
-                                "rpy2": "2.9.5",
                                 "Django": "2.1.8",
-                                "data-refinery-common": "=v1.23.4-hotfix"
+                                "data-refinery-common": "=v1.21.2-hotfix"
                             },
-                            "os_distribution": "Ubuntu 16.04.6 LTS"
+                            "cmd_line": {
+                                "salmontools --version": "Salmon Tools 0.1.0"
+                            },
+                            "os_distribution": "Ubuntu 16.04.5 LTS"
                         }
             },
             "organism_index": None
@@ -257,6 +249,56 @@ sample_2 = {
     ]
 }
 
+result = {
+    "id": 1339595,
+    "commands": [
+        "salmontools extract-unmapped -u /home/user/data_store/processor_job_2893940/SRR5445147_output/aux_info/unmapped_names.txt -o /home/user/data_store/processor_job_2893940/salmontools/unmapped_by_salmon -r /home/user/data_store/processor_job_2893940/SRR5445147"
+    ],
+    "processor": {
+        "id": 303,
+        "name": "Salmontools",
+        "version": "v1.21.2-hotfix",
+        "docker_image": "dr_salmon",
+        "environment": {
+            "os_pkg": {
+                "g++": "4:5.3.1-1ubuntu1",
+                "cmake": "3.5.1-1ubuntu3",
+                "python3": "3.5.1-3",
+                "python3-pip": "8.1.1-2ubuntu0.4"
+            },
+            "python": {
+                "Django": "2.1.8",
+                "data-refinery-common": "=v1.21.2-hotfix"
+            },
+            "cmd_line": {
+                "salmontools --version": "Salmon Tools 0.1.0"
+            },
+            "os_distribution": "Ubuntu 16.04.5 LTS"
+        }
+    },
+    "is_ccdl": True,
+    "annotations": [],
+    "files": [
+        {
+            "id": 2425581,
+            "filename": "salmontools-result.tar.gz",
+            "size_in_bytes": 190,
+            "is_smashable": False,
+            "is_qc": True,
+            "sha1": "9d3396dffe4617f6d2d8414ebb2a9f132a0f3c24",
+            "s3_bucket": "data-refinery-s3-circleci-prod",
+            "s3_key": "ysccy3qawpt2awi1hm4alaz6_salmontools-result.tar.gz",
+            "created_at": "2019-07-14T14:49:50.224352Z",
+            "last_modified": "2019-07-14T14:49:50.493387Z"
+        }
+    ],
+    "organism_index": None,
+    "time_start": "2019-07-14T14:49:47.567197Z",
+    "time_end": "2019-07-14T14:49:49.418108Z",
+    "created_at": "2019-07-14T14:49:50.210938Z",
+    "last_modified": "2019-07-14T14:49:50.210938Z"
+}
+
 search_1 = {
     "count": 2,
     "next": "search_2",
@@ -289,6 +331,14 @@ def mock_request(method, url, **kwargs):
 
     if url == "https://api.refine.bio/v1/samples/SRR5445147/":
         return MockResponse(sample_1, url)
+
+    if url == "https://api.refine.bio/v1/samples/GSM1562009/":
+        return MockResponse(sample_2, url)
+
+    # this request needs to exist because the result's organism index is None for both test samples
+    # so a request will be made to make sure that that value should actually be None
+    if url == "https://api.refine.bio/v1/computational_results/1339595/":
+        return MockResponse(result, url)
 
     if url == "https://api.refine.bio/v1/samples/0/":
         return MockResponse(None, url, status=404)
@@ -328,17 +378,20 @@ class SampleTests(unittest.TestCase, CustomAssertions):
         with self.assertRaises(Exception):
             pyrefinebio.Sample.get(0)
 
+    
+    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    def test_sample_result_is_fully_populated(self, mock_request):
+        result = pyrefinebio.Sample.get("SRR5445147")
+        self.assertIsNotNone(result.results[1].is_ccdl)
+        self.assertIsNotNone(result.results[1].commands)
+
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_sample_search_no_filters(self, mock_request):
-        result = pyrefinebio.Sample.search()
+        results = pyrefinebio.Sample.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], sample_1)
-        self.assertObject(result_list[1], sample_2)
-
-        self.assertEqual(len(mock_request.call_args_list), 2)
+        self.assertObject(results[0], sample_1)
+        self.assertObject(results[1], sample_2)
 
 
     def test_sample_search_with_filters(self):

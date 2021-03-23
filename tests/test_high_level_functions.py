@@ -184,9 +184,10 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
             pyrefinebio.download_compendium("test", "this-will-have-no-results")
 
 
+    @patch("pyrefinebio.computed_file.get_by_endpoint")
     @patch("pyrefinebio.compendia.get_by_endpoint")
-    def test_download_compendium_no_token(self, mock_get):
-        mock_get.return_value = MockResponse(
+    def test_download_compendium_no_token(self, mock_compendia_get, mock_computed_file_get):
+        mock_compendia_get.return_value = MockResponse(
             {
                 "count": 1,
                 "next": None,
@@ -198,6 +199,13 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
                         }
                     }
                 ]
+            },
+            "url"
+        )
+
+        mock_computed_file_get.return_value = MockResponse(
+            {
+                "download_url": None
             },
             "url"
         )

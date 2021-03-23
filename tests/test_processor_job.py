@@ -72,6 +72,9 @@ def mock_request(method, url, **kwargs):
     if url == "https://api.refine.bio/v1/jobs/processor/1/":
         return MockResponse(job_1, url)
 
+    if url == "https://api.refine.bio/v1/jobs/processor/2/":
+        return MockResponse(job_2, url)
+
     if url == "https://api.refine.bio/v1/jobs/processor/0/":
         return MockResponse(None, url, status=404)
 
@@ -106,14 +109,10 @@ class ProcessorJobTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_processor_job_search_no_filters(self, mock_request):
-        result = pyrefinebio.ProcessorJob.search()
+        results = pyrefinebio.ProcessorJob.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], job_1)
-        self.assertObject(result_list[1], job_2)
-
-        self.assertEqual(len(mock_request.call_args_list), 2)
+        self.assertObject(results[0], job_1)
+        self.assertObject(results[1], job_2)
 
 
     def test_processor_job_search_with_filters(self):

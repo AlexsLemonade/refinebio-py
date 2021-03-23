@@ -176,14 +176,10 @@ class ExperimentTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_experiments_search_no_filters(self, mock_request):
-        result = pyrefinebio.Experiment.search()
+        results = pyrefinebio.Experiment.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], experiment_search_result_1)
-        self.assertObject(result_list[1], experiment_search_result_2)
-
-        self.assertEqual(len(mock_request.call_args_list), 2)
+        self.assertObject(results[0], experiment_search_result_1)
+        self.assertObject(results[1], experiment_search_result_2)
 
 
     def test_experiments_search_with_filters(self):

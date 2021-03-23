@@ -74,14 +74,10 @@ class OrganismTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_organism_search_no_filters(self, mock_request):
-        result = pyrefinebio.Organism.search()
+        results = pyrefinebio.Organism.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], gorilla)
-        self.assertObject(result_list[1], mouse)
-
-        self.assertEqual(len(mock_request.call_args_list), 2)
+        self.assertObject(results[0], gorilla)
+        self.assertObject(results[1], mouse)
 
     
     def test_organism_search_with_filters(self):
