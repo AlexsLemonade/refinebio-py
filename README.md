@@ -44,7 +44,19 @@ The docs are generated using [sphinx autodoc](https://www.sphinx-doc.org/en/mast
 
 ### Generating the Docs
 
-To generate the docs navigate to `./docs` and run the command:
+Before you can generate the docs you must install pyrefienbio and sphinx requirements.
+
+I recommend setting up a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
+before installing the requirements, but that step is optional.
+
+To install the requirements:
+
+```bash
+$ pip install -r requirements.txt
+$ pip install -r docs-requirements.txt
+```
+
+Then, to generate the docs navigate to `./docs` and run the command:
 
 ```
 $ make html
