@@ -1,8 +1,4 @@
-import logging
 import os
-from pathlib import Path
-
-import yaml
 
 from pyrefinebio.base import Base
 
@@ -77,7 +73,7 @@ class Token(Base):
         [Privacy Policy](https://www.refine.bio/privacy).
         """
         try:
-            put_by_endpoint("token/" + self.id, payload={"is_activated": True})
+            put_by_endpoint("token/" + str(self.id), payload={"is_activated": True})
         except NotFound:
             raise BadRequest(
                 "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
@@ -103,7 +99,7 @@ class Token(Base):
         except NotFound:
             raise BadRequest(
                 "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
-                "Please create a new token."
+                "Please create a new token using pyrefinebio.Token()."
             )
 
         config.token = self.id
@@ -114,7 +110,3 @@ class Token(Base):
     def load_token(cls):
         """Loads the token that's currently set to Config."""
         return Token(id=config.token)
-
-
-    def __str__(self):
-        return str(self.id)

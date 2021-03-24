@@ -2,7 +2,7 @@ import pyrefinebio
 import re
 import time
 
-from pyrefinebio import Dataset, Compendium
+from pyrefinebio import Dataset, Compendium, Token
 from pyrefinebio.exceptions import DownloadError
 
 
@@ -14,17 +14,17 @@ def help(entity=None):
     separated by either a space or a `.`
     
     Examples:
-        getting info about classes:
+        getting information about classes:
 
         >>> pyrefinebio.help("Sample")
         
-        gettting info about class methods:
+        getting information about class methods:
 
         >>> pyrefinebio.help("Sample.get")
         or
         >>> pyrefinebio.help("Sample get")
 
-        getting info about functions:
+        getting information about functions:
 
         >>> pyrefinebio.help("download_dataset")
     """
@@ -84,7 +84,7 @@ def download_dataset(
                             available samples related to each Experiment will be added  
                             the list can contain Experiment objects or accession codes as strings
 
-        aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT` or by `SPECIES`
+        aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT`, by `SPECIES`, or by `ALL`
 
         transformation (str): the transformation for the dataset - `NONE`, `MINMAX`, or `STANDARD`
 
@@ -198,13 +198,14 @@ def download_compendium(
 
 
 
-def download_quandfile_compendium(
+def download_quantfile_compendium(
     path,
     organism,
+    version=None,
     extract=False,
     prompt=True
 ):
-    """download_quandfile_compendium
+    """download_quantfile_compendium
 
     Download a Compendium for the specified organism.
     This function will always download RNA-seq Sample Compedium results.
@@ -218,14 +219,56 @@ def download_quandfile_compendium(
         organism (str): the name of the Organism for the Compendium you want to 
                         download
 
+        version (int): the version for the Compendium you want to download - None
+                       for latest version
+
         extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     return download_compendium(
-        organism,
         path, 
+        organism,
+        version=version,
         quant_sf_only=True,
         extract=extract,
         prompt=prompt
     )
+
+
+def create_token(agree_to_terms=None, save_token=None):
+    """create_token
+
+    Automatically creates a Token, activates it, and stores it to the Config file.
+
+    By default, will prompt the user before activating and storing the created Token.
+
+    Returns:
+        Token
+
+    Parameters:
+        agree_to_terms (bool): if true, the token will be automatically activated without prompting.
+                               If false, the token will not be activated. Leave as None to be prompted
+                               before activating.
+
+        save_token (bool): if true, the token will be automatically saved. If false, the token will
+                           not be saved. Leave as None to be prompted before saving.
+    """
+    if agree_to_terms is None:
+        print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
+        yn = input("Do you understand and accept both documents? (y/N)")
+        agree_to_terms = yn.lower() in ("y", "yes")
+
+    token = Token()
+
+    if agree_to_terms:
+        token.agree_to_terms_and_conditions()
+
+    if save_token is None:
+        yn = input("Would you like to save your Token to the Config file for future use? (y/N)")
+        save_token = yn.lower() in ("y", "yes")
+    
+    if save_token:
+        token.save_token()
+
+    return token

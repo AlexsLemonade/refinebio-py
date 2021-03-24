@@ -246,7 +246,18 @@ class Dataset(Base):
         download_url = self.download_url or self.get(self.id).download_url
 
         if not download_url:
-            raise DownloadError("dataset", "Download url not found - did you process the dataset?")
+            if self.check():
+                raise DownloadError(
+                    "Dataset",
+                    "Download url not found - make sure you have set up and activated your Token. "
+                    "You can create and activate a new token using pyrefinebio.create_token(). "
+                    "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html"
+                )
+            else:
+                raise DownloadError(
+                    "Dataset",
+                    "Download url not found - you must process the Dataset before downloading."
+                )
 
         full_path = expand_path(path, "dataset-" + str(self.id) + ".zip")
 

@@ -94,7 +94,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
             br.exception.base_message,
             "Bad Request: "
             "Token with id 'test' does not exist in refine.bio. " 
-            "Please create a new token."
+            "Please create a new token using pyrefinebio.Token()."
         )
 
 

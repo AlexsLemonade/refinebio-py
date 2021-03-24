@@ -81,7 +81,7 @@ class TranscriptomeIndex(Base):
                                   with the TranscriptomeIndex
 
             length (str): short hand for index_type eg. `short` or `long` 
-                          see `index_type` for more info
+                          see `index_type` for more information
         """
         response = get_by_endpoint("transcriptome_indices", params=kwargs)
         return create_paginated_list(cls, response)

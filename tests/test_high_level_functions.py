@@ -204,3 +204,27 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
 
         with self.assertRaises(pyrefinebio.exceptions.DownloadError):
             pyrefinebio.download_compendium("test", "test_organism")
+
+    
+    @patch("pyrefinebio.high_level_functions.Token")
+    @patch("pyrefinebio.high_level_functions.input")
+    def test_create_token_with_prompt(self, mock_input, mock_token):
+        mock_input.return_value = "y"
+
+        mock_created_token = pyrefinebio.create_token()
+
+        self.assertTrue(mock_token.called)
+
+        self.assertTrue(mock_created_token.agree_to_terms_and_conditions.called)
+        self.assertTrue(mock_created_token.save_token.called)
+
+
+    @patch("pyrefinebio.high_level_functions.Token")
+    @patch("pyrefinebio.high_level_functions.input")
+    def test_create_token_activate_no_save(self, mock_input, mock_token):
+        mock_created_token = pyrefinebio.create_token(agree_to_terms=True, save_token=False)
+
+        self.assertTrue(mock_token.called)
+
+        self.assertTrue(mock_created_token.agree_to_terms_and_conditions.called)
+        self.assertFalse(mock_created_token.save_token.called)

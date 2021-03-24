@@ -127,7 +127,7 @@ def download_dataset(
             skip_quantile_normalization,
         )
     except DownloadError as e:
-        raise click.ClickException(e.message)
+        raise click.ClickException(str(e))
 
 
 @cli.command()
@@ -156,7 +156,7 @@ def download_compendium(organism, path, quant_sf_only=False):
     try:
         hlf.download_compendium(path, organism, quant_sf_only)
     except DownloadError as e:
-        raise click.ClickException(e.message)
+        raise click.ClickException(str(e))
 
 
 @cli.command()
@@ -170,14 +170,35 @@ def download_compendium(organism, path, quant_sf_only=False):
     type=click.Path(),
     help="Path that the Compendium should be downloaded to"
 )
-def download_quandfile_compendium(organism, path):
+def download_quantfile_compendium(organism, path):
     """
     Download a Compendium for the specified organism.
-    This command will always download RNA-seq Sample Compedium results.
+    This command will always download RNA-seq Sample Compendium results.
     For more information on RNA-seq Sample Compendia check out the following link: 
     http://docs.refine.bio/en/latest/main_text.html#rna-seq-sample-compendia
     """
     try:
-        hlf.download_quandfile_compendium(path, organism)
+        hlf.download_quantfile_compendium(path, organism)
     except DownloadError as e:
         raise click.ClickException(e.message)
+
+
+@cli.command()
+@click.option(
+    "-s",
+    "--silent",
+    is_flag=True,
+    help="Add this flag if you don't want to be prompted before activating AND saving your token."
+)
+def create_token(silent):
+    """
+    Automatically creates a Token, activates it, and stores it to the Config file.
+    The Config file's location is `~/.refinebio.yaml` this file will be created if it
+    doesn't exist. For more information see pyrefinbio.Config.
+    https://alexslemonade.github.io/refinebio-py/config.html
+
+    By default, will prompt the user before activating and storing the created Token.
+    """
+    agree_to_terms = silent or None
+    save_token = silent or None
+    hlf.create_token(agree_to_terms, save_token)
