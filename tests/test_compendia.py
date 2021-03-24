@@ -148,7 +148,7 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_compendium_download_no_url(self, mock_request):
-        result = pyrefinebio.Compendium.get(42) # 2 has no download_url
+        result = pyrefinebio.Compendium.get(42) # 42 has no download_url
 
         result.computed_file._fetched = True # set fetched to true so that a request isn't made to /computed_files
 

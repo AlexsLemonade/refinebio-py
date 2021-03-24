@@ -135,7 +135,7 @@ def mock_request(method, url, **kwargs):
         return MockResponse(computational_result_1, url)
 
     if url == "https://api.refine.bio/v1/computational_results/2/":
-        return MockResponse(computational_result_1, url)
+        return MockResponse(computational_result_2, url)
 
     if url == "https://api.refine.bio/v1/computational_results/0/":
         return MockResponse(None, url, status=404)
