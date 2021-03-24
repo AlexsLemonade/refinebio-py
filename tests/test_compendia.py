@@ -1,5 +1,7 @@
 import unittest
 import pyrefinebio
+import os
+
 from unittest.mock import Mock, patch
 
 from tests.custom_assertions import CustomAssertions
@@ -7,7 +9,7 @@ from tests.mocks import MockResponse
 
 
 compendium_object_1 = {
-    "id": 69,
+    "id": 1,
     "primary_organism_name": "HUMAN",
     "organism_names": [
         "HUMAN",
@@ -74,7 +76,7 @@ def mock_request(method, url, **kwargs):
     if url == "https://api.refine.bio/v1/compendia/1/":
         return MockResponse(compendium_object_1, url)
 
-    if url == "https://api.refine.bio/v1/compendia/2/":
+    if url == "https://api.refine.bio/v1/compendia/42/":
         return MockResponse(compendium_object_2, url)
 
     if url == "https://api.refine.bio/v1/compendia/0/":
@@ -116,8 +118,6 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
         self.assertObject(results[0], compendium_object_1)
         self.assertObject(results[1], compendium_object_2)
 
-        self.assertEqual(len(mock_request.call_args_list), 2)
-
 
     def test_compendium_search_with_filters(self):
         filtered_results = pyrefinebio.Compendium.search(primary_organism__name="ACTINIDIA_CHINENSIS")
@@ -141,14 +141,16 @@ class CompendiumTests(unittest.TestCase, CustomAssertions):
 
         mock_download.assert_called_with(
             "test_download_url",
-            "test-path",
+            os.path.abspath("test-path"),
             True
         )
 
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
-    def test_compendium_download(self, mock_request):
-        result = pyrefinebio.Compendium.get(2) # 2 has no download_url
+    def test_compendium_download_no_url(self, mock_request):
+        result = pyrefinebio.Compendium.get(42) # 42 has no download_url
+
+        result.computed_file._fetched = True # set fetched to true so that a request isn't made to /computed_files
 
         with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
             result.download("test-path")

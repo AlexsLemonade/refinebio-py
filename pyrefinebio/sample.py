@@ -61,6 +61,8 @@ class Sample(Base):
         experiment_accession_codes=None,
         experiments=None,
     ):
+        super().__init__(identifier=accession_code)
+
         self.id = id
         self.title = title
         self.accession_code = accession_code
@@ -108,7 +110,7 @@ class Sample(Base):
     def experiments(self):
         if not self._experiments:
             self._experiments = prb_experiment.Experiment.search(
-                accession_codes=self.experiment_accession_codes
+                accession_code=self.experiment_accession_codes
             )
 
         return self._experiments

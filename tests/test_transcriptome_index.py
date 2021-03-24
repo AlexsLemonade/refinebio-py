@@ -91,7 +91,6 @@ class TranscriptomeIndexTests(unittest.TestCase, CustomAssertions):
         self.assertObject(results[0], index_1)
         self.assertObject(results[1], index_2)
 
-        self.assertEqual(len(mock_request.call_args_list), 2)
 
     def test_transcriptome_index_search_with_filters(self):
         filtered_results = pyrefinebio.TranscriptomeIndex.search(

@@ -38,6 +38,8 @@ class ComputationalResult(Base):
         created_at=None,
         last_modified=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.commands = commands
         self.processor = prb_processor.Processor(**(processor)) if processor else None

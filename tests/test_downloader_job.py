@@ -66,6 +66,9 @@ def mock_request(method, url, **kwargs):
     if url == "https://api.refine.bio/v1/jobs/downloader/1/":
         return MockResponse(job_1, url)
 
+    if url == "https://api.refine.bio/v1/jobs/downloader/2/":
+        return MockResponse(job_2, url)
+
     if url == "https://api.refine.bio/v1/jobs/downloader/0/":
         return MockResponse(None, url, status=404)
 
@@ -100,14 +103,10 @@ class DownloaderJobTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_downloader_job_search_no_filters(self, mock_request):
-        result = pyrefinebio.DownloaderJob.search()
+        results = pyrefinebio.DownloaderJob.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], job_1)
-        self.assertObject(result_list[1], job_2)
-
-        self.assertEqual(len(mock_request.call_args_list), 2)
+        self.assertObject(results[0], job_1)
+        self.assertObject(results[1], job_2)
 
 
     def test_downloader_job_search_with_filters(self):

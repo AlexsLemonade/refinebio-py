@@ -35,6 +35,8 @@ class QNTarget(Base):
         last_modified=None,
         result=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.filename = filename
         self.size_in_bytes = size_in_bytes

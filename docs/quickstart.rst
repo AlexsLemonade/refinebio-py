@@ -206,7 +206,7 @@ that can print out information about all its classes/functions.
 
 The `help()` function is probably most useful in the REPL.
 
-Here's and example:
+Here's an example:
 
 .. code-block:: shell
 

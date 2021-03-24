@@ -48,6 +48,8 @@ class ComputedFile(Base):
         last_modified=None,
         result=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.filename = filename
         self.samples = [prb_sample.Sample(**sample) for sample in samples] if samples else []

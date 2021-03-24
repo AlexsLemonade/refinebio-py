@@ -6,7 +6,7 @@ from tests.custom_assertions import CustomAssertions
 from tests.mocks import MockResponse
 
 computational_result_1 = {
-    "id": 0,
+    "id": 1,
     "commands": [
         "test1",
         "test2"
@@ -61,7 +61,7 @@ computational_result_1 = {
 }
 
 computational_result_2 = {
-    "id": 0,
+    "id": 2,
     "commands": [
         "test1",
         "test2"
@@ -134,6 +134,9 @@ def mock_request(method, url, **kwargs):
     if url == "https://api.refine.bio/v1/computational_results/1/":
         return MockResponse(computational_result_1, url)
 
+    if url == "https://api.refine.bio/v1/computational_results/2/":
+        return MockResponse(computational_result_2, url)
+
     if url == "https://api.refine.bio/v1/computational_results/0/":
         return MockResponse(None, url, status=404)
 
@@ -168,14 +171,10 @@ class ComputationalResultTests(unittest.TestCase, CustomAssertions):
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_computational_result_search_no_filters(self, mock_request):
-        result = pyrefinebio.ComputationalResult.search()
+        results = pyrefinebio.ComputationalResult.search()
 
-        result_list = list(result)
-
-        self.assertObject(result_list[0], computational_result_1)
-        self.assertObject(result_list[1], computational_result_2)
-
-        self.assertEqual(len(mock_request.call_args_list), 2)
+        self.assertObject(results[0], computational_result_1)
+        self.assertObject(results[1], computational_result_2)
 
 
     def test_computational_result_search_with_filters(self):

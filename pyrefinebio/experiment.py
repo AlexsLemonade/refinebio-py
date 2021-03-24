@@ -54,6 +54,8 @@ class Experiment(Base):
         num_processed_samples=None,
         num_downloadable_samples=None,
     ):
+        super().__init__(identifier=accession_code)
+
         self.id = id
         self.title = title
         self.description = description

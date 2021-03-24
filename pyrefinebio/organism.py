@@ -26,6 +26,8 @@ class Organism(Base):
         has_compendia=None,
         has_quantfile_compendia=None
     ):
+        super().__init__(identifier=name)
+
         self.name = name
         self.taxonomy_id = taxonomy_id
         self.has_compendia = has_compendia

@@ -37,6 +37,8 @@ class DownloaderJob(Base):
         created_at=None,
         last_modified=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.downloader_task = downloader_task
         self.num_retries = num_retries
@@ -154,6 +156,8 @@ class ProcessorJob(Base):
         created_at=None,
         last_modified=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.pipeline_applied = pipeline_applied
         self.num_retries = num_retries
@@ -266,6 +270,8 @@ class SurveyJob(Base):
         created_at=None,
         last_modified=None,
     ):
+        super().__init__(identifier=id)
+
         self.id = id
         self.source_type = source_type
         self.success = success
