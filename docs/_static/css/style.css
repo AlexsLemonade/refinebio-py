@@ -47,12 +47,11 @@ p {
     rgb(162, 182, 223) 95.1%,
     rgb(162, 182, 223)
   );
-  padding: 56px 24px 24px 24px;
+  padding: 24px 24px 24px 24px;
   position: relative;
 }
 
 .icon-home {
-  width: 154px;
   height: 59px;
   padding: 32px;
   background-repeat: no-repeat;
@@ -63,7 +62,6 @@ p {
 
 .wy-side-nav-search a:not(.wy-side-nav-search__back) {
   background: transparent;
-  width: 122px;
   height: 59px;
   padding: 32px;
   background-image: url('../pyrefinebio-logo.svg');
@@ -189,4 +187,18 @@ li.toctree-4 > a {
 
 div.version {
   color: white !important;
+}
+
+.rst-content code.literal {
+  color: #386db0;
+}
+
+/* turn on word wrapping for long code blocks */
+.rst-content div[class^='highlight'] pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
