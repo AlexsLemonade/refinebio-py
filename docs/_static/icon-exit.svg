@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="21px" viewBox="0 0 32 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-exit</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icon-exit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M15,20 L31,20 L31,1 L15,1 L15,20 Z" id="Rectangle" stroke="#CCCCCC" stroke-width="2" fill-rule="nonzero"></path>
+        <path d="M19,11 L3,11" id="Line" stroke="#CCCCCC" stroke-width="2" stroke-linecap="square" fill-rule="nonzero"></path>
+        <path d="M2,11 L7,17" id="Line-2" stroke="#CCCCCC" stroke-width="2" stroke-linecap="square" fill-rule="nonzero"></path>
+        <path d="M1.5,5.5 L7,11" id="Line-2" stroke="#CCCCCC" stroke-width="2" stroke-linecap="square" fill-rule="nonzero" transform="translate(4.000000, 8.000000) scale(1, -1) translate(-4.000000, -8.000000) "></path>
+    </g>
+</svg>

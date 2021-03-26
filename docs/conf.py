@@ -59,6 +59,15 @@ html_theme_options = {
     'collapse_navigation': False
 }
 
+html_context = {
+    "display_github": True,
+    "github_user": "AlexsLemonade",
+    "github_repo": "refinebio-py",
+    "github_version": "HEAD",
+    "conf_py_path": "/docs/",
+    "source_suffix": '.rst',
+}
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
