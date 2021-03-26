@@ -68,7 +68,9 @@ Open `./docs/_build/html/*` in a browser to view the docs
 
 ### Deploying the Docs to Github Pages
 
-Clone the branch `gh-pages` into a folder `./doc-output`
+First, set the variable `release` in `./docs/conf.py` to the correct version.
+
+Then, clone the branch `gh-pages` into a folder `./doc-output`
 
 You can use the following command to do this:
 
