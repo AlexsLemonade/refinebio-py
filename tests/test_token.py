@@ -1,25 +1,16 @@
+import os
 import unittest
+from unittest.mock import patch
+
 import pyrefinebio
 from pyrefinebio.config import Config
-import os
-from unittest.mock import Mock, mock_open, patch
-from importlib import reload
-
 from tests.custom_assertions import CustomAssertions
 from tests.mocks import MockResponse
 
+token = {"id": "123456789", "is_activated": False, "terms_and_conditions": "TL;DR"}
 
-token = {
-    "id": "123456789",
-    "is_activated": False,
-    "terms_and_conditions": "TL;DR"
-}
+token2 = {"id": "test", "is_activated": True, "terms_and_conditions": "TL;DR"}
 
-token2 = {
-    "id": "test",
-    "is_activated": True,
-    "terms_and_conditions": "TL;DR"
-}
 
 def mock_request(method, url, **kwargs):
 
@@ -34,7 +25,6 @@ def mock_request(method, url, **kwargs):
 
 
 class TokenTests(unittest.TestCase, CustomAssertions):
-
     def setUp(self):
         Config._instance = None
 
@@ -42,21 +32,19 @@ class TokenTests(unittest.TestCase, CustomAssertions):
     def tearDownClass(cls):
         if os.path.exists("./temp"):
             os.remove("./temp")
-        
-        os.environ.pop("CONFIG_FILE", None)
 
+        os.environ.pop("REFINEBIO_CONFIG_FILE", None)
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_token_create(self, mock_request):
         result = pyrefinebio.Token(email_address="")
         self.assertEqual(result.id, token["id"])
 
-
     @patch("pyrefinebio.config.yaml.dump")
     @patch("pyrefinebio.config.open")
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_token_save(self, mock_request, mock_open, mock_yaml):
-        os.environ["CONFIG_FILE"] = "test"
+        os.environ["REFINEBIO_CONFIG_FILE"] = "test"
         mock_open.return_value.__enter__.return_value = "file"
 
         token = pyrefinebio.Token(id="test")
@@ -64,17 +52,12 @@ class TokenTests(unittest.TestCase, CustomAssertions):
 
         mock_open.assert_called_with("test", "w")
         mock_yaml.assert_called_with(
-            {
-                "token": token.id,
-                "base_url": "https://api.refine.bio/v1/"
-            },
-            "file"
+            {"token": token.id, "base_url": "https://api.refine.bio/v1/"}, "file"
         )
-
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_token_save_creates_file(self, mock_request):
-        os.environ["CONFIG_FILE"] = "./temp"
+        os.environ["REFINEBIO_CONFIG_FILE"] = "./temp"
 
         if os.path.exists("./temp"):
             os.remove("./temp")
@@ -84,7 +67,6 @@ class TokenTests(unittest.TestCase, CustomAssertions):
 
         self.assertTrue(os.path.exists("./temp"))
 
-
     def test_token_save_bad_id(self):
         with self.assertRaises(pyrefinebio.exceptions.BadRequest) as br:
             token = pyrefinebio.Token(id="test")
@@ -93,10 +75,9 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         self.assertEqual(
             br.exception.base_message,
             "Bad Request: "
-            "Token with id 'test' does not exist in refine.bio. " 
-            "Please create a new token using pyrefinebio.Token()."
+            "Token with id 'test' does not exist in refine.bio. "
+            "Please create a new token using pyrefinebio.Token().",
         )
-
 
     @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
     def test_token_save_unactivated(self, mock_request):
@@ -107,10 +88,9 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         self.assertEqual(
             br.exception.base_message,
             "Bad Request: "
-            "Token with id '123456789' is not activated. " 
-            "Please activate your token with `agree_to_terms_and_conditions()` before saving it."
+            "Token with id '123456789' is not activated. "
+            "Please activate your token with `agree_to_terms_and_conditions()` before saving it.",
         )
-
 
     @patch("pyrefinebio.token.put_by_endpoint")
     def test_token_load(self, mock_put):
@@ -120,4 +100,3 @@ class TokenTests(unittest.TestCase, CustomAssertions):
         token = pyrefinebio.Token.load_token()
 
         self.assertEqual(token.id, "this-is-a-test-token")
-
