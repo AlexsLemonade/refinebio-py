@@ -10,7 +10,7 @@ class Config:
     Config values can be set by environment variables or in the Config file.
 
     The Config file's default location is `~/.refinebio.yaml`, but this location
-    can be set by using the environment variable `CONFIG_FILE`
+    can be set by using the environment variable `REFINEBIO_CONFIG_FILE`
 
     pyrefinebio's configurable values are:
 
@@ -51,7 +51,9 @@ class Config:
         if not cls._instance:
             cls._instance = super(Config, cls).__new__(cls)
 
-            cls.config_file = os.getenv("CONFIG_FILE") or str(Path.home()) + "/.refinebio.yaml"
+            cls.config_file = (
+                os.getenv("REFINEBIO_CONFIG_FILE") or str(Path.home()) + "/.refinebio.yaml"
+            )
 
             config = {}
 
@@ -70,7 +72,7 @@ class Config:
         """Save the config to a file
 
         The default path for this file is `~/.refinebio.yaml`
-        but it can be set using the environment variable `CONFIG_FILE`.
+        but it can be set using the environment variable `REFINEBIO_CONFIG_FILE`.
         """
         config = {"token": self.token, "base_url": self.base_url}
 
