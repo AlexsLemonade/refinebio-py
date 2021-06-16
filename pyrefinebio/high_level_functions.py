@@ -51,6 +51,7 @@ def download_dataset(
     aggregation="EXPERIMENT",
     transformation="NONE",
     skip_quantile_normalization=False,
+    timeout=None,
     extract=False,
     prompt=True,
 ):
@@ -92,6 +93,8 @@ def download_dataset(
         skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
                                             normalization for RNA-seq Samples
 
+        timeout (datetime.timedelta): if specified the function will return None after timeout is reached.
+
         extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
@@ -129,10 +132,10 @@ def download_dataset(
                 " Please try again later."
             )
             return None
-        elif datetime.now() - start_time > timedelta(minutes=15):
+        elif timeout and datetime.now() - start_time > timeout:
             print(
-                "Dataset not processed after 15 minutes. The system may be experiencing issues."
-                " Please try again later."
+                f"Dataset not processed after {timeout}. The system may be experiencing issues"
+                " or your dataset may just be taking a while to process."
             )
             return None
 

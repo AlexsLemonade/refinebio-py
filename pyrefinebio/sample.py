@@ -1,12 +1,12 @@
+from pyrefinebio import (
+    annotation as prb_annotation,
+    computational_result as prb_computational_result,
+    experiment as prb_experiment,
+    organism as prb_organism,
+)
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
-
-from pyrefinebio import annotation as prb_annotation
-from pyrefinebio import computational_result as prb_computational_result
-from pyrefinebio import experiment as prb_experiment
-from pyrefinebio import organism as prb_organism
 
 
 class Sample(Base):

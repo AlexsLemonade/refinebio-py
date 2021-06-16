@@ -1,10 +1,10 @@
 import shutil
 
-from pyrefinebio.base import Base
 from pyrefinebio import computed_file as prb_computed_file
-from pyrefinebio.http import get_by_endpoint, download_file
-from pyrefinebio.util import create_paginated_list, expand_path
+from pyrefinebio.api_interface import download_file, get_by_endpoint
+from pyrefinebio.base import Base
 from pyrefinebio.exceptions import DownloadError, MissingFile
+from pyrefinebio.util import create_paginated_list, expand_path
 
 
 class Compendium(Base):
@@ -68,14 +68,14 @@ class Compendium(Base):
 
         Keyword Arguments:
             primary_organism__name (str): filter based on the name of the primary Organism
-                                          associated with the compendium 
+                                          associated with the compendium
 
             compendium_version (int): filter based on the Compendium's version
 
-            quant_sf_only (bool): true for RNA-seq Sample Compendium results or False 
+            quant_sf_only (bool): true for RNA-seq Sample Compendium results or False
                                   for quantile normalized
 
-            result__id (int): filter based on the id of the ComputationalResult associated 
+            result__id (int): filter based on the id of the ComputationalResult associated
                               with the compendium
 
             ordering (str): which field to use when ordering the results
@@ -89,7 +89,6 @@ class Compendium(Base):
         """
         response = get_by_endpoint("compendia", params=kwargs)
         return create_paginated_list(cls, response)
-
 
     def download(self, path, prompt=True):
         """Download a Compendium result
@@ -107,7 +106,7 @@ class Compendium(Base):
                 "Compendia",
                 "Download url not found - make sure you have set up and activated your Token. "
                 "You can create and activate a new token using pyrefinebio.create_token(). "
-                "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html"
+                "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html",
             )
 
         full_path = expand_path(path, "compendium-" + str(self.id) + ".zip")
@@ -118,7 +117,6 @@ class Compendium(Base):
 
         return self
 
-
     def extract(self):
         """Extract a downloaded Compendium
 
@@ -128,7 +126,7 @@ class Compendium(Base):
         if not self._downloaded_path:
             raise MissingFile(
                 "Compendium downloaded file",
-                "Make sure you have successfully downloaded the Compendium before extracting."
+                "Make sure you have successfully downloaded the Compendium before extracting.",
             )
 
         shutil.unpack_archive(self._downloaded_path)

@@ -1,9 +1,7 @@
-from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
-from pyrefinebio.util import parse_date
-
 import pyrefinebio.organism as prb_organism
+from pyrefinebio.api_interface import get_by_endpoint
+from pyrefinebio.base import Base
+from pyrefinebio.util import parse_date
 
 
 class QNTarget(Base):

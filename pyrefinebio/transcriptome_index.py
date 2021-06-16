@@ -1,6 +1,5 @@
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
 
 
@@ -68,9 +67,9 @@ class TranscriptomeIndex(Base):
         Keyword Arguments:
             salmon_version (str): filter based on the TranscriptomeIndex's salmon version eg. salmon 0.13.1
 
-            index_type (str): `TRANSCRIPTOME_LONG` or `TRANSCRIPTOME_SHORT`. 
-                              If the average read length of the RNA-Seq sample you want to process 
-                              is greater than 75 base pairs, use `TRANSCRIPTOME_LONG` otherwise use 
+            index_type (str): `TRANSCRIPTOME_LONG` or `TRANSCRIPTOME_SHORT`.
+                              If the average read length of the RNA-Seq sample you want to process
+                              is greater than 75 base pairs, use `TRANSCRIPTOME_LONG` otherwise use
                               `TRANSCRIPTOME_SHORT`
 
             ordering (str): which field to use when ordering the results.
@@ -79,10 +78,10 @@ class TranscriptomeIndex(Base):
 
             offset (int): the initial index from which to return the results.
 
-            organism__name (str): filter based on the name of the Organism associated 
+            organism__name (str): filter based on the name of the Organism associated
                                   with the TranscriptomeIndex
 
-            length (str): short hand for index_type eg. `short` or `long` 
+            length (str): short hand for index_type eg. `short` or `long`
                           see `index_type` for more information
         """
         response = get_by_endpoint("transcriptome_indices", params=kwargs)

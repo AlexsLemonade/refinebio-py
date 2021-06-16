@@ -1,10 +1,7 @@
+from pyrefinebio import annotation as prb_annotation, sample as prb_sample
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
-
-from pyrefinebio import annotation as prb_annotation
-from pyrefinebio import sample as prb_sample
 
 
 class Experiment(Base):
@@ -136,7 +133,7 @@ class Experiment(Base):
 
             search (str): specify a keyword which will be applied to the Experiment's title, publication_authors,
                           sample_keywords, publication_title, submitter_institution, description, accession_code,
-                          alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, and 
+                          alternate_accession_code, publication_doi, pubmed_id, sample_metadata_fields, and
                           platform_names
 
             limit (int): number of results to return per page
