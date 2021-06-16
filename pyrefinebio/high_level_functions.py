@@ -134,8 +134,10 @@ def download_dataset(
             return None
         elif timeout and datetime.now() - start_time > timeout:
             print(
-                f"Dataset not processed after {timeout}. The system may be experiencing issues"
-                f" or your dataset may just be taking a while to process."
+                (
+                    "Dataset not processed after {0}. The system may be experiencing issues"
+                    " or your dataset may just be taking a while to process."
+                ).format(timeout)
             )
             return None
 

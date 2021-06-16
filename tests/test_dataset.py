@@ -71,7 +71,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
     def tearDownClass(cls):
         os.environ.pop("REFINEBIO_CONFIG_FILE", None)
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_get(self, mock_request):
         result = pyrefinebio.Dataset.get("test-dataset")
         self.assertObject(result, dataset)
@@ -80,7 +80,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         with self.assertRaises(pyrefinebio.exceptions.NotFound):
             pyrefinebio.Dataset.get("this-does-not-exist")
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_500(self, mock_request):
         with self.assertRaises(pyrefinebio.exceptions.ServerError):
             pyrefinebio.Dataset.get("500")
@@ -123,7 +123,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         with self.assertRaises(pyrefinebio.exceptions.InvalidData):
             pyrefinebio.Dataset(data={"lol": ["not-good"]}).save()
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_process(self, mock_request):
         ds = pyrefinebio.Dataset(
             data={"test-experiment": ["sample-1", "sample-2"]}, email_address="test-email"
@@ -172,7 +172,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
             br.exception.base_message, "Bad Request: You must provide an email address."
         )
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_check(self, mock_request):
         ds = pyrefinebio.Dataset(id="test-dataset")
         is_done = ds.check()
@@ -181,9 +181,9 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         self.assertTrue(ds.is_processing)
         self.assertTrue(ds.is_processed)
 
-    @patch("pyrefinebio.http.shutil.copyfileobj")
-    @patch("pyrefinebio.http.open")
-    @patch("pyrefinebio.http.requests.get")
+    @patch("pyrefinebio.api_interface.shutil.copyfileobj")
+    @patch("pyrefinebio.api_interface.open")
+    @patch("pyrefinebio.api_interface.requests.get")
     def test_dataset_download(self, mock_get, mock_open, mock_copy):
         ds = pyrefinebio.Dataset(download_url="test_download_url")
 
@@ -200,9 +200,9 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         mock_open.assert_called_with(os.path.abspath("test_path"), "wb")
         mock_copy.assert_called_with("raw", "file")
 
-    @patch("pyrefinebio.http.shutil.copyfileobj")
-    @patch("pyrefinebio.http.input")
-    @patch("pyrefinebio.http.requests.get")
+    @patch("pyrefinebio.api_interface.shutil.copyfileobj")
+    @patch("pyrefinebio.api_interface.input")
+    @patch("pyrefinebio.api_interface.requests.get")
     def test_dataset_download_big_file(self, mock_get, mock_input, mock_copy):
         ds = pyrefinebio.Dataset(download_url="test_download_url")
 
@@ -218,7 +218,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         mock_get.assert_called_with("test_download_url", stream=True)
         mock_copy.assert_not_called()
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_download_no_url(self, mock_request):
         ds = pyrefinebio.Dataset(id="non-processed-dataset", download_url=None)
         with self.assertRaises(pyrefinebio.exceptions.DownloadError) as de:
@@ -229,9 +229,9 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
             "Unable to download Dataset\nDownload url not found - you must process the Dataset before downloading.",
         )
 
-    @patch("pyrefinebio.http.shutil.copyfileobj")
-    @patch("pyrefinebio.http.input")
-    @patch("pyrefinebio.http.requests.get")
+    @patch("pyrefinebio.api_interface.shutil.copyfileobj")
+    @patch("pyrefinebio.api_interface.input")
+    @patch("pyrefinebio.api_interface.requests.get")
     def test_dataset_download_no_size_header(self, mock_get, mock_input, mock_copy):
         ds = pyrefinebio.Dataset(download_url="test_download_url")
 

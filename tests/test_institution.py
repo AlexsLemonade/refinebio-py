@@ -1,24 +1,15 @@
 import unittest
-import pyrefinebio
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
+import pyrefinebio
 from tests.custom_assertions import CustomAssertions
 from tests.mocks import MockResponse
 
-
 institutions = [
-    {
-        "submitter_institution": "Drexel University"
-    },
-    {
-        "submitter_institution": "University of Pennsylvania"
-    },
-    {
-        "submitter_institution": "NYU MEDICAL SCHOOL"
-    },
-    {
-        "submitter_institution": "Villanova University"
-    }
+    {"submitter_institution": "Drexel University"},
+    {"submitter_institution": "University of Pennsylvania"},
+    {"submitter_institution": "NYU MEDICAL SCHOOL"},
+    {"submitter_institution": "Villanova University"},
 ]
 
 
@@ -29,8 +20,7 @@ def mock_request(method, url, **kwargs):
 
 
 class ComputedFileTests(unittest.TestCase, CustomAssertions):
-
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_computed_file_get(self, mock_request):
         result = pyrefinebio.Institution.search()
 

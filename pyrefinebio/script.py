@@ -20,7 +20,7 @@ class JsonParamType(click.ParamType):
         try:
             return json.loads(value)
         except:
-            self.fail(f"expected valid json string, got: {value}", param, ctx)
+            self.fail("expected valid json string, got: {0}".format(value), param, ctx)
 
 
 class ListParamType(click.ParamType):
@@ -30,7 +30,7 @@ class ListParamType(click.ParamType):
         try:
             return value.split()
         except:
-            self.fail(f"expected valid string in list form, got: {value}", param, ctx)
+            self.fail("expected valid string in list form, got: {0}".format(value), param, ctx)
 
 
 class TimedeltaParamType(click.ParamType):
@@ -42,7 +42,7 @@ class TimedeltaParamType(click.ParamType):
             return timedelta(seconds=seconds)
         except:
             self.fail(
-                f"expected a string representing a timeout like '5 minutes', got: {value}",
+                "expected a string representing a timeout like '5 minutes', got: {0}".format(value),
                 param,
                 ctx,
             )

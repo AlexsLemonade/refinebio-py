@@ -65,7 +65,7 @@ class OriginalFile(Base):
                 if type(downloader_job) is dict:
                     self.downloader_jobs.append(prb_job.DownloaderJob(**downloader_job))
                 else:
-                    self.downloader_job.append(downloader_job)
+                    self.downloader_jobs.append(downloader_job)
 
         self.source_url = source_url
         self.source_filename = source_filename
