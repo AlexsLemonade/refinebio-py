@@ -1,12 +1,10 @@
 import shutil
 
+from pyrefinebio import computational_result as prb_computational_result, sample as prb_sample
+from pyrefinebio.api_interface import download_file, get_by_endpoint
 from pyrefinebio.base import Base
-from pyrefinebio.http import get_by_endpoint, download_file
-from pyrefinebio.util import create_paginated_list, parse_date, expand_path
 from pyrefinebio.exceptions import DownloadError, MissingFile
-
-from pyrefinebio import computational_result as prb_computational_result
-from pyrefinebio import sample as prb_sample
+from pyrefinebio.util import create_paginated_list, expand_path, parse_date
 
 
 class ComputedFile(Base):
@@ -72,7 +70,6 @@ class ComputedFile(Base):
 
         self._downloaded_path = None
 
-
     @classmethod
     def get(cls, id):
         """Retrieve a specific ComputedFile based on id
@@ -104,7 +101,7 @@ class ComputedFile(Base):
             is_smashable (bool): filter based on if the ComputedFile can be added to a normalized
                                  Dataset
 
-            is_qc (bool): filter based on if the ComputedFile contains data about 
+            is_qc (bool): filter based on if the ComputedFile contains data about
                           the quality control of a result rather than data about the
                           result itself
 
@@ -121,7 +118,7 @@ class ComputedFile(Base):
 
             last_modified (str): filter based on the time that the ComputedFile was last modified
 
-            result__id (int): filter based on the id of the ComputationalResult associated with the 
+            result__id (int): filter based on the id of the ComputationalResult associated with the
                               ComputedFile
 
             ordering (str): which field to use when ordering the results
@@ -132,7 +129,6 @@ class ComputedFile(Base):
         """
         response = get_by_endpoint("computed_files", params=kwargs)
         return create_paginated_list(cls, response)
-
 
     def download(self, path, prompt=True):
         """Download a ComputedFile
@@ -150,7 +146,7 @@ class ComputedFile(Base):
                 "ComputedFile",
                 "Download url not found - make sure you have set up and activated your Token. "
                 "You can create and activate a new token using pyrefinebio.create_token(). "
-                "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html"
+                "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html",
             )
 
         full_path = expand_path(path, "computedfile-" + str(self.id) + ".zip")
@@ -161,7 +157,6 @@ class ComputedFile(Base):
 
         return self
 
-
     def extract(self):
         """Extract a downloaded ComputedFile
 
@@ -171,9 +166,8 @@ class ComputedFile(Base):
         if not self._downloaded_path:
             raise MissingFile(
                 "ComputedFile downloaded file",
-                "Make sure you have successfully downloaded the ComputedFile before extracting."
+                "Make sure you have successfully downloaded the ComputedFile before extracting.",
             )
 
         shutil.unpack_archive(self._downloaded_path)
         return self
-

@@ -35,14 +35,14 @@ class TokenTests(unittest.TestCase, CustomAssertions):
 
         os.environ.pop("REFINEBIO_CONFIG_FILE", None)
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_token_create(self, mock_request):
         result = pyrefinebio.Token(email_address="")
         self.assertEqual(result.id, token["id"])
 
     @patch("pyrefinebio.config.yaml.dump")
     @patch("pyrefinebio.config.open")
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_token_save(self, mock_request, mock_open, mock_yaml):
         os.environ["REFINEBIO_CONFIG_FILE"] = "test"
         mock_open.return_value.__enter__.return_value = "file"
@@ -55,7 +55,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
             {"token": token.id, "base_url": "https://api.refine.bio/v1/"}, "file"
         )
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_token_save_creates_file(self, mock_request):
         os.environ["REFINEBIO_CONFIG_FILE"] = "./temp"
 
@@ -79,7 +79,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
             "Please create a new token using pyrefinebio.Token().",
         )
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_token_save_unactivated(self, mock_request):
         with self.assertRaises(pyrefinebio.exceptions.BadRequest) as br:
             token = pyrefinebio.Token(id="123456789")

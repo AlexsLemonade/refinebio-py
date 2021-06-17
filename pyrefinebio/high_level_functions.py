@@ -1,8 +1,9 @@
-import pyrefinebio
 import re
 import time
+from datetime import datetime, timedelta
 
-from pyrefinebio import Dataset, Compendium, Token
+import pyrefinebio
+from pyrefinebio import Compendium, Dataset, Token
 from pyrefinebio.exceptions import DownloadError
 
 
@@ -10,14 +11,14 @@ def help(entity=None):
     """Help
 
     Prints out information about pyrefinebio's classes and functions.
-    To get information about a class method, pass in the class name and method name  
+    To get information about a class method, pass in the class name and method name
     separated by either a space or a `.`
-    
+
     Examples:
         getting information about classes:
 
         >>> pyrefinebio.help("Sample")
-        
+
         getting information about class methods:
 
         >>> pyrefinebio.help("Sample.get")
@@ -50,8 +51,9 @@ def download_dataset(
     aggregation="EXPERIMENT",
     transformation="NONE",
     skip_quantile_normalization=False,
+    timeout=None,
     extract=False,
-    prompt=True
+    prompt=True,
 ):
     """download_dataset
 
@@ -66,7 +68,7 @@ def download_dataset(
 
         email_address (str): the email address that will be contacted with info
                                 related to the dataset
-        
+
         dataset_dict (dict): a fully formed Dataset `data` attribute in the form:
                                 {
                                     "Experiment": [
@@ -80,8 +82,8 @@ def download_dataset(
                                 code as a string
 
         experiments (list): a list of Experiments that should be added to the dataset
-                            use this parameter if you only care about the Experiments - all 
-                            available samples related to each Experiment will be added  
+                            use this parameter if you only care about the Experiments - all
+                            available samples related to each Experiment will be added
                             the list can contain Experiment objects or accession codes as strings
 
         aggregation (str): how the Dataset should be aggregated - by `EXPERIMENT`, by `SPECIES`, or by `ALL`
@@ -91,14 +93,16 @@ def download_dataset(
         skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
                                             normalization for RNA-seq Samples
 
+        timeout (datetime.timedelta): if specified the function will return None after timeout is reached.
+
         extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     if dataset_dict and experiments:
         raise DownloadError(
-            "Dataset", 
-            extra_info="You should either provide dataset_dict or experiments but not both"
+            "Dataset",
+            extra_info="You should either provide dataset_dict or experiments but not both",
         )
 
     print("Creating Dataset...")
@@ -106,12 +110,12 @@ def download_dataset(
     dataset = Dataset(
         email_address=email_address,
         aggregate_by=aggregation,
-        quantile_normalize=(not skip_quantile_normalization)
+        quantile_normalize=(not skip_quantile_normalization),
     )
 
     if dataset_dict:
         dataset.data = dataset_dict
-    
+
     if experiments:
         for experiment in experiments:
             dataset.add_samples(experiment)
@@ -120,12 +124,28 @@ def download_dataset(
 
     dataset.process()
 
+    start_time = datetime.now()
     while not dataset.check():
+        if not dataset.is_processing and not dataset.is_processed:
+            print(
+                "Dataset failed to process. The system may be experiencing issues."
+                " Please try again later."
+            )
+            return None
+        elif timeout and datetime.now() - start_time > timeout:
+            print(
+                (
+                    "Dataset not processed after {0}. The system may be experiencing issues"
+                    " or your dataset may just be taking a while to process."
+                ).format(timeout)
+            )
+            return None
+
         time.sleep(5)
 
     print("Downloading Dataset...")
 
-    datset = dataset.download(path, prompt)
+    dataset = dataset.download(path, prompt)
 
     if extract:
         print("Extracting Dataset...")
@@ -135,12 +155,7 @@ def download_dataset(
 
 
 def download_compendium(
-    path,
-    organism,
-    version=None,
-    quant_sf_only=False,
-    extract=False,
-    prompt=True
+    path, organism, version=None, quant_sf_only=False, extract=False, prompt=True
 ):
     """download_compendium
 
@@ -152,23 +167,20 @@ def download_compendium(
     Parameters:
         path (str): the path that the Compendium should be downloaded to
 
-        organism (str): the name of the Organism for the Compendium you want to 
+        organism (str): the name of the Organism for the Compendium you want to
                         download
-        
+
         version (int): the version for the Compendium you want to download - None
                        for latest version
 
-        quant_sf_only (bool): true for RNA-seq Sample Compendium results or False 
+        quant_sf_only (bool): true for RNA-seq Sample Compendium results or False
                               for quantile normalized
 
         extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
-    search_params = {
-        "primary_organism__name": organism,
-        "quant_sf_only": quant_sf_only
-    }
+    search_params = {"primary_organism__name": organism, "quant_sf_only": quant_sf_only}
 
     if version:
         search_params["compendium_version"] = version
@@ -181,9 +193,10 @@ def download_compendium(
 
     if not compendium:
         raise DownloadError(
-            "Compendium", 
-            extra_info="Could not find any Compendium with organism name, {0}, version {1}, and quant_sf_only, {2}"
-                .format(organism, version, quant_sf_only)
+            "Compendium",
+            extra_info="Could not find any Compendium with organism name, {0}, version {1}, and quant_sf_only, {2}".format(
+                organism, version, quant_sf_only
+            ),
         )
 
     print("Downloading Compendium...")
@@ -197,14 +210,7 @@ def download_compendium(
     return compendium
 
 
-
-def download_quantfile_compendium(
-    path,
-    organism,
-    version=None,
-    extract=False,
-    prompt=True
-):
+def download_quantfile_compendium(path, organism, version=None, extract=False, prompt=True):
     """download_quantfile_compendium
 
     Download a Compendium for the specified organism.
@@ -214,9 +220,9 @@ def download_quantfile_compendium(
         Compendium
 
     Parameters:
-        path (str): the path that the Compendium should be downloaded to 
+        path (str): the path that the Compendium should be downloaded to
 
-        organism (str): the name of the Organism for the Compendium you want to 
+        organism (str): the name of the Organism for the Compendium you want to
                         download
 
         version (int): the version for the Compendium you want to download - None
@@ -227,12 +233,7 @@ def download_quantfile_compendium(
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
     """
     return download_compendium(
-        path, 
-        organism,
-        version=version,
-        quant_sf_only=True,
-        extract=extract,
-        prompt=prompt
+        path, organism, version=version, quant_sf_only=True, extract=extract, prompt=prompt
     )
 
 
@@ -255,7 +256,9 @@ def create_token(agree_to_terms=None, save_token=None):
                            not be saved. Leave as None to be prompted before saving.
     """
     if agree_to_terms is None:
-        print("Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy")
+        print(
+            "Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy"
+        )
         yn = input("Do you understand and accept both documents? (y/N)")
         agree_to_terms = yn.lower() in ("y", "yes")
 
@@ -267,7 +270,7 @@ def create_token(agree_to_terms=None, save_token=None):
     if save_token is None:
         yn = input("Would you like to save your Token to the Config file for future use? (y/N)")
         save_token = yn.lower() in ("y", "yes")
-    
+
     if save_token:
         token.save_token()
 

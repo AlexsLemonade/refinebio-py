@@ -1,6 +1,5 @@
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list
 
 
@@ -18,14 +17,8 @@ class Processor(Base):
         >>> import pyrefinebio
         >>> processors = pyrefinebio.Processor.search()
     """
-    def __init__(
-        self,
-        id=None,
-        name=None,
-        version=None,
-        docker_image=None,
-        environment=None
-    ):
+
+    def __init__(self, id=None, name=None, version=None, docker_image=None, environment=None):
         super().__init__(identifier=id)
 
         self.id = id

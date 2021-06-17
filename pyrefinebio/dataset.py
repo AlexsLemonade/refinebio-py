@@ -1,19 +1,23 @@
 import shutil
 
-from pyrefinebio.base import Base
-from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint, download_file
-from pyrefinebio.exceptions import DownloadError, MissingFile
-from pyrefinebio.util import parse_date, expand_path
-
 import pyrefinebio.experiment as prb_experiment
 import pyrefinebio.sample as prb_sample
+from pyrefinebio.api_interface import (
+    download_file,
+    get_by_endpoint,
+    post_by_endpoint,
+    put_by_endpoint,
+)
+from pyrefinebio.base import Base
+from pyrefinebio.exceptions import DownloadError, MissingFile
+from pyrefinebio.util import expand_path, parse_date
 
 
 class Dataset(Base):
     """Dataset
 
-    Datasets are collections of experiments and their samples.  
-    A Dataset needs to be constructed and then processed before it can be downloaded.  
+    Datasets are collections of experiments and their samples.
+    A Dataset needs to be constructed and then processed before it can be downloaded.
     Downloading a Dataset requires an activated API token. See `pyrefinebio.Token` for more details
 
     Create and save a Dataset
@@ -74,12 +78,12 @@ class Dataset(Base):
         quantile_normalize=None,
         quant_sf_only=None,
         svd_algorithm=None,
-        download_url=None
+        download_url=None,
     ):
         super().__init__(identifier=id)
 
         self.id = id
-        self.data = data 
+        self.data = data
         self.aggregate_by = aggregate_by
         self.scale_by = scale_by
         self.is_processing = is_processing
@@ -105,7 +109,6 @@ class Dataset(Base):
 
         self._downloaded_path = None
 
-
     @classmethod
     def get(cls, id):
         """Retrieve a specific Dataset based on id
@@ -118,7 +121,6 @@ class Dataset(Base):
         """
         response = get_by_endpoint("dataset/" + id).json()
         return Dataset(**response)
-
 
     def add_samples(self, experiment, samples=["ALL"]):
         """Add samples to a dataset
@@ -140,8 +142,17 @@ class Dataset(Base):
             return
 
         # get accession codes if Experiment or Sample objects are passed in
-        experiment = experiment.accession_code if isinstance(experiment, prb_experiment.Experiment) else experiment
-        samples = [sample.accession_code if isinstance(sample, prb_sample.Sample) else sample for sample in samples]
+        if isinstance(experiment, prb_experiment.Experiment):
+            experiment = experiment.accession_code
+
+        sample_accession_codes = []
+        for sample in samples:
+            if isinstance(sample, prb_sample.Sample):
+                sample_accession_codes.append(sample.accession_code)
+            else:
+                sample_accession_codes.append(sample)
+
+        samples = sample_accession_codes
 
         if self.data:
             self.data[experiment] = samples
@@ -150,13 +161,12 @@ class Dataset(Base):
 
         return self
 
-
     def save(self):
         """Save a Dataset
 
         In order for a dataset to be saved its `data` attribute must be properly set.
-        The `data` attribute should be a dict with experiment accession codes as the keys  
-        and lists of sample accession codes as the values. If you want all samples associated  
+        The `data` attribute should be a dict with experiment accession codes as the keys
+        and lists of sample accession codes as the values. If you want all samples associated
         with the experiment, you can use the value `"ALL"`.
 
         Example:
@@ -204,11 +214,10 @@ class Dataset(Base):
 
         return self
 
-
     def process(self):
         """Start processing a Dataset
 
-        In order for a Dataset to be processed, its `data` and `email_address` attributes  
+        In order for a Dataset to be processed, its `data` and `email_address` attributes
         must be properly set.
 
         Returns:
@@ -217,7 +226,6 @@ class Dataset(Base):
         self.start = True
         response = self.save()
         self.is_processing = response.is_processing
-
 
     def check(self):
         """Check to see if a Dataset has finished processing
@@ -230,7 +238,6 @@ class Dataset(Base):
         self.is_processing = response.is_processing
         self.is_processed = response.is_processed
         return response.is_processed
-
 
     def download(self, path, prompt=True):
         """Download a processed Dataset
@@ -253,12 +260,12 @@ class Dataset(Base):
                     "Dataset",
                     "Download url not found - make sure you have set up and activated your Token. "
                     "You can create and activate a new token using pyrefinebio.create_token(). "
-                    "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html"
+                    "See documentation for advanced usage: https://alexslemonade.github.io/refinebio-py/token.html",
                 )
             else:
                 raise DownloadError(
                     "Dataset",
-                    "Download url not found - you must process the Dataset before downloading."
+                    "Download url not found - you must process the Dataset before downloading.",
                 )
 
         full_path = expand_path(path, "dataset-" + str(self.id) + ".zip")
@@ -269,7 +276,6 @@ class Dataset(Base):
 
         return self
 
-    
     def extract(self):
         """Extract a downloaded Dataset
 

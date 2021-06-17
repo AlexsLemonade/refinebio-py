@@ -1,6 +1,5 @@
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 
 
 class Platform(Base):
@@ -12,11 +11,7 @@ class Platform(Base):
         >>> og_files = pyrefinebio.Platform.search()
     """
 
-    def __init__(
-        self,
-        platform_accession_code=None,
-        platform_name=None
-    ):
+    def __init__(self, platform_accession_code=None, platform_name=None):
         self.platform_accession_code = platform_accession_code
         self.platform_name = platform_name
 

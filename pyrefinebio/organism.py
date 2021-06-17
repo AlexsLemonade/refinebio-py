@@ -1,6 +1,5 @@
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list
 
 
@@ -20,11 +19,7 @@ class Organism(Base):
     """
 
     def __init__(
-        self,
-        name=None,
-        taxonomy_id=None,
-        has_compendia=None,
-        has_quantfile_compendia=None
+        self, name=None, taxonomy_id=None, has_compendia=None, has_quantfile_compendia=None
     ):
         super().__init__(identifier=name)
 

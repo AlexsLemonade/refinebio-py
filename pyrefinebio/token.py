@@ -1,20 +1,19 @@
 import os
 
+from pyrefinebio.api_interface import get_by_endpoint, post_by_endpoint, put_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint, post_by_endpoint, put_by_endpoint
 from pyrefinebio.config import Config
-from pyrefinebio.exceptions import NotFound, BadRequest
-
+from pyrefinebio.exceptions import BadRequest, NotFound
 
 config = Config()
+
 
 class Token(Base):
     """Handles the creation, activation, saving, and loading of refine.bio's api tokens.
 
     These tokens can be used in requests that provide urls to download computed files.
 
-    Please review refine.bio's [Terms of Use](https://www.refine.bio/terms) and 
+    Please review refine.bio's [Terms of Use](https://www.refine.bio/terms) and
     [Privacy Policy](https://www.refine.bio/privacy) before use of these tokens.
 
     Create a new Token
@@ -41,27 +40,19 @@ class Token(Base):
     """
 
     def __init__(
-        self,
-        email_address=None,
-        id=None,
+        self, email_address=None, id=None,
     ):
         if id is None:
-            response = post_by_endpoint(
-                "token",
-                payload={
-                    "email_address": email_address
-                }
-            ).json()
+            response = post_by_endpoint("token", payload={"email_address": email_address}).json()
             self.id = response["id"]
         else:
             self.id = id
 
         self.email_address = email_address
 
-
     def agree_to_terms_and_conditions(self):
         """Activates a token.
-        
+
         Tokens that are activated will be added to Config and can be used to make requests
         until pyrefinebio is re-imported.
 
@@ -76,12 +67,11 @@ class Token(Base):
             put_by_endpoint("token/" + str(self.id), payload={"is_activated": True})
         except NotFound:
             raise BadRequest(
-                "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
+                "Token with id '" + str(self.id) + "' does not exist in refine.bio. "
                 "Please create a new token."
             )
-        
-        config.token = self.id
 
+        config.token = self.id
 
     def save_token(self):
         """Saves a token to the config file.
@@ -93,18 +83,17 @@ class Token(Base):
             response = get_by_endpoint("token/" + str(self.id)).json()
             if not response["is_activated"]:
                 raise BadRequest(
-                    "Token with id '" + str(self.id) + "' is not activated. " 
+                    "Token with id '" + str(self.id) + "' is not activated. "
                     "Please activate your token with `agree_to_terms_and_conditions()` before saving it."
                 )
         except NotFound:
             raise BadRequest(
-                "Token with id '" + str(self.id) + "' does not exist in refine.bio. " 
+                "Token with id '" + str(self.id) + "' does not exist in refine.bio. "
                 "Please create a new token using pyrefinebio.Token()."
             )
 
         config.token = self.id
         config.save()
-
 
     @classmethod
     def load_token(cls):

@@ -1,6 +1,5 @@
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
 
 
@@ -80,33 +79,33 @@ class DownloaderJob(Base):
             id (int): filter based on the id of the DownloaderJob
 
             downloader_task (str): filter based on the job's task type
-            
+
             num_retries (int): filter based on the number of times the job has retried
 
             retried (bool): filter based on if the job has retried
-            
+
             was_recreated (bool): filter based on if the job was recreated
-            
+
             worker_id (str): filter based on the job's worker id
-            
+
             worker_version (str): filter based on the job's worker version
-            
+
             nomad_job_id (str): filter based on the job's nomad id
-            
+
             failure_reason (str): filter based on the reason why the job failed
-            
+
             success (bool): filter based on if the job succeeded
-            
+
             original_files (str): filter based on the ids of the OriginalFiles associated with the job
-            
+
             start_time (str): filter based on the time when the job started
-            
+
             end_time (str): filter based on the time when the job finished
-            
+
             created_at (str): filter based on the time that the job was created
-            
+
             last_modified (str): filter based on the time that the job was last modified
-            
+
             ordering (str): which field to use when ordering the results.
 
             limit (int): number of results to return per page.
@@ -198,39 +197,39 @@ class ProcessorJob(Base):
 
         Keyword Arguments:
             id (int): filter based on the id of the ProcessorJob
-            
+
             pipeline_applied (str): filter based on the type of pipeline applied to the job
-            
+
             num_retries (int): filter based on the number of times the job has retried
-            
+
             retried (bool): filter based on if the job has retried
-            
+
             worker_id (str): filter based on the id of the job's worker
-            
+
             ram_amount (int): filter based on the amount of ram assigned to the job
-            
+
             volume_index (str):
-            
+
             worker_version (str): filter based on the job's worker version
-            
+
             failure_reason (str): filter based on the reason why the job failed
-            
+
             nomad_job_id (str): filter based on the job's nomad id
-            
+
             success (bool): filter based on if the job has succeeded
-            
+
             original_files (str): filter based on the ids of the OriginalFiles associated with the job
-            
+
             datasets (str): filter based on the ids of the Datasets associated with the job
-            
+
             start_time (str): filter based on the time when the job started
-            
+
             end_time (str): filter based on the time when the job finished
-            
+
             created_at (str): filter based on the time when the job was created
-            
+
             last_modified (str): filter based on the time when the job was last modified
-            
+
             ordering (str): which field to use when ordering the results.
 
             limit (int): number of results to return per page.
@@ -302,19 +301,19 @@ class SurveyJob(Base):
 
         Keyword Arguments:
             id (int): filter based on the id of the SurveyJob
-                
+
             source_type (str): filter based on the name of the source database
-            
+
             success (bool): filter based on if the job has succeeded
-            
+
             start_time (str): filter based on the time when the job started
-            
+
             end_time (str): filter based on the time when the job finished
-            
+
             created_at (str): filter based on the time when the job was created
-            
+
             last_modified (str): filter based on the time when the job was last modified
-            
+
             ordering (str): which field to use when ordering the results.
 
             limit (int): number of results to return per page.

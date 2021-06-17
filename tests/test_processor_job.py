@@ -1,10 +1,9 @@
 import unittest
-import pyrefinebio
 from unittest.mock import Mock, patch
 
+import pyrefinebio
 from tests.custom_assertions import CustomAssertions
 from tests.mocks import MockResponse
-
 
 job_1 = {
     "id": 1,
@@ -23,7 +22,7 @@ job_1 = {
     "start_time": None,
     "end_time": None,
     "created_at": "2020-10-14T17:30:09.480064Z",
-    "last_modified": "2020-10-14T17:30:09.493173Z"
+    "last_modified": "2020-10-14T17:30:09.493173Z",
 }
 
 job_2 = {
@@ -38,34 +37,18 @@ job_2 = {
     "failure_reason": None,
     "nomad_job_id": "SMASHER/dispatch-1602694804-d9a3164b",
     "success": True,
-    "original_files": [
-        12345,
-        13456,
-        14567
-    ],
-    "datasets": [
-        "test-set-1",
-        "test-set-2"
-    ],
+    "original_files": [12345, 13456, 14567],
+    "datasets": ["test-set-1", "test-set-2"],
     "start_time": "2020-10-14T17:00:38.579600Z",
     "end_time": "2020-10-14T17:02:12.439331Z",
     "created_at": "2020-10-14T17:00:04.154755Z",
-    "last_modified": "2020-10-14T17:02:12.658330Z"
+    "last_modified": "2020-10-14T17:02:12.658330Z",
 }
 
-search_1 = {
-    "count": 2,
-    "next": "search_2",
-    "previous": None,
-    "results": [job_1]
-}
+search_1 = {"count": 2, "next": "search_2", "previous": None, "results": [job_1]}
 
-search_2 = {
-    "count": 2,
-    "next": None,
-    "previous": "search_1",
-    "results": [job_2]
-}
+search_2 = {"count": 2, "next": None, "previous": "search_1", "results": [job_2]}
+
 
 def mock_request(method, url, **kwargs):
 
@@ -87,42 +70,39 @@ def mock_request(method, url, **kwargs):
     if url == "search_2":
         return MockResponse(search_2, url)
 
-class ProcessorJobTests(unittest.TestCase, CustomAssertions):
 
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+class ProcessorJobTests(unittest.TestCase, CustomAssertions):
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_processor_job_get(self, mock_request):
         result = pyrefinebio.ProcessorJob.get(1)
         self.assertObject(result, job_1)
 
-
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_processor_job_500(self, mock_request):
         with self.assertRaises(pyrefinebio.exceptions.ServerError):
             pyrefinebio.ProcessorJob.get(500)
 
-
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_processor_job_get_404(self, mock_request):
         with self.assertRaises(pyrefinebio.exceptions.NotFound):
             pyrefinebio.ProcessorJob.get(0)
 
-
-    @patch("pyrefinebio.http.requests.request", side_effect=mock_request)
+    @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_processor_job_search_no_filters(self, mock_request):
         results = pyrefinebio.ProcessorJob.search()
 
         self.assertObject(results[0], job_1)
         self.assertObject(results[1], job_2)
 
-
     def test_processor_job_search_with_filters(self):
-        filtered_results = pyrefinebio.ProcessorJob.search(retried=True, num_retries=4, pipeline_applied="QN_REFERENCE")
+        filtered_results = pyrefinebio.ProcessorJob.search(
+            retried=True, num_retries=4, pipeline_applied="QN_REFERENCE"
+        )
 
         for result in filtered_results:
             self.assertTrue(result.retried)
             self.assertEqual(result.num_retries, 4)
             self.assertEqual(result.pipeline_applied, "QN_REFERENCE")
-
 
     def test_processor_job_search_with_invalid_filters(self):
         with self.assertRaises(pyrefinebio.exceptions.InvalidFilters):

@@ -1,12 +1,12 @@
+from pyrefinebio import (
+    annotation as prb_annotation,
+    computed_file as prb_computed_file,
+    processor as prb_processor,
+    transcriptome_index as prb_transcriptome_index,
+)
+from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
-
-from pyrefinebio.http import get_by_endpoint
 from pyrefinebio.util import create_paginated_list, parse_date
-
-from pyrefinebio import annotation as prb_annotation
-from pyrefinebio import transcriptome_index as prb_transcriptome_index
-from pyrefinebio import computed_file as prb_computed_file
-from pyrefinebio import processor as prb_processor
 
 
 class ComputationalResult(Base):
@@ -50,9 +50,11 @@ class ComputationalResult(Base):
             else []
         )
         self.files = [prb_computed_file.ComputedFile(**file) for file in files] if files else []
-        self.organism_index = (
-            prb_transcriptome_index.TranscriptomeIndex(**(organism_index)) if organism_index else None
-        )
+        if organism_index:
+            self.organism_index = prb_transcriptome_index.TranscriptomeIndex(**(organism_index))
+        else:
+            self.organism_index = None
+
         self.time_start = parse_date(time_start)
         self.time_end = parse_date(time_end)
         self.created_at = parse_date(created_at)

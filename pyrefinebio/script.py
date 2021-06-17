@@ -1,8 +1,9 @@
-import click
 import json
+from datetime import timedelta
 
+import click
 import pyrefinebio.high_level_functions as hlf
-
+import pytimeparse
 from pyrefinebio.exceptions import DownloadError
 
 
@@ -19,11 +20,7 @@ class JsonParamType(click.ParamType):
         try:
             return json.loads(value)
         except:
-            self.fail(
-                "expected valid json string, got: {0}".format(value),
-                param,
-                ctx
-            )
+            self.fail("expected valid json string, got: {0}".format(value), param, ctx)
 
 
 class ListParamType(click.ParamType):
@@ -33,10 +30,21 @@ class ListParamType(click.ParamType):
         try:
             return value.split()
         except:
+            self.fail("expected valid string in list form, got: {0}".format(value), param, ctx)
+
+
+class TimedeltaParamType(click.ParamType):
+    name = "timedelta"
+
+    def convert(self, value, param, ctx):
+        try:
+            seconds = pytimeparse.parse(value)
+            return timedelta(seconds=seconds)
+        except:
             self.fail(
-                "expected valid string in list form, got: {0}".format(value),
+                "expected a string representing a timeout like '5 minutes', got: {0}".format(value),
                 param,
-                ctx
+                ctx,
             )
 
 
@@ -65,10 +73,7 @@ def describe(entity=None):
     help="The email that will be contacted with info related to the Dataset",
 )
 @click.option(
-    "--path",
-    default="./",
-    type=click.Path(),
-    help="Path that the dataset should be downloaded to"
+    "--path", default="./", type=click.Path(), help="Path that the dataset should be downloaded to"
 )
 @click.option(
     "--dataset-dict",
@@ -76,8 +81,8 @@ def describe(entity=None):
     type=JsonParamType(),
     help=(
         "A fully formed Dataset `data` attribute in JSON format. Use this parameter if you want "
-        "to specify specific Samples for your Dataset. Ex: '{\"GSE74410\": [\"GSM1919903\"]}'"
-    )
+        'to specify specific Samples for your Dataset. Ex: \'{"GSE74410": ["GSM1919903"]}\''
+    ),
 )
 @click.option(
     "--experiments",
@@ -103,6 +108,12 @@ def describe(entity=None):
     type=click.BOOL,
     help="Control whether the Dataset should skip quantile normalization for RNA-seq Samples",
 )
+@click.option(
+    "--timeout",
+    default=None,
+    type=TimedeltaParamType(),
+    help="A string representing how long to wait for the dataset to process such as '15 minutes'.",
+)
 def download_dataset(
     email_address,
     path,
@@ -111,6 +122,7 @@ def download_dataset(
     aggregation,
     transformation,
     skip_quantile_normalization,
+    timeout,
 ):
     """
     Automatically constructs a Dataset, processes it, waits for it
@@ -125,21 +137,19 @@ def download_dataset(
             aggregation,
             transformation,
             skip_quantile_normalization,
+            timeout=timeout,
         )
     except DownloadError as e:
         raise click.ClickException(str(e))
 
 
 @cli.command()
-@click.option(
-    "--organism",
-    help="The name of the Organism for the Compendium you want to download"
-)
+@click.option("--organism", help="The name of the Organism for the Compendium you want to download")
 @click.option(
     "--path",
     default="./",
     type=click.Path(),
-    help="Path that the Compendium should be downloaded to"
+    help="Path that the Compendium should be downloaded to",
 )
 @click.option(
     "--quant-sf-only",
@@ -150,7 +160,7 @@ def download_dataset(
 def download_compendium(organism, path, quant_sf_only=False):
     """
     Download a Compendium for the specified organism.
-    For more information on normalized Compendia check out the following link: 
+    For more information on normalized Compendia check out the following link:
     http://docs.refine.bio/en/latest/main_text.html#normalized-compendia
     """
     try:
@@ -160,21 +170,18 @@ def download_compendium(organism, path, quant_sf_only=False):
 
 
 @cli.command()
-@click.option(
-    "--organism",
-    help="The name of the Organism for the Compendium you want to download"
-)
+@click.option("--organism", help="The name of the Organism for the Compendium you want to download")
 @click.option(
     "--path",
     default="./",
     type=click.Path(),
-    help="Path that the Compendium should be downloaded to"
+    help="Path that the Compendium should be downloaded to",
 )
 def download_quantfile_compendium(organism, path):
     """
     Download a Compendium for the specified organism.
     This command will always download RNA-seq Sample Compendium results.
-    For more information on RNA-seq Sample Compendia check out the following link: 
+    For more information on RNA-seq Sample Compendia check out the following link:
     http://docs.refine.bio/en/latest/main_text.html#rna-seq-sample-compendia
     """
     try:
@@ -188,7 +195,7 @@ def download_quantfile_compendium(organism, path):
     "-s",
     "--silent",
     is_flag=True,
-    help="Add this flag if you don't want to be prompted before activating AND saving your token."
+    help="Add this flag if you don't want to be prompted before activating AND saving your token.",
 )
 def create_token(silent):
     """
