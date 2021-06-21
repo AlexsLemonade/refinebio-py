@@ -146,7 +146,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
 
         # We need to use assertEqual here because None is False-y
         self.assertEqual(
-            mock_post_by_endpoint.call_args.kwargs.get("quantile_normalize", None), False
+            mock_post_by_endpoint.call_args.kwargs["payload"].get("quantile_normalize", None), False
         )
 
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
