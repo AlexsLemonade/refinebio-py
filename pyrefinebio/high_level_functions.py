@@ -136,8 +136,9 @@ def download_dataset(
             print(
                 (
                     "Dataset not processed after {0}. The system may be experiencing issues"
-                    " or your dataset may just be taking a while to process."
-                ).format(timeout)
+                    " or your dataset may just be taking a while to process. You can check on its"
+                    " progress at https://refine.bio/dataset/{1}"
+                ).format(timeout, dataset.id)
             )
             return None
 
