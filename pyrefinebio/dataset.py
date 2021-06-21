@@ -183,24 +183,24 @@ class Dataset(Base):
         """
         body = {}
         body["data"] = self.data
-        if self.aggregate_by:
+        if self.aggregate_by is not None:
             body["aggregate_by"] = self.aggregate_by
-        if self.scale_by:
+        if self.scale_by is not None:
             body["scale_by"] = self.scale_by
-        if self.email_address:
+        if self.email_address is not None:
             body["email_address"] = self.email_address
-        if self.email_ccdl_ok:
+        if self.email_ccdl_ok is not None:
             body["email_ccdl_ok"] = self.email_ccdl_ok
-        if self.start:
+        if self.start is not None:
             body["start"] = self.start
-        if self.quantile_normalize:
+        if self.quantile_normalize is not None:
             body["quantile_normalize"] = self.quantile_normalize
-        if self.quant_sf_only:
+        if self.quant_sf_only is not None:
             body["quant_sf_only"] = self.quant_sf_only
-        if self.svd_algorithm:
+        if self.svd_algorithm is not None:
             body["svd_algorithm"] = self.svd_algorithm
 
-        if self.id:
+        if self.id is not None:
             response = put_by_endpoint("dataset/" + self.id, payload=body).json()
         else:
             response = post_by_endpoint("dataset", payload=body).json()

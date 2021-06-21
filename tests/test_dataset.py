@@ -115,6 +115,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
                 "scale_by": "NONE",
                 "email_address": "changed-email",
                 "quantile_normalize": True,
+                "quant_sf_only": False,
                 "svd_algorithm": "NONE",
             },
         )
@@ -122,6 +123,30 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
     def test_dataset_save_bad_data(self):
         with self.assertRaises(pyrefinebio.exceptions.InvalidData):
             pyrefinebio.Dataset(data={"lol": ["not-good"]}).save()
+
+    @patch("pyrefinebio.dataset.post_by_endpoint")
+    def test_dataset_skip_quantile_normalization(self, mock_post_by_endpoint):
+        """
+        Test skipping quantile normalization
+
+        Test the corner case brought up by Steven where we set
+        quantile_normalize False. We used to check if quantile_normalize was
+        truthy before adding it to the request, which caused it to always be
+        true.
+        """
+
+        pyrefinebio.Dataset(
+            data={"GSE68833": ["ALL"]},
+            aggregate_by="EXPERIMENT",
+            email_address="foo@bar.com",
+            quantile_normalize=False,
+        ).save()
+
+        self.assertEqual(mock_post_by_endpoint.call_count, 1)
+
+        # We need to use assertEqual here because None is False-y
+        args, kwargs = mock_post_by_endpoint.call_args
+        self.assertEqual(kwargs["payload"].get("quantile_normalize", None), False)
 
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_process(self, mock_request):
