@@ -142,12 +142,11 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
             quantile_normalize=False,
         ).save()
 
-        mock_post_by_endpoint.assert_called_once()
+        self.assertEqual(mock_post_by_endpoint.call_count, 1)
 
         # We need to use assertEqual here because None is False-y
-        self.assertEqual(
-            mock_post_by_endpoint.call_args.kwargs["payload"].get("quantile_normalize", None), False
-        )
+        args, kwargs = mock_post_by_endpoint.call_args
+        self.assertEqual(kwargs["payload"].get("quantile_normalize", None), False)
 
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_process(self, mock_request):
