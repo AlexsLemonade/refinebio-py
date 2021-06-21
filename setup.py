@@ -1,5 +1,6 @@
-import setuptools
 import os
+
+import setuptools
 
 with open("README.md", "r") as readme:
     long_description = readme.read()
@@ -17,17 +18,12 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",
-        "Operating System :: OS Independent", # not sure if this is actually true - we should probably test on windows!
+        "Operating System :: OS Independent",  # not sure if this is actually true - we should probably test on windows!
     ],
     python_requires=">=3.6",
-    install_requires=[
-        "python-dateutil",
-        "PyYAML",
-        "requests",
-        "Click"
-    ],
-    entry_points='''
+    install_requires=["python-dateutil", "PyYAML", "requests", "Click", "pytimeparse"],
+    entry_points="""
         [console_scripts]
         refinebio=pyrefinebio.script:cli
-    ''',
+    """,
 )
