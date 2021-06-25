@@ -79,6 +79,8 @@ class Dataset(Base):
         quant_sf_only=None,
         svd_algorithm=None,
         download_url=None,
+        # Emails should be opt-in https://github.com/AlexsLemonade/refinebio-py/issues/58
+        notify_me=False,
     ):
         super().__init__(identifier=id)
 
@@ -106,6 +108,7 @@ class Dataset(Base):
         self.quant_sf_only = quant_sf_only
         self.svd_algorithm = svd_algorithm
         self.download_url = download_url
+        self.notify_me = notify_me
 
         self._downloaded_path = None
 
@@ -199,6 +202,8 @@ class Dataset(Base):
             body["quant_sf_only"] = self.quant_sf_only
         if self.svd_algorithm is not None:
             body["svd_algorithm"] = self.svd_algorithm
+        if self.notify_me is not None:
+            body["notify_me"] = self.notify_me
 
         if self.id is not None:
             response = put_by_endpoint("dataset/" + self.id, payload=body).json()

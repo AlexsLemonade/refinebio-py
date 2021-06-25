@@ -54,6 +54,7 @@ def download_dataset(
     timeout=None,
     extract=False,
     prompt=True,
+    notify_me=False,
 ):
     """download_dataset
 
@@ -98,6 +99,9 @@ def download_dataset(
         extract (bool): if true, the downloaded zip file will be automatically extracted
 
         prompt (bool): if true, will prompt before downloading files bigger than 1GB
+
+        notify_me (bool): if true, refine.bio will send you an email when the dataset has finished processing.
+                          Defaults to False.
     """
     if dataset_dict and experiments:
         raise DownloadError(
@@ -111,6 +115,7 @@ def download_dataset(
         email_address=email_address,
         aggregate_by=aggregation,
         quantile_normalize=(not skip_quantile_normalization),
+        notify_me=notify_me,
     )
 
     if dataset_dict:

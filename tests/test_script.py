@@ -33,6 +33,36 @@ class ScriptTests(unittest.TestCase):
             "NONE",
             False,
             timeout=None,
+            notify_me=False,
+        )
+
+    @patch("pyrefinebio.script.hlf.download_dataset")
+    def test_download_dataset_notify_me(self, mock_download_dataset):
+        self.runner.invoke(
+            cli,
+            [
+                "download-dataset",
+                "--email-address",
+                "foo@bar.net",
+                "--path",
+                "./test.zip",
+                "--dataset-dict",
+                '{"foo": ["bar"]}',
+                "--notify-me",
+                "True",
+            ],
+        )
+
+        mock_download_dataset.assert_called_with(
+            "./test.zip",
+            "foo@bar.net",
+            {"foo": ["bar"]},
+            None,
+            "EXPERIMENT",
+            "NONE",
+            False,
+            timeout=None,
+            notify_me=True,
         )
 
     @patch("pyrefinebio.script.hlf.download_dataset")
@@ -59,6 +89,7 @@ class ScriptTests(unittest.TestCase):
             "NONE",
             False,
             timeout=None,
+            notify_me=False,
         )
 
     @patch("pyrefinebio.script.hlf.download_dataset")
@@ -77,6 +108,7 @@ class ScriptTests(unittest.TestCase):
             "NONE",
             False,
             timeout=None,
+            notify_me=False,
         )
 
     def test_download_dataset_both(self):

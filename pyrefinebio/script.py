@@ -114,6 +114,12 @@ def describe(entity=None):
     type=TimedeltaParamType(),
     help="A string representing how long to wait for the dataset to process such as '15 minutes'.",
 )
+@click.option(
+    "--notify-me",
+    default=False,
+    type=click.BOOL,
+    help="Control whether or not refine.bio should send you an email when your Dataset has finished processing.",
+)
 def download_dataset(
     email_address,
     path,
@@ -123,6 +129,7 @@ def download_dataset(
     transformation,
     skip_quantile_normalization,
     timeout,
+    notify_me,
 ):
     """
     Automatically constructs a Dataset, processes it, waits for it
@@ -138,6 +145,7 @@ def download_dataset(
             transformation,
             skip_quantile_normalization,
             timeout=timeout,
+            notify_me=notify_me,
         )
     except DownloadError as e:
         raise click.ClickException(str(e))

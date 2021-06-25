@@ -101,6 +101,7 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
             payload={
                 "data": {"test-experiment": ["sample-1", "sample-2"]},
                 "email_address": "test-email",
+                "notify_me": False,
             },
         )
 
@@ -117,6 +118,8 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
                 "quantile_normalize": True,
                 "quant_sf_only": False,
                 "svd_algorithm": "NONE",
+                # We want email notifications to be opt-out
+                "notify_me": False,
             },
         )
 
@@ -148,6 +151,39 @@ class DatasetTests(unittest.TestCase, CustomAssertions):
         self.assertEqual(
             mock_post_by_endpoint.call_args.kwargs.get("quantile_normalize", None), False
         )
+
+    @patch("pyrefinebio.dataset.post_by_endpoint")
+    @patch("pyrefinebio.dataset.put_by_endpoint")
+    def test_dataset_notify_me(self, mock_put_by_endpoint, mock_post_by_endpoint):
+        """
+        Test requesting to be notified
+        """
+        mock_post_by_endpoint.return_value = MockResponse(dataset, "")
+
+        # First test that notify_me is false by default
+        ds = pyrefinebio.Dataset(
+            data={"GSE68833": ["ALL"]},
+            aggregate_by="EXPERIMENT",
+            email_address="foo@bar.com",
+        )
+        ds.save()
+
+        self.assertEqual(mock_post_by_endpoint.call_count, 1)
+
+        # We need to use assertEqual here because None is False-y
+        args, kwargs = mock_post_by_endpoint.call_args
+        self.assertEqual(kwargs["payload"].get("notify_me", None), False)
+
+        self.assertIsNotNone(ds.id)
+
+        # Now set notify_me true
+        ds.notify_me = True
+        ds.save()
+
+        self.assertEqual(mock_put_by_endpoint.call_count, 1)
+
+        args, kwargs = mock_put_by_endpoint.call_args
+        self.assertTrue(kwargs["payload"].get("notify_me", None))
 
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_dataset_process(self, mock_request):
