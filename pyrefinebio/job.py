@@ -15,7 +15,7 @@ class DownloaderJob(Base):
     Retrieve a list of DownloaderJobs based on filters
 
         >>> import pyrefinebio
-        >>> jobs = pyrefinebio.DownloaderJob.search(nomad_job_id=0, success=True)
+        >>> jobs = pyrefinebio.DownloaderJob.search(batch_job_id=0, success=True)
     """
 
     def __init__(
@@ -27,7 +27,8 @@ class DownloaderJob(Base):
         was_recreated=None,
         worker_id=None,
         worker_version=None,
-        nomad_job_id=None,
+        batch_job_id=None,
+        batch_job_queue=None,
         failure_reason=None,
         success=None,
         original_files=None,
@@ -35,6 +36,7 @@ class DownloaderJob(Base):
         end_time=None,
         created_at=None,
         last_modified=None,
+        is_queued=None,
     ):
         super().__init__(identifier=id)
 
@@ -45,7 +47,8 @@ class DownloaderJob(Base):
         self.was_recreated = was_recreated
         self.worker_id = worker_id
         self.worker_version = worker_version
-        self.nomad_job_id = nomad_job_id
+        self.batch_job_id = batch_job_id
+        self.batch_job_queue = batch_job_queue
         self.failure_reason = failure_reason
         self.success = success
         self.original_files = original_files
@@ -53,6 +56,7 @@ class DownloaderJob(Base):
         self.end_time = parse_date(end_time)
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
+        self.is_queued = is_queued
 
     @classmethod
     def get(cls, id):
@@ -90,7 +94,7 @@ class DownloaderJob(Base):
 
             worker_version (str): filter based on the job's worker version
 
-            nomad_job_id (str): filter based on the job's nomad id
+            batch_job_id (str): filter based on the job's batch id
 
             failure_reason (str): filter based on the reason why the job failed
 
@@ -113,8 +117,6 @@ class DownloaderJob(Base):
             offset (int): the initial index from which to return the results.
 
             sample_accession_code (str): filter based on the Samples associated with the job
-
-            nomad (bool): filter based on if the job is in the nomad queue currently
         """
         response = get_by_endpoint("jobs/downloader", params=kwargs)
         return create_paginated_list(cls, response)
@@ -146,7 +148,8 @@ class ProcessorJob(Base):
         volume_index=None,
         worker_version=None,
         failure_reason=None,
-        nomad_job_id=None,
+        batch_job_id=None,
+        batch_job_queue=None,
         success=None,
         original_files=None,
         datasets=None,
@@ -154,6 +157,7 @@ class ProcessorJob(Base):
         end_time=None,
         created_at=None,
         last_modified=None,
+        is_queued=None,
     ):
         super().__init__(identifier=id)
 
@@ -166,7 +170,8 @@ class ProcessorJob(Base):
         self.volume_index = volume_index
         self.worker_version = worker_version
         self.failure_reason = failure_reason
-        self.nomad_job_id = nomad_job_id
+        self.batch_job_id = batch_job_id
+        self.batch_job_queue = batch_job_queue
         self.success = success
         self.original_files = original_files
         self.datasets = datasets
@@ -174,6 +179,7 @@ class ProcessorJob(Base):
         self.end_time = parse_date(end_time)
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
+        self.is_queued = is_queued
 
     @classmethod
     def get(cls, id):
@@ -214,7 +220,7 @@ class ProcessorJob(Base):
 
             failure_reason (str): filter based on the reason why the job failed
 
-            nomad_job_id (str): filter based on the job's nomad id
+            batch_job_id (str): filter based on the job's batch id
 
             success (bool): filter based on if the job has succeeded
 
@@ -237,8 +243,6 @@ class ProcessorJob(Base):
             offset (int): the initial index from which to return the results.
 
             sample_accession_code (str): filter based on the samples associated with the job
-
-            nomad (bool): filter based on if the job is in the nomad queue currently
         """
         response = get_by_endpoint("jobs/processor", params=kwargs)
         return create_paginated_list(cls, response)
@@ -266,8 +270,11 @@ class SurveyJob(Base):
         success=None,
         start_time=None,
         end_time=None,
+        batch_job_id=None,
+        batch_job_queue=None,
         created_at=None,
         last_modified=None,
+        is_queued=None,
     ):
         super().__init__(identifier=id)
 
@@ -276,8 +283,11 @@ class SurveyJob(Base):
         self.success = success
         self.start_time = parse_date(start_time)
         self.end_time = parse_date(end_time)
+        self.batch_job_id = batch_job_id
+        self.batch_job_queue = batch_job_queue
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
+        self.is_queued = is_queued
 
     @classmethod
     def get(cls, id):
