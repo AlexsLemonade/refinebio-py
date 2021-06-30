@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pyrefinebio
 from tests.custom_assertions import CustomAssertions
@@ -13,7 +13,8 @@ job_1 = {
     "was_recreated": True,
     "worker_id": "i-013f4473d78ce5cef",
     "worker_version": "v1.39.3-dev-hotfix",
-    "nomad_job_id": "DOWNLOADER_i-013f4473d78ce5cef_1024/dispatch-1601415261-b731ea3b",
+    "batch_job_id": "faf15c0e-3164-4bae-98f6-c6668f9ff4a5",
+    "batch_job_queue": "data-refinery-batch-workers-queue-circleci-prod-0",
     "failure_reason": None,
     "success": True,
     "original_files": [412392, 412403],
@@ -31,7 +32,8 @@ job_2 = {
     "was_recreated": False,
     "worker_id": "i-097213f99819c2edc",
     "worker_version": "v1.36.9-dev-hotfix",
-    "nomad_job_id": "DOWNLOADER_0_1024/dispatch-1593078964-972b63c3",
+    "batch_job_id": "2d4174c9-c449-49c5-b9c2-f270ec4597f0",
+    "batch_job_queue": "data-refinery-batch-workers-queue-circleci-prod-0",
     "failure_reason": "Exception caught while downloading file\\n [Errno 28] No space left on device",
     "success": False,
     "original_files": [396995],

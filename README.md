@@ -26,6 +26,14 @@ pyrefinebio.download_dataset(
 
 See the [documentation](https://alexslemonade.github.io/refinebio-py/index.html) for more help!
 
+## Testing
+
+Tests can be run with:
+
+```
+python -m unittest discover tests -b
+```
+
 ## Releasing to PyPI
 
 `pyrefinebio` can automatically be released to PyPI via a GitHub action.

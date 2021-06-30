@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pyrefinebio
 from tests.custom_assertions import CustomAssertions
@@ -15,7 +15,8 @@ processor_job = {
     "volume_index": "i-0ea363205be30776f",
     "worker_version": "v1.39.5",
     "failure_reason": None,
-    "nomad_job_id": "SALMON_i-0ea363205be30776f_12288/dispatch-1601583545-daff9ed4",
+    "batch_job_id": "2d4174c9-c449-49c5-b9c2-f270ec4597f0",
+    "batch_job_queue": "data-refinery-batch-workers-queue-circleci-prod-0",
     "success": True,
     "original_files": [2925811],
     "datasets": [],
@@ -33,7 +34,8 @@ downloader_job = {
     "was_recreated": False,
     "worker_id": "i-0ea363205be30776f",
     "worker_version": "v1.39.5",
-    "nomad_job_id": "DOWNLOADER_i-0ea363205be30776f_4096/dispatch-1601583299-b70b4a3f",
+    "batch_job_id": "faf15c0e-3164-4bae-98f6-c6668f9ff4a5",
+    "batch_job_queue": "data-refinery-batch-workers-queue-circleci-prod-0",
     "failure_reason": None,
     "success": True,
     "original_files": [2925811],
