@@ -26,6 +26,7 @@ class DownloaderJob(Base):
         retried=None,
         was_recreated=None,
         worker_id=None,
+        ram_amount=None,
         worker_version=None,
         batch_job_id=None,
         batch_job_queue=None,
@@ -46,6 +47,7 @@ class DownloaderJob(Base):
         self.retried = retried
         self.was_recreated = was_recreated
         self.worker_id = worker_id
+        self.ram_amount = ram_amount
         self.worker_version = worker_version
         self.batch_job_id = batch_job_id
         self.batch_job_queue = batch_job_queue
@@ -91,6 +93,8 @@ class DownloaderJob(Base):
             was_recreated (bool): filter based on if the job was recreated
 
             worker_id (str): filter based on the job's worker id
+
+            ram_amount (int): filter based on the amount of ram assigned to the job
 
             worker_version (str): filter based on the job's worker version
 
@@ -268,6 +272,7 @@ class SurveyJob(Base):
         id=None,
         source_type=None,
         success=None,
+        ram_amount=None,
         start_time=None,
         end_time=None,
         batch_job_id=None,
@@ -281,6 +286,7 @@ class SurveyJob(Base):
         self.id = id
         self.source_type = source_type
         self.success = success
+        self.ram_amount = ram_amount
         self.start_time = parse_date(start_time)
         self.end_time = parse_date(end_time)
         self.batch_job_id = batch_job_id
@@ -315,6 +321,8 @@ class SurveyJob(Base):
             source_type (str): filter based on the name of the source database
 
             success (bool): filter based on if the job has succeeded
+
+            ram_amount (int): filter based on the amount of ram assigned to the job
 
             start_time (str): filter based on the time when the job started
 
