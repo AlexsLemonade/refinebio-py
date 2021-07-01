@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pyrefinebio
 from tests.custom_assertions import CustomAssertions
@@ -15,7 +15,8 @@ job_1 = {
     "volume_index": "-1",
     "worker_version": None,
     "failure_reason": None,
-    "nomad_job_id": None,
+    "batch_job_id": None,
+    "batch_job_queue": None,
     "success": None,
     "original_files": [],
     "datasets": [],
@@ -35,7 +36,8 @@ job_2 = {
     "volume_index": None,
     "worker_version": "v1.39.11",
     "failure_reason": None,
-    "nomad_job_id": "SMASHER/dispatch-1602694804-d9a3164b",
+    "batch_job_id": "faf15c0e-3164-4bae-98f6-c6668f9ff4a5",
+    "batch_job_queue": "data-refinery-batch-workers-queue-circleci-prod-0",
     "success": True,
     "original_files": [12345, 13456, 14567],
     "datasets": ["test-set-1", "test-set-2"],
