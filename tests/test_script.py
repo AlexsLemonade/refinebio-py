@@ -49,7 +49,6 @@ class ScriptTests(unittest.TestCase):
                 "--dataset-dict",
                 '{"foo": ["bar"]}',
                 "--notify-me",
-                "True",
             ],
         )
 
