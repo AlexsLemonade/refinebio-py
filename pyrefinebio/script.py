@@ -116,8 +116,7 @@ def describe(entity=None):
 )
 @click.option(
     "--notify-me",
-    default=False,
-    type=click.BOOL,
+    is_flag=True,
     help="Control whether or not refine.bio should send you an email when your Dataset has finished processing.",
 )
 def download_dataset(
