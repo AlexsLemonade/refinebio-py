@@ -1,3 +1,4 @@
+from pyrefinebio import original_file as prb_original_file
 from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
 from pyrefinebio.util import create_paginated_list, parse_date
@@ -32,7 +33,7 @@ class DownloaderJob(Base):
         batch_job_queue=None,
         failure_reason=None,
         success=None,
-        original_files=None,
+        original_files=[],
         start_time=None,
         end_time=None,
         created_at=None,
@@ -53,12 +54,17 @@ class DownloaderJob(Base):
         self.batch_job_queue = batch_job_queue
         self.failure_reason = failure_reason
         self.success = success
-        self.original_files = original_files
         self.start_time = parse_date(start_time)
         self.end_time = parse_date(end_time)
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
         self.is_queued = is_queued
+
+        self.original_files = (
+            [prb_original_file.OriginalFile(id=file_id) for file_id in original_files]
+            if original_files
+            else []
+        )
 
     @classmethod
     def get(cls, id):
@@ -155,7 +161,7 @@ class ProcessorJob(Base):
         batch_job_id=None,
         batch_job_queue=None,
         success=None,
-        original_files=None,
+        original_files=[],
         datasets=None,
         start_time=None,
         end_time=None,
@@ -177,13 +183,18 @@ class ProcessorJob(Base):
         self.batch_job_id = batch_job_id
         self.batch_job_queue = batch_job_queue
         self.success = success
-        self.original_files = original_files
         self.datasets = datasets
         self.start_time = parse_date(start_time)
         self.end_time = parse_date(end_time)
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
         self.is_queued = is_queued
+
+        self.original_files = (
+            [prb_original_file.OriginalFile(id=file_id) for file_id in original_files]
+            if original_files
+            else []
+        )
 
     @classmethod
     def get(cls, id):

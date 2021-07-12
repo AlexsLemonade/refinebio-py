@@ -1,7 +1,6 @@
 import shutil
 
-import pyrefinebio.experiment as prb_experiment
-import pyrefinebio.sample as prb_sample
+from pyrefinebio import experiment as prb_experiment, sample as prb_sample
 from pyrefinebio.api_interface import (
     download_file,
     get_by_endpoint,
