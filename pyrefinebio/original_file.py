@@ -1,5 +1,4 @@
-import pyrefinebio.job as prb_job
-import pyrefinebio.sample as prb_sample
+from pyrefinebio import job as prb_job, sample as prb_sample
 from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
 from pyrefinebio.util import create_paginated_list, parse_date

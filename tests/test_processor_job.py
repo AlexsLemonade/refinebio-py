@@ -1,7 +1,9 @@
 import unittest
+from copy import deepcopy
 from unittest.mock import patch
 
 import pyrefinebio
+from pyrefinebio import original_file as prb_original_file
 from tests.custom_assertions import CustomAssertions
 from tests.mocks import MockResponse
 
@@ -47,6 +49,18 @@ job_2 = {
     "last_modified": "2020-10-14T17:02:12.658330Z",
 }
 
+job_1_object_dict = deepcopy(job_1)
+
+job_1_object_dict["original_files"] = [
+    prb_original_file.OriginalFile(file_id) for file_id in job_1["original_files"]
+]
+
+job_2_object_dict = deepcopy(job_2)
+
+job_2_object_dict["original_files"] = [
+    prb_original_file.OriginalFile(file_id) for file_id in job_2["original_files"]
+]
+
 search_1 = {"count": 2, "next": "search_2", "previous": None, "results": [job_1]}
 
 search_2 = {"count": 2, "next": None, "previous": "search_1", "results": [job_2]}
@@ -77,7 +91,7 @@ class ProcessorJobTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_processor_job_get(self, mock_request):
         result = pyrefinebio.ProcessorJob.get(1)
-        self.assertObject(result, job_1)
+        self.assertObject(result, job_1_object_dict)
 
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_processor_job_500(self, mock_request):
@@ -93,8 +107,8 @@ class ProcessorJobTests(unittest.TestCase, CustomAssertions):
     def test_processor_job_search_no_filters(self, mock_request):
         results = pyrefinebio.ProcessorJob.search()
 
-        self.assertObject(results[0], job_1)
-        self.assertObject(results[1], job_2)
+        self.assertObject(results[0], job_1_object_dict)
+        self.assertObject(results[1], job_2_object_dict)
 
     def test_processor_job_search_with_filters(self):
         filtered_results = pyrefinebio.ProcessorJob.search(

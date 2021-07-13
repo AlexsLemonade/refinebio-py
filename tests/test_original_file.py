@@ -1,7 +1,9 @@
 import unittest
+from copy import deepcopy
 from unittest.mock import patch
 
 import pyrefinebio
+from pyrefinebio import job as prb_job, original_file as prb_original_file
 from tests.custom_assertions import CustomAssertions
 from tests.mocks import MockResponse
 
@@ -26,6 +28,12 @@ processor_job = {
     "last_modified": "2020-10-01T20:23:43.508066Z",
 }
 
+processor_job_object_dict = deepcopy(processor_job)
+
+processor_job_object_dict["original_files"] = [
+    prb_original_file.OriginalFile(file_id) for file_id in processor_job["original_files"]
+]
+
 downloader_job = {
     "id": 7381811,
     "downloader_task": "SRA",
@@ -45,6 +53,12 @@ downloader_job = {
     "last_modified": "2020-10-01T20:19:05.873426Z",
 }
 
+downloader_job_object_dict = deepcopy(downloader_job)
+
+downloader_job_object_dict["original_files"] = [
+    prb_original_file.OriginalFile(file_id) for file_id in processor_job["original_files"]
+]
+
 og_file_1 = {
     "id": 1,
     "filename": "SRR067396.sra",
@@ -59,8 +73,8 @@ og_file_1 = {
             "is_processed": True,
         }
     ],
-    "processor_jobs": [processor_job],
-    "downloader_jobs": [downloader_job],
+    "processor_jobs": [processor_job_object_dict],
+    "downloader_jobs": [downloader_job_object_dict],
     "source_url": "anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByRun/sra/SRR/SRR067/SRR067396/SRR067396.sra",
     "source_filename": "SRR067396.sra",
     "is_downloaded": False,

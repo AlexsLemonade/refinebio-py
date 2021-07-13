@@ -1,8 +1,10 @@
 from pyrefinebio import (
     annotation as prb_annotation,
     computational_result as prb_computational_result,
+    computed_file as prb_computed_file,
     experiment as prb_experiment,
     organism as prb_organism,
+    original_file as prb_original_file,
 )
 from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
@@ -56,8 +58,8 @@ class Sample(Base):
         is_processed=None,
         created_at=None,
         last_modified=None,
-        original_files=None,
-        computed_files=None,
+        original_files=[],
+        computed_files=[],
         experiment_accession_codes=None,
         experiments=None,
     ):
@@ -101,8 +103,18 @@ class Sample(Base):
         self.is_processed = is_processed
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
-        self.original_files = original_files
-        self.computed_files = computed_files
+
+        self.original_files = (
+            [prb_original_file.OriginalFile(id=file_id) for file_id in original_files]
+            if original_files
+            else []
+        )
+        self.computed_files = (
+            [prb_computed_file.ComputedFile(id=file_id) for file_id in computed_files]
+            if computed_files
+            else []
+        )
+
         self.experiment_accession_codes = experiment_accession_codes
         self.experiments = experiments
 

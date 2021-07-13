@@ -1,7 +1,9 @@
 import unittest
-from unittest.mock import Mock, patch
+from copy import deepcopy
+from unittest.mock import patch
 
 import pyrefinebio
+from pyrefinebio import computed_file as prb_computed_file, original_file as prb_original_file
 from tests.custom_assertions import CustomAssertions
 from tests.mocks import MockResponse
 from tests.test_experiment import experiment_search_result_1, experiment_search_result_2
@@ -193,6 +195,24 @@ sample_2 = {
     "experiment_accession_codes": ["GSE63990"],
 }
 
+sample_1_object_dict = deepcopy(sample_1)
+
+sample_1_object_dict["original_files"] = [
+    prb_original_file.OriginalFile(file_id) for file_id in sample_1["original_files"]
+]
+sample_1_object_dict["computed_files"] = [
+    prb_computed_file.ComputedFile(file_id) for file_id in sample_1["computed_files"]
+]
+
+sample_2_object_dict = deepcopy(sample_2)
+
+sample_2_object_dict["original_files"] = [
+    prb_original_file.OriginalFile(file_id) for file_id in sample_2["original_files"]
+]
+sample_2_object_dict["computed_files"] = [
+    prb_computed_file.ComputedFile(file_id) for file_id in sample_2["computed_files"]
+]
+
 result = {
     "id": 1339595,
     "commands": [
@@ -293,7 +313,7 @@ class SampleTests(unittest.TestCase, CustomAssertions):
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_sample_get(self, mock_request):
         result = pyrefinebio.Sample.get("SRR5445147")
-        self.assertObject(result, sample_1)
+        self.assertObject(result, sample_1_object_dict)
 
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
     def test_sample_500(self, mock_request):
@@ -315,8 +335,8 @@ class SampleTests(unittest.TestCase, CustomAssertions):
     def test_sample_search_no_filters(self, mock_request):
         results = pyrefinebio.Sample.search()
 
-        self.assertObject(results[0], sample_1)
-        self.assertObject(results[1], sample_2)
+        self.assertObject(results[0], sample_1_object_dict)
+        self.assertObject(results[1], sample_2_object_dict)
 
     def test_sample_search_with_filters(self):
         filtered_results = pyrefinebio.Sample.search(organism=258, has_raw=True, is_processed=False)

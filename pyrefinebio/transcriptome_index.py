@@ -1,3 +1,4 @@
+from pyrefinebio import computational_result as prb_computational_result
 from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
 from pyrefinebio.util import create_paginated_list, parse_date
@@ -42,6 +43,7 @@ class TranscriptomeIndex(Base):
         self.salmon_version = salmon_version
         self.download_url = download_url
         self.result_id = result_id
+        self.result = prb_computational_result.ComputationalResult(id=result_id)
         self.last_modified = parse_date(last_modified)
 
     @classmethod
