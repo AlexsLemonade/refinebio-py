@@ -32,6 +32,7 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
                 "email_address": "foo@test.com",
                 "start": True,
                 "quantile_normalize": True,
+                "quant_sf_only": False,
                 "notify_me": False,
             },
         )
@@ -63,6 +64,7 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
                 "email_address": "foo@test.com",
                 "start": True,
                 "quantile_normalize": True,
+                "quant_sf_only": False,
                 "notify_me": True,
             },
         )
@@ -94,6 +96,7 @@ class HighLevelFunctionTests(unittest.TestCase, CustomAssertions):
                 "email_address": "foo@test.com",
                 "start": True,
                 "quantile_normalize": True,
+                "quant_sf_only": False,
                 "notify_me": False,
             },
         )

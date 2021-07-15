@@ -51,6 +51,7 @@ def download_dataset(
     aggregation="EXPERIMENT",
     transformation="NONE",
     skip_quantile_normalization=False,
+    quant_sf_only=False,
     timeout=None,
     extract=False,
     prompt=True,
@@ -94,6 +95,8 @@ def download_dataset(
         skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
                                             normalization for RNA-seq Samples
 
+        quant_sf_only (bool): include only quant.sf files in the generated dataset.
+
         timeout (datetime.timedelta): if specified the function will return None after timeout is reached.
 
         extract (bool): if true, the downloaded zip file will be automatically extracted
@@ -115,6 +118,7 @@ def download_dataset(
         email_address=email_address,
         aggregate_by=aggregation,
         quantile_normalize=(not skip_quantile_normalization),
+        quant_sf_only=quant_sf_only,
         notify_me=notify_me,
     )
 
