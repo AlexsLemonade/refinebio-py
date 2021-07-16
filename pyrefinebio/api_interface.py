@@ -1,27 +1,24 @@
-import os
-import requests
 import json
 import shutil
 
+import requests
 from pyrefinebio.config import Config
 from pyrefinebio.exceptions import (
-    ServerError,
     BadRequest,
-    NotFound,
-    InvalidFilters,
     InvalidData,
+    InvalidFilters,
     InvalidFilterType,
-    MultipleErrors
+    MultipleErrors,
+    NotFound,
+    ServerError,
 )
+from requests.exceptions import ConnectionError
 
 
 def request(method, url, params=None, payload=None):
     try:
         config = Config()
-        headers = {
-            "Content-Type": "application/json",
-            "API-KEY": config.token
-        }
+        headers = {"Content-Type": "application/json", "API-KEY": config.token}
 
         if payload:
             payload = json.dumps(payload)
@@ -31,14 +28,14 @@ def request(method, url, params=None, payload=None):
 
         return response
 
-    except requests.exceptions.HTTPError:
+    except requests.exceptions.HTTPError as e:
         code = response.status_code
         response_body = response.json()
 
         if code == 400:
             error = _handle_error(response_body)
             raise error
-        
+
         elif code == 404:
             raise NotFound(response.url)
 
@@ -47,7 +44,9 @@ def request(method, url, params=None, payload=None):
 
         else:
             print(response_body)
-            raise Exception("An unexpected error has occured")
+            raise e
+    except ConnectionError:
+        raise ServerError()
 
 
 def get(url, params=None):
@@ -96,9 +95,7 @@ def download_file(url, path, prompt):
                 message = (
                     "The file you are trying to download is bigger than 1GB ({:.2f}GB). "
                     "Would you still like to download it? (y/N)"
-                ).format(
-                    total_size_in_bytes / (1024 * 1024 * 1024)
-                )
+                ).format(total_size_in_bytes / (1024 * 1024 * 1024))
 
             if message:
                 yn = input(message)
@@ -138,8 +135,6 @@ def _hanlde_multiple_errors(errors):
     exceptions = []
 
     for error in errors:
-        exceptions.append(
-            _handle_error(error)
-        )
+        exceptions.append(_handle_error(error))
 
     return MultipleErrors(exceptions)
