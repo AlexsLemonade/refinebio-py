@@ -45,6 +45,7 @@ class Experiment(Base):
         last_modified=None,
         created_at=None,
         organism_names=None,
+        downloadable_organism_names=None,
         sample_metadata_fields=None,
         sample_metadata=None,
         num_total_samples=None,
@@ -79,6 +80,7 @@ class Experiment(Base):
         self.last_modified = parse_date(last_modified)
         self.created_at = parse_date(created_at)
         self.organism_names = organism_names
+        self.downloadable_organism_names = downloadable_organism_names
         self.sample_metadata_fields = sample_metadata_fields
         self.sample_metadata = sample_metadata
         self.num_total_samples = num_total_samples
@@ -122,6 +124,9 @@ class Experiment(Base):
             platform (str): filter based on  platform, this filter can have multiple values
 
             organism (str): filter based on Organism, this filter can have multiple values
+
+            downloadable_organism (str): filter based on Organisms that have downloadable files,
+                                         this filter can have multiple values
 
             num_processed_samples (number): filter based on the Experiment's number of processed samples
 
