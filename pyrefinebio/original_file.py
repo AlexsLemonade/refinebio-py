@@ -42,29 +42,35 @@ class OriginalFile(Base):
         self.filename = filename
         self.size_in_bytes = size_in_bytes
         self.sha1 = sha1
-        self.samples = []
+        samples_list = []
         if samples:
             for sample in samples:
                 if type(sample) is dict:
-                    self.samples.append(prb_sample.Sample(**sample))
+                    samples_list.append(prb_sample.Sample(**sample))
                 else:
-                    self.samples.append(sample)
+                    samples_list.append(sample)
 
-        self.processor_jobs = []
+        self.samples = samples_list
+
+        processor_jobs_list = []
         if processor_jobs:
             for processor_job in processor_jobs:
                 if type(processor_job) is dict:
-                    self.processor_jobs.append(prb_job.ProcessorJob(**processor_job))
+                    processor_jobs_list.append(prb_job.ProcessorJob(**processor_job))
                 else:
-                    self.processor_jobs.append(processor_job)
+                    processor_jobs_list.append(processor_job)
 
-        self.downloader_jobs = []
+        self.processor_jobs = processor_jobs_list
+
+        downloader_jobs_list = []
         if downloader_jobs:
             for downloader_job in downloader_jobs:
                 if type(downloader_job) is dict:
-                    self.downloader_jobs.append(prb_job.DownloaderJob(**downloader_job))
+                    downloader_jobs_list.append(prb_job.DownloaderJob(**downloader_job))
                 else:
-                    self.downloader_jobs.append(downloader_job)
+                    downloader_jobs_list.append(downloader_job)
+
+        self.downloader_jobs = downloader_jobs_list
 
         self.source_url = source_url
         self.source_filename = source_filename
