@@ -63,7 +63,7 @@ experiment_search_result_1 = {
     "sample_metadata_fields": ["specimen_part", "disease", "subject"],
     "platform_names": ["Illumina HiSeq 2500"],
     "platform_accession_codes": ["IlluminaHiSeq2500"],
-    "organism_names": [],
+    "organism_names": ["HUMAN"],
     "pubmed_id": "30382198",
     "num_total_samples": 28706,
     "num_processed_samples": 0,
