@@ -60,11 +60,17 @@ class DownloaderJob(Base):
         self.last_modified = parse_date(last_modified)
         self.is_queued = is_queued
 
-        self.original_files = (
-            [prb_original_file.OriginalFile(id=file_id) for file_id in original_files]
-            if original_files
-            else []
-        )
+        original_files_list = []
+        if original_files:
+            for original_file in original_files:
+                if type(original_file) is dict:
+                    original_files_list.append(prb_original_file.OriginalFile(**original_file))
+                elif type(original_file) is int:
+                    original_files_list.append(prb_original_file.OriginalFile(id=original_file))
+                else:
+                    original_files_list.append(original_file)
+
+        self.original_files = original_files_list
 
     @classmethod
     def get(cls, id):
@@ -190,11 +196,17 @@ class ProcessorJob(Base):
         self.last_modified = parse_date(last_modified)
         self.is_queued = is_queued
 
-        self.original_files = (
-            [prb_original_file.OriginalFile(id=file_id) for file_id in original_files]
-            if original_files
-            else []
-        )
+        original_files_list = []
+        if original_files:
+            for original_file in original_files:
+                if type(original_file) is dict:
+                    original_files_list.append(prb_original_file.OriginalFile(**original_file))
+                elif type(original_file) is int:
+                    original_files_list.append(prb_original_file.OriginalFile(id=original_file))
+                else:
+                    original_files_list.append(original_file)
+
+        self.original_files = original_files_list
 
     @classmethod
     def get(cls, id):

@@ -59,7 +59,7 @@ class Config:
 
             if os.path.exists(cls.config_file):
                 with open(cls.config_file) as config_file:
-                    config = yaml.full_load(config_file) or {}
+                    config = yaml.safe_load(config_file) or {}
 
             cls.token = os.getenv("REFINEBIO_TOKEN") or config.get("token", "")
             cls.base_url = os.getenv("REFINEBIO_BASE_URL") or config.get(

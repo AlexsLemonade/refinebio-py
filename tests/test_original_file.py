@@ -56,7 +56,7 @@ downloader_job = {
 downloader_job_object_dict = deepcopy(downloader_job)
 
 downloader_job_object_dict["original_files"] = [
-    prb_original_file.OriginalFile(file_id) for file_id in processor_job["original_files"]
+    prb_original_file.OriginalFile(file_id) for file_id in downloader_job["original_files"]
 ]
 
 og_file_1 = {

@@ -1,6 +1,6 @@
 import os
 
-from dateutil import parser
+import iso8601
 from pyrefinebio.api_interface import get
 
 
@@ -11,7 +11,7 @@ def create_paginated_list(T, response):
 def parse_date(date):
     try:
         parsed = None
-        parsed = parser.isoparse(date)
+        parsed = iso8601.parse_date(date)
     finally:
         return parsed
 
