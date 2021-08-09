@@ -21,7 +21,7 @@ setuptools.setup(
         "Operating System :: OS Independent",  # not sure if this is actually true - we should probably test on windows!
     ],
     python_requires=">=3.6",
-    install_requires=["python-dateutil", "PyYAML", "requests", "Click", "pytimeparse"],
+    install_requires=["iso8601", "PyYAML", "requests", "Click", "pytimeparse"],
     entry_points="""
         [console_scripts]
         refinebio=pyrefinebio.script:cli

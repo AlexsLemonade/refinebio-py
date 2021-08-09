@@ -341,6 +341,7 @@ class SampleTests(unittest.TestCase, CustomAssertions):
     def test_sample_search_with_filters(self):
         filtered_results = pyrefinebio.Sample.search(organism=258, has_raw=True, is_processed=False)
 
+        self.assertGreater(len(filtered_results), 0)
         for result in filtered_results:
             self.assertEqual(result.organism.name, "MUS")
             self.assertTrue(result.has_raw)

@@ -34,7 +34,10 @@ class Base(object):
     def __getattribute__(self, attr):
         if (
             not attr.startswith("_")
-            and object.__getattribute__(self, attr) is None
+            and (
+                object.__getattribute__(self, attr) is None
+                or object.__getattribute__(self, attr) == []
+            )
             and not self._fetched
         ):
             # if somehow the identifier isn't set we can't fetch
