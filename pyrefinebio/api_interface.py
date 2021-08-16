@@ -30,7 +30,10 @@ def request(method, url, params=None, payload=None):
 
     except requests.exceptions.HTTPError as e:
         code = response.status_code
-        response_body = response.json()
+        try:
+            response_body = response.json()
+        except json.decoder.JSONDecodeError:
+            response_body = response.text
 
         if code == 400:
             error = _handle_error(response_body)
