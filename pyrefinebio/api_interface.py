@@ -42,7 +42,7 @@ def request(method, url, params=None, payload=None):
         elif code == 404:
             raise NotFound(response.url)
 
-        elif code == 500 or code == 502:
+        elif code >= 500:
             raise ServerError()
 
         else:
