@@ -35,7 +35,7 @@ class ComputedFile(Base):
         is_qc=None,
         is_compendia=None,
         quant_sf_only=None,
-        compendia_version=None,
+        compendium_version=None,
         compendia_organism_name=None,
         sha1=None,
         s3_bucket=None,
@@ -57,7 +57,7 @@ class ComputedFile(Base):
         self.is_qc = is_qc
         self.is_compendia = is_compendia
         self.quant_sf_only = quant_sf_only
-        self.compendia_version = compendia_version
+        self.compendium_version = compendia_version
         self.compendia_organism_name = compendia_organism_name
         self.sha1 = sha1
         self.s3_bucket = s3_bucket
@@ -112,7 +112,7 @@ class ComputedFile(Base):
 
             svd_algorithm (str): filter based on the SVD algorithm used for the ComputedFile
 
-            compendia_version (int): filter based on the compendia version of the ComputedFile
+            compendium_version (int): filter based on the compendium version of the ComputedFile
 
             created_at (str): filter based on the time that the ComputedFile was created
 
