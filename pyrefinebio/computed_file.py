@@ -57,7 +57,7 @@ class ComputedFile(Base):
         self.is_qc = is_qc
         self.is_compendia = is_compendia
         self.quant_sf_only = quant_sf_only
-        self.compendium_version = compendia_version
+        self.compendium_version = compendium_version
         self.compendia_organism_name = compendia_organism_name
         self.sha1 = sha1
         self.s3_bucket = s3_bucket
