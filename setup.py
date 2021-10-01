@@ -14,6 +14,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/AlexsLemonade/refinebio-py",
+    project_urls={"Documentation": "https://alexslemonade.github.io/refinebio-py/index.html"},
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
