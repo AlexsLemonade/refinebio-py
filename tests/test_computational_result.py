@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pyrefinebio
 from tests.custom_assertions import CustomAssertions

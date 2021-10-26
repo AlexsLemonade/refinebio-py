@@ -58,6 +58,8 @@ class Sample(Base):
         is_processed=None,
         created_at=None,
         last_modified=None,
+        contributed_metadata=None,
+        contributed_keywords=None,
         original_files=[],
         computed_files=[],
         experiment_accession_codes=None,
@@ -103,6 +105,7 @@ class Sample(Base):
         self.is_processed = is_processed
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
+        self.contributed_metadata = contributed_metadata
 
         self.original_files = (
             [prb_original_file.OriginalFile(id=file_id) for file_id in original_files]
@@ -117,6 +120,10 @@ class Sample(Base):
 
         self.experiment_accession_codes = experiment_accession_codes
         self.experiments = experiments
+
+        # Avoid initializing every Sample with the sample empty list as a default
+        if not contributed_keywords:
+            contributed_keywords = []
 
     @property
     def experiments(self):

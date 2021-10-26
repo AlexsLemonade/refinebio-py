@@ -339,7 +339,9 @@ class SampleTests(unittest.TestCase, CustomAssertions):
         self.assertObject(results[1], sample_2_object_dict)
 
     def test_sample_search_with_filters(self):
-        filtered_results = pyrefinebio.Sample.search(organism=258, has_raw=True, is_processed=False)
+        filtered_results = pyrefinebio.Sample.search(
+            limit=1, organism=258, has_raw=True, is_processed=False
+        )
 
         self.assertGreater(len(filtered_results), 0)
         for result in filtered_results:
