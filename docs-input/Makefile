@@ -18,7 +18,7 @@ help:
 github:
 	rm -rf ../doc-output/*; \
 	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "../doc-output" $(SPHINXOPTS) $(O); \
-	mv ../doc-output/html ../docs
+	mv ../doc-output/html/* ../docs
 
 
 # Catch-all target: route all unknown targets to Sphinx using the new

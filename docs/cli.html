@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using the CLI &mdash; pyrefinebio 0.3.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Classes" href="classes.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+  <a href="https://www.refine.bio/" class="wy-side-nav-search__back">Back to refine.bio</a>
+  
+
+          
+            <a href="index.html" class="icon icon-home"> pyrefinebio
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setting-up-tokens">Setting up Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#downloading-compendia">Downloading Compendia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#getting-started-with-the-cli">Getting Started with the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#interacting-with-the-api">Interacting with the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-dataset-usage">Advanced Dataset Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-token-usage-1">Advanced Token Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using the CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-tokens">Setting up Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-compendia">Downloading Compendia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-information-about-pyrefinebio-classes-and-functions">Getting Information About pyrefinebio Classes and Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="classes.html">Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paginated_list.html">Paginated List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Config</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyrefinebio</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Using the CLI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AlexsLemonade/refinebio-py/blob/HEAD/docs/cli.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="using-the-cli-1">
+<span id="using-the-cli"></span><h1>Using the CLI<a class="headerlink" href="#using-the-cli-1" title="Permalink to this headline">¶</a></h1>
+<p>Before you can use the CLI to download Datasets and Compendia, you need to create and activate a Token.</p>
+<p>See <a class="reference internal" href="#using-the-cli-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for information on setting up Tokens using the CLI.</p>
+<p>Or you can go to <a class="reference internal" href="quickstart.html#quickstart-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for a tutorial on setting up a Token using python.</p>
+<section id="setting-up-tokens">
+<span id="using-the-cli-setting-up-tokens"></span><h2>Setting up Tokens<a class="headerlink" href="#setting-up-tokens" title="Permalink to this headline">¶</a></h2>
+<p>pyrefinebio provides the CLI command <code class="code docutils literal notranslate"><span class="pre">create-token</span></code> which can automatically create, activate, and save a Token for you.</p>
+<p>By default, <code class="code docutils literal notranslate"><span class="pre">create-token</span></code> will prompt you before activating and saving the Token it creates.</p>
+<p>Alternatively, it has the flag <code class="code docutils literal notranslate"><span class="pre">--silent</span></code> or <code class="code docutils literal notranslate"><span class="pre">-s</span></code> which you can use to bypass the prompts.</p>
+<p>If you use the silent flag, the created Token will be automatically activated and saved to the config file located by default at <code class="code docutils literal notranslate"><span class="pre">~/.refinebio.yaml</span></code>.
+You must save the Token in order for it to be used in future CLI commands.</p>
+<p>For more information about pyrefinebio’s Config see <a class="reference internal" href="config.html#config"><span class="std std-ref">Config</span></a>.</p>
+<p>Here’s an example of creating, activating, and saving a Token with prompts:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio create-token
+Please review the refine.bio Terms of Use: https://www.refine.bio/terms and Privacy Policy: https://www.refine.bio/privacy
+Do you understand and accept both documents? <span class="o">(</span>y/N<span class="o">)</span>y
+Would you like to save your Token to the Config file <span class="k">for</span> future use? <span class="o">(</span>y/N<span class="o">)</span>y
+</pre></div>
+</div>
+<p>Here’s an example of creating, activating, and saving a Token without prompts:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio create-token -s
+</pre></div>
+</div>
+</section>
+<section id="downloading-datasets">
+<h2>Downloading Datasets<a class="headerlink" href="#downloading-datasets" title="Permalink to this headline">¶</a></h2>
+<p>After you set up and activate a Token you can use the CLI to start creating and downloading Datasets.</p>
+<p>See <a class="reference internal" href="#using-the-cli-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for information on setting up Tokens using the CLI.</p>
+<p>Or you can go to <a class="reference internal" href="quickstart.html#quickstart-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for a tutorial on setting up a Token using python.</p>
+<p>pyrefinebio provides the CLI command <code class="code docutils literal notranslate"><span class="pre">download-dataset</span></code> for creating and downloading Datasets.
+It will automatically handle every part of the creation and download process for you.
+You will receive the Dataset as a zip file.</p>
+<p><cite>download-dataset</cite> requires that you pass in the options <code class="code docutils literal notranslate"><span class="pre">email-address</span></code>, and either <code class="code docutils literal notranslate"><span class="pre">experiments</span></code> or <code class="code docutils literal notranslate"><span class="pre">dataset-dict</span></code>.</p>
+<ul class="simple">
+<li><p><strong>email_address</strong> - The email address that will be notified when the Dataset is finished processing.</p></li>
+</ul>
+<p>The options <code class="code docutils literal notranslate"><span class="pre">experiments</span></code> and <code class="code docutils literal notranslate"><span class="pre">dataset-dict</span></code> both control which Experiments and Samples will be a part of the Dataset.</p>
+<ul class="simple">
+<li><p><strong>experiments</strong> can be used when you want to add specific Experiments to your Dataset. All the downloadable samples associated with the Experiments that you pass in will be added to the Dataset.</p></li>
+</ul>
+<p>The <code class="code docutils literal notranslate"><span class="pre">experiments</span></code> option is just a space separated list of Experiment accession codes. Here’s an example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio download-datset --experiments <span class="s2">&quot;&lt;Experiment 1 Accession Code&gt; &lt;Experiment 2 Accession Code&gt;&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>dataset-dict</strong> should be used when you want to specify specific Samples to be included in the Dataset. However, you can pass in “ALL” instead of specific Sample accession codes to add all downloadable Samples associated with that Experiment to the Dataset.</p></li>
+</ul>
+<p>The <code class="code docutils literal notranslate"><span class="pre">dataset-dict</span></code> option is a JSON object in the following format:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ dataset-json<span class="o">=</span><span class="s1">&#39;{&quot;&lt;Experiment 1 Accession Code&gt;&quot;: [&quot;&lt;Sample 1 Accession Code&gt;&quot;, &quot;&lt;Sample 2 Accession Code&gt;&quot;], &quot;&lt;Experiment 2 Accession Code&gt;&quot;: [&quot;ALL&quot;]}&#39;</span>
+$ refinebio download-dataset --dataset-dict
+</pre></div>
+</div>
+<p>You can also pass in other optional command options to alter the Dataset itself and to alter how the download process works.</p>
+<ul class="simple">
+<li><p><strong>path</strong> - The path that the Dataset will be downloaded to. You specify a path to a zip file or a directory. If you pass in a path to a directory, the name of the zip file will be automatically generated in the format <code class="code docutils literal notranslate"><span class="pre">dataset-&lt;dataset_id&gt;.zip</span></code>. By default, <code class="code docutils literal notranslate"><span class="pre">path</span></code> will be set to the current directory.</p></li>
+<li><p><strong>aggregation</strong> - Can be used to change how the Dataset is aggregated. The default is “EXPERIMENT”, and the other available choices are “SPECIES” and “ALL”. For more information about Dataset aggregation check out <a class="reference external" href="https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=aggregation#aggregations">Aggregations</a>.</p></li>
+<li><p><strong>transformation</strong> - Can be used to change the transformation of the Dataset. The default is “NONE”, and the other available choices are “MINMAX” and “STANDARD”. For more information on Dataset transformation check out <a class="reference external" href="https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile#gene-transformations">Gene transformations</a>.</p></li>
+<li><p><strong>skip-quantile-normalization</strong> - Can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information check out <a class="reference external" href="https://refinebio-docs.readthedocs.io/en/latest/main_text.html?highlight=quantile%20normalization#quantile-normalization">Quantile normalization</a>.</p></li>
+<li><p><strong>extract</strong> - Can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as <code class="code docutils literal notranslate"><span class="pre">path</span></code>. So if <code class="code docutils literal notranslate"><span class="pre">path</span></code> is a zip file: <code class="code docutils literal notranslate"><span class="pre">./path/to/dataset.zip</span></code> it will be extracted to the dir <code class="code docutils literal notranslate"><span class="pre">./path/to/dataset/</span></code>, if <code class="code docutils literal notranslate"><span class="pre">path</span></code> is a dir: <code class="code docutils literal notranslate"><span class="pre">./path/to/dir/</span></code> it will be extracted to <code class="code docutils literal notranslate"><span class="pre">./path/to/dir/[generated-file-name]/</span></code>. By default, <code class="code docutils literal notranslate"><span class="pre">extract</span></code> is False.</p></li>
+<li><p><strong>prompt</strong> - Can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte. By default, <code class="code docutils literal notranslate"><span class="pre">prompt</span></code> is True.</p></li>
+</ul>
+<p>Below is a simple example of downloading a Dataset using <code class="code docutils literal notranslate"><span class="pre">experiments</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio download-dataset --path <span class="s2">&quot;~/path/to/dataset/dir/&quot;</span> --email-address <span class="s2">&quot;foo@bar.com&quot;</span> --experiments <span class="s2">&quot;GSE74410 GSM604796 GSM604797&quot;</span>
+</pre></div>
+</div>
+<p>Below is a simple example of downloading a Dataset using <code class="code docutils literal notranslate"><span class="pre">dataset_dict</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ dataset-json<span class="o">=</span><span class="s1">&#39;{&quot;GSE74410&quot;: [&quot;ALL&quot;], &quot;GSE24528&quot;: [&quot;GSM604796&quot;, &quot;GSM604797&quot;]}&#39;</span>
+$ refinebio download-dataset --path <span class="s2">&quot;./path/to/dataset.zip&quot;</span> --email-address <span class="s2">&quot;foo@bar.com&quot;</span> --dataset-dict <span class="nv">$dataset</span>-json
+</pre></div>
+</div>
+</section>
+<section id="downloading-compendia">
+<h2>Downloading Compendia<a class="headerlink" href="#downloading-compendia" title="Permalink to this headline">¶</a></h2>
+<p>You can start using the CLI to download Compendia after you set up and activate a Token.</p>
+<p>See <a class="reference internal" href="#using-the-cli-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for information on setting up Tokens using the CLI.</p>
+<p>Or you can go to <a class="reference internal" href="quickstart.html#quickstart-setting-up-tokens"><span class="std std-ref">Setting up Tokens</span></a> for a tutorial on setting up a Token using python.</p>
+<p>pyrefinebio provides the CLI command <code class="code docutils literal notranslate"><span class="pre">download-compendium</span></code> for downloading Compendium results.
+It will automatically search for Compendia based on organisms and download the results.
+You will receive the Compendium as a zip file.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">download-compendium</span></code> requires that you pass in the parameter <code class="code docutils literal notranslate"><span class="pre">organism</span></code>.</p>
+<ul class="simple">
+<li><p><strong>organism</strong> - The scientific name of the Organism for the Compendium that you want to download.</p></li>
+</ul>
+<p>You can also pass in other optional parameters to alter the type of Compendium you download.</p>
+<ul class="simple">
+<li><p><strong>path</strong> - The path that the Dataset will be downloaded to. You specify a path to a zip file or a directory. If you pass in a path to a directory, the name of the zip file will be automatically generated in the format <code class="code docutils literal notranslate"><span class="pre">compendium-&lt;compendium_id&gt;.zip</span></code>. By default, <code class="code docutils literal notranslate"><span class="pre">path</span></code> will be set to the current directory.</p></li>
+<li><p><strong>version</strong> - The Compendium version. The default is <code class="code docutils literal notranslate"><span class="pre">None</span></code> which will get the latest version.</p></li>
+<li><p><strong>quant-sf-only</strong> - Can be used to choose if the Compendium is quantile normalized. Pass in True for RNA-seq Sample Compendium results or False for quantile normalized. By default, <code class="code docutils literal notranslate"><span class="pre">quant_sf_only</span></code> is False. For more information on normalized vs RNA-seq compendia check out <a class="reference external" href="http://docs.refine.bio/en/latest/main_text.html#refine-bio-compendia">refine.bio Compendia</a>.</p></li>
+<li><p><strong>extract</strong> - Can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as <code class="code docutils literal notranslate"><span class="pre">path</span></code>. So if <code class="code docutils literal notranslate"><span class="pre">path</span></code> is a zip file: <code class="code docutils literal notranslate"><span class="pre">./path/to/dataset.zip</span></code> it will be extracted to the dir <code class="code docutils literal notranslate"><span class="pre">./path/to/dataset/</span></code>, if <code class="code docutils literal notranslate"><span class="pre">path</span></code> is a dir: <code class="code docutils literal notranslate"><span class="pre">./path/to/dir/</span></code> it will be extracted to <code class="code docutils literal notranslate"><span class="pre">./path/to/dir/[generated-file-name]/</span></code>. By default, <code class="code docutils literal notranslate"><span class="pre">extract</span></code> is False.</p></li>
+<li><p><strong>prompt</strong> - Can be used to choose whether or not you should be prompted before downloading if the Dataset zip file is larger than 1 gigabyte. By default, <code class="code docutils literal notranslate"><span class="pre">prompt</span></code> is True.</p></li>
+</ul>
+<p>Below is a simple example of Downloading a Compendium result:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio download--compendium --path <span class="s2">&quot;~/path/to/dir/for/compendium/&quot;</span> --organism <span class="s2">&quot;HOMO_SAPIENS&quot;</span>
+</pre></div>
+</div>
+<p>pyrefinebio also provides the CLI command <code class="code docutils literal notranslate"><span class="pre">download-quantfile-compendium</span></code> which is equivalent to using
+the command <code class="code docutils literal notranslate"><span class="pre">download-compendium</span></code> with the option <code class="code docutils literal notranslate"><span class="pre">quant-sf-only</span></code> set to True.</p>
+<p>You can use this function when you want to be explicit to future users of your script that you are downloading quantfile Compendium results.</p>
+<p>Below is a simple example of Downloading a Compendium result using <code class="code docutils literal notranslate"><span class="pre">download-quantfile-compendium</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio download-quantfile-compendium --path <span class="s2">&quot;~/path/to/dir/for/compendium/&quot;</span> --organism <span class="s2">&quot;HOMO_SAPIENS&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="getting-information-about-pyrefinebio-classes-and-functions">
+<h2>Getting Information About pyrefinebio Classes and Functions<a class="headerlink" href="#getting-information-about-pyrefinebio-classes-and-functions" title="Permalink to this headline">¶</a></h2>
+<p>If you are re-reading a script that you wrote and forget what a pyrefinebio function or class does -
+or if you just want more information about a pyrefinebio class or function, pyrefinebio exposes its <code class="code docutils literal notranslate"><span class="pre">help()</span></code> function
+as the command <code class="code docutils literal notranslate"><span class="pre">describe</span></code> which can print out information about all pyrefinebio classes/functions.</p>
+<p>To get information about a function or class, just pass its name as the first argument to the command.</p>
+<p>Here’s an example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio describe download_dataset
+</pre></div>
+</div>
+<p>This will print out information about the pyrefinebio <code class="code docutils literal notranslate"><span class="pre">download_dataset()</span></code> function.</p>
+<p>To get information about a class method, just pass in <code class="code docutils literal notranslate"><span class="pre">&lt;Class&gt;.&lt;method&gt;</span></code> as the first argument to the command.</p>
+<p>Here’s an example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ refinebio describe Sample.search
+</pre></div>
+</div>
+<p>This will print out information about the pyrefinebio class <code class="code docutils literal notranslate"><span class="pre">Sample</span></code>’s search method.</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classes.html" class="btn btn-neutral float-right" title="Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, CCDL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+   
+  <script type="text/javascript" src="_static/js/sticky-sidebar.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      var stickySidebar = new StickySidebar('.wy-side-scroll');
+      document.addEventListener('click', function(e) {
+        if (!event.target.matches('.wy-side-scroll a span')) return;
+        stickySidebar.updateSticky();
+      }, true)
+    })();
+  </script>
+
+
+</body>
+</html>
