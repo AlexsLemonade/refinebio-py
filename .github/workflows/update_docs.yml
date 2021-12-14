@@ -26,6 +26,7 @@ jobs:
       env:
         VERSION: ${{ github.event.release.tag_name }}
       run: |
+        git fetch
         git checkout gh-pages
         git pull origin master
         cd docs-input
