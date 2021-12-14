@@ -29,8 +29,9 @@ jobs:
         VERSION: ${{ github.event.release.tag_name }}
       run: |
         git pull origin master
-        cd doc-output
+        cd docs
         make github
+        cd ../doc-output
         git add .
         git commit -m "Update docs for version $VERSION"
         git push origin gh-pages
