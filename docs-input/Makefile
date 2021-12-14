@@ -18,8 +18,8 @@ help:
 github:
 	rm -rf ../doc-output/*; \
 	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "../doc-output" $(SPHINXOPTS) $(O); \
-	mv ../doc-output/html ../doc-output/docs
-	
+	mv ../doc-output/html ../docs
+
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
