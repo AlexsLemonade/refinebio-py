@@ -11,8 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: 'gh-pages'
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -22,12 +20,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r docs-requirements.txt
-    - name: Pull Master Branch
-      run: git pull origin master
+    # - name: Pull Master Branch
+    #   run: git pull origin master
     - name: Build and publish
       env:
         VERSION: ${{ github.event.release.tag_name }}
       run: |
+        git checkout gh-pages
         git pull origin master
         cd docs-input
         make github
