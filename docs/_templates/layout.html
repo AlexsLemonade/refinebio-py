@@ -1,0 +1,19 @@
+{%- extends "sphinx_rtd_theme/layout.html" %}
+{% block sidebartitle %}
+  <a href="https://www.refine.bio/" class="wy-side-nav-search__back">Back to refine.bio</a>
+  {{ super() }}
+{% endblock %}
+
+{% block footer %}
+  {{ super() }}
+  <script type="text/javascript" src="_static/js/sticky-sidebar.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      var stickySidebar = new StickySidebar('.wy-side-scroll');
+      document.addEventListener('click', function(e) {
+        if (!event.target.matches('.wy-side-scroll a span')) return;
+        stickySidebar.updateSticky();
+      }, true)
+    })();
+  </script>
+{% endblock %}
