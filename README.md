@@ -48,6 +48,8 @@ To trigger the action, create a new release via GitHub:
 
 ## Documentation
 
+The docs can be found at https://alexslemonade.github.io/refinebio-py/index.html
+
 The docs are generated using [sphinx autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html).
 
 ### Generating the Docs

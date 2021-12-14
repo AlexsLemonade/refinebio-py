@@ -1,0 +1,36 @@
+name: Rebuild and Upload Docs
+
+on: push
+  # release:
+  #   types: [published]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: 'gh-pages'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r docs-requirements.txt
+    - name: Pull Master Branch
+      run: git pull origin master
+    - name: Build and publish
+      env:
+        VERSION: ${{ github.event.release.tag_name }}
+      run: |
+        git pull origin master
+        cd doc-output
+        make github
+        git add .
+        git commit -m "Update docs for version $VERSION"
+        git push origin gh-pages
