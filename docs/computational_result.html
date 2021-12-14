@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Computational Result &mdash; pyrefinebio 0.3.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Computed File" href="computed_file.html" />
+    <link rel="prev" title="Compendium" href="compendium.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+  <a href="https://www.refine.bio/" class="wy-side-nav-search__back">Back to refine.bio</a>
+  
+
+          
+            <a href="index.html" class="icon icon-home"> pyrefinebio
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#setting-up-tokens">Setting up Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#downloading-compendia">Downloading Compendia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#getting-started-with-the-cli">Getting Started with the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#interacting-with-the-api">Interacting with the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-dataset-usage">Advanced Dataset Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-token-usage-1">Advanced Token Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#setting-up-tokens">Setting up Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#downloading-datasets">Downloading Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#downloading-compendia">Downloading Compendia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#getting-information-about-pyrefinebio-classes-and-functions">Getting Information About pyrefinebio Classes and Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="classes.html">Classes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Computational Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computed_file.html">Computed File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="high_level_functions.html">High Level Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paginated_list.html">Paginated List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Config</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyrefinebio</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="classes.html">Classes</a> &raquo;</li>
+        
+      <li>Computational Result</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AlexsLemonade/refinebio-py/blob/HEAD/docs/computational_result.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="computational-result">
+<span id="computationalresult"></span><h1>Computational Result<a class="headerlink" href="#computational-result" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyrefinebio.ComputationalResult">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyrefinebio.</span></code><code class="sig-name descname"><span class="pre">ComputationalResult</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_ccdl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organism_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_modified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputationalResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computational Result</p>
+<p>Retrieve a ComputationalResult based on id</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">id</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">ComputationalResult</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Retrieve a list of ComputationalResult based on filters</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">ComputationalResult</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">processor_id</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="pyrefinebio.ComputationalResult.get">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputationalResult.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a computational result based on its id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ComputationalResult</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>id</strong> (<em>int</em>) – The id for the computational result to be retrieved.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.ComputationalResult.search">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputationalResult.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a list of computational results based on filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of ComputationalResult</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>processor__id</strong> (<em>int</em>) – id of the Processor that processed the result</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – number of results to return per page</p></li>
+<li><p><strong>offset</strong> (<em>int</em>) – the initial index from which to return the results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="computed_file.html" class="btn btn-neutral float-right" title="Computed File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="compendium.html" class="btn btn-neutral" title="Compendium" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, CCDL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+   
+  <script type="text/javascript" src="_static/js/sticky-sidebar.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      var stickySidebar = new StickySidebar('.wy-side-scroll');
+      document.addEventListener('click', function(e) {
+        if (!event.target.matches('.wy-side-scroll a span')) return;
+        stickySidebar.updateSticky();
+      }, true)
+    })();
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computed File &#8212; pyrefinebio 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dataset" href="dataset.html" />
+    <link rel="prev" title="Computational Result" href="computational_result.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="computed-file">
+<span id="computedfile"></span><h1>Computed File<a class="headerlink" href="#computed-file" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="pyrefinebio.ComputedFile">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyrefinebio.</span></code><code class="sig-name descname"><span class="pre">ComputedFile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_in_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_qn_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_smashable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_qc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_compendia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quant_sf_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compendia_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compendia_organism_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sha1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_bucket</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_modified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computed File.</p>
+<p>ComputedFiles are representation of files created by data-refinery processes.</p>
+<p>Retrieve a ComputedFile based on id</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">id</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">ComputedFile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Retrieve a list of ComputedFile based on filters</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyrefinebio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">files</span> <span class="o">=</span> <span class="n">pyrefinebio</span><span class="o">.</span><span class="n">ComputedFile</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">is_compendia</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="pyrefinebio.ComputedFile.download">
+<code class="sig-name descname"><span class="pre">download</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a ComputedFile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ComputedFile</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – the path that the ComputedFile should be downloaded to</p></li>
+<li><p><strong>prompt</strong> (<em>bool</em>) – if true, will prompt before downloading files bigger than 1GB</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.ComputedFile.extract">
+<code class="sig-name descname"><span class="pre">extract</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a downloaded ComputedFile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ComputedFile</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.ComputedFile.get">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a specific ComputedFile based on id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ComputedFile</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>id</strong> (<em>int</em>) – the id for the ComputedFile you want to get</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pyrefinebio.ComputedFile.search">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrefinebio.ComputedFile.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a list of a ComputedFiles based on filters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of ComputedFile</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – filter based on the id of the ComputedFile</p></li>
+<li><p><strong>samples</strong> (<em>str</em>) – filter based on the accession code for Samples related to the ComputedFile</p></li>
+<li><p><strong>is_qn_target</strong> (<em>bool</em>) – filter based on if the ComputedFile is a qn target</p></li>
+<li><p><strong>is_smashable</strong> (<em>bool</em>) – filter based on if the ComputedFile can be added to a normalized
+Dataset</p></li>
+<li><p><strong>is_qc</strong> (<em>bool</em>) – filter based on if the ComputedFile contains data about
+the quality control of a result rather than data about the
+result itself</p></li>
+<li><p><strong>is_compendia</strong> (<em>bool</em>) – filter based on if the ComputedFile is part of a compendium</p></li>
+<li><p><strong>quant_sf_only</strong> (<em>bool</em>) – filter based on if the Samples associated with the ComputedFile
+are RNA-seq only</p></li>
+<li><p><strong>svd_algorithm</strong> (<em>str</em>) – filter based on the SVD algorithm used for the ComputedFile</p></li>
+<li><p><strong>compendia_version</strong> (<em>int</em>) – filter based on the compendia version of the ComputedFile</p></li>
+<li><p><strong>created_at</strong> (<em>str</em>) – filter based on the time that the ComputedFile was created</p></li>
+<li><p><strong>last_modified</strong> (<em>str</em>) – filter based on the time that the ComputedFile was last modified</p></li>
+<li><p><strong>result__id</strong> (<em>int</em>) – filter based on the id of the ComputationalResult associated with the
+ComputedFile</p></li>
+<li><p><strong>ordering</strong> (<em>str</em>) – which field to use when ordering the results</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) – number of results to return per page</p></li>
+<li><p><strong>offset</strong> (<em>int</em>) – the initial index from which to return the results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">pyrefinebio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="classes.html">Classes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computational_result.html">Computational Result</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Computed File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="institution.html">Institution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organism.html">Organism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="original_file.html">Original File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platform.html">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloader_job.html">Downloader Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor_job.html">Processor Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="survey_job.html">Survey Job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processor.html">Processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qn_target.html">QN Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample.html">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="token.html">Token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transcriptome_index.html">Transcriptome Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="more_stuff.html">More Stuff</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="classes.html">Classes</a><ul>
+      <li>Previous: <a href="computational_result.html" title="previous chapter">Computational Result</a></li>
+      <li>Next: <a href="dataset.html" title="next chapter">Dataset</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, CCDL.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/computed_file.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
