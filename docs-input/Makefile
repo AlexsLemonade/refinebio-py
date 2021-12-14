@@ -17,8 +17,9 @@ help:
 # Used when publishing a new version to github pages
 github:
 	rm -rf ../doc-output/*; \
+	rm -rf ../docs/*; \
 	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "../doc-output" $(SPHINXOPTS) $(O); \
-	mv -r ../doc-output/html/* ../docs
+	mv ../doc-output/html/* ../docs
 
 
 # Catch-all target: route all unknown targets to Sphinx using the new
