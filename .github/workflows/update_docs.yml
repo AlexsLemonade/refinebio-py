@@ -35,6 +35,6 @@ jobs:
         cd ../docs
         git add .
         git remote rm origin
-        git remote add origin "::add-mask::https://x-access-token:TESTING@${GITHUB_DOMAIN:-"github.com"}/${GITHUB_REPOSITORY}.git"
+        git remote add origin "https://x-access-token:${GITHUB_TOKEN}@${GITHUB_DOMAIN:-"github.com"}/${GITHUB_REPOSITORY}.git"
         git commit -m "Update docs for version $VERSION"
         git push origin gh-pages
