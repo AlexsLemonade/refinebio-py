@@ -54,44 +54,4 @@ The docs are generated using [sphinx autodoc](https://www.sphinx-doc.org/en/mast
 
 ### Generating the Docs
 
-Before you can generate the docs you must install pyrefienbio and sphinx requirements.
-
-I recommend setting up a [virtual environment](https://docs.python.org/3/tutorial/venv.html)
-before installing the requirements, but that step is optional.
-
-To install the requirements:
-
-```bash
-$ pip install -r requirements.txt
-$ pip install -r docs-requirements.txt
-```
-
-Then, to generate the docs navigate to `./docs` and run the command:
-
-```
-$ make html
-```
-
-The output will be in `./docs/_build`
-
-Open `./docs/_build/html/*` in a browser to view the docs
-
-### Deploying the Docs to Github Pages
-
-First, set the variable `release` in `./docs/conf.py` to the correct version.
-
-Then, clone the branch `gh-pages` into a folder `./doc-output`
-
-You can use the following command to do this:
-
-```
-$ git clone --single-branch --branch gh-pages https://github.com/AlexsLemonade/refinebio-py.git doc-output
-```
-
-Navigate tho `./docs` and run the command:
-
-```
-$ make github
-```
-
-Navigate to `./doc-output` and commit and push any changes
+The docs are regenerated and pushed to Github Pages on every master deploy.
