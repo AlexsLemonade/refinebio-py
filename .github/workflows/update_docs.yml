@@ -1,8 +1,8 @@
 name: Rebuild and Upload Docs
 
-on: push
-  # release:
-  #   types: [published]
+on:
+  release:
+    types: [published]
 
 jobs:
   deploy:
