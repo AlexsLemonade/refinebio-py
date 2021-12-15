@@ -38,5 +38,6 @@ jobs:
         git config user.name "Github Actions Docs Bot"
         git config user.email "l6k0m8p0e9u5c2t3@alexslemonade.slack.com"
         git add .
+        tree ..
         git commit -m "Update docs for version $VERSION"
         git push origin gh-pages
