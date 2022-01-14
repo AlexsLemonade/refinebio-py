@@ -173,7 +173,9 @@ class Sample(Base):
 
             title (str): filter based on the Sample's title
 
-            organism (str): filter based on the Organism that the Sample was taken from
+            organism__name (str): filter based on the Organism that the Sample was taken from
+
+            organism__taxonomy_id (int): filter based on the Organism that the Sample was taken from
 
             source_database (str): filter based on the publically available repository
                                    that the Sample was taken from
