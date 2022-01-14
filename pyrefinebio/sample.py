@@ -5,6 +5,7 @@ from pyrefinebio import (
     experiment as prb_experiment,
     organism as prb_organism,
     original_file as prb_original_file,
+    job as prb_job,
 )
 from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
@@ -124,8 +125,13 @@ class Sample(Base):
             else []
         )
 
-        self.last_processor_job = last_processor_job
-        self.last_downloader_job = last_downloader_job
+        # this isnt populated yet but the api does include these keys in the response
+        # so for now let's just try to apply them
+        if last_processor_job:
+            self.last_processor_job = prb_job.ProcessorJob(**last_processor_job)
+        if last_downloader_job:
+            self.last_downloader_job = prb_job.DownloaderJob(**last_downloader_job)
+
         self.most_recent_smashable_file = most_recent_smashable_file
         self.most_recent_quant_file = most_recent_quant_file
         self.experiment_accession_codes = experiment_accession_codes
