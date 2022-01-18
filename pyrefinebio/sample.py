@@ -125,7 +125,7 @@ class Sample(Base):
             else []
         )
 
-        # this isnt populated yet but the api does include these keys in the response
+        # this isn't populated yet but the api does include these keys in the response
         # so for now let's just try to apply them
         if last_processor_job:
             self.last_processor_job = prb_job.ProcessorJob(**last_processor_job)
