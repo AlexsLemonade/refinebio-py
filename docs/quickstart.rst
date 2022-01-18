@@ -316,7 +316,7 @@ Here's an example of searching for a refine.bio Sample:
 .. code-block:: python
 
     samples = pyrefinebio.Sample.search(
-        organism="HOMO_SAPIENS",
+        organism__name="HOMO_SAPIENS",
         is_processed=True
     )
 

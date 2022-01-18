@@ -5,6 +5,7 @@ from pyrefinebio import (
     experiment as prb_experiment,
     organism as prb_organism,
     original_file as prb_original_file,
+    job as prb_job,
 )
 from pyrefinebio.api_interface import get_by_endpoint
 from pyrefinebio.base import Base
@@ -56,12 +57,17 @@ class Sample(Base):
         compound=None,
         time=None,
         is_processed=None,
+        is_unable_to_be_processed=None,
         created_at=None,
         last_modified=None,
         contributed_metadata=None,
         contributed_keywords=None,
         original_files=[],
         computed_files=[],
+        last_processor_job=None,
+        last_downloader_job=None,
+        most_recent_smashable_file=None,
+        most_recent_quant_file=None,
         experiment_accession_codes=None,
         experiments=None,
     ):
@@ -103,6 +109,7 @@ class Sample(Base):
         self.compound = compound
         self.time = time
         self.is_processed = is_processed
+        self.is_unable_to_be_processed = is_unable_to_be_processed
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
         self.contributed_metadata = contributed_metadata
@@ -118,6 +125,15 @@ class Sample(Base):
             else []
         )
 
+        # this isn't populated yet but the api does include these keys in the response
+        # so for now let's just try to apply them
+        if last_processor_job:
+            self.last_processor_job = prb_job.ProcessorJob(**last_processor_job)
+        if last_downloader_job:
+            self.last_downloader_job = prb_job.DownloaderJob(**last_downloader_job)
+
+        self.most_recent_smashable_file = most_recent_smashable_file
+        self.most_recent_quant_file = most_recent_quant_file
         self.experiment_accession_codes = experiment_accession_codes
         self.experiments = experiments
 
@@ -163,7 +179,9 @@ class Sample(Base):
 
             title (str): filter based on the Sample's title
 
-            organism (str): filter based on the Organism that the Sample was taken from
+            organism__name (str): filter based on the Organism that the Sample was taken from
+
+            organism__taxonomy_id (int): filter based on the Organism that the Sample was taken from
 
             source_database (str): filter based on the publically available repository
                                    that the Sample was taken from
@@ -203,8 +221,6 @@ class Sample(Base):
             time (str): filter based on the time information provided by the submitter
 
             is_processed (bool): filter based on if the Sample has been processed
-
-            is_public (bool): filter based on if the Sample is public
 
             limit (int): number of results to return per page.
 
