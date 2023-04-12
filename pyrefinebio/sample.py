@@ -113,6 +113,7 @@ class Sample(Base):
         self.created_at = parse_date(created_at)
         self.last_modified = parse_date(last_modified)
         self.contributed_metadata = contributed_metadata
+        self.contributed_keywords = contributed_keywords
 
         self.original_files = (
             [prb_original_file.OriginalFile(id=file_id) for file_id in original_files]
@@ -136,11 +137,7 @@ class Sample(Base):
         self.most_recent_quant_file = most_recent_quant_file
         self.experiment_accession_codes = experiment_accession_codes
         self.experiments = experiments
-
-        # Avoid initializing every Sample with the sample empty list as a default
-        if not contributed_keywords:
-            contributed_keywords = []
-
+        
     @property
     def experiments(self):
         if not self._experiments:
