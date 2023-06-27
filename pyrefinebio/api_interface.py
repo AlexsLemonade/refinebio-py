@@ -2,6 +2,9 @@ import json
 import shutil
 
 import requests
+from ratelimiter import RateLimiter as rate_limit
+from requests.exceptions import ConnectionError
+
 from pyrefinebio.config import Config
 from pyrefinebio.exceptions import (
     BadRequest,
@@ -12,13 +15,16 @@ from pyrefinebio.exceptions import (
     NotFound,
     ServerError,
 )
-from requests.exceptions import ConnectionError
 
 
+CONFIG = Config()
+
+
+# Rate limit the API requests per second.
+@rate_limit(max_calls=CONFIG.api_calls_per_second, period=1)
 def request(method, url, params=None, payload=None):
     try:
-        config = Config()
-        headers = {"Content-Type": "application/json", "API-KEY": config.token}
+        headers = {"Content-Type": "application/json", "API-KEY": CONFIG.token}
 
         if payload:
             payload = json.dumps(payload)
