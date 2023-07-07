@@ -15,15 +15,21 @@ class Config:
     pyrefinebio's configurable values are:
 
         token:
-            The refine.bio api token that is used when making requests
+            The refine.bio API token that is used when making requests
 
             environment variable: `REFINEBIO_TOKEN`
 
         base_url:
-            The base url for the refine.bio api that should be used
+            The base url for the refine.bio API that should be used
             when making requests. The default is `https://api.refine.bio/v1/`
 
             environment variable: `REFINEBIO_BASE_URL`
+
+        api_max_calls_per_second:
+            The refine.bio API calls per second limit. This defaults to the API's rate limit
+            which is enforced per IP address.
+
+            environment variable: `REFINEBIO_API_MAX_CALLS_PER_SECOND`
 
     These config values can be modified directly in code, but it recommended that you
     set them by using environment variables, by modifying them in Config file, or by
@@ -35,6 +41,7 @@ class Config:
 
         token: foo-bar-baz
         base_url: https://api.refine.bio/v1/
+        api_max_calls_per_second: 10
     """
 
     _instance = None
@@ -65,6 +72,10 @@ class Config:
             cls.base_url = os.getenv("REFINEBIO_BASE_URL") or config.get(
                 "base_url", "https://api.refine.bio/v1/"
             )
+            cls.api_max_calls_per_second = int(
+                os.getenv("REFINEBIO_API_MAX_CALLS_PER_SECOND")
+                or config.get("api_max_calls_per_second", 10)
+            )
 
         return cls._instance
 
@@ -74,7 +85,11 @@ class Config:
         The default path for this file is `~/.refinebio.yaml`
         but it can be set using the environment variable `REFINEBIO_CONFIG_FILE`.
         """
-        config = {"token": self.token, "base_url": self.base_url}
+        config = {
+            "token": self.token,
+            "base_url": self.base_url,
+            "api_max_calls_per_second": self.api_max_calls_per_second,
+        }
 
         with open(self.config_file, "w") as config_file:
             yaml.dump(config, config_file)

@@ -52,7 +52,12 @@ class TokenTests(unittest.TestCase, CustomAssertions):
 
         mock_open.assert_called_with("test", "w")
         mock_yaml.assert_called_with(
-            {"token": token.id, "base_url": "https://api.refine.bio/v1/"}, "file"
+            {
+                "token": token.id,
+                "base_url": "https://api.refine.bio/v1/",
+                "api_max_calls_per_second": 10,
+            },
+            "file",
         )
 
     @patch("pyrefinebio.api_interface.requests.request", side_effect=mock_request)
