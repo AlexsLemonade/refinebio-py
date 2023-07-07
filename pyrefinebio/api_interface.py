@@ -19,7 +19,7 @@ from pyrefinebio.exceptions import (
 CONFIG = Config()
 
 # Rate limit the API requests per second.
-limiter = Limiter(RequestRate(CONFIG.api_calls_per_second, Duration.SECOND))
+limiter = Limiter(RequestRate(CONFIG.api_max_calls_per_second, Duration.SECOND))
 
 
 @limiter.ratelimit("refinebio", delay=True)

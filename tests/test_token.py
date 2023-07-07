@@ -55,7 +55,7 @@ class TokenTests(unittest.TestCase, CustomAssertions):
             {
                 "token": token.id,
                 "base_url": "https://api.refine.bio/v1/",
-                "api_calls_per_second": 10,
+                "api_max_calls_per_second": 10,
             },
             "file",
         )

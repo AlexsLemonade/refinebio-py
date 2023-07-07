@@ -25,10 +25,11 @@ class Config:
 
             environment variable: `REFINEBIO_BASE_URL`
 
-        api_calls_per_second:
-            The refine.bio API calls per second limit
+        api_max_calls_per_second:
+            The refine.bio API calls per second limit. This defaults to the API's rate limit
+            which is enforced per IP address.
 
-            environment variable: `REFINEBIO_API_CALLS_PER_SECOND`
+            environment variable: `REFINEBIO_API_MAX_CALLS_PER_SECOND`
 
     These config values can be modified directly in code, but it recommended that you
     set them by using environment variables, by modifying them in Config file, or by
@@ -40,7 +41,7 @@ class Config:
 
         token: foo-bar-baz
         base_url: https://api.refine.bio/v1/
-        api_calls_per_second: 10
+        api_max_calls_per_second: 10
     """
 
     _instance = None
@@ -71,9 +72,9 @@ class Config:
             cls.base_url = os.getenv("REFINEBIO_BASE_URL") or config.get(
                 "base_url", "https://api.refine.bio/v1/"
             )
-            cls.api_calls_per_second = int(
-                os.getenv("REFINEBIO_API_CALLS_PER_SECOND")
-                or config.get("api_calls_per_second", 10)
+            cls.api_max_calls_per_second = int(
+                os.getenv("REFINEBIO_API_MAX_CALLS_PER_SECOND")
+                or config.get("api_max_calls_per_second", 10)
             )
 
         return cls._instance
@@ -87,7 +88,7 @@ class Config:
         config = {
             "token": self.token,
             "base_url": self.base_url,
-            "api_calls_per_second": self.api_calls_per_second,
+            "api_max_calls_per_second": self.api_max_calls_per_second,
         }
 
         with open(self.config_file, "w") as config_file:
