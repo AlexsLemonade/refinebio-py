@@ -95,7 +95,8 @@ sample_1 = {
     "sex": "",
     "age": None,
     "specimen_part": "",
-    "genotype": "",
+    "genetic_information": "",
+    "developmental_stage": "",
     "disease": "",
     "disease_stage": "",
     "cell_line": "",
@@ -178,7 +179,8 @@ sample_2 = {
     "sex": "",
     "age": None,
     "specimen_part": "",
-    "genotype": "",
+    "genetic_information": "",
+    "developmental_stage": "",
     "disease": "",
     "disease_stage": "",
     "cell_line": "",
@@ -278,7 +280,6 @@ e_search_2 = {
 
 
 def mock_request(method, url, **kwargs):
-
     if url == "https://api.refine.bio/v1/samples/SRR5445147/":
         return MockResponse(sample_1, url)
 
