@@ -47,7 +47,8 @@ class Sample(Base):
         sex=None,
         age=None,
         specimen_part=None,
-        genotype=None,
+        genetic_information=None,
+        developmental_stage=None,
         disease=None,
         disease_stage=None,
         cell_line=None,
@@ -99,7 +100,8 @@ class Sample(Base):
         self.sex = sex
         self.age = age
         self.specimen_part = specimen_part
-        self.genotype = genotype
+        self.genetic_information = genetic_information
+        self.developmental_stage = developmental_stage
         self.disease = disease
         self.disease_stage = disease_stage
         self.cell_line = cell_line
@@ -199,7 +201,9 @@ class Sample(Base):
 
             specimen_part (str): filter based on the part of the specimen reported by the submitter
 
-            genotype (str): filter based on the genotype of the subject that the Sample was taken from
+            genetic_information (str): filter based on the genetic_information of the subject that the Sample was taken from
+
+            developmental_stage (str): filter based on the developmental_stage of the subject that the Sample was taken from
 
             disease (str): filter based on the disease information provided by the submitter
 
