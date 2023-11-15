@@ -117,9 +117,12 @@ class Compendium(Base):
 
         return self
 
-    def extract(self):
+    def extract(self, path):
         """Extract a downloaded Compendium
 
+        Parameters:
+            path (str): the path that the Dataset should be extracted to
+            
         Returns:
             Compendium
         """
@@ -129,5 +132,5 @@ class Compendium(Base):
                 "Make sure you have successfully downloaded the Compendium before extracting.",
             )
 
-        shutil.unpack_archive(self._downloaded_path)
+        shutil.unpack_archive(self._downloaded_path, extract_dir = path)
         return self
