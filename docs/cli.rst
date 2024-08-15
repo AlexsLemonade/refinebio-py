@@ -68,7 +68,7 @@ The :code:`experiments` option is just a space separated list of Experiment acce
 
 .. code-block:: shell
 
-    $ refinebio download-datset --experiments "<Experiment 1 Accession Code> <Experiment 2 Accession Code>"
+    $ refinebio download-dataset --experiments "<Experiment 1 Accession Code> <Experiment 2 Accession Code>"
 
 
 * **dataset-dict** should be used when you want to specify specific Samples to be included in the Dataset. However, you can pass in "ALL" instead of specific Sample accession codes to add all downloadable Samples associated with that Experiment to the Dataset.
