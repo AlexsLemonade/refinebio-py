@@ -106,7 +106,7 @@ def describe(entity=None):
     "--skip-quantile-normalization",
     default=False,
     type=click.BOOL,
-    help="Control whether the Dataset should skip quantile normalization for RNA-seq Samples",
+    help="Control whether the Dataset should skip quantile normalization for RNA-seq Samples. Quantile normalization is performed by default.",
 )
 @click.option(
     "--timeout",

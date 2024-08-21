@@ -68,7 +68,7 @@ The :code:`experiments` option is just a space separated list of Experiment acce
 
 .. code-block:: shell
 
-    $ refinebio download-datset --experiments "<Experiment 1 Accession Code> <Experiment 2 Accession Code>"
+    $ refinebio download-dataset --experiments "<Experiment 1 Accession Code> <Experiment 2 Accession Code>"
 
 
 * **dataset-dict** should be used when you want to specify specific Samples to be included in the Dataset. However, you can pass in "ALL" instead of specific Sample accession codes to add all downloadable Samples associated with that Experiment to the Dataset.
@@ -88,7 +88,7 @@ You can also pass in other optional command options to alter the Dataset itself 
 
 * **transformation** - Can be used to change the transformation of the Dataset. The default is "NONE", and the other available choices are "MINMAX" and "STANDARD". For more information on Dataset transformation check out `Gene transformations`_. 
 
-* **skip-quantile-normalization** - Can be used to choose whether or not quantile normalization is skipped for RNA-seq Samples. For more information check out `Quantile normalization`_.
+* **skip-quantile-normalization** - Can be used to disable quantile normalization for RNA-seq Samples, which is performed by default. For more information check out `Quantile normalization`_.
 
 * **extract** - Can be used to choose whether the downloaded zip file should be automatically extracted. It will automatically extract to the same location that you passed in as :code:`path`. So if :code:`path` is a zip file: :code:`./path/to/dataset.zip` it will be extracted to the dir :code:`./path/to/dataset/`, if :code:`path` is a dir: :code:`./path/to/dir/` it will be extracted to :code:`./path/to/dir/[generated-file-name]/`. By default, :code:`extract` is False. 
 

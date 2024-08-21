@@ -93,7 +93,8 @@ def download_dataset(
         transformation (str): the transformation for the dataset - `NONE`, `MINMAX`, or `STANDARD`
 
         skip_quantile_normalization (bool): control whether or not the dataset should skip quantile
-                                            normalization for RNA-seq Samples
+                                            normalization for RNA-seq Samples. Quantile normalization
+                                            is performed by default.
 
         quant_sf_only (bool): include only quant.sf files in the generated dataset.
 
